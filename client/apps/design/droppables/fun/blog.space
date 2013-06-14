@@ -28,7 +28,7 @@ title
   top 40px
   left 0
  content {{nudgepad.post.title Title of Post}}
- onedit blog
+ onedit Write
 content
  content {{nudgepad.post.content The post body goes here. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.}}
  style
@@ -43,4 +43,4 @@ content
   top 150px
   text-align justify
  content_format nl2br
- onedit blog
+ onedit Write

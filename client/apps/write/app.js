@@ -1,7 +1,7 @@
-nudgepad.apps.blog = new App('blog')
+var Write = new App('Write')
 
 // Default theme
-nudgepad.apps.blog.blankTheme = new Space({
+Write.blankTheme = new Space({
  "title": {
   "tag": "title",
   "content": "{{post.title Post Title}}"
@@ -51,16 +51,16 @@ nudgepad.apps.blog.blankTheme = new Space({
  }
 })
 
-nudgepad.apps.blog.createPost = function () {
+Write.createPost = function () {
   $('.nudgepad#content,.nudgepad#title').val('')
   $('.nudgepad#advanced').val('timestamp ' + new Date().getTime() + '\ntemplate blog')
   $('.nudgepad#permalink').attr('value', '')
   $('.nudgepad#title').focus()
-  nudgepad.apps.blog.activePost = null
+  Write.activePost = null
 }
 
-nudgepad.apps.blog.deletePost = function () {
-  nudgepad.apps.blog.activePost = null
+Write.deletePost = function () {
+  Write.activePost = null
   var name = Permalink($('.nudgepad#permalink').attr('value'))
   if (!name)
     return nudgepad.error('No post to delete')
@@ -74,11 +74,11 @@ nudgepad.apps.blog.deletePost = function () {
   var patch = new Space()
   patch.set('posts ' + name, '')
   nudgepad.emit('patch', patch.toString())
-  nudgepad.apps.blog.restart()
+  Write.restart()
 }
 
-nudgepad.apps.blog.editPost = function (name) {
-  nudgepad.apps.blog.activePost = name
+Write.editPost = function (name) {
+  Write.activePost = name
   var post = site.get('posts ' + name)
   $('.nudgepad#content').val(post.get('content'))
   $('.nudgepad#title').val(post.get('title'))
@@ -89,29 +89,29 @@ nudgepad.apps.blog.editPost = function (name) {
   // http://{{nudgepad.domain}}/<a class="nudgepad" id="permalink" target="_blog"></a>
   $('.nudgepad#permalink').text('http://' + nudgepad.domain + '/' + name).attr('value', name)
   
-  nudgepad.apps.blog.updateLinks()
+  Write.updateLinks()
   
   $('.nudgepad#content').focus()
   
 }
 
 // Ensures site has a blog theme before posting
-nudgepad.apps.blog.initialize = function () {
+Write.initialize = function () {
   
   if (site.get('pages blog'))
     return true
   var patch = new Space()
-  patch.set('pages blog', nudgepad.apps.blog.blankTheme.clone())
+  patch.set('pages blog', Write.blankTheme.clone())
   nudgepad.emit('patch', patch.toString())
-  site.set('pages blog', nudgepad.apps.blog.blankTheme)
+  site.set('pages blog', Write.blankTheme)
   
   nudgepad.pages.updateTabs()// todo: delete this
 }
 
-nudgepad.apps.blog.activePost = null
+Write.activePost = null
 
-nudgepad.apps.blog.onopen = function () {
-  nudgepad.apps.blog.initialize()
+Write.onopen = function () {
+  Write.initialize()
   $('.nudgepad#posts').html('')
   if (!site.get('posts'))
     return true
@@ -125,7 +125,7 @@ nudgepad.apps.blog.onopen = function () {
       'font-size' : '13px'
       })
       .on('click', function () {
-        nudgepad.apps.blog.editPost($(this).attr('value'))
+        Write.editPost($(this).attr('value'))
       })
       .attr('value', name)
       .attr('title', name)
@@ -134,16 +134,16 @@ nudgepad.apps.blog.onopen = function () {
   
 }
 
-nudgepad.apps.blog.onready = function () {
+Write.onready = function () {
   
   // Open the last edited post if there is one
-  if (nudgepad.apps.blog.activePost)
-    nudgepad.apps.blog.editPost(nudgepad.apps.blog.activePost)
+  if (Write.activePost)
+    Write.editPost(Write.activePost)
   else
-    nudgepad.apps.blog.createPost()
+    Write.createPost()
 }
 
-nudgepad.apps.blog.savePost = function () {
+Write.savePost = function () {
 
   var name = Permalink($('.nudgepad#permalink').attr('value'))
   
@@ -167,28 +167,28 @@ nudgepad.apps.blog.savePost = function () {
   
   // If they are editing a post and the name has changed,
   // make sure to delete old post
-  if (nudgepad.apps.blog.activePost && nudgepad.apps.blog.activePost !== name) {
-    patch.set('posts ' + nudgepad.apps.blog.activePost, '')
-    site.delete('posts ' + nudgepad.apps.blog.activePost)
+  if (Write.activePost && Write.activePost !== name) {
+    patch.set('posts ' + Write.activePost, '')
+    site.delete('posts ' + Write.activePost)
   }
   
   nudgepad.emit('patch', patch.toString())
-  nudgepad.apps.blog.activePost = name
-//  nudgepad.apps.blog.updateLinks()
-  nudgepad.apps.blog.restart()
+  Write.activePost = name
+//  Write.updateLinks()
+  Write.restart()
   window.open(name, 'published')
 }
 
-nudgepad.apps.blog.updateLinks = function () {
+Write.updateLinks = function () {
   $('.nudgepad#posts div').css('color', '#777')
   // todo: improve this
   $('.nudgepad#posts div').each(function () {
-    if ($(this).attr('value') == nudgepad.apps.blog.activePost)
+    if ($(this).attr('value') == Write.activePost)
       $(this).css('color', '#333')  
   })
 }
 
-nudgepad.apps.blog.updatePermalink = function () {
+Write.updatePermalink = function () {
   var permalink = Permalink($('.nudgepad#title').val())
   $('.nudgepad#permalink').text('http://' + nudgepad.domain + '/' + permalink).attr('value', permalink)
 }
