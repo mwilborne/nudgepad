@@ -1,2 +1,5 @@
 name Write
 description Write and edit blog posts.
+html app.html
+js app.js
+css app.css

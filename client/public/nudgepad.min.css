@@ -36,16 +36,16 @@ body {
   height: 100%;
 }
 
-.nudgepadFullScreenApp .appNav {
+.nudgepadApp .appNav {
    width: 100%;
    background-color: #222;
 }
 
-.nudgepadFullScreenApp .appNavContainer {
+.nudgepadApp .appNavContainer {
    padding: 10px;
 }
 
-.nudgepadFullScreenApp .squareButton { 
+.nudgepadApp .squareButton { 
    width: 40px;
    height: 40px;
    text-align: center;
@@ -53,15 +53,15 @@ body {
    background-color: #444;
 }
 
-.nudgepadFullScreenApp .squareButton:hover { 
+.nudgepadApp .squareButton:hover { 
   background-color: #333;
 }
 
-.nudgepadFullScreenApp .squareButton:active { 
+.nudgepadApp .squareButton:active { 
   background-color: #2a2a2a;
 }
 
-.nudgepadFullScreenApp #logout {
+.nudgepadApp #logout {
    line-height: 40px;
    color: #fff;
    text-decoration: none;
@@ -70,11 +70,11 @@ body {
    margin-left: 10px;
 }
 
-.nudgepadFullScreenApp .squareButton img {
+.nudgepadApp .squareButton img {
    padding-top: 12px;
 }
 
-.nudgepadFullScreenApp #menuBack {
+.nudgepadApp #menuBack {
    font-size: 15px;
    float: left;
    background-repeat: no-repeat;
@@ -84,7 +84,7 @@ body {
    color: #fff;
 }
 
-.nudgepadFullScreenApp .secondaryButton {
+.nudgepadApp .secondaryButton {
    background-color: #64b81f;
    height: 40px;
    width: 100px;
@@ -97,15 +97,15 @@ body {
    text-decoration: none;
 }
 
-.nudgepadFullScreenApp .secondaryButton:hover { 
+.nudgepadApp .secondaryButton:hover { 
   background-color: #529919;
 }
 
-.nudgepadFullScreenApp .secondaryButton:active { 
+.nudgepadApp .secondaryButton:active { 
   background-color: #427a14;
 }
 
-.nudgepadFullScreenAppBody .sectionLabel {
+.nudgepadAppBody .sectionLabel {
    font-size: 36px;
    margin-top: 60px;
    border-bottom: 3px solid #ccc;
@@ -113,12 +113,12 @@ body {
    margin-bottom: 20px;
 }
 
-.nudgepadFullScreenAppBody .formLabel {
+.nudgepadAppBody .formLabel {
    font-size: 18px;
    margin-top: 20px;
 }
 
-.nudgepadFullScreenAppBody #email {
+.nudgepadAppBody #email {
   width: 300px;
   font-size: 15px;
   padding: 10px;
@@ -126,7 +126,7 @@ body {
   border: 1px solid #ccc;
 }
 
-.nudgepadFullScreenAppBody #updateButton {
+.nudgepadAppBody #updateButton {
   background-color: #1a86d6;
   height: 40px;
   width: 100px;
@@ -138,26 +138,26 @@ body {
   line-height: 40px;
 }
 
-.nudgepadFullScreenAppBody .plan {
+.nudgepadAppBody .plan {
    margin-top: 20px;
    font-size: 18px;
 }
 
-.nudgepadFullScreenAppBody .plan a {
+.nudgepadAppBody .plan a {
    text-decoration: none;
 }
 
-.nudgepadFullScreenAppBody .planDescription {
+.nudgepadAppBody .planDescription {
    color: #666;
 }
 
-.nudgepadFullScreenAppBody .selectedPlan {
+.nudgepadAppBody .selectedPlan {
    background-image: url(/nudgepad/public/images/checkbox.png);
    background-repeat: no-repeat;
    text-indent: 30px;
 }
 
-.nudgepadFullScreenAppBody .unselectedPlan {
+.nudgepadAppBody .unselectedPlan {
    background-image: url(/nudgepad/public/images/unchecked.png);
    background-repeat: no-repeat;
    text-indent: 30px;
@@ -356,7 +356,7 @@ position: relative;
 }
 
 
-.nudgepadFullScreenApp .developAppButton {
+.nudgepadApp .developAppButton {
    background-color: #333;
    height: 40px;
    margin-left: 10px;
@@ -370,15 +370,15 @@ position: relative;
    cursor: pointer;
 }
 
-.nudgepadFullScreenApp .developAppButton:hover {
+.nudgepadApp .developAppButton:hover {
   background-color: #000;
 }
 
-.nudgepadFullScreenApp #devToggle {
+.nudgepadApp #devToggle {
    margin-top: 40px;
 }
 
-.nudgepadFullScreenApp .devToggleOption {
+.nudgepadApp .devToggleOption {
    float: left;
    width: 80px;
    text-align: center;
@@ -387,16 +387,16 @@ position: relative;
    line-height: 40px;
 }
 
-.nudgepadFullScreenApp .devSelect {
+.nudgepadApp .devSelect {
    background-color: #555;
    color: #fff;
 }
 
-.nudgepadFullScreenApp #explorerHolder {
+.nudgepadApp #explorerHolder {
    cursor: pointer;
 }
 
-.nudgepadFullScreenApp #explorerPath {
+.nudgepadApp #explorerPath {
   font-size : 15px;
   color : #333;
   text-align : left;
@@ -405,7 +405,7 @@ position: relative;
   cursor: pointer;
 }
 
-.nudgepadFullScreenApp .explorerHeader {
+.nudgepadApp .explorerHeader {
   font-size : 24px;
 }
 
@@ -649,7 +649,7 @@ td {
 
 
 
-.nudgepadFullScreenApp {
+.nudgepadApp {
   position: absolute;
   left: 0px;
   top: 0px;
@@ -692,7 +692,7 @@ td {
   clear: both;
 }
 
-.nudgepadFullScreenAppBody {
+.nudgepadAppBody {
   width : 94%;
   max-width: 1000px;
   position : relative;

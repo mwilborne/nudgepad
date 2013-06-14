@@ -3,8 +3,6 @@
   <head>
     <title>Loading Nudgepad...</title>
     <link rel="stylesheet" href="/nudgepad/core/css/core.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/apps/analyze/css/statsApp.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/apps/analyze/css/surveysApp.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/antiAliasedFix.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/codePanel.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/Dimensions.css" type="text/css"/>
@@ -23,10 +21,10 @@
     <link rel="stylesheet" href="/nudgepad/apps/design/css/userSelectFix.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/develop/css/console.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/develop/css/developApp.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/apps/launch/css/homeApp.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/launch/app.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/manage/css/accountApp.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/manage/css/signupForm.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/apps/write/css/blogApp.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/write/app.css" type="text/css"/>
 
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="/nudgepad/public/js/jquery-1.9.1.min.js"></script>
@@ -59,6 +57,7 @@
     <script type="text/javascript" src="/nudgepad/core/js/App.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Nudgepad.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/iOS.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Navigation.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Notify.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/OnDisconnect.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/OnDrop.js"></script>
@@ -77,8 +76,6 @@
     <script type="text/javascript" src="/nudgepad/core/js/Shortcuts.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Space.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/TextPrompt.js"></script>
-    <script type="text/javascript" src="/nudgepad/apps/analyze/js/StatsApp.js"></script>
-    <script type="text/javascript" src="/nudgepad/apps/analyze/js/SurveysApp.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/barMenu.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/CodePanel.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/ContentEditor.js"></script>
@@ -112,13 +109,12 @@
     <script type="text/javascript" src="/nudgepad/apps/develop/js/DevelopApp.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/develop/js/Explorer.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/develop/js/GitApp.js"></script>
-    <script type="text/javascript" src="/nudgepad/apps/launch/js/HomeApp.js"></script>
-    <script type="text/javascript" src="/nudgepad/apps/launch/js/Navigation.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/launch/app.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/manage/js/AccountApp.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/manage/js/EmailPrompt.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/manage/js/Invite.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/manage/js/SignUpForm.js"></script>
-    <script type="text/javascript" src="/nudgepad/apps/write/js/BlogApp.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/write/app.js"></script>
 
     <script type="text/javascript">
     nudgepad.development = true
@@ -130,55 +126,6 @@
     mixpanel.init("cddd496663c58cf984f006dba0ec67bc");</script><!-- end Mixpanel -->
   </head>
   <body>
-<div id="nudgepadConnectionStatus" class="nudgepad">Connecting to server...</div>
-<div id="nudgepadError" class="nudgepad"></div>
-<div id="nudgepadJavascriptError" class="nudgepad"></div>
-<div id="nudgepadLoadingScreen" class="nudgepad">Loading Nudgepad...</div>
-<div id="nudgepadNotify" class="nudgepad">Published</div>
-<div id="nudgepadTemp" class="nudgepad"></div>
-<div id="nudgepadWorkerError" class="nudgepad"></div>
-<div class="nudgepadFullScreenApp" id="nudgepadStatsApp">
-	<div class="appNav">
-		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
-		  	Back
-		  </div>
-		  <a id="logout" class="squareButton" href="/nudgepad.logout" title="Logout">
-		  	Logout
-		  </a>
-		  <a href="http://pro.nudgepad.com" id="upgrade" class="secondaryButton">
-			  Upgrade
-			</a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="nudgepadFullScreenAppBody">
-    <div class="sectionLabel nudgepad">Visits</div>
-    <div id="visits" class="nudgepad">0</div>
-  </div>
-</div>
-<div class="nudgepadFullScreenApp" id="nudgepadSurveysApp">
-	<div class="appNav">
-		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
-		  	Back
-		  </div>
-		  <a id="logout" class="squareButton" href="/nudgepad.logout" title="Logout">
-		  	Logout
-		  </a>
-		  <a href="http://pro.nudgepad.com" id="upgrade" class="secondaryButton">
-			  Upgrade
-			</a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="nudgepadFullScreenAppBody">
-    <div class="sectionLabel nudgepad">
-	    <span>Responses &nbsp; - &nbsp;</span> <span id="entriesCount" class="nudgepad">0</span>
-	  </div>
-    <pre id="entries" class="nudgepad"></pre>
-  </div>
-</div>
 <textarea id="nudgepadCodePanel"></textarea>
 <div id="nudgepadPageMenu" class="nudgepad">
 	<div onclick="window.open(nudgepad.stage.activePage,'published')">View</div>
@@ -239,7 +186,7 @@
   <div id="nudgepadStageBottomPadding"></div>
   <style type="text/css" id="nudgepadRemoteSelections"></style>
 </div>
-<div class="nudgepadFullScreenApp" id="nudgepadDevelopApp">
+<div class="nudgepadApp" id="nudgepadDevelopApp">
 	<div class="appNav">
 		<div class="appNavContainer">
   		<div id="menuBack" class="squareButton developAppButton" onclick="nudgepad.navigation.open('home')">
@@ -263,7 +210,7 @@
 		<div class="clear"></div>
 		</div>
 	</div>
-  <div class="nudgepadFullScreenAppBody nudgepad">
+  <div class="nudgepadAppBody nudgepad">
 	  <div id="devToggle">
 	  	<div class="devToggleOption devSelect">Files</div>
 			<div class="devToggleOption">Logs</div>
@@ -284,8 +231,8 @@
 		</div>
 	</div>
 </div>
-<div class="nudgepadFullScreenApp" id="nudgepadHomeApp">
-  <div class="nudgepadFullScreenAppBody nudgepad">
+<div class="nudgepadApp" id="nudgepadHomeApp">
+  <div class="nudgepadAppBody nudgepad">
 	  <div class="colStandard marStandard">
     	<div class="appBlock" id="designBlock" onclick="nudgepad.navigation.open('pages')">
 		    <div class="topBlock">Design</div>
@@ -311,7 +258,7 @@
 	  <div class="clear"></div>
   </div>
 </div>
-<div class="nudgepadFullScreenApp" id="nudgepadAccountApp">
+<div class="nudgepadApp" id="nudgepadAccountApp">
 	<div class="appNav">
 		<div class="appNavContainer">
   		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
@@ -323,7 +270,7 @@
 		<div class="clear"></div>
 		</div>
 	</div>
-  <div class="nudgepadFullScreenAppBody nudgepad">
+  <div class="nudgepadAppBody nudgepad">
 	  <div class="sectionLabel">
 		  Account Info
 		</div>
@@ -350,7 +297,7 @@
 		</div>
 	</div>
 </div>
-<div class="nudgepadFullScreenApp" id="nudgepadBlogApp">
+<div class="nudgepadApp" id="nudgepadBlogApp">
 	<div class="appNav">
 		<div class="appNavContainer">
   		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
@@ -366,7 +313,7 @@
 		<div class="clear"></div>
 		</div>
 	</div>
-  <div class="nudgepadFullScreenAppBody">
+  <div class="nudgepadAppBody">
 		<div id="postsColumn">
 			<div id="postsContent">
 	  	  <div id="postsTitle" class="nudgepad">Old Posts</div>

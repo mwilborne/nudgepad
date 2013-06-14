@@ -22,7 +22,7 @@ App.prototype.close = function (name) {
   this._open = false
   App.openApp = false
   
-  $('.nudgepadFullScreenApp').hide()
+  $('.nudgepadApp').hide()
   
   if (name)
     nudgepad.apps[name].open()

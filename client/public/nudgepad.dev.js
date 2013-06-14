@@ -9882,7 +9882,7 @@ App.prototype.close = function (name) {
   this._open = false
   App.openApp = false
   
-  $('.nudgepadFullScreenApp').hide()
+  $('.nudgepadApp').hide()
   
   if (name)
     nudgepad.apps[name].open()
@@ -10234,6 +10234,37 @@ nudgepad.iosMain = function () {
     })
   }
 }
+;// Nudgepad App navigation
+nudgepad.navigation = {}
+
+nudgepad.navigation.open = function (name, dontRecord) {
+  if (name === 'pages')
+    nudgepad.pages.open()
+  else if (nudgepad.apps[name])
+    nudgepad.apps[name].open()
+  else
+    return false
+
+  if (dontRecord)
+    return null
+  
+  if (nudgepad.isTesting)
+    return null
+
+  history.pushState(name, 'Nudgepad - ' + name, '/nudgepad?app=' + name)
+}
+
+nudgepad.navigation.openAppFromQueryString = function () {
+  
+  // Get query string. If nothing, set default to home app
+  var name = ParseQueryString().app || 'home'
+  nudgepad.navigation.open(name, true)
+}
+
+// Revert to a previously saved state
+window.addEventListener('popstate', function (event) {
+  nudgepad.navigation.openAppFromQueryString()
+})
 ;nudgepad.notifyTimeout = false
 nudgepad.notify = function (message, time) {
   Blinker.change(message)
@@ -10620,40 +10651,6 @@ nudgepad.textPrompt = function (message, default_value, onsubmit, onkeypress, su
   $('body').append(button_container)
   text_area.focus()
 }
-;nudgepad.apps.stats = new App('stats')
-;nudgepad.apps.surveys = new App('surveys')
-
-nudgepad.apps.surveys.entries = new Space()
-nudgepad.apps.surveys.download = function () {
-
-
-  $.get('/nudgepad.surveys', function (data) {
-    nudgepad.apps.surveys.entries = new Space(data)
-    
-    if (nudgepad.apps.surveys.isOpen()) {
-      nudgepad.apps.surveys.onready()
-    }
-    
-  })
-  
-}
-
-nudgepad.apps.surveys.onmain = nudgepad.apps.surveys.download
-
-nudgepad.apps.surveys.onopen = nudgepad.apps.surveys.download
-
-nudgepad.apps.surveys.onready = function () {
-  $('.nudgepad#entriesCount').text(nudgepad.apps.surveys.entries.keys.length)
-  $('.nudgepad#entries').text(nudgepad.apps.surveys.entries.toString())
-  $('.nudgepad#entries span').each(function () {
-    $(this).text(moment(parseInt($(this).text())).fromNow());
-  })
-}
-
-
-nudgepad.on('main', nudgepad.apps.surveys.download)
-
-
 ;nudgepad.on('main', function () {
   $('.barDroppable').on('click', function () {
     $('.imageDroppableOptions').hide()
@@ -10682,7 +10679,7 @@ nudgepad.on('main', nudgepad.apps.surveys.download)
   })
   
 })
-;nudgepad.codePanel = {}
+nudgepad.codePanel = {}
 
 nudgepad.codePanel.livePreview = false
 nudgepad.codePanel.livePreviewTimeout = false
@@ -10747,7 +10744,7 @@ nudgepad.codePanel.toggle = function () {
   else
     nudgepad.codePanel.open()
 }
-;nudgepad.contentEditor = {}
+nudgepad.contentEditor = {}
 
 /**
  * Fires when a block being edited a blur occurs.
@@ -10848,7 +10845,7 @@ nudgepad.contentEditor.killEvent = function (event) {
 }
 
 
-;nudgepad.droppables = new Space('blocks\n block\n  block1\n   style\n    background-color #7a8289\n    height 180px\n    width 220px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n block8\n  block1\n   style\n    height 40px\n    width 150px\n    padding 0px\n    font-size 14px\n    text-indent 10px\n    color #555\n    position absolute\n    border 2px solid #ccc\n    -webkit-appearance normal\n    top 0\n    left 0\n   tag input\n   placeholder Type Here\n button\n  block1\n   style\n    background-color #ed2e11\n    height 50px\n    font-family Open Sans\n    width auto\n    cursor pointer\n    font-size 18px\n    line-height 50px\n    text-align center\n    position absolute\n    padding 0px 20px\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 0\n    left 0\n   content Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n fullx\n  fullx\n   style\n    background-color #eee\n    height 60px\n    width 100%\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n graph\n  block1\n   style\n    background-image url(/nudgepad/public/images/graphPlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n header\n  block1\n   style\n    height auto\n    font-family Open Sans\n    width auto\n    font-size 24px\n    font-weight bold\n    position absolute\n    color #333\n    top 0\n    left 0\n   content Title\n image\n  block1\n   style\n    background-image url(/nudgepad/public/images/imagePlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n nav\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 18px\n    line-height 140%\n    color #999\n    position absolute\n    top 0\n    left 0\n   scraps\n    nav1\n     style\n      margin-right 40px\n      float left\n     content Home\n    nav2\n     style\n      margin-right 40px\n      float left\n     content About\n    nav3\n     style\n      margin-right 40px\n      float left\n     content Portfolio\n    nav4\n     style\n      float left\n     content Contact\n paragraph\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 16px\n    width 420px\n    color #222\n    position absolute\n    top 0\n    left 0\n   scraps\n    header\n     style\n      margin-bottom 30px\n      font-size 52px\n     content Born Good\n    subHeader\n     style\n      margin-bottom 30px\n      font-size 18px\n      font-weight bold\n     content About Me\n    nav3\n     style\n      margin-right 40px\n      font-size 16px\n      line-height 140%\n      color #555\n     content When I was a lad I ate four dozen eggs ev\'ry morning to help me get large. And now that I\'m grown I eat five dozen eggs, so I\'m roughly the size of a barge!\n rounded\n  rounded\n   style\n    background-color #e83b1e\n    height 60px\n    width 120px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    text-align center\n    color #333\n    top 0\n    left 0\n    border-radius 5px\n    line-height 60px\n sticky\n  stickyNote\n   style\n    background-color #f4ed04\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyBlue\n  stickyBlue\n   style\n    background-color #15cbf2\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyOrange\n  stickyOrange\n   style\n    background-color #f29215\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n text\n  text\n   style\n    height auto\n    font-family Open Sans\n    width 420px\n    font-size 16px\n    line-height 140%\n    color #555\n    position absolute\n    top 0\n    left 0\n   content There is a place where the sidewalk ends and before the street begins, and there the grass grows soft and white, and there the sun burns crimson bright, and there the moon-bird rests from his flight to cool in the peppermint wind.\nbuttons\n button1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    top 0\n    left 0\n   content Plain Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n button2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    height 40px\n    width 120px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    background -webkit-linear-gradient(top, #ff5e42, #e3543b)\n    border 1px solid #bf4530\n    box-shadow 0px 1px 3px rgba(0,0,0,.5), inset 0px 1px 0px #ffc0b5\n    left 0px\n    top 0px\n   content Fancy Button\n   hover_style\n    background #e3543b\n   active_style\n    background #bf4530\n button3\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    box-shadow 0px 5px 0px 0px #c94932\n    top 0\n    left 0\n   content Drop Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n    box-shadow 0px 5px 0px 0px #a33a27\nelements\n iframe\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   src http://nudgepad.com/iframe\n   style\n    height 245px\n    width 282px\n    top 0px\n    left 0px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n    border-radius 4px 4px 4px 4px\n video\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   frameborder 0\n   width 560\n   height 315\n   allowfullscreen allowfullscreen\n   src http://www.youtube.com/embed/cFEarBzelBs?rel=0\n   style\n    top 0\n    left 0\nforms\n contact_form\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 315px\n    left 154px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() + \'\nname \' + $(\'input.name\').val() + \'\n comment \' + $(\'textarea.comment\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 110px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n   tabindex 2\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 0px\n   content Contact Us\n  comment\n   style\n    height 135px\n    width 264px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 163px\n    left 0px\n    padding 3px\n    margin 0\n   tag textarea\n   placeholder How can we help you?\n   class comment\n   tabindex 3\n  name\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 64px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag text\n   placeholder Your name\n   class name\n   tabindex 1\n email_signup\n  head\n   tag page\n   title email_signup\n   stylesheets /nudgepad/blocks.css site.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 66px\n    left 175px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 66px\n    left -1px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 1px\n   content Join our Email List\nfun\n blog\n  head\n   tag page\n   title {{nudgepad.post.title}}\n   style\n    body\n     width 400px\n     position relative\n     height 100%\n     margin 0 auto\n    html\n     width 100%\n     height 100%\n    .scrap\n     position absolute\n    a\n     text-decoration none\n    a:hover\n     text-decoration underline\n  title\n   style\n    width 100%\n    height auto\n    font-size 36px\n    font-family Georgia\n    color #202020\n    padding 20px\n    line-height 36px\n    top 40px\n    left 0\n   content {{nudgepad.post.title Title of Post}}\n   onedit blog\n  content\n   content {{nudgepad.post.content The post body goes here. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.}}\n   style\n    width 100%\n    height auto\n    background-color transparent\n    color #202020\n    font-family Georgia\n    font-size 16px\n    line-height 22px\n    padding 0px 20px\n    top 150px\n    text-align justify\n   content_format nl2br\n   onedit blog\n book\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block3\n   style\n    left 191px\n    top 77px\n    height 20px\n    width 520px\n    background-color #8b9dc1\n    z-index 2\n  block4\n   style\n    left 0px\n    top 0px\n    height 40px\n    width 960px\n    padding-left 10px\n    -webkit-box-shadow 0 2px 2px -2px rgba(0, 0, 0, .52)\n    border-bottom 1px solid #133783\n    background-color #3b5a9b\n    font-size 30px\n    color #FFFFFF\n    font-family Arial\n    font-weight bold\n    line-height 40px\n   content book\n  block1\n   style\n    left 0px\n    top 77px\n    height 256px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block6\n   style\n    left 191px\n    top 87px\n    height 517px\n    width 520px\n    background-color #f8f8f8\n   content <br>\n  block7\n   content John Doe\n   style\n    left 881px\n    top 13px\n    height 15px\n    width 78.5px\n    color #e1e4ed\n    z-index 2\n  block11\n   style\n    left 0px\n    top 368px\n    height 236px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block8\n   style\n    left 724.5px\n    top 348px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block12\n   style\n    left 725px\n    top 368px\n    height 236px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block13\n   style\n    left 724.5px\n    top 77px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block14\n   style\n    left 725px\n    top 97px\n    height 171px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block15\n   style\n    left 0px\n    top 77px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block16\n   style\n    left 0px\n    top 368px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block2\n   content This is a demo page.\n   style\n    left 0px\n    top 681px\n    height auto\n    padding-top 3px\n    font-size 12px\n    color gray\n    width 970px\n    border-top 1px solid #e1e4ed\n    z-index 2\n  block17\n   tag img\n   src /nudgepad/public/images/obama.jpg\n   style\n    left 290px\n    top 154px\n    width 321.5px\n    height auto\n  block18\n   tag img\n   src /nudgepad/public/images/obama_small.jpg\n   style\n    left 222px\n    top 132px\n    width auto\n    height auto\n  block19\n   content Barack Obama went on a nice stroll with his wife.\n   style\n    left 290px\n    top 132px\n    height 15px\n    width 405.5px\n    color gray\n    z-index 2\n cluster\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block2\n   style\n    left 181px\n    top 60px\n    width 138.5px\n    height auto\n    font-size 15px\n    background transparent\n    color #666666\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n  block3\n   style\n    left 333px\n    top 137px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block7\n   style\n    left 100px\n    top 267px\n    width 66.5px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block8\n   style\n    left 7px\n    top 116px\n    width auto\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 140%\n   content Section Header\n  block9\n   style\n    left 11px\n    top 149px\n    width auto\n    height auto\n    font-size 32px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block10\n   style\n    left 182px\n    top -19px\n    width 368.5px\n    height auto\n    font-size 51px\n    background transparent\n    font-weight bold\n    color #222222\n    line-height 140%\n   content Page Header\n  block11\n   style\n    left 167px\n    top 312px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block12\n   style\n    left 333px\n    top 60px\n    width 34px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block1\n   style\n    left 7px\n    top 368px\n    background transparent\n    height auto\n    font-weight bold\n    width 368.5px\n    color #222222\n    font-size 51px\n    line-height 140%\n   content Page Header\n  block13\n   style\n    left 338px\n    top 99px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block14\n   style\n    left 7px\n    top 202px\n    background transparent\n    height auto\n    width auto\n    color #666666\n    font-size 32px\n    line-height 140%\n   content Small Label\n  block15\n   style\n    left 338px\n    top 267px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block16\n   style\n    left 338px\n    top 376px\n    background transparent\n    height auto\n    width 126.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n meme\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     background-color white\n     height 1000px\n  block17\n   tag img\n   src /nudgepad/public/images/firstworld.jpg\n   style\n    left 0px\n    top 0px\n    width auto\n    height auto\n  block2\n   style\n    left 0px\n    top 0px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content There\'s nothing to drink....\n  block3\n   style\n    left 0px\n    top 267px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content Except for a virtually unlimited supply of clean water.\n mindmap\n  head\n   tag page\n   title Mindmap\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     background-color transparent\n     background-image url(/nudgepad/public/images/textures/tan.jpeg)\n     width 960px\n     height 1000px\n  block2\n   style\n    left 145px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block3\n   style\n    left 283px\n    top 126px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 36px\n    background-color white\n    font-weight normal\n   content Main Topic\n  block4\n   style\n    left 333px\n    top -2px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block5\n   style\n    left 521px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block6\n   style\n    left 521px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block7\n   style\n    left 333px\n    top 281px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block8\n   style\n    left 145px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block9\n   style\n    left 652px\n    top 14px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block10\n   style\n    left 652px\n    top 90px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block11\n   style\n    left 14px\n    top 277px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block12\n   style\n    left 14px\n    top 207px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n times\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n   old_style \n    @font-face {\n      font-family: \'OldLondon\';\n      src: url(\'/nudgepad/public/fonts/OldLondon.ttf\');\n      font-weight: normal;\n      font-style: normal;\n    }\n  block2\n   style\n    left 392px\n    top 114px\n    background transparent\n    height auto\n    width 174.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n    font-family Times\n   content Friday, December 7, 2012\n  block1\n   style\n    left -1px\n    top 26px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    font-family OldLondon\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n   content The Nudgepad Times\n  block17\n   tag img\n   src /nudgepad/public/images/pic.jpg\n   style\n    left 259px\n    top 202px\n    width 336.5px\n    height auto\n  block4\n   style\n    left -1px\n    top 145px\n    height 562px\n    width 94px\n    border-left-width 1px\n    border-color black\n    border-style solid\n    border-right-width 1px\n    border-right-color #e2e2e2\n  block5\n   style\n    left 605.5px\n    top 145px\n    height 562px\n    width 353.5px\n    border-left-width 1px\n    border-color #e2e2e2\n    border-style solid\n    border-right-width 1px\n    border-right-color black\n  block6\n   style\n    left -2px\n    top 707px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n  block7\n   style\n    left 112px\n    top 160px\n    background transparent\n    height auto\n    width auto\n    color #004276\n    font-size 24px\n    font-family Times\n    font-weight bold\n   content Man Points at Map with Elongated Stick\n  block8\n   style\n    left 112px\n    top 202px\n    background transparent\n    height auto\n    width 128.5px\n    color #004276\n    font-size 16px\n    font-family Times\n    font-weight bold\n   content What will he point at next?<br>\n  block9\n   style\n    left 112px\n    top 255px\n    background transparent\n    height auto\n    width 128.5px\n    color #333333\n    font-size 12px\n    font-family Times\n   content The pointing at the stick began when a man in third row stood up to ask a question.<br>\nlists\n list1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    border-top 1px solid #ccc\n    white-space nowrap\n    border-bottom 1px solid #ccc\n    border-left 1px solid #ccc\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     display inline-block\n     text-align center\n     width 120px\n     height 40px\n     line-height 40px\n     background-color #eee\n     border-right 1px solid #ccc\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\n list2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    white-space nowrap\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     line-height 180%\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\nscripts\n googleAnalytics\n  googleAnalytics\n   tag script\n   content \n    var _gaq = _gaq || [];\n    _gaq.push([\'_setAccount\', \'{{site.googleAnalyticsId}}\']);\n    _gaq.push([\'_trackPageview\']);\n    (function() {\n      var ga = document.createElement(\'script\'); ga.tag = \'text/javascript\'; ga.async = true;\n      ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';\n      var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);\n    })();\n jquery\n  jquery\n   tag script\n   src //ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js\n');/**
+nudgepad.droppables = new Space('blocks\n block\n  block1\n   style\n    background-color #7a8289\n    height 180px\n    width 220px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n block8\n  block1\n   style\n    height 40px\n    width 150px\n    padding 0px\n    font-size 14px\n    text-indent 10px\n    color #555\n    position absolute\n    border 2px solid #ccc\n    -webkit-appearance normal\n    top 0\n    left 0\n   tag input\n   placeholder Type Here\n button\n  block1\n   style\n    background-color #ed2e11\n    height 50px\n    font-family Open Sans\n    width auto\n    cursor pointer\n    font-size 18px\n    line-height 50px\n    text-align center\n    position absolute\n    padding 0px 20px\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 0\n    left 0\n   content Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n fullx\n  fullx\n   style\n    background-color #eee\n    height 60px\n    width 100%\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n graph\n  block1\n   style\n    background-image url(/nudgepad/public/images/graphPlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n header\n  block1\n   style\n    height auto\n    font-family Open Sans\n    width auto\n    font-size 24px\n    font-weight bold\n    position absolute\n    color #333\n    top 0\n    left 0\n   content Title\n image\n  block1\n   style\n    background-image url(/nudgepad/public/images/imagePlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n nav\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 18px\n    line-height 140%\n    color #999\n    position absolute\n    top 0\n    left 0\n   scraps\n    nav1\n     style\n      margin-right 40px\n      float left\n     content Home\n    nav2\n     style\n      margin-right 40px\n      float left\n     content About\n    nav3\n     style\n      margin-right 40px\n      float left\n     content Portfolio\n    nav4\n     style\n      float left\n     content Contact\n paragraph\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 16px\n    width 420px\n    color #222\n    position absolute\n    top 0\n    left 0\n   scraps\n    header\n     style\n      margin-bottom 30px\n      font-size 52px\n     content Born Good\n    subHeader\n     style\n      margin-bottom 30px\n      font-size 18px\n      font-weight bold\n     content About Me\n    nav3\n     style\n      margin-right 40px\n      font-size 16px\n      line-height 140%\n      color #555\n     content When I was a lad I ate four dozen eggs ev\'ry morning to help me get large. And now that I\'m grown I eat five dozen eggs, so I\'m roughly the size of a barge!\n rounded\n  rounded\n   style\n    background-color #e83b1e\n    height 60px\n    width 120px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    text-align center\n    color #333\n    top 0\n    left 0\n    border-radius 5px\n    line-height 60px\n sticky\n  stickyNote\n   style\n    background-color #f4ed04\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyBlue\n  stickyBlue\n   style\n    background-color #15cbf2\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyOrange\n  stickyOrange\n   style\n    background-color #f29215\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n text\n  text\n   style\n    height auto\n    font-family Open Sans\n    width 420px\n    font-size 16px\n    line-height 140%\n    color #555\n    position absolute\n    top 0\n    left 0\n   content There is a place where the sidewalk ends and before the street begins, and there the grass grows soft and white, and there the sun burns crimson bright, and there the moon-bird rests from his flight to cool in the peppermint wind.\nbuttons\n button1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    top 0\n    left 0\n   content Plain Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n button2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    height 40px\n    width 120px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    background -webkit-linear-gradient(top, #ff5e42, #e3543b)\n    border 1px solid #bf4530\n    box-shadow 0px 1px 3px rgba(0,0,0,.5), inset 0px 1px 0px #ffc0b5\n    left 0px\n    top 0px\n   content Fancy Button\n   hover_style\n    background #e3543b\n   active_style\n    background #bf4530\n button3\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    box-shadow 0px 5px 0px 0px #c94932\n    top 0\n    left 0\n   content Drop Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n    box-shadow 0px 5px 0px 0px #a33a27\nelements\n iframe\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   src http://nudgepad.com/iframe\n   style\n    height 245px\n    width 282px\n    top 0px\n    left 0px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n    border-radius 4px 4px 4px 4px\n video\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   frameborder 0\n   width 560\n   height 315\n   allowfullscreen allowfullscreen\n   src http://www.youtube.com/embed/cFEarBzelBs?rel=0\n   style\n    top 0\n    left 0\nforms\n contact_form\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 315px\n    left 154px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() + \'\nname \' + $(\'input.name\').val() + \'\n comment \' + $(\'textarea.comment\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 110px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n   tabindex 2\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 0px\n   content Contact Us\n  comment\n   style\n    height 135px\n    width 264px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 163px\n    left 0px\n    padding 3px\n    margin 0\n   tag textarea\n   placeholder How can we help you?\n   class comment\n   tabindex 3\n  name\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 64px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag text\n   placeholder Your name\n   class name\n   tabindex 1\n email_signup\n  head\n   tag page\n   title email_signup\n   stylesheets /nudgepad/blocks.css site.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 66px\n    left 175px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 66px\n    left -1px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 1px\n   content Join our Email List\nfun\n blog\n  head\n   tag page\n   title {{nudgepad.post.title}}\n   style\n    body\n     width 400px\n     position relative\n     height 100%\n     margin 0 auto\n    html\n     width 100%\n     height 100%\n    .scrap\n     position absolute\n    a\n     text-decoration none\n    a:hover\n     text-decoration underline\n  title\n   style\n    width 100%\n    height auto\n    font-size 36px\n    font-family Georgia\n    color #202020\n    padding 20px\n    line-height 36px\n    top 40px\n    left 0\n   content {{nudgepad.post.title Title of Post}}\n   onedit blog\n  content\n   content {{nudgepad.post.content The post body goes here. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.}}\n   style\n    width 100%\n    height auto\n    background-color transparent\n    color #202020\n    font-family Georgia\n    font-size 16px\n    line-height 22px\n    padding 0px 20px\n    top 150px\n    text-align justify\n   content_format nl2br\n   onedit blog\n book\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block3\n   style\n    left 191px\n    top 77px\n    height 20px\n    width 520px\n    background-color #8b9dc1\n    z-index 2\n  block4\n   style\n    left 0px\n    top 0px\n    height 40px\n    width 960px\n    padding-left 10px\n    -webkit-box-shadow 0 2px 2px -2px rgba(0, 0, 0, .52)\n    border-bottom 1px solid #133783\n    background-color #3b5a9b\n    font-size 30px\n    color #FFFFFF\n    font-family Arial\n    font-weight bold\n    line-height 40px\n   content book\n  block1\n   style\n    left 0px\n    top 77px\n    height 256px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block6\n   style\n    left 191px\n    top 87px\n    height 517px\n    width 520px\n    background-color #f8f8f8\n   content <br>\n  block7\n   content John Doe\n   style\n    left 881px\n    top 13px\n    height 15px\n    width 78.5px\n    color #e1e4ed\n    z-index 2\n  block11\n   style\n    left 0px\n    top 368px\n    height 236px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block8\n   style\n    left 724.5px\n    top 348px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block12\n   style\n    left 725px\n    top 368px\n    height 236px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block13\n   style\n    left 724.5px\n    top 77px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block14\n   style\n    left 725px\n    top 97px\n    height 171px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block15\n   style\n    left 0px\n    top 77px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block16\n   style\n    left 0px\n    top 368px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block2\n   content This is a demo page.\n   style\n    left 0px\n    top 681px\n    height auto\n    padding-top 3px\n    font-size 12px\n    color gray\n    width 970px\n    border-top 1px solid #e1e4ed\n    z-index 2\n  block17\n   tag img\n   src /nudgepad/public/images/obama.jpg\n   style\n    left 290px\n    top 154px\n    width 321.5px\n    height auto\n  block18\n   tag img\n   src /nudgepad/public/images/obama_small.jpg\n   style\n    left 222px\n    top 132px\n    width auto\n    height auto\n  block19\n   content Barack Obama went on a nice stroll with his wife.\n   style\n    left 290px\n    top 132px\n    height 15px\n    width 405.5px\n    color gray\n    z-index 2\n cluster\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block2\n   style\n    left 181px\n    top 60px\n    width 138.5px\n    height auto\n    font-size 15px\n    background transparent\n    color #666666\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n  block3\n   style\n    left 333px\n    top 137px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block7\n   style\n    left 100px\n    top 267px\n    width 66.5px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block8\n   style\n    left 7px\n    top 116px\n    width auto\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 140%\n   content Section Header\n  block9\n   style\n    left 11px\n    top 149px\n    width auto\n    height auto\n    font-size 32px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block10\n   style\n    left 182px\n    top -19px\n    width 368.5px\n    height auto\n    font-size 51px\n    background transparent\n    font-weight bold\n    color #222222\n    line-height 140%\n   content Page Header\n  block11\n   style\n    left 167px\n    top 312px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block12\n   style\n    left 333px\n    top 60px\n    width 34px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block1\n   style\n    left 7px\n    top 368px\n    background transparent\n    height auto\n    font-weight bold\n    width 368.5px\n    color #222222\n    font-size 51px\n    line-height 140%\n   content Page Header\n  block13\n   style\n    left 338px\n    top 99px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block14\n   style\n    left 7px\n    top 202px\n    background transparent\n    height auto\n    width auto\n    color #666666\n    font-size 32px\n    line-height 140%\n   content Small Label\n  block15\n   style\n    left 338px\n    top 267px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block16\n   style\n    left 338px\n    top 376px\n    background transparent\n    height auto\n    width 126.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n meme\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     background-color white\n     height 1000px\n  block17\n   tag img\n   src /nudgepad/public/images/firstworld.jpg\n   style\n    left 0px\n    top 0px\n    width auto\n    height auto\n  block2\n   style\n    left 0px\n    top 0px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content There\'s nothing to drink....\n  block3\n   style\n    left 0px\n    top 267px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content Except for a virtually unlimited supply of clean water.\n mindmap\n  head\n   tag page\n   title Mindmap\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     background-color transparent\n     background-image url(/nudgepad/public/images/textures/tan.jpeg)\n     width 960px\n     height 1000px\n  block2\n   style\n    left 145px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block3\n   style\n    left 283px\n    top 126px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 36px\n    background-color white\n    font-weight normal\n   content Main Topic\n  block4\n   style\n    left 333px\n    top -2px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block5\n   style\n    left 521px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block6\n   style\n    left 521px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block7\n   style\n    left 333px\n    top 281px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block8\n   style\n    left 145px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block9\n   style\n    left 652px\n    top 14px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block10\n   style\n    left 652px\n    top 90px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block11\n   style\n    left 14px\n    top 277px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block12\n   style\n    left 14px\n    top 207px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n times\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n   old_style \n    @font-face {\n      font-family: \'OldLondon\';\n      src: url(\'/nudgepad/public/fonts/OldLondon.ttf\');\n      font-weight: normal;\n      font-style: normal;\n    }\n  block2\n   style\n    left 392px\n    top 114px\n    background transparent\n    height auto\n    width 174.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n    font-family Times\n   content Friday, December 7, 2012\n  block1\n   style\n    left -1px\n    top 26px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    font-family OldLondon\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n   content The Nudgepad Times\n  block17\n   tag img\n   src /nudgepad/public/images/pic.jpg\n   style\n    left 259px\n    top 202px\n    width 336.5px\n    height auto\n  block4\n   style\n    left -1px\n    top 145px\n    height 562px\n    width 94px\n    border-left-width 1px\n    border-color black\n    border-style solid\n    border-right-width 1px\n    border-right-color #e2e2e2\n  block5\n   style\n    left 605.5px\n    top 145px\n    height 562px\n    width 353.5px\n    border-left-width 1px\n    border-color #e2e2e2\n    border-style solid\n    border-right-width 1px\n    border-right-color black\n  block6\n   style\n    left -2px\n    top 707px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n  block7\n   style\n    left 112px\n    top 160px\n    background transparent\n    height auto\n    width auto\n    color #004276\n    font-size 24px\n    font-family Times\n    font-weight bold\n   content Man Points at Map with Elongated Stick\n  block8\n   style\n    left 112px\n    top 202px\n    background transparent\n    height auto\n    width 128.5px\n    color #004276\n    font-size 16px\n    font-family Times\n    font-weight bold\n   content What will he point at next?<br>\n  block9\n   style\n    left 112px\n    top 255px\n    background transparent\n    height auto\n    width 128.5px\n    color #333333\n    font-size 12px\n    font-family Times\n   content The pointing at the stick began when a man in third row stood up to ask a question.<br>\nlists\n list1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    border-top 1px solid #ccc\n    white-space nowrap\n    border-bottom 1px solid #ccc\n    border-left 1px solid #ccc\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     display inline-block\n     text-align center\n     width 120px\n     height 40px\n     line-height 40px\n     background-color #eee\n     border-right 1px solid #ccc\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\n list2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    white-space nowrap\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     line-height 180%\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\nscripts\n googleAnalytics\n  googleAnalytics\n   tag script\n   content \n    var _gaq = _gaq || [];\n    _gaq.push([\'_setAccount\', \'{{site.googleAnalyticsId}}\']);\n    _gaq.push([\'_trackPageview\']);\n    (function() {\n      var ga = document.createElement(\'script\'); ga.tag = \'text/javascript\'; ga.async = true;\n      ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';\n      var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);\n    })();\n jquery\n  jquery\n   tag script\n   src //ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js\n')/**
  */
 function EditHandle() {  
 }
@@ -10880,7 +10877,7 @@ EditHandle.update = function () {
   })
 }
 
-;nudgepad.getPageDimensions = function (page) {
+nudgepad.getPageDimensions = function (page) {
   page = new Page(page)
   page._static = true
   var iframe = $('<iframe class="deleteMe" style="position: fixed; right: 0px; top: 0px;"></iframe>')
@@ -10924,7 +10921,7 @@ EditHandle.update = function () {
   $('.deleteMe').remove()
   return box
 }
-;/**
+/**
  * A grid object looks like:
  * radius 15
  * type dynamic
@@ -11302,7 +11299,7 @@ Grid.prototype.removeSnaplines = function () {
   $('.nudgepadSnapOrigin').removeClass('nudgepadSnapOrigin')
 }
 
-;/**
+/**
  * @special Singleton
  */
 nudgepad.images = {}
@@ -11399,7 +11396,7 @@ nudgepad.on('uploadComplete', function () {
 })
 nudgepad.on('public', nudgepad.images.updateList)
 nudgepad.on('main', nudgepad.images.updateList)
-;nudgepad.importPrompt = function () {
+nudgepad.importPrompt = function () {
   
   var url = prompt('Enter a url to import')
   if (!url)
@@ -11418,7 +11415,7 @@ nudgepad.import = function (url) {
     nudgepad.stage.open(nudgepad.stage.activePage)
   })
 }
-;// http://stackoverflow.com/questions/3562493/jquery-insert-div-as-certain-index
+// http://stackoverflow.com/questions/3562493/jquery-insert-div-as-certain-index
 $.fn.insertAt = function(index, element) {
   var lastIndex = this.children().size()
   if (index < 0) {
@@ -11430,10 +11427,10 @@ $.fn.insertAt = function(index, element) {
   }
   return this
 }
-;$.fn.owner = function () {
+$.fn.owner = function () {
   return nudgepad.pages.stage.get($(this).attr('value')).element()
 }
-;$.fn.deselect = function () {
+$.fn.deselect = function () {
   var id = $(this).attr('id')
   $(this).removeClass('selection')
   $('.' + id + '_handle').remove()
@@ -11558,7 +11555,7 @@ $.fn.toggleSize = function () {
   })
 }
 
-;/**
+/**
  * We provide easy access to querying the mouse position and state.
  *
  * @special Singleton.
@@ -11710,7 +11707,7 @@ nudgepad.on('main', function () {
     document.addEventListener('mouseup', nudgepad.mouse.onmouseup, true)
   }
 })
-;/**
+/**
  * MoveHandle changes the (x, y) coordinates of selected Scraps 
  */
 nudgepad.MoveHandle = function () {
@@ -11878,7 +11875,7 @@ nudgepad.MoveHandle.update = function () {
     "width" : (owner.outerWidth() - left_padding * 2)  + 'px'}
   $(this).css(style)
 }
-;/**
+/**
  */
 nudgepad.oncopy = function(e) {
   
@@ -11908,7 +11905,7 @@ nudgepad.oncopy = function(e) {
 nudgepad.on('main', function () {
   window.addEventListener('copy', nudgepad.oncopy, false)
 })
-;/**
+/**
  */
 nudgepad.oncut = function(e) {
   
@@ -11942,7 +11939,7 @@ nudgepad.oncut = function(e) {
 nudgepad.on('main', function () {
   window.addEventListener('cut', nudgepad.oncut, false)
 })
-;nudgepad.isScraps = function (text) {
+nudgepad.isScraps = function (text) {
   return text.match(/\n/)
 }
 
@@ -11973,7 +11970,7 @@ nudgepad.onpaste = function(e) {
 nudgepad.on('main', function () {
   window.addEventListener('paste', nudgepad.onpaste, false)
 })
-;/**
+/**
  * Appends scraps to DOM.
  *
  * @param {bool} Whether to render them with javascript or just html+css.
@@ -11986,7 +11983,7 @@ Page.prototype.render = function (context) {
   }
   return this
 }
-;// What spot the worker is on the timeline for the current page
+// What spot the worker is on the timeline for the current page
 nudgepad.pages.stage = new Page()
 nudgepad.pages.edge = new Space()
 
@@ -12216,7 +12213,7 @@ nudgepad.pages.trash = function (name) {
   return ''
 }
 
-;nudgepad.on('main', function () {
+nudgepad.on('main', function () {
   
   $('#nudgepadPagesBar #menuButton').on('mousedown', function (event) {
     if ($('#nudgepadPageMenu:visible').length > 0) {
@@ -12243,7 +12240,7 @@ nudgepad.pages.trash = function (name) {
 
 
 
-;nudgepad.pen = {
+nudgepad.pen = {
   on : false
 }
 
@@ -12280,7 +12277,7 @@ nudgepad.on('main', function () {
 
 
 
-;nudgepad.on('main', function () {
+nudgepad.on('main', function () {
   
   var insertDroppables = function (droppables) {
     var droppablesInsert = ''
@@ -12381,7 +12378,7 @@ nudgepad.on('main', function () {
 
 })
 
-;/**
+/**
  * Launches the default block editor.
  *
  * @param {string} Scrap id
@@ -12665,7 +12662,7 @@ nudgepad.on('main', function () {
 
 
 
-;/**
+/**
  * @special Singleton
  */
 nudgepad.stage.selection = {}
@@ -13131,7 +13128,7 @@ nudgepad.on('selection', nudgepad.broadcastSelection)
 nudgepad.on('collage.update', nudgepad.updateSelections)
 
 
-;/**
+/**
  * Launches the spotlight page picker
  */
 nudgepad.pages.spotlight = function () {
@@ -13140,7 +13137,7 @@ nudgepad.pages.spotlight = function () {
   if (name)
     nudgepad.stage.open(name)
 }
-;/**
+/**
  * The Stage holds the current open page.
  * We do a frame so the ribbon doesnt overlap the work area.
  * Its not actually a frame though, just a div with scroll.
@@ -13633,7 +13630,7 @@ nudgepad.on('main', function () {
 
 })
 
-;/**
+/**
  * Stretch handles can change the width/height and x/y of the scraps.
  */
 nudgepad.StretchHandle = function () {
@@ -13908,7 +13905,7 @@ nudgepad.StretchHandle.update = function () {
     'top' : _top
   })
 }
-;nudgepad.livePreviewScrap = false
+nudgepad.livePreviewScrap = false
 nudgepad.livePreviewTimeout = false
 nudgepad.livePreviewStart = function () {
   clearTimeout(nudgepad.livePreviewTimeout)
@@ -14699,7 +14696,7 @@ nudgepad.styleEditor = function (scrap) {
     styleEditor.css('left', parseFloat(styleEditor.css('left')) - difference)
   }
 }
-;nudgepad.pages.updateTabs = function () {
+nudgepad.pages.updateTabs = function () {
   $('#nudgepadTabs').html('')
   var keys = site.get('pages').keys
   _.each(keys, function (name) {
@@ -14736,7 +14733,7 @@ nudgepad.styleEditor = function (scrap) {
 nudgepad.on('collage.update', nudgepad.pages.updateTabs)
 
 
-;// todo: add console history
+// todo: add console history
 
 /**
  * Prompt the worker for input. Pops a modal.
@@ -14816,7 +14813,7 @@ nudgepad.console = function () {
   $('body').append(button_container)
   input.focus()
 }
-;nudgepad.apps.develop = new App('develop')
+nudgepad.apps.develop = new App('develop')
 
 nudgepad.apps.develop.files = ''
 nudgepad.apps.develop.log = ''
@@ -15002,7 +14999,7 @@ $(document).on('click', '.devToggleOption', function () {
 })
 
 
-;/**
+/**
  * @special Singleton
  */
 nudgepad.explorer = {}
@@ -15086,7 +15083,7 @@ nudgepad.explorer.edit = function (path) {
 
 
 
-;nudgepad.apps.git = new App('git')
+nudgepad.apps.git = new App('git')
 
 nudgepad.apps.git.commit = function () {
   var message = prompt('Enter your commit message')
@@ -15119,43 +15116,12 @@ nudgepad.apps.git.status = function () {
 
 
 
-;nudgepad.apps.home = new App('home')
+nudgepad.apps.home = new App('home')
 
 nudgepad.apps.home.onopen = function () {
   $('.nudgepad#domainName').text(nudgepad.domain)
 }
-;// Nudgepad App navigation
-nudgepad.navigation = {}
-
-nudgepad.navigation.open = function (name, dontRecord) {
-  if (name === 'pages')
-    nudgepad.pages.open()
-  else if (nudgepad.apps[name])
-    nudgepad.apps[name].open()
-  else
-    return false
-
-  if (dontRecord)
-    return null
-  
-  if (nudgepad.isTesting)
-    return null
-
-  history.pushState(name, 'Nudgepad - ' + name, '/nudgepad?app=' + name)
-}
-
-nudgepad.navigation.openAppFromQueryString = function () {
-  
-  // Get query string. If nothing, set default to home app
-  var name = ParseQueryString().app || 'home'
-  nudgepad.navigation.open(name, true)
-}
-
-// Revert to a previously saved state
-window.addEventListener('popstate', function (event) {
-  nudgepad.navigation.openAppFromQueryString()
-})
-;nudgepad.apps.account = new App('account')
+nudgepad.apps.account = new App('account')
 
 nudgepad.apps.account.onopen = function () {
   $('.nudgepad#email').val(nudgepad.cookie.email)
@@ -15176,7 +15142,7 @@ nudgepad.apps.account.save = function () {
   })
 }
 
-;nudgepad.emailPrompt = function () {
+nudgepad.emailPrompt = function () {
   
   var message = new Space('to \nsubject \nmessage \n')
   nudgepad.textPrompt('Send an email', message.toString(), function (val) {
@@ -15188,7 +15154,7 @@ nudgepad.apps.account.save = function () {
     })
   }, false, 'Send')
 }
-;nudgepad.invite = {}
+nudgepad.invite = {}
 
 nudgepad.invite.prompt = function () {
   var val = prompt('Invite people to edit this site. Add one or more emails, separated by spaces', '')
@@ -15200,7 +15166,7 @@ nudgepad.invite.prompt = function () {
     mixpanel.track('I invited people')
   })
 }
-;nudgepad.on('main', function () {
+nudgepad.on('main', function () {
   
   if (nudgepad.cookie.email !== ('owner@' + nudgepad.domain))
     return true
@@ -15243,7 +15209,7 @@ nudgepad.invite.prompt = function () {
   
   
 })
-;nudgepad.apps.blog = new App('blog')
+nudgepad.apps.blog = new App('blog')
 
 // Default theme
 nudgepad.apps.blog.blankTheme = new Space({
@@ -15437,4 +15403,3 @@ nudgepad.apps.blog.updatePermalink = function () {
   var permalink = Permalink($('.nudgepad#title').val())
   $('.nudgepad#permalink').text('http://' + nudgepad.domain + '/' + permalink).attr('value', permalink)
 }
-;
