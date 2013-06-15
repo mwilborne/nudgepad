@@ -342,6 +342,10 @@ app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
 
 })
 
+// If development, watch client folder and trigger rebuilds.
+// NudgePad app developer should never have to manually run build.js
+// Watch core and apps folder recursively.
+
 /*********** sendPage method ************/
 app.pageOptions = {
   beautify : true

@@ -1,0 +1,323 @@
+<!doctype>
+<html>
+  <head>
+    <title>Loading Nudgepad...</title>
+    <link rel="stylesheet" href="/nudgepad/core/css/app.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/core.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/signupForm.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/userSelectFix.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/design/app.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/design/css/spectrum.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/design/css/styleEditor.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/develop/app.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/launch/app.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/manage/app.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/write/app.css" type="text/css"/>
+
+    <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="/nudgepad/public/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/jquery.dimensions.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/Lasso.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/validateEmail.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/ParseQueryString.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/Permalink.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/jquery.scrollbar.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/ToProperCase.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/ParseName.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/jquery.topdiv.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/blinker.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/Spectrum.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/underscore.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/marked.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/natural_sort.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/store.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/goog.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/events.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/parseCookie.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/MoveCursorToEnd.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/socket.io.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/moment.min.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/jquery.sha256.min.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/space.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/scraps.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/thumbs.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/platform.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/App.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Nudgepad.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/EmailSender.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Explorer.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Flasher.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Inviter.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Launcher.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Mouse.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnDisconnect.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnError.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnPatch.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnPing.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnReadOnly.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnRestart.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnSiteDeleted.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/OnWorkerError.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Popup.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/SignUpForm.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Space.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Tab.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/TextPrompt.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/app.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/CodePanel.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/ContentEditor.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/DesignBar.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Droppables.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/EditHandle.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Grid.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Images.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/jquery.insertAt.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/jquery.owner.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/jquery.scrap.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/MoveHandle.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Page.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Pen.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Ribbon.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Scrap.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/ScrollMinimal.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Selection.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Shortcuts.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Stage.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/StretchHandle.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/StyleEditor.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/js/Tabs.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/develop/app.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/launch/app.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/manage/app.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/write/app.js"></script>
+
+    <script type="text/javascript">
+    nudgepad.development = true
+    $(document).ready(nudgepad.main)
+    </script>
+    <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+    typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+    b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("cddd496663c58cf984f006dba0ec67bc");</script><!-- end Mixpanel -->
+  </head>
+  <body>
+<div id="nudgepadConnectionStatus" class="nudgepad">Connecting to server...</div>
+<div id="nudgepadError" class="nudgepad"></div>
+<div id="nudgepadJavascriptError" class="nudgepad"></div>
+<div id="nudgepadLoadingScreen" class="nudgepad">Loading Nudgepad...</div>
+<div id="nudgepadNotify" class="nudgepad">Published</div>
+<div id="nudgepadTemp" class="nudgepad"></div>
+<div id="nudgepadWorkerError" class="nudgepad"></div>
+<div id="nudgepadSignupFormModal" class="nudgepad">
+	<div id="signupContainer">
+		<div id="signupContent">
+			<div id="nudgepadSignupFormPrototypeLive">Your site is now live at</div>
+			<a id="nudgepadSignupFormDomain" target="published"></a>
+			<div class="clear"></div>
+			<div id="nudgepadSignupFormInstructions">If you want to edit your site beyond this session, please type your email address below.</div>
+			<input id="nudgepadSignupFormEmail" type="email" placeholder="Email"></input>  
+			<div id="nudgepadSignupFormButton">Submit</div>
+			<div class="clear"></div>
+			<div id="nudgepadSignupFormSkip" onclick="$('#nudgepadSignupFormModal').remove()">Skip this step</div>
+		</div>
+	</div>
+</div>
+<div class="App" id="Design">
+</div>
+  
+<div id="DesignStage" class="nudgepad">
+  <div id="DesignStageHead"></div>
+  <div id="DesignStageBody"></div>
+  <div id="DesignStageBottomPadding"></div>
+  <style type="text/css" id="DesignRemoteSelections"></style>
+</div>
+
+<div id="DesignBar" class="nudgepad">
+
+  <div title="menu" id="DesignBarMenuButton"></div>
+
+  <div title="Block" id="DesignBlockDroppable" class="DesignBarDroppable"><img src="/nudgepad/public/images/block.png"></div>
+
+  <div title="Text" id="DesignTextDroppable" class="DesignBarDroppable"><img src="/nudgepad/public/images/text.png"></div>
+
+  <div title="Image" id="DesignImageDroppable" class="DesignBarDroppable"><img src="/nudgepad/public/images/image.png"></div>
+
+  <div title="Sticky" id="stickyDroppable" class="DesignBarDroppable"><img src="/nudgepad/public/images/sticky.png"></div>
+  
+  <input class="DesignTimeline" id="DesignTimeline" type="range" min="0" max="100" step="1" onclick="Design.stage.goto($(this).val())" value="100">
+  <script type="text/javascript">
+    $('#DesignTimeline').on('slide', function () {
+      Design.stage.goto($(this).val())
+  })</script>
+  <span class="DesignTimeline" id="DesignTimelinePosition"></span>
+  <span class="DesignTimeline" id="DesignTimelineClear" onclick="Design.clearTimeline()">Erase</span>
+  
+  <div id="DesignTabs"><span>Index</span></div>
+  
+</div>
+
+<textarea id="DesignCodePanel"></textarea>
+
+<div id="DesignContextMenu">
+  <a onclick="$('#DesignContextMenu').hide()">Close</a>
+  <div class="DesignContextMenuSeparator">&nbsp</div>
+  <a onclick="$('.DesignTimeline').toggle()">Toggle Timeline</a>
+  <a onclick="Design.stage.toggleView()">Toggle View</a>
+  <div class="DesignContextMenuSeparator">&nbsp</div>
+  <a onclick="Design.stage.editSource()">Edit Page Source</a>
+  <div class="DesignContextMenuSeparator">&nbsp</div>
+  <a onclick="Design.stage.selection.renameScraps()">Rename Selected</a>
+  <div class="DesignContextMenuSeparator">&nbsp</div>
+  <a onclick="Design.importPrompt()">Import Url</a>
+</div>
+
+<div id="DesignMenu" class="nudgepad">
+	<div onclick="window.open(Design.stage.activePage,'published')">View</div>
+  <div onclick="Design.blank()">New</div>
+  <div onclick="Design.duplicate()">Duplicate</div>
+  <div onclick="Design.renamePrompt()">Rename</div>
+  <div onclick="Design.trash()">Delete</div>
+  <div onclick="Inviter.prompt()">Invite</div>
+  <div onclick="Launcher.open('Launch')">Dashboard</div>
+</div>
+
+<div id="DesignRibbon" class="nudgepad">
+	<div id="DesignRibbonUploadButton" class="DesignImageDroppableOptions"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;"></iframe></div>
+  <div id="DesignDroppablesList"></div>
+  <div id="DesignImageDroppablesList" class="DesignImageDroppableOptions"></div>
+</div>
+
+<div id="DesignDimensions"></div>
+<div class="App" id="Develop">
+	<div class="AppNav">
+		<div class="AppNavContainer">
+  		<div class="AppSquareButton AppBackButton" onclick="Launcher.open('Launch')">
+		  	Back
+		  </div>
+			<a class="nudgepad DevelopButton" onclick="Develop.console()" title="Console">
+		  	Console
+		  </a>
+			<a href="/nudgepad.export" target="blank" class="nudgepad DevelopButton">
+		  	Export
+		  </a>
+		  <a onclick="Develop.import()" class="nudgepad DevelopButton">
+		  	Import
+		  </a>
+		  <a onclick="Develop.clone()" class="nudgepad DevelopButton">
+		  	Clone
+		  </a>
+		  <a id="DevelopRestart" class="nudgepad DevelopButton" onclick="$.get('/nudgepad.restart')">
+		  	Restart
+		  </a>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="AppContainer nudgepad">
+	  <div id="DevelopToggle">
+	  	<div class="DevelopToggleOption DevelopSelect" value="DevelopFilesContent">Files</div>
+			<div class="DevelopToggleOption" value="DevelopLogsContent">Logs</div>
+			<div class="DevelopToggleOption" value="DevelopInfoContent">Info</div>
+	    <div class="clear"></div>
+	  </div>
+	  <div id="DevelopFilesContent" class="DevelopContent">
+	  	<div id="DevelopExplorerPath" class="nudgepad" onclick="Develop.home()"></div>
+		  <div id="DevelopExplorerHolder" class="nudgepad"></div>
+		</div>
+		<div id="DevelopLogsContent" class="DevelopContent">
+	  	<div class="DevelopSectionLabel">Logs</div>
+		  <pre id="DevelopLogHolder" readonly="readonly" class="nudgepad DevelopSelectable"></pre>
+		</div>
+		<div id="DevelopInfoContent" class="DevelopContent">
+	  	<div class="DevelopSectionLabel">Info</div>
+		  <pre id="DevelopStatusArea" readonly="readonly" class="nudgepad DevelopSelectable"></pre>
+		</div>
+	</div>
+</div>
+<div class="App" id="Launch">
+  <div class="AppContainer nudgepad">
+	  <div class="LaunchCol LaunchMar">
+    	<div class="LaunchSquare" style="background-color : #1a86d6;" onclick="Launcher.open('Design')">
+		    <div class="LaunchTopBlock">Design</div>
+		    <div class="LaunchSubBlock">Edit the layout and style of your site.</div>
+		  </div>
+			<div class="LaunchSquare" style="background-color : #ABC1C7;" onclick="Launcher.open('Manage')">
+		    <div class="LaunchTopBlock">Manage</div>
+		    <div class="LaunchSubBlock">Update your email address or logout.</div>
+		  </div>
+		</div>
+		<div class="LaunchCol LaunchMar">
+			<div class="LaunchSquare" style="background-color : #244170;" onclick="Launcher.open('Develop')">
+		    <div class="LaunchTopBlock">Develop</div>
+		    <div class="LaunchSubBlock">Write code and maintain the backend.</div>
+		  </div>
+		</div>
+    <div class="LaunchCol">
+	  	<div class="LaunchSquare" style="background-color : #edc811;" onclick="Launcher.open('Write')">
+		    <div class="LaunchTopBlock">Write</div>
+		    <div class="LaunchSubBlock">Write new posts or update existing content.</div>
+		  </div>
+		</div>
+	  <div class="clear"></div>
+  </div>
+</div>
+<div class="App" id="Manage">
+	<div class="AppNav">
+		<div class="AppNavContainer">
+  		<div class="AppSquareButton AppBackButton" onclick="Launcher.open('Launch')">
+		  	Back
+		  </div>
+		  <a id="ManageLogoutButton" class="AppSquareButton" href="/nudgepad.logout" title="Logout">
+		  	Logout
+		  </a>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="AppContainer nudgepad">
+	  <div class="AppSectionLabel">
+		  Account Info
+		</div>
+	  <div id="ManageFormLabel">
+	  	Email
+	  </div>
+	  <input type="email" id="ManageEmail" tabindex="2" value="" class="nudgepad"></input>
+	  <div id="ManageUpdateButton" class="nudgepad" onclick="Manage.save()">
+		  Update
+		</div>
+	</div>
+</div>
+<div class="App" id="Write">
+	<div class="AppNav">
+		<div class="AppNavContainer">
+  		<div class="AppSquareButton AppBackButton" onclick="Launcher.open('Launch')">
+		  	Back
+		  </div>
+			<div id="WriteAdvancedToggle" class="AppSquareButton" onclick="$('#WriteAdvanced').toggle()">
+				<img src="nudgepad/public/images/bulb.png">
+			</div>
+			<textarea id="WriteAdvanced" placeholder="Advanced" tabindex="3" class="nudgepad"></textarea>
+		  <div id="WriteNewPostButton" onclick="Write.createPost()">
+			  New Post
+			</div>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="AppContainer">
+		<div id="WritePostColumn">
+			<div id="WritePostContent">
+	  	  <div id="WritePostTitle" class="nudgepad">Old Posts</div>
+	      <div id="WritePosts" class="nudgepad"></div>
+	    </div>
+	  </div>
+	  <div id="WriteComposeColumn">
+		  <input id="WriteTitle" placeholder="Title" tabindex="1" class="nudgepad" onkeyup="Write.updatePermalink()"></input>
+	  	<textarea id="WriteContent" placeholder="Write your post here..." tabindex="2" class="nudgepad"></textarea>
+		  <div id="WritePublishButton" class="nudgepad" onclick="Write.savePost()">Publish</div>
+	    <div id="WriteDeleteButton" class="nudgepad" onclick="Write.deletePost()">Delete</div>
+	    <div class="clear"></div>
+	    <div id="WritePermalink" class="nudgepad" onclick="window.open($(this).attr('value'), 'published')"></div>
+	  </div>
+  </div>
+</div>
+
+  </body>
+</html>
