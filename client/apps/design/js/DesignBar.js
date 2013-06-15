@@ -1,21 +1,21 @@
 nudgepad.on('main', function () {
   
-  $('.barDroppable').on('click', function () {
-    $('.imageDroppableOptions').hide()
+  $('.DesignBarDroppable').on('click', function () {
+    $('.DesignImageDroppableOptions').hide()
     if ($(this).hasClass('selectedDroppable')) {
       $(this).removeClass('selectedDroppable')
-      $('.barDroppable').removeClass('lowlight');
+      $('.DesignBarDroppable').removeClass('DesignLowlight');
       $('#DesignRibbon').slideUp('fast')
     }
     else {
-      $('.barDroppable').removeClass('selectedDroppable')
+      $('.DesignBarDroppable').removeClass('selectedDroppable')
       $(this).addClass('selectedDroppable');
-      $(this).removeClass('lowlight')
-      $('.barDroppable').not('.selectedDroppable').addClass('lowlight');
+      $(this).removeClass('DesignLowlight')
+      $('.DesignBarDroppable').not('.selectedDroppable').addClass('DesignLowlight');
       $('#DesignRibbon').slideDown('fast')
     }
   })
-  $('.barDroppable').on('slidestart', function() {
+  $('.DesignBarDroppable').on('slidestart', function() {
     var dropBlock = $(this).attr('title').toLowerCase()
     Design.stage.dragAndDrop(Design.droppables.get('blocks ' + dropBlock))
   })
@@ -23,10 +23,10 @@ nudgepad.on('main', function () {
 
 
   $('#imageDroppable').on('click', function () {
-    $('.imageDroppableOptions').show()
+    $('.DesignImageDroppableOptions').show()
   })
   
-  $('#DesignBar #menuButton').on('mousedown', function (event) {
+  $('#DesignBarMenuButton').on('mousedown', function (event) {
     if ($('#DesignMenu:visible').length > 0) {
       Popup.hide(event)
       return true
@@ -34,7 +34,7 @@ nudgepad.on('main', function () {
     Popup.open('#DesignMenu')
     mixpanel.track('I opened the designer menu')
   })
-  $('#DesignBar #menuButton').on('mouseup', function (event) {
+  $('#DesignBarMenuButton').on('mouseup', function (event) {
     event.stopPropagation()
     return false
   })

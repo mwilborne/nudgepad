@@ -15,7 +15,7 @@ Design.updateTabs = function () {
         return true
       title += value.get('name') + '(' + value.get('device') + ')' + ' '
       if (key != nudgepad.id)
-        div.addClass('openPage')
+        div.addClass('DesignOpenPage')
     })
     
     div.attr('title', title)

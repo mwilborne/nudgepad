@@ -447,7 +447,7 @@ Design.broadcastSelection = function (extra) {
 }
 
 Design.updateSelections = function () {
-  $('#nudgepadRemoteSelections').html('')
+  $('#DesignRemoteSelections').html('')
   site.values.collage.each(function (key, value) {
     if (key == nudgepad.id)
       return true
@@ -455,7 +455,7 @@ Design.updateSelections = function () {
       return true
     var style = value.get('selection')
     if (style)
-      $('#nudgepadRemoteSelections').append(style)
+      $('#DesignRemoteSelections').append(style)
   })
 }
 

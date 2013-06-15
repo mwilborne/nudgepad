@@ -3,20 +3,20 @@ nudgepad.on('main', function () {
   var insertDroppables = function (droppables) {
     var droppablesInsert = ''
       for (var i in droppables) {
-        droppablesInsert += '<div class="droppableImg"><img src="/nudgepad/public/images/droppables/'+ droppables[i] +'.png" title="'+ droppables[i] +'"></div>'
+        droppablesInsert += '<div class="DesignDroppableImg"><img src="/nudgepad/public/images/droppables/'+ droppables[i] +'.png" title="'+ droppables[i] +'"></div>'
       }
 
-      var droppablesListItems = $('<div class="droppablesList">'+ droppablesInsert +'</div>')
+      var droppablesListItems = $('<div class="DesignDroppablesList">'+ droppablesInsert +'</div>')
 
-      $('#droppablesList').html(droppablesListItems)
+      $('#DesignDroppablesList').html(droppablesListItems)
 
-      $('#droppablesList div img').on('slidestart', function() {
+      $('#DesignDroppablesList div img').on('slidestart', function() {
         var dropBlock = $(this).attr('title')
         Design.stage.dragAndDrop(Design.droppables.get('blocks ' + dropBlock))
         mixpanel.track('I dropped a droppable')
       })
 
-      $('.droppablesList div img').on('tap', function() {
+      $('.DesignDroppablesList div img').on('tap', function() {
         
         var dropBlock = $(this).attr('title')
         Design.stage.insert(Design.droppables.get('blocks ' + dropBlock), false, 0, 0, true)
@@ -26,12 +26,12 @@ nudgepad.on('main', function () {
   
   var menuType;
   
-  $('#blockDroppable').on('click', function () {
+  $('#DesignBlockDroppable').on('click', function () {
     menuType = "block"
     pickArray(menuType)
   })
   
-  $('#textDroppable').on('click', function () {
+  $('#DesignTextDroppable').on('click', function () {
     menuType = "text"
     pickArray(menuType)
   })
@@ -77,13 +77,13 @@ nudgepad.on('main', function () {
     insertDroppables(result);
   }
   
-  $(document).on('tap', '.imageThumbDrop img', function() {
+  $(document).on('tap', '.DesignImageThumbDrop img', function() {
     var imageY = ($('#DesignStage').height() / 2) - 130
     var imageX = 100
     Design.stage.insert('images\n style\n  position absolute\n  top ' + imageY +'\n  left ' + imageX + '\n tag img\n src ' + $(this).attr('src'))
   })
   
-  $('#DesignRibbon').on('slidestart', '.imageThumbDrop img', function() {
+  $('#DesignRibbon').on('slidestart', '.DesignImageThumbDrop img', function() {
     Design.stage.dragAndDrop('images\n style\n  position absolute\n  top 0px\n  left 0px\n tag img\n src ' + $(this).attr('src'))
     mixpanel.track('I dropped a ribbon droppable')
   })

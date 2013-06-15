@@ -308,7 +308,7 @@ Design.stage.redo = function () {
  */
 Design.stage.render = function () {
   $('#DesignStageHead').html('')
-  $('#nudgepadRemoteSelections').html('')
+  $('#DesignRemoteSelections').html('')
   $(".scrap,#body").remove()
   Design.page.loadScraps()
   Design.page.render()

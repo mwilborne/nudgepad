@@ -118,7 +118,7 @@
   display: block;
 }
 
-.contextMenuSeparator {
+.DesignContextMenuSeparator {
   height: 10px;
   border-bottom: 1px solid #aaa;
 }
@@ -140,42 +140,25 @@
   font-family: 'Titillium Web';
 }
 
-#DesignBar .barButton {
-  height: 40px;
-  line-height: 40px;
-  width: 44px;
-  font-size: 14px;
-  text-align: center;
-  float: left;
-  font-weight: 800;
-  cursor: pointer;
-  color: #ccc;
-}
-
-.barDroppable {
+.DesignBarDroppable {
   float: left;
   margin-left: 10px;
   margin-top: 10px;
   cursor: pointer;
 }
 
-#DesignBar .barButton img {
+.DesignBarButton img {
   padding-top: 12px;
   opacity: .4;
 }
 
-#DesignBar .barButton:hover img{
+.DesignBarButton:hover img{
   opacity: .7;
 }
 
-#DesignBar .barButton:active img{
+.DesignBarButton:active img{
   opacity: 1;
 }
-
-#DesignBar #addScrap {
-  display: none;
-}
-
 
 #DesignTabs {
   float: right;
@@ -222,7 +205,7 @@
   cursor: pointer;
 }
 
-#DesignTabs span.openPage {
+#DesignTabs span.DesignOpenPage {
   text-decoration: underline;
 }
 
@@ -235,7 +218,7 @@
   color: grey;
 }
 
-#DesignBar #menuButton {
+#DesignBarMenuButton {
   height: 50px;
   width: 50px;
   background-color: #1a86d6;
@@ -246,22 +229,15 @@
   cursor: pointer;
 }
 
-#DesignBar #menuButton:hover {
+#DesignBarMenuButton:hover {
   background-color: #3575b5;
 }
 
-#DesignBar #menuButton:active {
+#DesignBarMenuButton:active {
   background-color: #2c659e;
 }
 
-#DesignBar #pageOptions {
-  float: right;
-  background-image: url(/nudgepad/public/images/page-option.png);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.lowlight {
+.DesignLowlight {
    opacity: .2;
 }
 
@@ -280,21 +256,21 @@
   position: absolute;
 }
 
-#DesignRibbon #droppablesList {
+#DesignDroppablesList {
   float: left;
 }
 
-#DesignRibbon #droppablesList .droppableImg {
+.DesignDroppableImg {
   float: left;
   margin-left: 10px;
   margin-top: 10px;
 }
 
-.imageDroppableOptions {
+.DesignImageDroppableOptions {
   display: none;
 }
 
-#ribbonUploadButton {
+#DesignRibbonUploadButton {
   float: left;
   width: 70px;
   background-color: #555;
@@ -311,19 +287,19 @@
   position: relative;
 }
 
-#ribbonUploadButton:hover {
+#DesignRibbonUploadButton:hover {
   background-color: #444;
 }
 
-#ribbonUploadButton:active {
+#DesignRibbonUploadButton:active {
   background-color: #3a3a3a;
 }
 
-#imageDroppablesList {
+#DesignImageDroppablesList {
   float: left;
 }
 
-.imageThumbDrop {
+.DesignImageThumbDrop {
   float: left;
   height: 60px;
   width: 60px;
@@ -336,7 +312,7 @@
   padding: 0;
 }
 
-.imageThumbDrop img {
+.DesignImageThumbDrop img {
   padding: 0;
   max-height: 50px;
   max-width: 50px;

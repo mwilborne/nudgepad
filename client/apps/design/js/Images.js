@@ -80,10 +80,10 @@ Design.images.updateList = function () {
     Design.images.images = new Space(space)
     Design.images.images.each(function (key, value) {
       if (Design.images.isImage(key))
-        dropImageDiv += '<div class="imageThumbDrop">&nbsp;<img src="/'+ key +'">&nbsp;</div>'
+        dropImageDiv += '<div class="DesignImageThumbDrop">&nbsp;<img src="/'+ key +'">&nbsp;</div>'
     })
 
-    $('#imageDroppablesList').html(dropImageDiv)
+    $('#DesignImageDroppablesList').html(dropImageDiv)
     
   })
 }
