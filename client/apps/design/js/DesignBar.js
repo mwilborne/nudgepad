@@ -22,7 +22,7 @@ nudgepad.on('main', function () {
 
 
 
-  $('#imageDroppable').on('click', function () {
+  $('#DesignImageDroppable').on('click', function () {
     $('.DesignImageDroppableOptions').show()
   })
   

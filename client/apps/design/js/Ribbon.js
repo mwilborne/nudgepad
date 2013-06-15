@@ -36,7 +36,7 @@ nudgepad.on('main', function () {
     pickArray(menuType)
   })
   
-  $('#imageDroppable').on('click', function () {
+  $('#DesignImageDroppable').on('click', function () {
     menuType = "image"
     pickArray(menuType)
   })
