@@ -7,12 +7,14 @@ all:
 	cat public/js/compiler_workaround.js >> production/nudgepad.min.js
 	# todo: minify css
 
+# Before you start developing, untrack generated files
 untrack:
 	git update-index --assume-unchanged production/nudgepad.dev.html
 	git update-index --assume-unchanged production/nudgepad.min.html
 	git update-index --assume-unchanged production/nudgepad.min.css
 	git update-index --assume-unchanged production/nudgepad.min.js
 
+# Retrack generated files to deploy
 track:
 	git update-index --no-assume-unchanged production/nudgepad.dev.html
 	git update-index --no-assume-unchanged production/nudgepad.min.html
