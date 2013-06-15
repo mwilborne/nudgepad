@@ -1,16 +1,30 @@
-.nudgepadAppContainer {
+.App {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: #eaeaeb;
+  z-index: 1000;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-family: 'Titillium Web';
+}
+
+.AppContainer {
   width : 94%;
   max-width: 1000px;
   position : relative;
   margin : 0 auto;  
 }
 
-.nudgepadAppNav {
+.AppNav {
   width: 100%;
   background-color: #222;
 }
 
-.nudgepadAppBackButton {
+.AppBackButton {
   font-size: 15px;
   float: left;
   background-repeat: no-repeat;
@@ -20,7 +34,7 @@
   color: #fff;
 }
 
-.nudgepadSquareButton { 
+.AppSquareButton { 
   width: 40px;
   height: 40px;
   text-align: center;
@@ -28,19 +42,19 @@
   background-color: #444;
 }
 
-.nudgepadSquareButton img {
+.AppSquareButton img {
   padding-top: 12px;
 }
 
-.nudgepadSquareButton:hover { 
+.AppSquareButton:hover { 
   background-color: #333;
 }
 
-.nudgepadSquareButton:active { 
+.AppSquareButton:active { 
   background-color: #2a2a2a;
 }
 
-.nudgepadAppNavContainer {
+.AppNavContainer {
   padding: 10px;
 }
 

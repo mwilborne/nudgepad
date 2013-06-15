@@ -178,7 +178,7 @@ $(document).on('click', '.DevelopToggleOption', function () {
   if(!$(this).hasClass('DevelopSelect')) {
     $('div').removeClass('DevelopSelect');
     $(this).addClass('DevelopSelect')
-    $('.DevelopAppContent').hide()
+    $('.DevelopContent').hide()
     $('#' + visibleContent).show()
   }
 })

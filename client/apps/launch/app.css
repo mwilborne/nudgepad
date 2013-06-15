@@ -1,25 +1,25 @@
-.LaunchAppCol {
+.LaunchCol {
   width: 32%;
   float: left;
 }
 
-.LaunchAppMar {
+.LaunchMar {
   margin-right: 2%;
 }
 
-.LaunchAppSquare {
+.LaunchSquare {
   cursor : pointer;
   font-weight : 300;
   margin-top: 20px;
   color: #fff;
 }
 
-.LaunchAppTopBlock {
+.LaunchTopBlock {
   padding: 80px 20px;
   font-size: 3.375em;
 }
 
-.LaunchAppSubBlock {
+.LaunchSubBlock {
   font-size: 0.875em;
   background: rgba(0,0,0,.2);
   padding: 20px;

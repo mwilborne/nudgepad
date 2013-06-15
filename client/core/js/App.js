@@ -48,7 +48,7 @@ App.prototype.close = function (name) {
   this._open = false
   App.openApp = false
   
-  $('.nudgepadApp').hide()
+  $('.App').hide()
   
   if (name)
     window[name].open()
