@@ -347,18 +347,20 @@ app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
 // Watch core and apps folder recursively.
 app.rebuild = function () {
   exec('node ' + clientPath + 'build.js')
+  console.log('Rebuilding...')
 }
 
 app.watchDir = function (dir) {
+  console.log('watching %s', dir)
   fs.watch(dir, app.rebuild)
-  var files = fs.readDirSync(dir)
+  var files = fs.readdirSync(dir)
   _.each(files, function (file) {
     var path = dir + '/' + file
     var stat = fs.statSync(path)
     if (stat.isDirectory())
       app.watchDir(path)
     else
-      fs.watch(dir, app.rebuild)
+      fs.watch(path, app.rebuild)
   })
 }
 
@@ -540,7 +542,7 @@ speedcoach('server started')
 /********* SOCKET IO STUFF **********/ 
 io = socketio.listen(http_server)
 
-io.set('log level', 3)
+//io.set('log level', 3)
 
 /********* SOCKET EVENTS **********/ 
 
