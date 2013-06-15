@@ -1,11 +1,11 @@
 var Manage = new App('Manage')
 
 Manage.onopen = function () {
-  $('.nudgepad#email').val(nudgepad.cookie.email)
+  $('#ManageEmail').val(nudgepad.cookie.email)
 }
 
 Manage.save = function () {
-  var email = $('.nudgepad#email').val()
+  var email = $('#ManageEmail').val()
   
   if (!ValidateEmail(email))
     return nudgepad.error('Invalid Email')

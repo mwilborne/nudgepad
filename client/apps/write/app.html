@@ -1,14 +1,14 @@
 <div class="nudgepadApp" id="WriteApp">
-	<div class="appNav">
-		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton" onclick="Launcher.open('Launch')">
+	<div class="nudgepadAppNav">
+		<div class="nudgepadAppNavContainer">
+  		<div class="nudgepadSquareButton nudgepadAppBackButton" onclick="Launcher.open('Launch')">
 		  	Back
 		  </div>
-			<div id="advancedToggle" class="squareButton" onclick="$('.nudgepad#advanced').toggle()">
+			<div id="advancedToggle" class="nudgepadSquareButton" onclick="$('.nudgepad#advanced').toggle()">
 				<img src="nudgepad/public/images/bulb.png">
 			</div>
 			<textarea id="advanced" placeholder="Advanced" tabindex="3" class="nudgepad"></textarea>
-		  <div id="addPageButton" class="secondaryButton" onclick="Write.createPost()">
+		  <div id="WriteNewPostButton" onclick="Write.createPost()">
 			  New Post
 			</div>
 		<div class="clear"></div>

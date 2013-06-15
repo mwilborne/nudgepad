@@ -191,4 +191,11 @@ td {
   z-index : 1010;
 }
 
+.DevelopSectionLabel {
+  font-size: 36px;
+  margin-top: 60px;
+  border-bottom: 3px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
 

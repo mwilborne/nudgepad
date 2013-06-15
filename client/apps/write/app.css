@@ -101,3 +101,25 @@
   cursor : pointer;
   line-height: 40px;
 }
+
+#WriteNewPostButton {
+  background-color: #64b81f;
+  height: 40px;
+  width: 100px;
+  text-align: center;
+  float: right;
+  line-height: 40px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#WriteNewPostButton:hover { 
+  background-color: #529919;
+}
+
+#WriteNewPostButton:active { 
+  background-color: #427a14;
+}
+

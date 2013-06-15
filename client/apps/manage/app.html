@@ -1,10 +1,10 @@
 <div class="nudgepadApp" id="ManageApp">
-	<div class="appNav">
-		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton" onclick="Launcher.open('Launch')">
+	<div class="nudgepadAppNav">
+		<div class="nudgepadAppNavContainer">
+  		<div class="nudgepadSquareButton nudgepadAppBackButton" onclick="Launcher.open('Launch')">
 		  	Back
 		  </div>
-		  <a id="logout" class="squareButton" href="/nudgepad.logout" title="Logout">
+		  <a id="ManageLogoutButton" class="nudgepadSquareButton" href="/nudgepad.logout" title="Logout">
 		  	Logout
 		  </a>
 		<div class="clear"></div>
@@ -14,11 +14,11 @@
 	  <div class="sectionLabel">
 		  Account Info
 		</div>
-	  <div class="formLabel">
+	  <div class="ManageFormLabel">
 	  	Email
 	  </div>
-	  <input type="email" id="email" tabindex="2" value="" class="nudgepad"></input>
-	  <div id="updateButton" class="nudgepad" onclick="Manage.save()">
+	  <input type="email" id="ManageEmail" tabindex="2" value="" class="nudgepad"></input>
+	  <div id="ManageUpdateButton" class="nudgepad" onclick="Manage.save()">
 		  Update
 		</div>
 	</div>

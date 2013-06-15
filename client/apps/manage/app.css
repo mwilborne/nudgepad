@@ -1,29 +1,17 @@
-.nudgepadApp .appNav {
-  width: 100%;
-  background-color: #222;
-}
-
-.nudgepadApp .appNavContainer {
+#ManageEmail {
+  width: 300px;
+  font-size: 15px;
   padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
 }
 
-.nudgepadApp .squareButton { 
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  cursor: pointer;
-  background-color: #444;
+.ManageFormLabel {
+  font-size: 18px;
+  margin-top: 20px;
 }
 
-.nudgepadApp .squareButton:hover { 
-  background-color: #333;
-}
-
-.nudgepadApp .squareButton:active { 
-  background-color: #2a2a2a;
-}
-
-.nudgepadApp #logout {
+#ManageLogoutButton {
   line-height: 40px;
   color: #fff;
   text-decoration: none;
@@ -32,63 +20,7 @@
   margin-left: 10px;
 }
 
-.nudgepadApp .squareButton img {
-  padding-top: 12px;
-}
-
-.nudgepadApp #menuBack {
-  font-size: 15px;
-  float: left;
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  width: 70px;
-  line-height: 40px;
-  color: #fff;
-}
-
-.nudgepadApp .secondaryButton {
-  background-color: #64b81f;
-  height: 40px;
-  width: 100px;
-  text-align: center;
-  float: right;
-  line-height: 40px;
-  color: #fff;
-  font-size: 15px;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.nudgepadApp .secondaryButton:hover { 
-  background-color: #529919;
-}
-
-.nudgepadApp .secondaryButton:active { 
-  background-color: #427a14;
-}
-
-.nudgepadAppContainer .sectionLabel {
-  font-size: 36px;
-  margin-top: 60px;
-  border-bottom: 3px solid #ccc;
-  padding-bottom: 5px;
-  margin-bottom: 20px;
-}
-
-.nudgepadAppContainer .formLabel {
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-.nudgepadAppContainer #email {
-  width: 300px;
-  font-size: 15px;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #ccc;
-}
-
-.nudgepadAppContainer #updateButton {
+#ManageUpdateButton {
   background-color: #1a86d6;
   height: 40px;
   width: 100px;
