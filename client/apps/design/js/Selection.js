@@ -459,8 +459,6 @@ Design.updateSelections = function () {
   })
 }
 
-nudgepad.on('selection', Design.broadcastSelection)
 
-nudgepad.on('collage.update', Design.updateSelections)
 
 

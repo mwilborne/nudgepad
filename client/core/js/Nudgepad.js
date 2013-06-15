@@ -176,8 +176,13 @@ nudgepad.emit = function (event, space) {
  * @param {string} Name of the event.
  * @param {function} fn to unbind
  */
-nudgepad.off = function (event, fn) {
-  
+nudgepad.off = function (eventName, fn) {
+  if (!nudgepad.events[eventName])
+    return true
+  for (var i in nudgepad.events[eventName]) {
+    if (nudgepad.events[eventName][i] === fn)
+      nudgepad.events[eventName].splice(i, 1)
+  }
 }
 
 /**

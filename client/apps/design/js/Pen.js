@@ -28,10 +28,3 @@ Design.pen.draw = function (event) {
   mixpanel.track('I used the pen tool')
 }
 
-nudgepad.on('main', function () {
-  // Bind
-  $(document).on("slidestart", Design.pen.draw)
-})
-
-
-

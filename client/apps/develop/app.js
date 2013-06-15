@@ -136,7 +136,7 @@ Develop.refresh = function () {
     $('#DevelopLogHolder').html(data)
     $('#DevelopLogHolder').scrollTop($('#DevelopLogHolder').height())
   })
-  $.get('/Explorer.list', {}, function (data) {
+  $.get('/nudgepad.explorer.list', {}, function (data) {
     Develop.files = new Space(data)
     Develop.renderExplorer()
     
@@ -171,18 +171,14 @@ $(document).on('click', 'td.DevelopExplorerFolderName', function () {
   Develop.renderExplorer()
 })
 
-var visibleContent;
-
 $(document).on('click', '.DevelopToggleOption', function () {
-  visibleContent = $(this).text().toLowerCase() + 'Content'
   if(!$(this).hasClass('DevelopSelect')) {
-    $('div').removeClass('DevelopSelect');
+    $('.DevelopSelect').removeClass('DevelopSelect');
     $(this).addClass('DevelopSelect')
     $('.DevelopContent').hide()
-    $('#' + visibleContent).show()
+    $('#' + $(this).attr('value')).show()
   }
 })
-
 
 // todo: add console history
 

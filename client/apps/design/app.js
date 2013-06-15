@@ -295,6 +295,11 @@ Design.ondrop = function(e) {
 }
 
 Design.onclose = function () {
+  
+  $(document).off("slidestart", Design.pen.draw)
+  
+  nudgepad.off('selection', Design.broadcastSelection)
+  nudgepad.off('collage.update', Design.updateSelections)
 
   if (!navigator.userAgent.match(/iPad|iPhone|iPod/i))
     return null
@@ -346,12 +351,17 @@ Design.onkeydown = function (event) {
 Design.onopen = function () {
   Design.grid = new Grid()
   
+  nudgepad.on('selection', Design.broadcastSelection)
+  nudgepad.on('collage.update', Design.updateSelections)
+  
   Lasso.selector = '#DesignStageBody .scrap:visible'
   $(document).on('lasso', '.scrap', function () {
     $(this).selectMe()
     return false
   })
   Lasso.enable()
+  
+  $(document).on("slidestart", Design.pen.draw)
 
   // Prevent Images from dragging on Firefox
   $(document).on('dragstart', 'img', function(event) { event.preventDefault()})

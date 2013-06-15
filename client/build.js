@@ -50,7 +50,7 @@ _.each(cssFiles, function (filename) {
 
 var htmlFiles = _.without(fs.readdirSync(corePath + 'html'), '.DS_Store')
 _.each(htmlFiles, function (filename) {
-  includes.html += fs.readFileSync(corePath + 'html/' + filename, 'utf8')
+  code.html += fs.readFileSync(corePath + 'html/' + filename, 'utf8')
 })
 
 
