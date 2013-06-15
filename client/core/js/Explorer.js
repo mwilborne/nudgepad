@@ -38,7 +38,7 @@ Explorer.getSite = function (callback) {
 }
 
 Explorer.quickEdit = function () {
-  Explorer.edit(prompt('Enter path to file you want to edit', 'public/nudgepad.site.css'))
+  Explorer.edit(prompt('Enter path to file you want to edit', 'public/site.css'))
 }
 
 Explorer.remove = function (path, callback) {

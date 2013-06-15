@@ -92,9 +92,9 @@ app.nudgepad.site.set('collage', new Space())
 // Load the HTML file and add mtimes as query string so the
 // worker always get the latest version of the nudgepad.js and nudgepad.css
 // todo: remove this?
-app.nudgepad.nudgepadCssVersion = fs.statSync(clientPath + 'public/nudgepad.min.css').mtime.getTime()
-app.nudgepad.nudgepadJsVersion = fs.statSync(clientPath + 'public/nudgepad.min.js').mtime.getTime()
-app.nudgepad.nudgepadHtmlVersion = fs.readFileSync(clientPath + 'public/nudgepad.min.html', 'utf8')
+app.nudgepad.nudgepadCssVersion = fs.statSync(clientPath + 'production/nudgepad.min.css').mtime.getTime()
+app.nudgepad.nudgepadJsVersion = fs.statSync(clientPath + 'production/nudgepad.min.js').mtime.getTime()
+app.nudgepad.nudgepadHtmlVersion = fs.readFileSync(clientPath + 'production/nudgepad.min.html', 'utf8')
   .replace(/JSV/, app.nudgepad.nudgepadJsVersion)
   .replace(/CSSV/, app.nudgepad.nudgepadCssVersion)
 
@@ -335,7 +335,7 @@ app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
   }
   
   // If development, send html that pulls verbose NudgePad
-  fs.readFile(clientPath + 'public/nudgepad.dev.html', 'utf8', function (err, data) {
+  fs.readFile(clientPath + 'production/nudgepad.dev.html', 'utf8', function (err, data) {
     res.send(data)
     return 
   })
