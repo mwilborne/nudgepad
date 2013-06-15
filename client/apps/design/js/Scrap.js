@@ -143,7 +143,7 @@ Scrap.prototype.render = function (context, index) {
   if (this.values.tag && this.values.tag.match(/style|link/)) {
     this.setElementTag(context)
     this.setContent(context, options)
-    $('#nudgepadStageHead').append(this.div.toHtml())
+    $('#DesignStageHead').append(this.div.toHtml())
     return this
   }
   
@@ -156,7 +156,7 @@ Scrap.prototype.render = function (context, index) {
 //    this.div.attr('path', this.getPath())
 //    this.div.attr('selector', this.selector())
     this.div.tag = 'div'
-    $('#nudgepadStageBody').append(this.div.toHtml())
+    $('#DesignStageBody').append(this.div.toHtml())
     return this
   }
   
@@ -172,7 +172,7 @@ Scrap.prototype.selector = function () {
   var selector = this.path.replace(/[^a-z0-9\-\.\_ ]/gi, '').replace(/ /g, '>#')
   if (!selector)
     return ''
-  return '#nudgepadStageBody>#' + selector
+  return '#DesignStageBody>#' + selector
 }
 
 /**
@@ -268,7 +268,7 @@ Scrap.unlock = function () {
 
 nudgepad.on('main', function () {
   $(document).on('click', 'a.scrap, .scrap a, .scrap div', Scrap.disableLinks)
-  $('#nudgepadStage').on("tap", ".scrap", Scrap.selectOnTap)
+  $('#DesignStage').on("tap", ".scrap", Scrap.selectOnTap)
   
   $('body').on("hold", ".scrap", Scrap.unlock)
   

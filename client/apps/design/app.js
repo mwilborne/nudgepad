@@ -344,7 +344,7 @@ Design.onkeydown = function (event) {
 Design.onopen = function () {
   Design.grid = new Grid()
   
-  Lasso.selector = '#nudgepadStageBody .scrap:visible'
+  Lasso.selector = '#DesignStageBody .scrap:visible'
   $(document).on('lasso', '.scrap', function () {
     $(this).selectMe()
     return false

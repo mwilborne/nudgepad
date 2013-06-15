@@ -203,7 +203,7 @@ Design.stage.selection.editLoop = function () {
   $('.selection').each(function (index) {
     
     var scrap = $(this).scrap()
-    $(this).addClass('nudgepadHighlightedScrap')
+    $(this).addClass('DesignHighlightedScrap')
     // If its offscreen, scroll to bring it fully on screen.
     $(this).scrollMinimal()
     var value = scrap.get(property)
@@ -217,10 +217,10 @@ Design.stage.selection.editLoop = function () {
     
     // If they didnt change name continue
     if (newValue == value) {
-      $(this).removeClass('nudgepadHighlightedScrap')
+      $(this).removeClass('DesignHighlightedScrap')
       return true
     } 
-    $(this).removeClass('nudgepadHighlightedScrap')
+    $(this).removeClass('DesignHighlightedScrap')
     
     scrap.set(property, newValue)
     scrap.render()
@@ -287,11 +287,11 @@ Design.stage.selection.move = function (x, y) {
   // Show dimensions
   var el = $($('.selection')[0])
   var position = 'X ' + parseFloat(el.css('left')) + '<br>Y ' + parseFloat(el.css('top'))
-  $('#nudgepadDimensions').css({
+  $('#DesignDimensions').css({
     left : 10 + el.offset().left + el.outerWidth(),
     top : -10 + el.offset().top + Math.round(el.outerHeight()/2)
     }).html(position)
-  Popup.open('#nudgepadDimensions')
+  Popup.open('#DesignDimensions')
   
   $('.handle').trigger("update")
   Design.stage.commit()
@@ -363,7 +363,7 @@ Design.stage.selection.renameScraps = function () {
   var todo = $('.selection').length
   $('.selection').each(function (index) {
     var scrap = $(this).scrap()
-    $(this).addClass('nudgepadHighlightedScrap')
+    $(this).addClass('DesignHighlightedScrap')
     
     // If its offscreen, scroll to bring it fully on screen.
     $(this).scrollMinimal()
@@ -372,7 +372,7 @@ Design.stage.selection.renameScraps = function () {
     
     // If they didnt change name continue
     if (newId == scrap.id) {
-      $(this).removeClass('nudgepadHighlightedScrap')
+      $(this).removeClass('DesignHighlightedScrap')
       return true
     }
       

@@ -78,12 +78,12 @@ nudgepad.on('main', function () {
   }
   
   $(document).on('tap', '.imageThumbDrop img', function() {
-    var imageY = ($('#nudgepadStage').height() / 2) - 130
+    var imageY = ($('#DesignStage').height() / 2) - 130
     var imageX = 100
     Design.stage.insert('images\n style\n  position absolute\n  top ' + imageY +'\n  left ' + imageX + '\n tag img\n src ' + $(this).attr('src'))
   })
   
-  $('#nudgepadRibbon').on('slidestart', '.imageThumbDrop img', function() {
+  $('#DesignRibbon').on('slidestart', '.imageThumbDrop img', function() {
     Design.stage.dragAndDrop('images\n style\n  position absolute\n  top 0px\n  left 0px\n tag img\n src ' + $(this).attr('src'))
     mixpanel.track('I dropped a ribbon droppable')
   })
@@ -92,7 +92,7 @@ nudgepad.on('main', function () {
   // We do this on live, so that it wont interfere with events bound
   // to items inside the ribbon, but it will prevent events from
   // reaching nudgepadbody hopefully
-  $('#nudgepadRibbon').on('mousedown slide slidestart', function (event) {
+  $('#DesignRibbon').on('mousedown slide slidestart', function (event) {
     
     event.stopPropagation()
   })

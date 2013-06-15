@@ -55,7 +55,7 @@ Design.contentEditor.focus = function (selector, selectAll) {
       scrap.values[attr] = val
       Design.stage.commit()
       element.remove()
-      $('#nudgepadStageBody').append(scrap.toHtml(null, true))
+      $('#DesignStageBody').append(scrap.toHtml(null, true))
       element.selectMe()
     })
     return

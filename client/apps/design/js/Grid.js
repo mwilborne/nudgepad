@@ -45,9 +45,9 @@ Grid.prototype.addDynamicPoints = function () {
 
   var grid = this
   // Cap grid at 200 elements for now
-  if ($('#nudgepadStageBody #body').children('.scrap:not(.selection)').length > 200)
+  if ($('#DesignStageBody #body').children('.scrap:not(.selection)').length > 200)
     return true
-  $('#nudgepadStageBody #body').children('.scrap:not(.selection)').each(function(){
+  $('#DesignStageBody #body').children('.scrap:not(.selection)').each(function(){
     // Make sure no problem fetching scrap
     var scrap = $(this).scrap()
     if (scrap)
@@ -62,18 +62,18 @@ Grid.prototype.addFixedPoints = function () {
 
 
   // verticals
-  var start = $('#nudgepadStageBody').position().left
-  var end = $('#nudgepadStageBody').position().left + $('#nudgepadStageBody').outerWidth()
+  var start = $('#DesignStageBody').position().left
+  var end = $('#DesignStageBody').position().left + $('#DesignStageBody').outerWidth()
   this.horizontal_spacing = parseFloat(this.horizontal_spacing)
   for (var i = start; i <= end; i = i + this.horizontal_spacing) {
-    this.addPoint(i, 0, '#nudgepadStageBody')  
+    this.addPoint(i, 0, '#DesignStageBody')  
   }
   
-  start = $('#nudgepadStageBody').position().top
-  end = $('#nudgepadStageBody').position().top + $('#nudgepadStageBody').outerHeight()
+  start = $('#DesignStageBody').position().top
+  end = $('#DesignStageBody').position().top + $('#DesignStageBody').outerHeight()
   this.vertical_spacing = parseFloat(this.vertical_spacing)
   for (var i = start; i <= end; i = i + this.vertical_spacing) {
-    this.addPoint(0, i, '#nudgepadStageBody')  
+    this.addPoint(0, i, '#DesignStageBody')  
   }
 
 }
@@ -130,17 +130,17 @@ Grid.prototype.create = function () {
   if (this.snap_to_container) {
     // We create these in specific order so that the bigger scraps override the little ones.
     // left
-//    this.addPoint(0, $('#nudgepadStageBody').position().top, '#nudgepadStageBody')
+//    this.addPoint(0, $('#DesignStageBody').position().top, '#DesignStageBody')
     // right
-    this.addPoint($('#nudgepadStageBody').outerWidth(), 0, '#nudgepadStageBody')
+    this.addPoint($('#DesignStageBody').outerWidth(), 0, '#DesignStageBody')
     // center
-    this.addPoint(Math.round($('#nudgepadStageBody').outerWidth()/2), 0, '#nudgepadStageBody')
+    this.addPoint(Math.round($('#DesignStageBody').outerWidth()/2), 0, '#DesignStageBody')
     // top
-    this.addPoint(0, 0, '#nudgepadStageBody')
+    this.addPoint(0, 0, '#DesignStageBody')
     // bottom
-    this.addPoint(0, $('#nudgepadStageBody').height(), '#nudgepadStageBody')
+    this.addPoint(0, $('#DesignStageBody').height(), '#DesignStageBody')
     // middle
-    this.addPoint(0, Math.round($(window).height()/2), '#nudgepadStageBody')
+    this.addPoint(0, Math.round($(window).height()/2), '#DesignStageBody')
     
   }
   
@@ -157,14 +157,14 @@ Grid.prototype.create = function () {
  */
 Grid.prototype.draw = function () {
   
-  var width = $("#nudgepadStageBody").width()
-  var height = $("#nudgepadStageBody").height()
+  var width = $("#DesignStageBody").width()
+  var height = $("#DesignStageBody").height()
   
   if (this.context)
     this.erase()
   
   var canvas = '<canvas style="position: absolute; top: 0; left: 0; z-index: 0;" id="grid_canvas" width="' + width + '" height="' + height + '"></canvas>'
-  $('#nudgepadStageBody').append(canvas)
+  $('#DesignStageBody').append(canvas)
   
   this.context = document.getElementById('grid_canvas').getContext('2d')
   this.context.strokeStyle = '#eee'
@@ -182,7 +182,7 @@ Grid.prototype.draw = function () {
     var point = this.points[i]
     
     // Dont draw lines based on objects
-    if (point.selector !== '#nudgepadStageBody')
+    if (point.selector !== '#DesignStageBody')
       continue
     
     this.context.lineWidth = 0.5
@@ -242,8 +242,8 @@ Grid.prototype.drawSnapline = function (point1, point2) {
 //  console.log(point2.selector)
   
   // Dont draw lines based on objects
-  if (point2.selector !== '#nudgepadStageBody')
-    $(point2.selector).addClass('nudgepadSnapOrigin')
+  if (point2.selector !== '#DesignStageBody')
+    $(point2.selector).addClass('GridSnapOrigin')
 }
 
 /**
@@ -253,11 +253,11 @@ Grid.prototype.drawSnaplineCanvas = function () {
   if (this.snapline_context)
     return true
   
-  this.width = $("#nudgepadStageBody").width()
-  this.height = $("#nudgepadStageBody").height()
+  this.width = $("#DesignStageBody").width()
+  this.height = $("#DesignStageBody").height()
   
   var canvas = '<canvas style="position: absolute; top: 0; left: 0; z-index: 100;" id="snapline_canvas" width="' + this.width + '" height="' + this.height + '"></canvas>'
-  $('#nudgepadStageBody').append(canvas)
+  $('#DesignStageBody').append(canvas)
   
   this.snapline_context = document.getElementById('snapline_canvas').getContext('2d')
   this.snapline_context.lineWidth = 1
@@ -275,7 +275,7 @@ Grid.prototype.erase = function () {
   delete this.context
   delete this.snapline_context
   $('#grid_canvas,#snapline_canvas').remove()
-  $('.nudgepadSnapOrigin').removeClass('nudgepadSnapOrigin')
+  $('.GridSnapOrigin').removeClass('GridSnapOrigin')
 }
 
 /**
@@ -284,7 +284,7 @@ Grid.prototype.eraseSnaplines = function () {
   
   if (!this.snaplines) return false
   
-  $('.nudgepadSnapOrigin').removeClass('nudgepadSnapOrigin')
+  $('.GridSnapOrigin').removeClass('GridSnapOrigin')
   
   if (!this.snapline_context)
     return false
@@ -373,6 +373,6 @@ Grid.prototype.getDelta = function (scrap_points) {
 Grid.prototype.removeSnaplines = function () {
   delete this.snapline_context
   $('#snapline_canvas').remove()
-  $('.nudgepadSnapOrigin').removeClass('nudgepadSnapOrigin')
+  $('.GridSnapOrigin').removeClass('GridSnapOrigin')
 }
 

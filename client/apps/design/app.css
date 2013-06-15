@@ -1,0 +1,105 @@
+#DesignDimensions {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: left;
+  line-height: 130%;
+  font-size: 12px;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 2px;
+  padding: 6px 10px 6px 10px;
+  z-index: 200;
+}
+
+#DesignCodePanel {
+  position: fixed;
+  z-index: 5000;
+  left: 0;
+  top: 0;
+  padding : 3px;
+  font-family : monospace;
+  font-size : 14px;
+  outline : 0;
+  width: 40%;
+  bottom: 49px;
+  margin: 0;
+  background-color : #1e1e1e;
+  color: #b1b1b1;
+  border: 0;
+  display: none;
+  -webkit-user-select: auto;
+  -moz-user-select: text;
+  user-select: auto;
+}
+
+
+/** The scrap that is being snapped to*/
+.GridSnapOrigin {
+  outline: 1px solid #5555ff;
+}
+
+.DesignEditHandle {
+  height: 16px;
+  position: absolute;
+  z-index: 200;
+}
+
+.DesignEditStyleHandle, .DesignLinkHandle {
+  background-image : url(/nudgepad/public/images/pencil_lt.png);
+  background-size: 14px;
+  background-position : center;
+  background-repeat : no-repeat;
+  background-color: #000;
+  height : 30px;
+  width : 30px;
+  position: relative;
+  cursor: pointer;
+  float: left;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+
+#DesignStage {
+  position: relative;
+  height: 637px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* this makes the background scroll with the content */
+  background-attachment: local;
+  background-color: rgb(233, 233, 233);
+  width: 100%;
+}
+
+#DesignStageHead {
+  height: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#DesignStageBody {
+  height: 1000px;
+  position: relative;
+  background-color: white;
+  box-shadow: 1px 1px 5px black;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/**
+ * We add this as kind of a hack, because adding bottom padding to DesignStage has no effect.
+ */
+#DesignStageBottomPadding {
+  height: 200px;
+}
+
+
+
+
+

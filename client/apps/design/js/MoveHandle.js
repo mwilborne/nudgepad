@@ -65,8 +65,8 @@ nudgepad.MoveHandle.mousedown = function () {
 nudgepad.MoveHandle.selectTopScrap = function () {
 
   // get element at point
-  var offsetLeft = $('#nudgepadStageBody').offset().left
-  var offsetTop = $('#nudgepadStageBody').offset().top
+  var offsetLeft = $('#DesignStageBody').offset().left
+  var offsetTop = $('#DesignStageBody').offset().top
   var element = $.topDiv('.scrap:visible', Mouse.down.pageX - offsetLeft, Mouse.down.pageY - offsetTop + Design.stage.scrollTop())
   // if a narrow div and no element underneath, return
   if (!element)
@@ -112,7 +112,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
   })
   
   var position = 'X ' + parseFloat(owner.css('left')) + '<br>Y ' + parseFloat(owner.css('top'))
-  $('#nudgepadDimensions').css({
+  $('#DesignDimensions').css({
     left : 10 + owner.offset().left + owner.outerWidth(),
     top : -10 + owner.offset().top + Math.round(owner.outerHeight(true)/2)
     }).html(position)
@@ -128,7 +128,7 @@ nudgepad.MoveHandle.slideend = function () {
   
   $('.handle').trigger('update').show()
   Design.grid.removeSnaplines()
-  $('#nudgepadDimensions').hide()
+  $('#DesignDimensions').hide()
   Design.stage.commit()
 }
 
@@ -137,7 +137,7 @@ nudgepad.MoveHandle.slidestart = function () {
   $('.handle').not(this).hide()
   var owner = $(this).owner()
   var position = 'X ' + parseFloat(owner.css('left')) + '<br>Y ' + parseFloat(owner.css('top'))
-  $('#nudgepadDimensions').css({
+  $('#DesignDimensions').css({
     left : 10 + owner.offset().left + owner.outerWidth(),
     top : -10 + owner.offset().top + Math.round(owner.outerHeight(true)/2)
     }).html(position).show()

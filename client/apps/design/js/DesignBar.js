@@ -5,14 +5,14 @@ nudgepad.on('main', function () {
     if ($(this).hasClass('selectedDroppable')) {
       $(this).removeClass('selectedDroppable')
       $('.barDroppable').removeClass('lowlight');
-      $('#nudgepadRibbon').slideUp('fast')
+      $('#DesignRibbon').slideUp('fast')
     }
     else {
       $('.barDroppable').removeClass('selectedDroppable')
       $(this).addClass('selectedDroppable');
       $(this).removeClass('lowlight')
       $('.barDroppable').not('.selectedDroppable').addClass('lowlight');
-      $('#nudgepadRibbon').slideDown('fast')
+      $('#DesignRibbon').slideDown('fast')
     }
   })
   $('.barDroppable').on('slidestart', function() {

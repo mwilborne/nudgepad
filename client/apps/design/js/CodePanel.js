@@ -7,7 +7,7 @@ Design.codePanel.livePreviewStart = function () {
   Design.codePanel.livePreviewTimeout = setTimeout('Design.codePanel.livePreview()', 500)
 }
 Design.codePanel.livePreview = function () {
-  var space = new Space($('#nudgepadCodePanel').val())
+  var space = new Space($('#DesignCodePanel').val())
   if (Design.stage.selection.exists()) {
     Design.stage.selection.clear()
   }
@@ -20,18 +20,18 @@ Design.codePanel.livePreview = function () {
 }
 
 Design.codePanel.close = function () {
-  $('#nudgepadCodePanel').hide()
-  $('#nudgepadStage').css('padding-left', Design.codePanel.currentPadding)
+  $('#DesignCodePanel').hide()
+  $('#DesignStage').css('padding-left', Design.codePanel.currentPadding)
   nudgepad.off('selection', Design.codePanel.load)
   nudgepad.off('stage', Design.codePanel.load)
 }
 
 Design.codePanel.isOpen = function () {
-  return $('#nudgepadCodePanel:visible').length > 0
+  return $('#DesignCodePanel:visible').length > 0
 }
 
 Design.codePanel.load = function () {
-  var textarea = $('#nudgepadCodePanel')
+  var textarea = $('#DesignCodePanel')
   // todo: allow for just showing of selection
 //  if (Design.stage.selection.exists()) {
 //    Design.stage.selection.clear()
@@ -43,10 +43,10 @@ Design.codePanel.load = function () {
 }
 
 Design.codePanel.open = function () {
-  var textarea = $('#nudgepadCodePanel')
+  var textarea = $('#DesignCodePanel')
   textarea.show()
-  Design.codePanel.currentPadding = $('#nudgepadStage').css('padding-left')
-  $('#nudgepadStage').css('padding-left', '40%')
+  Design.codePanel.currentPadding = $('#DesignStage').css('padding-left')
+  $('#DesignStage').css('padding-left', '40%')
   Design.codePanel.load()
   textarea.on('keyup', Design.codePanel.livePreviewStart)
   textarea.on('blur', Design.stage.commit)

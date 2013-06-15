@@ -2,20 +2,20 @@
 $.fn.scrollMinimal = function(smooth) {
   var cTop = this.position().top
   var cHeight = this.outerHeight(true)
-  var windowTop = $('#nudgepadStage').scrollTop()
-  var visibleHeight = $('#nudgepadStage').height()
+  var windowTop = $('#DesignStage').scrollTop()
+  var visibleHeight = $('#DesignStage').height()
 
   if (cTop < windowTop) {
     if (smooth) {
-      $('#nudgepadStage').animate({'scrollTop': cTop}, 'slow', 'swing')
+      $('#DesignStage').animate({'scrollTop': cTop}, 'slow', 'swing')
     } else {
-      $('#nudgepadStage').scrollTop(cTop)
+      $('#DesignStage').scrollTop(cTop)
     }
   } else if (cTop + cHeight > windowTop + visibleHeight) {
     if (smooth) {
-      $('#nudgepadStage').animate({'scrollTop': cTop - visibleHeight + cHeight}, 'slow', 'swing')
+      $('#DesignStage').animate({'scrollTop': cTop - visibleHeight + cHeight}, 'slow', 'swing')
     } else {
-      $('#nudgepadStage').scrollTop(cTop - visibleHeight + cHeight)
+      $('#DesignStage').scrollTop(cTop - visibleHeight + cHeight)
     }
   }
 };

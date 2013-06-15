@@ -1,4 +1,4 @@
-#nudgepadRibbon {
+#DesignRibbon {
   position: fixed;
   left: 0px;
   width: 100%;
@@ -9,7 +9,7 @@
   display: none;
 }
 
-#nudgepadRibbon .nudgepad {
+#DesignRibbon .nudgepad {
   position: absolute;
 }
 
@@ -29,69 +29,69 @@
   position: relative;
  }
 .nudgepad#image_list div img{
- max-width: 40px;
- max-height: 40px;
- vertical-align: middle;
-}
+  max-width: 40px;
+  max-height: 40px;
+  vertical-align: middle;
+} 
 
-#nudgepadRibbon #droppablesList {
+#DesignRibbon #droppablesList {
   float: left;
 }
 
-#nudgepadRibbon #droppablesList .droppableImg {
+#DesignRibbon #droppablesList .droppableImg {
   float: left;
   margin-left: 10px;
   margin-top: 10px;
 }
 
 .imageDroppableOptions {
-      display: none;
+  display: none;
 }
 
 #ribbonUploadButton {
-   float: left;
-   width: 70px;
-   background-color: #555;
-   font-size: 14px;
-   height: 40px;
-   line-height: 40px;
-   color: #fff;
-   margin-left: 10px;
-   margin-top: 20px;
-   text-align: center;
-   cursor: pointer;
-   font-weight: 400;
-   overflow: hidden;
-   position: relative;
+  float: left;
+  width: 70px;
+  background-color: #555;
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  margin-left: 10px;
+  margin-top: 20px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 400;
+  overflow: hidden;
+  position: relative;
 }
 
 #ribbonUploadButton:hover {
-   background-color: #444;
+  background-color: #444;
 }
 
 #ribbonUploadButton:active {
-   background-color: #3a3a3a;
+  background-color: #3a3a3a;
 }
 
 #imageDroppablesList {
-   float: left;
+  float: left;
 }
 
 .imageThumbDrop {
-   float: left;
-   height: 60px;
-   width: 60px;
-   margin-left: 10px;
-   text-align: center;
-   background-color: #2a2a2a;
-   margin-top: 10px;
-   display: inline-block;
-   line-height: 60px;
-   padding: 0;
+  float: left;
+  height: 60px;
+  width: 60px;
+  margin-left: 10px;
+  text-align: center;
+  background-color: #2a2a2a;
+  margin-top: 10px;
+  display: inline-block;
+  line-height: 60px;
+  padding: 0;
 }
 
 .imageThumbDrop img {
-   padding: 0;
+  padding: 0;
   max-height: 50px;
   max-width: 50px;
   vertical-align: middle;

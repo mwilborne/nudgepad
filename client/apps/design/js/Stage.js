@@ -83,8 +83,8 @@ Design.stage.dragAndDrop = function (scrap) {
   var halfWidth = Math.round(width/2)
   var halfHeight = Math.round(height/2)
 
-  var pageLeft = $('#nudgepadStageBody').offset().left
-  var bodyScroll = $('#nudgepadStage').scrollTop()
+  var pageLeft = $('#DesignStageBody').offset().left
+  var bodyScroll = $('#DesignStage').scrollTop()
   
   var left = Mouse.move.pageX - pageLeft - halfWidth
   var y = Mouse.move.pageY - halfHeight + bodyScroll
@@ -204,7 +204,7 @@ Design.stage.insert = function (space, drag, xMove, yMove, center) {
   
   if (center) {
     var selection_dimensions = $('.selection').dimensions()
-    xMove = Math.round(($('#nudgepadStageBody').width() / 2) - selection_dimensions.width/2)
+    xMove = Math.round(($('#DesignStageBody').width() / 2) - selection_dimensions.width/2)
     yMove = Math.round(Design.stage.scrollTop() + ($(window).height() / 2) - selection_dimensions.height/2)
   }
   
@@ -233,7 +233,7 @@ Design.stage.insert = function (space, drag, xMove, yMove, center) {
       ghost.attr('id', 'nudgepad_move_ghost').removeClass('scrap selection')
       ghost.on('mousedown', function () {subject.remove()})
       // space.style
-      ghost.css('font-family', $('#nudgepadStageBody').css('font-family'))
+      ghost.css('font-family', $('#DesignStageBody').css('font-family'))
       if (scrap.values.style)
         ghost.css(scrap.values.style.values)
       ghost.css({
@@ -307,7 +307,7 @@ Design.stage.redo = function () {
  * Refresh the stage.
  */
 Design.stage.render = function () {
-  $('#nudgepadStageHead').html('')
+  $('#DesignStageHead').html('')
   $('#nudgepadRemoteSelections').html('')
   $(".scrap,#body").remove()
   Design.page.loadScraps()
@@ -332,22 +332,22 @@ Design.stage.reload = function () {
 }
 
 Design.stage.reset = function () {
-  $('#nudgepadStage').height($(window).height() - 40)
+  $('#DesignStage').height($(window).height() - 40)
 }
 
 Design.stage.ribbonClose = function () {
-  $('#nudgepadStage').height($(window).height() - 40)
+  $('#DesignStage').height($(window).height() - 40)
 }
 
 Design.stage.ribbonOpen = function () {
-  $('#nudgepadStage').height($(window).height() - 122)
+  $('#DesignStage').height($(window).height() - 122)
 }
 
 /**
  * Returns scroll top of the frame.
  */
 Design.stage.scrollTop = function () {
-  return $('#nudgepadStage').scrollTop()
+  return $('#DesignStage').scrollTop()
 }
 
 /**
@@ -407,33 +407,33 @@ Design.stage.setTimeline = function (name) {
 
 var stageViews = new Space({
   'full' : function () {
-    $('#nudgepadStage').css({
+    $('#DesignStage').css({
       width : '100%',
       padding : 0
     })
-    $('#nudgepadStageBody').css({
+    $('#DesignStageBody').css({
       'height' : '100%',
       'min-height' : '1000px'
     })
   },
   'ipad' : function (){
     var padding = Math.round(($(window).width() - 1024)/2) + 'px'
-    $('#nudgepadStage').css({
+    $('#DesignStage').css({
       width : '1024px',
       padding : '20px ' + padding + ' 1000px ' + padding,
     })
-    $('#nudgepadStageBody').css({
+    $('#DesignStageBody').css({
       'height' : '100%',
       'min-height' : '768px'
     })
   },
   'ios' : function (){
     var padding = Math.round(($(window).width() - 320)/2) + 'px'
-    $('#nudgepadStage').css({
+    $('#DesignStage').css({
       padding : '20px ' + padding + ' 20px ' + padding,
       width: '320px'
     })
-    $('#nudgepadStageBody').css({
+    $('#DesignStageBody').css({
       'height' : '356px'
     })
   }
@@ -445,7 +445,7 @@ Design.stage.toggleView = function () {
   
   Design.stage.currentView = stageViews.next(Design.stage.currentView)
   stageViews.get(Design.stage.currentView)()
-  $('#nudgepadStageBody').width()
+  $('#DesignStageBody').width()
   Flasher.flash(Design.stage.currentView + ' view')
 }
 
@@ -463,30 +463,30 @@ Design.stage.updateTimeline = function () {
 nudgepad.on('main', function () {
   
   stageViews.get('ipad')()
-  $('#nudgepadStageBody').width()
+  $('#DesignStageBody').width()
   
   
   
   
   /*
-  $("#nudgepadStage").on('rendered', function (event, id) {
+  $("#DesignStage").on('rendered', function (event, id) {
     if (Design.page[id].locked)
       $('.scrap#' + id).addClass('lockedScrap')
   })
   */
 
-  $("#nudgepadStage").on("tap", function (event) {
+  $("#DesignStage").on("tap", function (event) {
     Design.stage.selection.clear()
     return true
   })
 
   $(window).on('resize', function () {
     stageViews.get(Design.stage.currentView)()
-    $('#nudgepadStageBody').width()
-    if ($('#nudgepadRibbon:visible').length)
-      $('#nudgepadStage').height($(window).height() - 122)
+    $('#DesignStageBody').width()
+    if ($('#DesignRibbon:visible').length)
+      $('#DesignStage').height($(window).height() - 122)
     else 
-      $('#nudgepadStage').height($(window).height() - 40)
+      $('#DesignStage').height($(window).height() - 40)
   })
 
   Design.stage.reset()

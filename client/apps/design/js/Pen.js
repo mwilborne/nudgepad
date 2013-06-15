@@ -13,8 +13,8 @@ Design.pen.draw = function (event) {
   if ($.isOnScrollbar(Mouse.down.clientX, Mouse.down.clientY))
     return true
   
-  var offsetLeft = $('#nudgepadStageBody').offset().left
-  var offsetTop = $('#nudgepadStageBody').offset().top
+  var offsetLeft = $('#DesignStageBody').offset().left
+  var offsetTop = $('#DesignStageBody').offset().top
   var x = Mouse.down.pageX - offsetLeft
   var y = Mouse.down.pageY - offsetTop
   var scraps = new Space().set('container', new Space("style\n position absolute\n left " + x + "px\n top " + y + "px\n width 1px\n height 1px\n"))

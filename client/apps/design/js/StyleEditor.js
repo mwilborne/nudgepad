@@ -5,7 +5,7 @@ nudgepad.livePreviewStart = function () {
   nudgepad.livePreviewTimeout = setTimeout('nudgepad.livePreview()', 500)
 }
 nudgepad.livePreview = function () {
-  var text_area = $('#nudgepadStyleEditorCssEditor')
+  var text_area = $('#DesignStyleEditorCssEditor')
   var scrap = nudgepad.livePreviewScrap
   scrap.set('style', new Space(text_area.val()))
   scrap.element().attr('style', '').css(scrap.get('style').values)
@@ -19,7 +19,7 @@ nudgepad.styleEditor = function (scrap) {
   $('.handle').remove()
   
   // Insert Modal
-  var modal_screen = $('<div id="nudgepadStyleEditorModal" class="nudgepad"/>')
+  var modal_screen = $('<div id="DesignStyleEditorModal" class="nudgepad"/>')
   modal_screen.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
@@ -33,7 +33,7 @@ nudgepad.styleEditor = function (scrap) {
   // Create styleEditor div
   // width 295px
   // height 320px
-  var styleEditor = $('<div id="nudgepadStyleEditor" class="nudgepad"></div>')
+  var styleEditor = $('<div id="DesignStyleEditor" class="nudgepad"></div>')
   
   styleEditor.css({
     "left" : element.offset().left + 2 + "px",
@@ -41,7 +41,7 @@ nudgepad.styleEditor = function (scrap) {
   })
   
   // Insert top bar
-  var top_edit_bar = $('<div id="nudgepadStyleEditorTopBar"></div>')
+  var top_edit_bar = $('<div id="DesignStyleEditorTopBar"></div>')
   styleEditor.append(top_edit_bar)
   
   // Style tool
@@ -401,7 +401,7 @@ nudgepad.styleEditor = function (scrap) {
   styleEditorContainer.append(clear)
   
   // Insert text editor
-  var textEditorContainer = $('<div id="nudgepadStyleEditorTextEditor"></div>')
+  var textEditorContainer = $('<div id="DesignStyleEditorTextEditor"></div>')
   styleEditor.append(textEditorContainer)
   
   var currentFont = $('.selection').css('font-family');
@@ -668,7 +668,7 @@ nudgepad.styleEditor = function (scrap) {
   textEditorContainer.append(clear)
   
   // Insert text_area
-  var text_area = $('<textarea id="nudgepadStyleEditorCssEditor"></textarea>')
+  var text_area = $('<textarea id="DesignStyleEditorCssEditor"></textarea>')
   if (scrap.get('style'))
     text_area.val(scrap.get('style'))
   text_area.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
@@ -680,11 +680,11 @@ nudgepad.styleEditor = function (scrap) {
   styleEditor.append(text_area)
   
   // Insert bottom bar
-  var button_container = $('<div id="nudgepadStyleEditorBottomBar"></div>')
+  var button_container = $('<div id="DesignStyleEditorBottomBar"></div>')
   text_area.append(button_container)
   
   // Insert save button
-  var save_button = $('<div id="nudgepadStyleEditorSaveButton">Save</div>')
+  var save_button = $('<div id="DesignStyleEditorSaveButton">Save</div>')
   save_button.on('click', function () {
     Design.stage.commit()
     $('.handle').trigger('update')
@@ -780,12 +780,12 @@ nudgepad.styleEditor = function (scrap) {
  // scroll to reveal the styleEditor
   var difference = styleEditor.position().top + styleEditor.outerHeight() - Design.stage.height()
   if (difference > 0) {
-    $('#nudgepadStage').scrollTop($('#nudgepadStage').scrollTop() + difference)
+    $('#DesignStage').scrollTop($('#DesignStage').scrollTop() + difference)
     styleEditor.css('top', parseFloat(styleEditor.css('top')) - difference)
   }
   var difference = styleEditor.position().left + styleEditor.outerWidth() - $(window).width()
   if (difference > 0) {
-    $('#nudgepadStage').scrollLeft($('#nudgepadStage').scrollLeft() + difference)
+    $('#DesignStage').scrollLeft($('#DesignStage').scrollLeft() + difference)
     styleEditor.css('left', parseFloat(styleEditor.css('left')) - difference)
   }
 }

@@ -137,7 +137,7 @@ nudgepad.StretchHandle.slide = function () {
   
   // Draw the dimensions.
   var position = 'W ' + parseFloat(owner.css('width')) + '<br> H ' + parseFloat(owner.css('height'))
-  $('#nudgepadDimensions').css({
+  $('#DesignDimensions').css({
     left : 10 + owner.offset().left + owner.outerWidth(),
     top : -10 + owner.offset().top + Math.round(owner.outerHeight(true)/2)
     }).html(position)
@@ -158,7 +158,7 @@ nudgepad.StretchHandle.slidestart = function (event) {
   
 
   var position = 'W ' + parseFloat(owner.css('width')) + '<br> H ' + parseFloat(owner.css('height'))
-  $('#nudgepadDimensions').css({
+  $('#DesignDimensions').css({
     left : 10 + owner.offset().left + owner.outerWidth(),
     top : -10 + owner.offset().top + Math.round(owner.outerHeight(true)/2)
     }).html(position).show()
@@ -199,7 +199,7 @@ nudgepad.StretchHandle.slideend = function () {
   var scrap = element.scrap()
   $('.' + scrap.id + '_handle').trigger('update').show()
   Design.grid.removeSnaplines()
-  $('#nudgepadDimensions').hide()
+  $('#DesignDimensions').hide()
   Design.stage.commit()
 }
 

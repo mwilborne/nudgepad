@@ -242,7 +242,7 @@ http://davidwalsh.name/translate3d
 }
 
 */
-#nudgepadCodePanel {
+#DesignCodePanel {
   position: fixed;
   z-index: 5000;
   left: 0;
@@ -263,7 +263,7 @@ http://davidwalsh.name/translate3d
   user-select: auto;
 }
 
-#nudgepadDimensions {
+#DesignDimensions {
   display: none;
   position: absolute;
   top: 0;
@@ -279,17 +279,17 @@ http://davidwalsh.name/translate3d
   z-index: 200;
 }
 /** The scrap that is being snapped to*/
-.nudgepadSnapOrigin {
+.GridSnapOrigin {
   outline: 1px solid #5555ff;
 }
 
-.nudgepadEditHandle {
+.DesignEditHandle {
   height: 16px;
   position: absolute;
   z-index: 200;
 }
 
-.nudgepadEditStyleHandle, .nudgepadLinkHandle {
+.DesignEditStyleHandle, .DesignLinkHandle {
   background-image : url(/nudgepad/public/images/pencil_lt.png);
   background-size: 14px;
   background-position : center;
@@ -481,7 +481,7 @@ http://davidwalsh.name/translate3d
   background-color: #afb0ad;
   box-shadow: inset 0px 1px 2px rgba(0,0,0,.4);
 }
-#nudgepadRibbon {
+#DesignRibbon {
   position: fixed;
   left: 0px;
   width: 100%;
@@ -492,7 +492,7 @@ http://davidwalsh.name/translate3d
   display: none;
 }
 
-#nudgepadRibbon .nudgepad {
+#DesignRibbon .nudgepad {
   position: absolute;
 }
 
@@ -517,11 +517,11 @@ http://davidwalsh.name/translate3d
  vertical-align: middle;
 }
 
-#nudgepadRibbon #droppablesList {
+#DesignRibbon #droppablesList {
   float: left;
 }
 
-#nudgepadRibbon #droppablesList .droppableImg {
+#DesignRibbon #droppablesList .droppableImg {
   float: left;
   margin-left: 10px;
   margin-top: 10px;
@@ -580,7 +580,7 @@ http://davidwalsh.name/translate3d
   vertical-align: middle;
   line-height: 60px;
 }
-/** Todo: put these under #nudgepadStage namespace? **/
+/** Todo: put these under #DesignStage namespace? **/
 .scrap {
   z-index: 1;
   word-wrap: break-word;
@@ -604,7 +604,7 @@ http://davidwalsh.name/translate3d
   outline: 1px solid #5555ff;
 }
 
-.selection.nudgepadHighlightedScrap {
+.selection.DesignHighlightedScrap {
   outline: 2px solid blue;
   box-shadow: 1px 1px 8px 8px blue;
   z-index: 100;
@@ -1080,7 +1080,7 @@ License: MIT
 .sp-palette .sp-thumb-dark.sp-thumb-active .sp-thumb-inner
 {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAMdJREFUOE+tkgsNwzAMRMugEAahEAahEAZhEAqlEAZhEAohEAYh81X2dIm8fKpEspLGvudPOsUYpxE2BIJCroJmEW9qJ+MKaBFhEMNabSy9oIcIPwrB+afvAUFoK4H0tMaQ3XtlrggDhOVVMuT4E5MMG0FBbCEYzjYT7OxLEvIHQLY2zWwQ3D+9luyOQTfKDiFD3iUIfPk8VqrKjgAiSfGFPecrg6HN6m/iBcwiDAo7WiBeawa+Kwh7tZoSCGLMqwlSAzVDhoK+6vH4G0P5wdkAAAAASUVORK5CYII=);
-}#nudgepadStage {
+}#DesignStage {
   position: relative;
   height: 637px;
   overflow-y: scroll;
@@ -1091,14 +1091,14 @@ License: MIT
   width: 100%;
 }
 
-#nudgepadStageHead {
+#DesignStageHead {
   height: 0;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-#nudgepadStageBody {
+#DesignStageBody {
   height: 1000px;
   position: relative;
   background-color: white;
@@ -1108,14 +1108,14 @@ License: MIT
 }
 
 /**
- * We add this as kind of a hack, because adding bottom padding to nudgepadStage has no effect.
+ * We add this as kind of a hack, because adding bottom padding to DesignStage has no effect.
  */
-#nudgepadStageBottomPadding {
+#DesignStageBottomPadding {
   height: 200px;
 }
 
 
-#nudgepadStyleEditor {
+#DesignStyleEditor {
   position: absolute;
   width: auto;
   height: auto;
@@ -1163,12 +1163,12 @@ License: MIT
   left: 7px;
 }
 
-#nudgepadStyleEditor #blockContainer {
+#DesignStyleEditor #blockContainer {
   padding: 10px;
   width: 290px;
 }
 
-#nudgepadStyleEditor .editorButton {
+#DesignStyleEditor .editorButton {
   float: left;
   height: 40px;
   width: 40px;
@@ -1179,20 +1179,20 @@ License: MIT
   text-align: center;
 }
 
-#nudgepadStyleEditor .editorButton img{
+#DesignStyleEditor .editorButton img{
   padding-top: 12px;
   opacity: .6;
 }
 
-#nudgepadStyleEditor .editorButton:hover{
+#DesignStyleEditor .editorButton:hover{
   background-color: #555;
 }
 
-#nudgepadStyleEditor .editorButton:active{
+#DesignStyleEditor .editorButton:active{
   background-color: #323232;
 }
 
-#nudgepadStyleEditor .editorOption{
+#DesignStyleEditor .editorOption{
   cursor: pointer;
   margin: 0px 10px;
   display : inline-block;
@@ -1202,15 +1202,15 @@ License: MIT
   float: left;
 }
 
-#nudgepadStyleEditor .selectedEditorOption{
+#DesignStyleEditor .selectedEditorOption{
   color: #FFF;
 }
 
-#nudgepadStyleEditor textarea {
+#DesignStyleEditor textarea {
     resize: none;
 }
 
-#nudgepadStyleEditorModal {
+#DesignStyleEditorModal {
   width : 100%;
   height : 100%;
   top : 0;
@@ -1220,7 +1220,7 @@ License: MIT
   background: transparent;
 }
 
-#nudgepadStyleEditorCssEditor {
+#DesignStyleEditorCssEditor {
   position: relative;
   padding : 6px 3px;
   font-family : monospace;
@@ -1236,7 +1236,7 @@ License: MIT
   color: #CCC;
 }
 
-#nudgepadStyleEditorTextEditor{
+#DesignStyleEditorTextEditor{
   display: none;
   padding: 10px;
 }
@@ -1250,29 +1250,29 @@ License: MIT
   background-color : #333;
 }
 
-#nudgepadStyleEditor .editorHeader{
+#DesignStyleEditor .editorHeader{
   color: #888;
   font-size: 13px;
   margin-bottom: 5px;
   padding-top: 15px;
 }
 
-#nudgepadStyleEditor .columnLeft{
+#DesignStyleEditor .columnLeft{
   width: 140px;
   float: left;
   margin-right: 10px;
 }
 
-#nudgepadStyleEditor .clear{
+#DesignStyleEditor .clear{
   clear: both;
 }
 
-#nudgepadStyleEditor .columnRight{
+#DesignStyleEditor .columnRight{
   float: left;
   width: 140px;
 }
 
-#nudgepadStyleEditor .toolButton {
+#DesignStyleEditor .toolButton {
   height: 34px;
   font-size: 13px;
   line-height: 34px;
@@ -1287,43 +1287,43 @@ License: MIT
   margin-right: 1px;
 }
 
-#nudgepadStyleEditor .toolButton img {
+#DesignStyleEditor .toolButton img {
   opacity: .6;
   padding-top: 9px;
 }
 
-#nudgepadStyleEditor .toolButton:hover {
+#DesignStyleEditor .toolButton:hover {
     background-color: #555;
 }
 
-#nudgepadStyleEditor .toolButton:active {
+#DesignStyleEditor .toolButton:active {
     background-color: #323232;
 }
 
-#nudgepadStyleEditor .toolButtonOne{
+#DesignStyleEditor .toolButtonOne{
   border-radius: 3px 0px 0px 3px;
 }
 
-#nudgepadStyleEditor .toolButtonTwo{
+#DesignStyleEditor .toolButtonTwo{
 }
 
-#nudgepadStyleEditor .toolButtonThree{
+#DesignStyleEditor .toolButtonThree{
   border-radius: 0px 3px 3px 0px;
 }
 
-#nudgepadStyleEditor #alignmentOne{
+#DesignStyleEditor #alignmentOne{
   background-image : url(/nudgepad/public/images/left_lt.png);
 }
 
-#nudgepadStyleEditor #alignmentTwo{
+#DesignStyleEditor #alignmentTwo{
   background-image : url(/nudgepad/public/images/center_lt.png);
 }
 
-#nudgepadStyleEditor #alignmentThree{
+#DesignStyleEditor #alignmentThree{
   background-image : url(/nudgepad/public/images/right_lt.png);
 }
 
-#nudgepadStyleEditor #fontFamily {
+#DesignStyleEditor #fontFamily {
   width: 140px;
   overflow: hidden;
   text-align: left;
@@ -1361,42 +1361,42 @@ License: MIT
   border-radius: 3px;
 }
 
-#nudgepadStyleEditor #fontFamilyOne{
+#DesignStyleEditor #fontFamilyOne{
   font-family: 'Arial';
 }
 
-#nudgepadStyleEditor #fontFamilyTwo{
+#DesignStyleEditor #fontFamilyTwo{
   font-family: 'Georgia';
 }
 
-#nudgepadStyleEditor #fontFamilyThree{
+#DesignStyleEditor #fontFamilyThree{
   font-family: 'Times';
 }
 
-#nudgepadStyleEditor #fontColorOne{
+#DesignStyleEditor #fontColorOne{
   color: #333;
 }
 
-#nudgepadStyleEditor #fontColorTwo{
+#DesignStyleEditor #fontColorTwo{
   color: #888;
 }
 
-#nudgepadStyleEditor #fontColorThree{
+#DesignStyleEditor #fontColorThree{
   color: #fff;
   background-color: #555;
 }
 
-#nudgepadStyleEditor #textStyleTwo{
+#DesignStyleEditor #textStyleTwo{
   text-decoration: underline;
 }
 
-#nudgepadStyleEditor .transparentButton{
+#DesignStyleEditor .transparentButton{
   background-image : url(/nudgepad/public/images/invisible.png);
   background-position: center;
   background-repeat: no-repeat;
 }
 
-#nudgepadStyleEditorTopBar {
+#DesignStyleEditorTopBar {
   height : 40px;
   background-color: #2a2a2a;
   position : relative;
@@ -1404,14 +1404,14 @@ License: MIT
 }
 
 
-#nudgepadStyleEditorBottomBar {
+#DesignStyleEditorBottomBar {
   height : 40px;
   position : relative;
   background : #777;
   
 }
 
-#nudgepadStyleEditorSaveButton {
+#DesignStyleEditorSaveButton {
   width : 60px;
   height : 40px;
   float: right;
@@ -1426,23 +1426,23 @@ License: MIT
   cursor: pointer;
 }
 
-#nudgepadStyleEditorSaveButton {
+#DesignStyleEditorSaveButton {
   background-color: #11a4ed;
 }
 
-#nudgepadStyleEditorSaveButton:hover{
+#DesignStyleEditorSaveButton:hover{
   background-color: #0c8ecf;
 }
 
-#nudgepadStyleEditorSaveButton:active{
+#DesignStyleEditorSaveButton:active{
     background-color: #055780;
 }
 
-#nudgepadStyleEditorMoveUp:hover, #nudgepadStyleEditorMoveDown:hover, #nudgepadStyleEditorLock:hover, #nudgepadStyleEditorLink:hover{
+#DesignStyleEditorMoveUp:hover, #DesignStyleEditorMoveDown:hover, #DesignStyleEditorLock:hover, #DesignStyleEditorLink:hover{
   opacity: .7;
 }
 
-#nudgepadStyleEditorMoveUp:active, #nudgepadStyleEditorMoveDown:active, #nudgepadStyleEditorLock:active, #nudgepadStyleEditorLink:active{
+#DesignStyleEditorMoveUp:active, #DesignStyleEditorMoveDown:active, #DesignStyleEditorLock:active, #DesignStyleEditorLink:active{
   opacity: 1;
 }body {
   -webkit-user-select: none;
