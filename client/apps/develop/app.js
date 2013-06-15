@@ -80,7 +80,8 @@ Develop.home = function () {
 Develop.import = function () {
   TextPrompt('Import a Site ', '', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
-      Flasher.flash('Imported. Please restart')
+      Flasher.flash('Imported files.')
+      Develop.refresh()
     })
   })
 }
@@ -108,14 +109,14 @@ Develop.renderExplorer = function () {
     var row = '<tr'
     if (item.get('timeSinceLastChange')) {
       row += ' class="DevelopExplorerFile" value="' + name + '">'
-      row += '<td class="DevelopExplorerEdit standardCell">' + name + '</td>'
-      row += '<td class="DevelopExplorerRename standardCell">Rename</td>'
-      row += '<td class="DevelopExplorerRemove standardCell">Delete</td>'
-      row += '<td class="standardCell">' + (item.get('size')) + 'KB</td>'
-      row += '<td class="standardCell">' + moment(item.get('mtime')).fromNow() + '</td>'
+      row += '<td class="DevelopExplorerEdit">' + name + '</td>'
+      row += '<td class="DevelopExplorerRename">Rename</td>'
+      row += '<td class="DevelopExplorerRemove">Delete</td>'
+      row += '<td>' + (item.get('size')) + 'KB</td>'
+      row += '<td>' + moment(item.get('mtime')).fromNow() + '</td>'
     } else {
       row += ' class="DevelopExplorerFolder" value="' + name + '">'
-      row += '<td class="DevelopExplorerFolderName standardCell" colspan=5>' + name + '</td>'
+      row += '<td class="DevelopExplorerFolderName" colspan=5>' + name + '</td>'
     }
     row += '</tr>'
     explorer += row
@@ -152,7 +153,7 @@ $(document).on('click', 'td.DevelopExplorerRename', function () {
   if (!newName)
     return false
   Explorer.rename(Develop.pathPretty + $(this).parent().attr('value'),
-    Develop.pathPretty + newName, Develop.refreshFiles)
+    Develop.pathPretty + newName, Develop.refresh)
 })
 
 $(document).on('click', 'td.DevelopExplorerRemove', function () {

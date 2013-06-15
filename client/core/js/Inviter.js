@@ -5,7 +5,7 @@ Inviter.prompt = function () {
   if (!val)
     return false
   
-  $.post('/Inviter', {emails : val}, function (result) {
+  $.post('/nudgepad.invite', {emails : val}, function (result) {
     Flasher.flash('Invite Sent')
     mixpanel.track('I invited people')
   })

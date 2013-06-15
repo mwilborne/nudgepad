@@ -7,7 +7,7 @@ Explorer.create = function (path, callback) {
   var req = {}
   req.path = path
   req.content = ''
-  $.post('/Explorer.save', req, function (err) {
+  $.post('/nudgepad.explorer.save', req, function (err) {
     callback()
   })
 }
@@ -44,7 +44,7 @@ Explorer.quickEdit = function () {
 Explorer.remove = function (path, callback) {
   var req = {}
   req.path = path
-  $.post( 'Explorer.remove', req, function (data) {
+  $.post( '/nudgepad.explorer.remove', req, function (data) {
     callback()
   })
 }
@@ -55,7 +55,7 @@ Explorer.rename = function (oldPath, newPath, callback) {
   req.newPath = newPath
   if (!newPath)
     return nudgepad.error('No name provided')
-  $.post('/Explorer.rename', req, function (err) {
+  $.post('/nudgepad.explorer.rename', req, function (err) {
     callback()
   })
 }
@@ -68,12 +68,12 @@ Explorer.rename = function (oldPath, newPath, callback) {
 Explorer.edit = function (path) {
   var req = {}
   req.path = path
-  $.post( 'Explorer.get', req, function (data) {
+  $.post( '/nudgepad.explorer.get', req, function (data) {
     TextPrompt('Editing ' + path, data, function (val) {
       var req = {}
       req.path = path
       req.content = val + ''
-      $.post('/Explorer.save', req, function (err) {
+      $.post('/nudgepad.explorer.save', req, function (err) {
         console.log(err)
       })
     })
