@@ -1,5 +1,5 @@
 name Design
 description Design pages in NudgePad.
-html html
+html app.html
 js app.js js
 css css

@@ -1,0 +1,66 @@
+<textarea id="nudgepadCodePanel"></textarea>
+
+<div id="nudgepadDesignBar" class="nudgepad">
+
+  <div title="menu" id="menuButton"></div>
+
+  <div title="Block" id="blockDroppable" class="barDroppable"><img src="/nudgepad/public/images/block.png"></div>
+
+  <div title="Text" id="textDroppable" class="barDroppable"><img src="/nudgepad/public/images/text.png"></div>
+
+  <div title="Image" id="imageDroppable" class="barDroppable"><img src="/nudgepad/public/images/image.png"></div>
+
+  <div title="Sticky" id="stickyDroppable" class="barDroppable"><img src="/nudgepad/public/images/sticky.png"></div>
+
+  <div title="Add Block" id="addScrap" class="barButton"><img src="/nudgepad/public/images/plus_lt.png"></div>
+  
+  <input class="nudgepadTimeline" id="nudgepadTimeline" type="range" min="0" max="100" step="1" onclick="Design.stage.goto($(this).val())" value="100">
+  <script type="text/javascript">
+    $('#nudgepadTimeline').on('slide', function () {
+      Design.stage.goto($(this).val())
+  })</script>
+  <span class="nudgepadTimeline" id="nudgepadTimelinePosition"></span>
+  <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="Design.clearTimeline()">Erase</span>
+  
+  <div id="nudgepadTabs"><span>Index</span></div>
+  
+</div>
+
+<div id="pagesContextMenu">
+  <a onclick="$('#pagesContextMenu').hide()">Close</a>
+  <div class="contextMenuSeparator">&nbsp</div>
+  <a onclick="$('.nudgepadTimeline').toggle()">Toggle Timeline</a>
+  <a onclick="Design.stage.toggleView()">Toggle View</a>
+  <div class="contextMenuSeparator">&nbsp</div>
+  <a onclick="Design.stage.editSource()">Edit Page Source</a>
+  <div class="contextMenuSeparator">&nbsp</div>
+  <a onclick="Design.stage.selection.renameScraps()">Rename Selected</a>
+  <div class="contextMenuSeparator">&nbsp</div>
+  <a onclick="Design.importPrompt()">Import Url</a>
+</div>
+
+<div id="nudgepadDesignMenu" class="nudgepad">
+	<div onclick="window.open(Design.stage.activePage,'published')">View</div>
+  <div onclick="Design.blank()">New</div>
+  <div onclick="Design.duplicate()">Duplicate</div>
+  <div onclick="Design.renamePrompt()">Rename</div>
+  <div onclick="Design.trash()">Delete</div>
+  <div onclick="Inviter.prompt()">Invite</div>
+  <div onclick="Launcher.open('Launch')">Dashboard</div>
+</div>
+
+<div id="nudgepadRibbon" class="nudgepad">
+	<div id="ribbonUploadButton" class="imageDroppableOptions"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;" class="image_upload_iframe"></iframe></div>
+  <div id="droppablesList"></div>
+  <div id="imageDroppablesList" class="imageDroppableOptions"></div>
+</div>
+
+<div id="nudgepadDimensions"></div>
+
+<div id="nudgepadStage" class="nudgepad">
+  <div id="nudgepadStageHead"></div>
+  <div id="nudgepadStageBody"></div>
+  <div id="nudgepadStageBottomPadding"></div>
+  <style type="text/css" id="nudgepadRemoteSelections"></style>
+</div>
+
