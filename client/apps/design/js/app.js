@@ -272,6 +272,77 @@ Design.oncut = function(e) {
 }
 
 /**
+ * Allows you to drag and drop files from finder onto the page.
+ * Only supports 1 file at a time for now. And chrome. Very limited.
+ */
+Design.ondrop = function(e) {
+  mixpanel.track('I dropped a file onto the page')
+  var reader = new FileReader()
+  reader.onload = function(evt) {
+    var space = new Space(
+      "tag img\n" +
+      "src " + evt.target.result +
+      "\nstyle" +
+      "\n width auto" +
+      "\n height auto")
+    var scraps = new Space().set('scrap1', space)
+    Design.stage.insert(scraps)
+  }
+  reader.readAsDataURL(e.dataTransfer.files[0])
+  e.preventDefault()
+}
+
+Design.onclose = function () {
+
+  if (!navigator.userAgent.match(/iPad|iPhone|iPod/i))
+    return null
+  
+  // iPad fixeds
+  $(document).off("touchstart", Design.stopPropagation)
+  // Allow someone to drag
+  $(document).off("touchmove", Design.preventDefault)
+}
+
+Design.stopPropagation = function(event) {
+  if (event.originalEvent.touches.length > 1) {
+    event.stopPropagation()
+  }
+}
+
+Design.preventDefault = function(event) {
+  if (event.originalEvent.touches.length == 1) {
+    event.preventDefault()
+  }
+}
+
+Design.onopen = function () {
+  Design.grid = new Grid()
+  
+  Lasso.selector = '#nudgepadStageBody .scrap:visible'
+  $(document).on('lasso', '.scrap', function () {
+    $(this).selectMe()
+    return false
+  })
+  Lasso.enable()
+
+  // Prevent Images from dragging on Firefox
+  $(document).on('dragstart', 'img', function(event) { event.preventDefault()})
+  
+  if (!navigator.userAgent.match(/iPad|iPhone|iPod/i))
+    return null
+  
+  // iPad fixeds
+  $(document).on("touchstart", Design.stopPropagation)
+  // Allow someone to drag
+  $(document).on("touchmove", Design.preventDefault)
+}
+
+Design.onresize = function () {
+  // Update all handles on resize
+  $('.handle').trigger('update')
+}
+
+/**
  */
 Design.onpaste = function(e) {
 

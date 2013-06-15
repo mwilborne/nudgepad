@@ -57,7 +57,7 @@ nudgepad.StretchHandle.mousedown = function () {
   var scrap = $(this).owner().scrap()
   nudgepad.StretchHandle.originalWidth = parseFloat(scrap.get('style width'))
   nudgepad.StretchHandle.originalHeight = parseFloat(scrap.get('style height'))
-  nudgepad.grid.create()
+  Design.grid.create()
 }
 
 /**
@@ -198,7 +198,7 @@ nudgepad.StretchHandle.slideend = function () {
   var element = $(this).owner()
   var scrap = element.scrap()
   $('.' + scrap.id + '_handle').trigger('update').show()
-  nudgepad.grid.removeSnaplines()
+  Design.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
   Design.stage.commit()
 }
@@ -217,7 +217,7 @@ nudgepad.StretchHandle.slideend = function () {
 nudgepad.StretchHandle.getLength = function (x0, y0, x1, y1, x_snap, y_snap) {
   var length = { x : x1 - x0, y: y1 - y0}
   
-  var grid_change = nudgepad.grid.getDelta([
+  var grid_change = Design.grid.getDelta([
      {x : x1, y : y1}
   ])
   

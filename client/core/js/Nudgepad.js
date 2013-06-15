@@ -7,9 +7,7 @@ if (!window.console)
  *
  * @special Singleton
  */
-nudgepad = {}
-Design = {}
-Design.stage = {}
+var nudgepad = {}
 nudgepad.id = new Date().getTime()
 nudgepad.tab = new Space('id ' + nudgepad.id)
 nudgepad.tab.set('device', platform.name + (platform.product ? '/' + platform.product : ''))
@@ -60,7 +58,6 @@ nudgepad.main = function (callback) {
   nudgepad.domain = document.location.host
   
   // Load plugins
-  nudgepad.grid = new Grid()
   nudgepad.cookie = parseCookie(document.cookie)
   nudgepad.name = ParseName(nudgepad.cookie.email)
   nudgepad.tab.set('email', nudgepad.cookie.email)
@@ -70,12 +67,6 @@ nudgepad.main = function (callback) {
   // In case we open multiple tabs
   window.name = 'nudgepad'
   
-  // Can blocks be selected on click
-  nudgepad.select = true
-  
-  // Only allow shortcuts on tools
-  Events.shortcut.context = '.nudgepad'
-  
   // TODO: on capture phase, capture block clicks, check if shiftkey is held,
   // if shiftkey is not held, prevent any events from firing on click?
   // document.body.addEventListener('mouseup', PopupHider.hide, true)
@@ -84,11 +75,6 @@ nudgepad.main = function (callback) {
   // Fetch all files in the background.
   nudgepad.explorer.getSite(function () {
     
-    
-    // SLOW?? maybe not anymore
-    // Render icons
-    
-    nudgepad.bind_shortcuts()
     
     // Open socket
     nudgepad.socket = io.connect('/')
@@ -150,22 +136,6 @@ nudgepad.main = function (callback) {
       nudgepad.restartCheck()
     })
     
-
-    // Do some special stuff for ios
-    nudgepad.iosMain()
-    
-    var activePage = store.get('activePage') || 'home'
-    
-    if (!site.get('pages ' + activePage))
-      activePage = 'home'
-    
-    Design.stage.open(activePage)
-    
-    // Update all handles on resize
-    $(window).on('resize', function () {
-      $('.handle').trigger('update')
-    })
-    
     nudgepad.warnBeforeReload = true
     
     window.onbeforeunload = function(e) {
@@ -179,9 +149,6 @@ nudgepad.main = function (callback) {
     nudgepad.navigation.openAppFromQueryString()
     
     $('#nudgepadLoadingScreen').hide()
-    
-    // Prevent Images from dragging on Firefox
-    $(document).on('dragstart', 'img', function(event) { event.preventDefault()})
     
     // fetch other timelines in background for now
     // SLOW
@@ -200,13 +167,6 @@ nudgepad.main = function (callback) {
       console.log('It took %sms to create this site', howLongItTookToCreateThisSite)
       
     }
-    
-    Lasso.selector = '#nudgepadStageBody .scrap:visible'
-    $(document).on('lasso', '.scrap', function () {
-      $(this).selectMe()
-      return false
-    })
-    Lasso.enable()
       
     if (callback)
       callback()

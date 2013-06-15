@@ -10003,7 +10003,7 @@ nudgepad.main = function (callback) {
   nudgepad.domain = document.location.host
   
   // Load plugins
-  nudgepad.grid = new Grid()
+  Design.grid = new Grid()
   nudgepad.cookie = parseCookie(document.cookie)
   nudgepad.name = ParseName(nudgepad.cookie.email)
   nudgepad.tab.set('email', nudgepad.cookie.email)
@@ -11761,7 +11761,7 @@ nudgepad.MoveHandle.dimensions = {}
 nudgepad.MoveHandle.mousedown = function () {
 //  nudgepad.MoveHandle.selectTopScrap()
   nudgepad.MoveHandle.dimensions = $(this).owner().dimensions()
-  nudgepad.grid.create()
+  Design.grid.create()
   nudgepad.MoveHandle.last_x_change = 0
   nudgepad.MoveHandle.last_y_change = 0
   
@@ -11809,7 +11809,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
   var grid_change = {y : 0, x : 0}
 
   if (!mouseEvent.shiftKey) {
-    grid_change = nudgepad.grid.getDelta([
+    grid_change = Design.grid.getDelta([
       {x : dimensions.left + nudgepad.mouse.xChange, y : dimensions.top + nudgepad.mouse.yChange + scrollChange},
       {x : dimensions.right + nudgepad.mouse.xChange, y : dimensions.bottom + nudgepad.mouse.yChange + scrollChange},
       {x :  dimensions.center + nudgepad.mouse.xChange, y : dimensions.middle + nudgepad.mouse.yChange + scrollChange}
@@ -11839,7 +11839,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
 nudgepad.MoveHandle.slideend = function () {
   
   $('.handle').trigger('update').show()
-  nudgepad.grid.removeSnaplines()
+  Design.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
   Design.stage.commit()
 }
@@ -13452,7 +13452,7 @@ Design.stage.render = function () {
   $(".scrap,#body").remove()
   Design.page.loadScraps()
   Design.page.render()
-  nudgepad.grid.create()
+  Design.grid.create()
   nudgepad.updateSelections()
 }
 
@@ -13692,7 +13692,7 @@ nudgepad.StretchHandle.mousedown = function () {
   var scrap = $(this).owner().scrap()
   nudgepad.StretchHandle.originalWidth = parseFloat(scrap.get('style width'))
   nudgepad.StretchHandle.originalHeight = parseFloat(scrap.get('style height'))
-  nudgepad.grid.create()
+  Design.grid.create()
 }
 
 /**
@@ -13833,7 +13833,7 @@ nudgepad.StretchHandle.slideend = function () {
   var element = $(this).owner()
   var scrap = element.scrap()
   $('.' + scrap.id + '_handle').trigger('update').show()
-  nudgepad.grid.removeSnaplines()
+  Design.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
   Design.stage.commit()
 }
@@ -13852,7 +13852,7 @@ nudgepad.StretchHandle.slideend = function () {
 nudgepad.StretchHandle.getLength = function (x0, y0, x1, y1, x_snap, y_snap) {
   var length = { x : x1 - x0, y: y1 - y0}
   
-  var grid_change = nudgepad.grid.getDelta([
+  var grid_change = Design.grid.getDelta([
      {x : x1, y : y1}
   ])
   

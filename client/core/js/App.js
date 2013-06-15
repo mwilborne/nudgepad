@@ -30,7 +30,18 @@ App.prototype.close = function (name) {
   
   if (this.onpaste)
     window.removeEventListener('paste', this.onpaste, false)
+
+  if (this.onpaste)
+    window.removeEventListener('drop', this.ondrop, false)
+
+  if (this.onresize)
+    window.removeEventListener('resize', this.onresize, false)
+
+  Events.shortcut.shortcuts = {}
   
+  if (this.onclose)
+    this.onclose()
+
   this._open = false
   App.openApp = false
   
@@ -78,6 +89,16 @@ App.prototype.open = function () {
 
   if (this.onpaste)
     window.addEventListener('cut', this.onpaste, false)
+
+  if (this.ondrop)
+    window.addEventListener('drop', this.ondrop, false)
+
+  if (this.onresize)
+    window.addEventListener('resize', this.onresize, false)
+  
+  if (this.shortcuts)
+    Events.shortcut.shortcuts = this.shortcuts
+  
 
   // On ready event
   if (this.onready)

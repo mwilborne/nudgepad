@@ -49,7 +49,7 @@ nudgepad.MoveHandle.dimensions = {}
 nudgepad.MoveHandle.mousedown = function () {
 //  nudgepad.MoveHandle.selectTopScrap()
   nudgepad.MoveHandle.dimensions = $(this).owner().dimensions()
-  nudgepad.grid.create()
+  Design.grid.create()
   nudgepad.MoveHandle.last_x_change = 0
   nudgepad.MoveHandle.last_y_change = 0
   
@@ -97,7 +97,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
   var grid_change = {y : 0, x : 0}
 
   if (!mouseEvent.shiftKey) {
-    grid_change = nudgepad.grid.getDelta([
+    grid_change = Design.grid.getDelta([
       {x : dimensions.left + nudgepad.mouse.xChange, y : dimensions.top + nudgepad.mouse.yChange + scrollChange},
       {x : dimensions.right + nudgepad.mouse.xChange, y : dimensions.bottom + nudgepad.mouse.yChange + scrollChange},
       {x :  dimensions.center + nudgepad.mouse.xChange, y : dimensions.middle + nudgepad.mouse.yChange + scrollChange}
@@ -127,7 +127,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
 nudgepad.MoveHandle.slideend = function () {
   
   $('.handle').trigger('update').show()
-  nudgepad.grid.removeSnaplines()
+  Design.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
   Design.stage.commit()
 }
