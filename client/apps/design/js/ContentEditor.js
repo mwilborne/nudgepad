@@ -15,7 +15,7 @@ nudgepad.contentEditor.onblur = function () {
   $(this).removeAttr('contenteditable')
 
   // record the changes for undo/redo
-  nudgepad.stage.commit()
+  Design.stage.commit()
   nudgepad.broadcastSelection()
 }
 
@@ -30,7 +30,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
   
   // When focused, it's as if you have nothing selected. We're really going to do 
   // a patch instead
-  nudgepad.stage.selection.clear()
+  Design.stage.selection.clear()
   
   var element = $(selector)
   var scrap = element.scrap()  
@@ -42,9 +42,9 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     var tag = scrap.values.tag
     
     if (tag && tag.match(/^(list)$/)) {
-      nudgepad.stage.selection.clear()
+      Design.stage.selection.clear()
       element.selectMe()
-      nudgepad.stage.selection.editSource()
+      Design.stage.selection.editSource()
       return false
     }
     
@@ -53,7 +53,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     
     nudgepad.textPrompt('Editing content for this block', scrap.values[attr], function (val) {
       scrap.values[attr] = val
-      nudgepad.stage.commit()
+      Design.stage.commit()
       element.remove()
       $('#nudgepadStageBody').append(scrap.toHtml(null, true))
       element.selectMe()

@@ -1,43 +1,43 @@
 /**
  * @special Singleton
  */
-nudgepad.stage.selection = {}
-nudgepad.stage.selection.saved = []
+Design.stage.selection = {}
+Design.stage.selection.saved = []
 
-nudgepad.stage.selection.alignLeft = function () {
+Design.stage.selection.alignLeft = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().left < edge)
       edge = $(this).position().left
   })
-  nudgepad.stage.selection.css('left ' + edge + 'px')
+  Design.stage.selection.css('left ' + edge + 'px')
 }
 
-nudgepad.stage.selection.alignRight = function () {
+Design.stage.selection.alignRight = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().left > edge)
       edge = $(this).position().left
   })
-  nudgepad.stage.selection.css('left ' + edge + 'px')
+  Design.stage.selection.css('left ' + edge + 'px')
 }
 
-nudgepad.stage.selection.alignTop = function () {
+Design.stage.selection.alignTop = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().top < edge)
       edge = $(this).position().top
   })
-  nudgepad.stage.selection.css('top ' + edge + 'px')
+  Design.stage.selection.css('top ' + edge + 'px')
 }
 
-nudgepad.stage.selection.alignBottom = function () {
+Design.stage.selection.alignBottom = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().top > edge)
       edge = $(this).position().top
   })
-  nudgepad.stage.selection.css('top ' + edge + 'px')
+  Design.stage.selection.css('top ' + edge + 'px')
 }
 
 /**
@@ -45,7 +45,7 @@ nudgepad.stage.selection.alignBottom = function () {
  *
  * @param {number}
  */
-nudgepad.stage.selection.boxShadow = function (blur) {
+Design.stage.selection.boxShadow = function (blur) {
   $('.selection').each(function () {
     var scrap = $(this).scrap()
     if(blur < 1){
@@ -59,15 +59,15 @@ nudgepad.stage.selection.boxShadow = function (blur) {
   })
 }
 
-nudgepad.stage.selection.capture = function () {
-  nudgepad.stage.selection.captured = nudgepad.stage.selection.toSpace()
+Design.stage.selection.capture = function () {
+  Design.stage.selection.captured = Design.stage.selection.toSpace()
 }
 
 
 /**
  * Deselect all blocks
  */
-nudgepad.stage.selection.clear = function () {
+Design.stage.selection.clear = function () {
   $('.selection').each(function () {
     $(this).deselect()
   })
@@ -80,9 +80,9 @@ nudgepad.stage.selection.clear = function () {
  *
  * @param {string}
  */
-nudgepad.stage.selection.css = function (command) {
-  nudgepad.stage.selection.cssPreview(command)
-  nudgepad.stage.commit()
+Design.stage.selection.css = function (command) {
+  Design.stage.selection.cssPreview(command)
+  Design.stage.commit()
   $('.handle').trigger('update')
 }
 
@@ -91,7 +91,7 @@ nudgepad.stage.selection.css = function (command) {
  *
  * @param {string}
  */
-nudgepad.stage.selection.cssPreview = function (command) {
+Design.stage.selection.cssPreview = function (command) {
   if (!command)
     return false
   command = new Space(command)
@@ -111,13 +111,13 @@ nudgepad.stage.selection.cssPreview = function (command) {
   })
 }
 
-nudgepad.stage.selection.cssPrompt = function () {
+Design.stage.selection.cssPrompt = function () {
   var val = prompt('Enter a CSS command like font-family Arial', '')
   if (val)
-    nudgepad.stage.selection.css(val)
+    Design.stage.selection.css(val)
 }
 
-nudgepad.stage.selection.distributeVertical = function () {
+Design.stage.selection.distributeVertical = function () {
   
   var elements = _.sortBy($('.selection'), function(element){ return $(element).position().top })
   
@@ -145,10 +145,10 @@ nudgepad.stage.selection.distributeVertical = function () {
     $(element).css('top', scrap.get('style top'))
   })
   $('.handle').trigger('update')
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.distributeHorizontal = function () {
+Design.stage.selection.distributeHorizontal = function () {
   // this function is currently 3N ish. But that should be fine. But we
   // could clearly make it faster if it feels slow.
   
@@ -178,22 +178,22 @@ nudgepad.stage.selection.distributeHorizontal = function () {
     $(element).css('left', scrap.get('style left'))
   })
   $('.handle').trigger('update')
-  nudgepad.stage.commit()
+  Design.stage.commit()
   nudgepad.notify('Distributed', 1000)
 }
 
 /**
  * Duplicate the selected blocks. Offset them to the right.
  */
-nudgepad.stage.selection.duplicate = function () {
+Design.stage.selection.duplicate = function () {
   $('.selection').each(function () {
     $(this).duplicate()
   })
-  nudgepad.stage.commit()
-//  return nudgepad.stage.insert(nudgepad.stage.selection.toSpace(), false, 10, 10, false)
+  Design.stage.commit()
+//  return Design.stage.insert(Design.stage.selection.toSpace(), false, 10, 10, false)
 }
 
-nudgepad.stage.selection.editLoop = function () {
+Design.stage.selection.editLoop = function () {
   
   var property = prompt('What property do you want to edit?')
   if (!property)
@@ -226,10 +226,10 @@ nudgepad.stage.selection.editLoop = function () {
     scrap.render()
     
   })
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.editProperty = function () {
+Design.stage.selection.editProperty = function () {
   
   var scrap = $('.selection').scrap()
   
@@ -240,33 +240,33 @@ nudgepad.stage.selection.editProperty = function () {
   var value = scrap.get(prop)
   nudgepad.textPrompt('Enter new value...', value.toString(), function (val) {
       scrap.set(prop, val)
-      nudgepad.stage.commit()
-      nudgepad.stage.open(nudgepad.stage.activePage)
+      Design.stage.commit()
+      Design.stage.open(Design.stage.activePage)
   })
 }
 
 /**
  * Advances position_index, advanced position.
  */
-nudgepad.stage.selection.editSource = function () {
-  nudgepad.stage.selection.capture()
-  nudgepad.stage.selection.save()
-  nudgepad.textPrompt('Enter code...', nudgepad.stage.selection.captured.toString(), nudgepad.stage.selection.modify)
+Design.stage.selection.editSource = function () {
+  Design.stage.selection.capture()
+  Design.stage.selection.save()
+  nudgepad.textPrompt('Enter code...', Design.stage.selection.captured.toString(), Design.stage.selection.modify)
 }
 
 /**
  * Return boolean
  */
-nudgepad.stage.selection.exists = function () {
+Design.stage.selection.exists = function () {
   return $('.selection').length
 }
 
-nudgepad.stage.selection.modify = function (val) {
+Design.stage.selection.modify = function (val) {
   var space = new Space(val)
-  Design.stage.patch(nudgepad.stage.selection.captured.diff(space))
-  nudgepad.stage.commit()
-  nudgepad.stage.open(nudgepad.stage.activePage)
-  nudgepad.stage.selection.restore()
+  Design.page.patch(Design.stage.selection.captured.diff(space))
+  Design.stage.commit()
+  Design.stage.open(Design.stage.activePage)
+  Design.stage.selection.restore()
 }
 
 /**
@@ -275,7 +275,7 @@ nudgepad.stage.selection.modify = function (val) {
  * @param {number} Number of pixels to move x (positive is right)
  * @param {number} Number of pixels to move y (positive is down)
  */
-nudgepad.stage.selection.move = function (x, y) {
+Design.stage.selection.move = function (x, y) {
   
   if (!$('.selection').length)
     return false
@@ -294,18 +294,18 @@ nudgepad.stage.selection.move = function (x, y) {
   nudgepad.popup.open('#nudgepadDimensions')
   
   $('.handle').trigger("update")
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.nest = function (path) {
-  var parent = Design.stage.get(path)
+Design.stage.selection.nest = function (path) {
+  var parent = Design.page.get(path)
   if (!parent)
     return false
   if (!parent.get('scraps'))
     parent.set('scraps', new Space())
   parent = parent.get('scraps')
-  var patch = nudgepad.stage.selection.toSpace()
-  nudgepad.stage.selection.remove()
+  var patch = Design.stage.selection.toSpace()
+  Design.stage.selection.remove()
   
   // update the patch so there is no overwriting
   patch.each(function (key, value) {
@@ -315,8 +315,8 @@ nudgepad.stage.selection.nest = function (path) {
   })
   
   parent.patch(patch)
-  nudgepad.stage.commit()
-  nudgepad.stage.open(nudgepad.stage.activePage)
+  Design.stage.commit()
+  Design.stage.open(Design.stage.activePage)
 }
 
 /**
@@ -324,7 +324,7 @@ nudgepad.stage.selection.nest = function (path) {
  *
  * @param {Space} The patch
  */
-nudgepad.stage.selection.patch = function (space) {
+Design.stage.selection.patch = function (space) {
 
   if (typeof space === 'string')
     space = new Space(space)
@@ -336,30 +336,30 @@ nudgepad.stage.selection.patch = function (space) {
     $(this).replaceWith(scrap.toHtml())
     scrap.element().selectMe()
   })
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.patchPrompt = function () {
+Design.stage.selection.patchPrompt = function () {
   var val = prompt('Enter a patch like content hi', '')
   if (val)
-    nudgepad.stage.selection.patch(val)
+    Design.stage.selection.patch(val)
 }
 
 /**
  * Delete the selected blocks
  */
-nudgepad.stage.selection.remove = function () {
+Design.stage.selection.remove = function () {
   $('.selection').each(function () {
     // order probably matters here
     // should we move deselect and select to jquery level? i think we probably should
     var scrap = $(this).scrap()
     $(this).deselect().remove()
     if (scrap)
-      Design.stage.delete(scrap.getPath())
+      Design.page.delete(scrap.getPath())
   })
 }
 
-nudgepad.stage.selection.renameScraps = function () {
+Design.stage.selection.renameScraps = function () {
   var todo = $('.selection').length
   $('.selection').each(function (index) {
     var scrap = $(this).scrap()
@@ -382,25 +382,25 @@ nudgepad.stage.selection.renameScraps = function () {
     }
     
     var newScrap = new Scrap(newId, scrap.toString())
-    Design.stage.set(newId, newScrap)
+    Design.page.set(newId, newScrap)
     
     $(this).deselect().remove()
-    Design.stage.delete(scrap.getPath())
+    Design.page.delete(scrap.getPath())
     
     
     newScrap.render()
     newScrap.element().selectMe()
     
   })
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
 /**
  * Restore the saved selection
  */
-nudgepad.stage.selection.restore = function () {
-  for (var i in nudgepad.stage.selection.saved) {
-    var selector = nudgepad.stage.selection.saved[i]
+Design.stage.selection.restore = function () {
+  for (var i in Design.stage.selection.saved) {
+    var selector = Design.stage.selection.saved[i]
     if ($(selector).length)
       $(selector).selectMe()
   }
@@ -409,10 +409,10 @@ nudgepad.stage.selection.restore = function () {
 /**
  * Save the current selection
  */
-nudgepad.stage.selection.save = function () {
-  nudgepad.stage.selection.saved = []
+Design.stage.selection.save = function () {
+  Design.stage.selection.saved = []
   $('.selection').each(function () {
-    nudgepad.stage.selection.saved.push($(this).scrap().selector())
+    Design.stage.selection.saved.push($(this).scrap().selector())
   })
 }
 
@@ -421,7 +421,7 @@ nudgepad.stage.selection.save = function () {
  *
  * @return {string}
  */
-nudgepad.stage.selection.toSpace = function () {
+Design.stage.selection.toSpace = function () {
   var space = new Space()
   $('.selection').each(function () {
     var scrap = $(this).scrap()
@@ -451,7 +451,7 @@ nudgepad.updateSelections = function () {
   site.values.collage.each(function (key, value) {
     if (key == nudgepad.id)
       return true
-    if (value.get('page') !== nudgepad.stage.activePage)
+    if (value.get('page') !== Design.stage.activePage)
       return true
     var style = value.get('selection')
     if (style)

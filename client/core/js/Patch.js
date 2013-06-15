@@ -12,27 +12,27 @@ nudgepad.patch = {}
 nudgepad.patch.receive = function (patch) {
   
   patch = new Space(patch)
-  var behind = nudgepad.stage.isBehind()
+  var behind = Design.stage.isBehind()
   
   // If the page has been deleted, change page
-  if (patch.get('pages ' + nudgepad.stage.activePage) === '')
-    nudgepad.stage.back()
+  if (patch.get('pages ' + Design.stage.activePage) === '')
+    Design.stage.back()
   
   site.patch(patch)
   Design.updateTabs()
   
   // If the active page isnt touched, we are all done
-  if (!patch.get('timelines ' + nudgepad.stage.activePage))
+  if (!patch.get('timelines ' + Design.stage.activePage))
     return true    
   
   if (behind)
-    return nudgepad.stage.updateTimeline()
+    return Design.stage.updateTimeline()
   
   if ($('input:focus, div:focus, textarea:focus, a:focus').length)
-    return nudgepad.stage.updateTimeline()
+    return Design.stage.updateTimeline()
 
   // Todo: this breaks if you are in content editable
-  nudgepad.stage.redo()
+  Design.stage.redo()
   nudgepad.notify('Change received', 1000)
 }
 

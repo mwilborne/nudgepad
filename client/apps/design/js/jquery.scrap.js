@@ -10,10 +10,10 @@ $.fn.duplicate = function () {
   
   var scrap = $(this).scrap()
   var id = $(this).attr('id')
-  var parent = Design.stage
+  var parent = Design.page
   var path = $(this).parentPath()
   if (path) {
-    parent = Design.stage.get(path)
+    parent = Design.page.get(path)
     path = path.replace(/ scraps/g,'') + ' '
   }
   var key = parent.autokey(id)
@@ -35,7 +35,7 @@ $.fn.parentPath = function () {
 }
 
 $.fn.scrap = function () {
-  return Design.stage.get($(this).attr('path'))
+  return Design.page.get($(this).attr('path'))
 }
 
 /**

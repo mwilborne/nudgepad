@@ -33,7 +33,7 @@ nudgepad.MoveHandle.create = function (scrap) {
   div.on("dblclick", function (event) {
     if (event.metaKey) {
       element.togglePosition()
-      nudgepad.stage.commit()
+      Design.stage.commit()
       element.deselect().selectMe()
     } else
       scrap.edit(true)
@@ -53,7 +53,7 @@ nudgepad.MoveHandle.mousedown = function () {
   nudgepad.MoveHandle.last_x_change = 0
   nudgepad.MoveHandle.last_y_change = 0
   
-  nudgepad.MoveHandle.scrollTop = nudgepad.stage.scrollTop()
+  nudgepad.MoveHandle.scrollTop = Design.stage.scrollTop()
   return true
 }
 
@@ -67,7 +67,7 @@ nudgepad.MoveHandle.selectTopScrap = function () {
   // get element at point
   var offsetLeft = $('#nudgepadStageBody').offset().left
   var offsetTop = $('#nudgepadStageBody').offset().top
-  var element = $.topDiv('.scrap:visible', nudgepad.mouse.down.pageX - offsetLeft, nudgepad.mouse.down.pageY - offsetTop + nudgepad.stage.scrollTop())
+  var element = $.topDiv('.scrap:visible', nudgepad.mouse.down.pageX - offsetLeft, nudgepad.mouse.down.pageY - offsetTop + Design.stage.scrollTop())
   // if a narrow div and no element underneath, return
   if (!element)
     return true
@@ -78,7 +78,7 @@ nudgepad.MoveHandle.selectTopScrap = function () {
   // Dont select block if locked
   if (scrap.get('locked'))
     return true
-  nudgepad.stage.selection.clear()
+  Design.stage.selection.clear()
   element.selectMe()
   return true
 }
@@ -92,7 +92,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
   var scrap = owner.scrap()
   var dimensions = nudgepad.MoveHandle.dimensions
   
-  var scrollChange = nudgepad.stage.scrollTop() - nudgepad.MoveHandle.scrollTop
+  var scrollChange = Design.stage.scrollTop() - nudgepad.MoveHandle.scrollTop
 
   var grid_change = {y : 0, x : 0}
 
@@ -129,7 +129,7 @@ nudgepad.MoveHandle.slideend = function () {
   $('.handle').trigger('update').show()
   nudgepad.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
 nudgepad.MoveHandle.slidestart = function () {

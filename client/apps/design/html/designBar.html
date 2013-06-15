@@ -1,4 +1,4 @@
-<div id="nudgepadPagesBar" class="nudgepad">
+<div id="nudgepadDesignBar" class="nudgepad">
 
   <div title="menu" id="menuButton"></div>
 
@@ -12,10 +12,10 @@
 
   <div title="Add Block" id="addScrap" class="barButton"><img src="/nudgepad/public/images/plus_lt.png"></div>
   
-  <input class="nudgepadTimeline" id="nudgepadTimeline" type="range" min="0" max="100" step="1" onclick="nudgepad.stage.goto($(this).val())" value="100">
+  <input class="nudgepadTimeline" id="nudgepadTimeline" type="range" min="0" max="100" step="1" onclick="Design.stage.goto($(this).val())" value="100">
   <script type="text/javascript">
     $('#nudgepadTimeline').on('slide', function () {
-      nudgepad.stage.goto($(this).val())
+      Design.stage.goto($(this).val())
   })</script>
   <span class="nudgepadTimeline" id="nudgepadTimelinePosition"></span>
   <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="Design.clearTimeline()">Erase</span>

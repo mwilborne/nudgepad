@@ -15,7 +15,7 @@ nudgepad.explorer.create = function (path, callback) {
 nudgepad.explorer.downloadTimelines = function () {
   $.get('/nudgepad.site.timelines', {}, function (data) {
     var space = new Space(data)
-    space.delete(nudgepad.stage.activePage) // We already have the open page
+    space.delete(Design.stage.activePage) // We already have the open page
     site.get('timelines').patch(space)
   })
 }

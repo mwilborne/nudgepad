@@ -101,14 +101,14 @@ nudgepad.styleEditor = function (scrap) {
    // Duplicate
    var duplicate = $('<div class="editorButton"><img src="/nudgepad/public/images/dup_lt.png"></div>')
    duplicate.on("click", function(){
-     nudgepad.stage.selection.duplicate();
+     Design.stage.selection.duplicate();
    })
    styleEditorContainer.append(duplicate)
    
    // Lock tool
    var lock = $('<div class="editorButton"><img src="/nudgepad/public/images/lock_lt.png"></div>')
    lock.on('tap', function () {
-     nudgepad.stage.selection.patch('locked true')
+     Design.stage.selection.patch('locked true')
      save_button.trigger('click')
      return false
    })
@@ -120,7 +120,7 @@ nudgepad.styleEditor = function (scrap) {
    // Remove link or cancel
    var noLink = $('<option>No link</option>')
    noLink.on('click', function () {
-     nudgepad.stage.selection.patch('href ')
+     Design.stage.selection.patch('href ')
    })
    linkOptions.append(noLink)
    
@@ -128,7 +128,7 @@ nudgepad.styleEditor = function (scrap) {
    _.each(site.values.pages.values, function (value, name) {
      var link = $('<option value="' + name + '">' + ToProperCase(name) + '</option>')
      link.on('click', function () {
-       nudgepad.stage.selection.patch('tag a\nhref ' + $(this).attr('value'))
+       Design.stage.selection.patch('tag a\nhref ' + $(this).attr('value'))
      })
      linkOptions.append(link)
    })
@@ -136,14 +136,14 @@ nudgepad.styleEditor = function (scrap) {
    // Create a link to a new page that doesnt exist
    var newPageLink = $('<option>New Page</option>')
    newPageLink.on('click', function () {
-     var linkUrl = prompt('Enter the name of your new page', Design.nextName(nudgepad.stage.activePage))
+     var linkUrl = prompt('Enter the name of your new page', Design.nextName(Design.stage.activePage))
      if (linkUrl) {
        linkUrl = Permalink(linkUrl)
-       nudgepad.stage.selection.patch('tag a\nhref ' + linkUrl)
+       Design.stage.selection.patch('tag a\nhref ' + linkUrl)
        save_button.trigger('click')
-       var currentPage = nudgepad.stage.activePage
+       var currentPage = Design.stage.activePage
        Design.duplicate(null, linkUrl, true)
-       nudgepad.stage.open(currentPage)
+       Design.stage.open(currentPage)
      }
    })
    linkOptions.append(newPageLink)
@@ -153,7 +153,7 @@ nudgepad.styleEditor = function (scrap) {
    externalLink.on('click', function () {
      var linkUrl = prompt('Enter the url to link to', 'http://')
      if (linkUrl)
-       nudgepad.stage.selection.patch('tag a\nhref ' + linkUrl)
+       Design.stage.selection.patch('tag a\nhref ' + linkUrl)
    })
    linkOptions.append(externalLink)
    
@@ -218,8 +218,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness1
   var buttonRoundness1 = $('<div id="roundessOne" class="toolButton toolButtonOne">0</div>')
   buttonRoundness1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 0px 0px 0px 0px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 0px 0px 0px 0px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -228,8 +228,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness2
   var buttonRoundness2 = $('<div id="roundessTwo" class="toolButton toolButtonTwo">4</div>')
   buttonRoundness2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 4px 4px 4px 4px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 4px 4px 4px 4px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -238,8 +238,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness2
   var buttonRoundness3 = $('<div class="toolButton toolButtonTwo">10</div>')
   buttonRoundness3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 10px 10px 10px 10px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 10px 10px 10px 10px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -248,8 +248,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness3
   var buttonRoundness4 = $('<div class="toolButton toolButtonThree">50</div>')
   buttonRoundness4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 50px 50px 50px 50px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 50px 50px 50px 50px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -273,8 +273,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Border
   var buttonBorder2 = $('<div class="toolButton toolButtonTwo">0</div>')
   buttonBorder2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border none')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border none')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -283,8 +283,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Border
   var buttonBorder3 = $('<div class="toolButton toolButtonTwo">1</div>')
   buttonBorder3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border 1px solid ' + currentBorderColor)
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border 1px solid ' + currentBorderColor)
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -293,8 +293,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Border
   var buttonBorder4 = $('<div class="toolButton toolButtonThree">5</div>')
   buttonBorder4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border 5px solid ' + currentBorderColor)
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border 5px solid ' + currentBorderColor)
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -311,8 +311,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity
   var buttonOpacity1 = $('<div class="toolButton toolButtonOne">1</div>')
   buttonOpacity1.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity 1')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity 1')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -321,8 +321,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity
   var buttonOpacity2 = $('<div id="opacityOne" class="toolButton toolButtonTwo">.8</div>')
   buttonOpacity2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity .8')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity .8')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -331,8 +331,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity
   var buttonOpacity3 = $('<div class="toolButton toolButtonTwo">.5</div>')
   buttonOpacity3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity .5')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity .5')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -341,8 +341,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity4
   var buttonOpacity4 = $('<div class="toolButton toolButtonThree">.2</div>')
   buttonOpacity4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity .2')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity .2')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -359,8 +359,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow1 = $('<div class="toolButton toolButtonOne">0</div>')
   buttonShadow1.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow none')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow none')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -369,8 +369,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow2 = $('<div id="shadowOne" class="toolButton toolButtonTwo">Out</div>')
   buttonShadow2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow 0px 1px 3px rgba(0,0,0,.6)')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow 0px 1px 3px rgba(0,0,0,.6)')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -379,8 +379,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow3 = $('<div id="shadowTwo" class="toolButton toolButtonTwo">In</div>')
   buttonShadow3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow inset 0px 1px 3px rgba(0,0,0,.6)')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow inset 0px 1px 3px rgba(0,0,0,.6)')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -389,8 +389,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow4 = $('<div id="ShadowThree" class="toolButton toolButtonThree">All</div>')
   buttonShadow4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow 0px 0px 0px 4px rgba(0,0,0,.2)')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow 0px 0px 0px 4px rgba(0,0,0,.2)')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -419,8 +419,8 @@ nudgepad.styleEditor = function (scrap) {
   var buttonFontFamily = $('<select id="fontFamily" class="toolButton" name="fontFamilyDropdown"><option>Arial</option><option>Arvo</option><option>Courier</option><option>Helvetica</option><option>Open Sans</option><option>Times</option><option>Titillium Web</option></select>')
   buttonFontFamily.on('change', function () {
     currentFont = $('#fontFamily').val();
-    nudgepad.stage.selection.cssPreview('font-family ' + currentFont)
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-family ' + currentFont)
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -448,8 +448,8 @@ nudgepad.styleEditor = function (scrap) {
   var buttonFontSize = $('<select id="fontSize" name="fontDropdown"><option>11</option><option>12</option><option>13</option><option>14</option><option>16</option><option>18</option><option>24</option><option>32</option><option>40</option><option>48</option><option>56</option><option>64</option><option>72</option></select>')
   buttonFontSize.on('change', function () {
     currentFontSize = $('#fontSize').val()
-    nudgepad.stage.selection.cssPreview('font-size ' + currentFontSize + 'px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-size ' + currentFontSize + 'px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -458,11 +458,11 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Auto Resize
   var buttonResize = $('<div id="resize" class="toolButton" title="Auto Resize"><img src="/nudgepad/public/images/contract.png"></div>')
   buttonResize.on('click', function () {
-    nudgepad.stage.selection.cssPreview({
+    Design.stage.selection.cssPreview({
     "width" : "auto",
     "height" : "auto"
     })
-    nudgepad.stage.commit()
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -483,8 +483,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment1 = $('<div class="toolButton toolButtonOne"><img src="/nudgepad/public/images/left_lt.png"></div>')
   buttonAlignment1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align left')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align left')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -493,8 +493,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment2 = $('<div class="toolButton toolButtonTwo"><img src="/nudgepad/public/images/center_lt.png"></div>')
   buttonAlignment2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align center')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align center')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -503,8 +503,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment3 = $('<div class="toolButton toolButtonTwo"><img src="/nudgepad/public/images/right_lt.png"></div>')
   buttonAlignment3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align right')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align right')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -513,8 +513,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment4 = $('<div class="toolButton toolButtonThree"><img src="/nudgepad/public/images/justify_lt.png"></div>')
   buttonAlignment4.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align justify')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align justify')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -531,8 +531,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding1 = $('<div class="toolButton toolButtonOne">0</div>')
   buttonPadding1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 0px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 0px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -541,8 +541,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding2 = $('<div class="toolButton toolButtonTwo">10</div>')
   buttonPadding2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 10px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 10px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -551,8 +551,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding3 = $('<div class="toolButton toolButtonTwo">20</div>')
   buttonPadding3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 20px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 20px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -561,8 +561,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding4 = $('<div class="toolButton toolButtonTwo">40</div>')
   buttonPadding4.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 40px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 40px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -583,7 +583,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - LineHeight1
   var buttonLineHeight1 = $('<div id="lineHeightOne" class="toolButton toolButtonOne">100</div>')
   buttonLineHeight1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('line-height 100%')
+    Design.stage.selection.cssPreview('line-height 100%')
     return false
   })
   columnRightText.append(buttonLineHeight1)
@@ -591,7 +591,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - LineHeight2
   var buttonLineHeight2 = $('<div id="lineHeightTwo" class="toolButton toolButtonTwo">140</div>')
   buttonLineHeight2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('line-height 140%')
+    Design.stage.selection.cssPreview('line-height 140%')
     return false
   })
   columnRightText.append(buttonLineHeight2)
@@ -599,7 +599,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - LineHeight
   var buttonLineHeight3 = $('<div id="lineHeightTwo" class="toolButton toolButtonTwo">180</div>')
   buttonLineHeight3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('line-height 180%')
+    Design.stage.selection.cssPreview('line-height 180%')
     return false
   })
   columnRightText.append(buttonLineHeight3)
@@ -608,7 +608,7 @@ nudgepad.styleEditor = function (scrap) {
   var buttonLineHeight4 = $('<div id="lineHeightThree" class="toolButton toolButtonThree">Mid</div>')
   buttonLineHeight4.on('click', function () {
     var currentHeight = $('.selection').css('height')
-    nudgepad.stage.selection.cssPreview('line-height ' + currentHeight)
+    Design.stage.selection.cssPreview('line-height ' + currentHeight)
     return false
   })
   columnRightText.append(buttonLineHeight4)
@@ -624,8 +624,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle1
   var buttonTextStyle1 = $('<div id="textStyleOne" class="toolButton toolButtonOne">B</div>')
   buttonTextStyle1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('font-weight bold')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-weight bold')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -634,8 +634,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle
   var buttonTextStyle2 = $('<div id="italics" class="toolButton toolButtonTwo">I</div>')
   buttonTextStyle2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('font-style italic')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-style italic')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -644,8 +644,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle2
   var buttonTextStyle3 = $('<div id="textStyleTwo" class="toolButton toolButtonTwo">U</div>')
   buttonTextStyle3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-decoration underline')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-decoration underline')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -654,7 +654,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle3
   var buttonTextStyle4 = $('<div id="textStyleThree" class="toolButton toolButtonThree">Auto</div>')
   buttonTextStyle4.on('click', function () {
-    nudgepad.stage.selection.cssPreview({
+    Design.stage.selection.cssPreview({
     "text-decoration" : "none",
     "font-weight" : "normal",
     "font-style" : "normal"
@@ -686,7 +686,7 @@ nudgepad.styleEditor = function (scrap) {
   // Insert save button
   var save_button = $('<div id="nudgepadStyleEditorSaveButton">Save</div>')
   save_button.on('click', function () {
-    nudgepad.stage.commit()
+    Design.stage.commit()
     $('.handle').trigger('update')
     styleEditor.remove()
     modal_screen.remove()
@@ -702,7 +702,7 @@ nudgepad.styleEditor = function (scrap) {
   $(".colorPicker").spectrum({
       color: currentColor,
       move: function(color) {
-        nudgepad.stage.selection.cssPreview('background-color ' + color.toHexString());
+        Design.stage.selection.cssPreview('background-color ' + color.toHexString());
         currentColor = color.toHexString();
       },
       change: function(color) {
@@ -713,7 +713,7 @@ nudgepad.styleEditor = function (scrap) {
           colorType = "background-color "
       },
       hide: function() {
-        nudgepad.stage.commit()
+        Design.stage.commit()
         $('.handle').trigger('update')
       }
   });
@@ -721,7 +721,7 @@ nudgepad.styleEditor = function (scrap) {
   $(".colorBorderPicker").spectrum({
       color: currentBorderColor,
       move: function(color) {
-        nudgepad.stage.selection.cssPreview('border-color ' + color.toHexString());
+        Design.stage.selection.cssPreview('border-color ' + color.toHexString());
         currentBorderColor = color.toHexString();
       },
       change: function(color) {
@@ -732,7 +732,7 @@ nudgepad.styleEditor = function (scrap) {
           colorType = "border-color "
       },
       hide: function() {
-        nudgepad.stage.commit()
+        Design.stage.commit()
         $('.handle').trigger('update')
       }
   });
@@ -740,7 +740,7 @@ nudgepad.styleEditor = function (scrap) {
   $(".colorFontPicker").spectrum({
       color: currentFontColor,
       move: function(color) {
-        nudgepad.stage.selection.cssPreview('color ' + color.toHexString());
+        Design.stage.selection.cssPreview('color ' + color.toHexString());
         currentBorderColor = color.toHexString();
       },
       change: function(color) {
@@ -751,7 +751,7 @@ nudgepad.styleEditor = function (scrap) {
           colorType = "color "
       },
       hide: function() {
-        nudgepad.stage.commit()
+        Design.stage.commit()
         $('.handle').trigger('update')
       }
   });
@@ -761,7 +761,7 @@ nudgepad.styleEditor = function (scrap) {
       if (e.which == 13) {
           e.preventDefault();
           var inputColor = $(this).val()
-          nudgepad.stage.selection.css(colorType + inputColor);
+          Design.stage.selection.css(colorType + inputColor);
           return false
       }
   });
@@ -778,7 +778,7 @@ nudgepad.styleEditor = function (scrap) {
   // Focus CSS editor
  // text_area.focus()
  // scroll to reveal the styleEditor
-  var difference = styleEditor.position().top + styleEditor.outerHeight() - nudgepad.stage.height()
+  var difference = styleEditor.position().top + styleEditor.outerHeight() - Design.stage.height()
   if (difference > 0) {
     $('#nudgepadStage').scrollTop($('#nudgepadStage').scrollTop() + difference)
     styleEditor.css('top', parseFloat(styleEditor.css('top')) - difference)

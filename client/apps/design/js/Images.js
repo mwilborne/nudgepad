@@ -27,9 +27,9 @@ nudgepad.images.insertImageScrap = function (filename, drag) {
   
   // Easter Egg: allow swapping of images
   if (!drag && $('.selection').length > 0) {
-    nudgepad.stage.selection.css('background-image url(' + filename + ')')
-    nudgepad.stage.selection.css('background-repeat no-repeat')
-    nudgepad.stage.selection.css('background-position center')
+    Design.stage.selection.css('background-image url(' + filename + ')')
+    Design.stage.selection.css('background-repeat no-repeat')
+    Design.stage.selection.css('background-position center')
     return false
   }
 
@@ -45,7 +45,7 @@ nudgepad.images.insertImageScrap = function (filename, drag) {
       "\n width " + this.width + 'px' +
       "\n height " + this.height + 'px')
     var scraps = new Space().set('scrap', space)
-    return nudgepad.stage.insert(scraps, drag)
+    return Design.stage.insert(scraps, drag)
   })
 }
 

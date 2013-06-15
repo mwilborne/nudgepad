@@ -188,7 +188,7 @@ Scrap.prototype.toHtml = function (context) {
   this.setStyle(context)
   this.div.addClass('scrap')
   this.div.attr('path', this.getPath())
-//  this.div.attr('page', nudgepad.stage.activePage)
+//  this.div.attr('page', Design.stage.activePage)
   this.div.attr('selector', this.selector())
   return this.div.toHtml()
 }
@@ -235,7 +235,7 @@ Scrap.selectOnTap =  function (event) {
   // Hold meta key to nest something
   if (nudgepad.mouse.down && nudgepad.mouse.down.metaKey) {
     if (!$(this).hasClass('selection') && $('.selection').length) {
-      nudgepad.stage.selection.nest($(this).attr('path'))
+      Design.stage.selection.nest($(this).attr('path'))
       return false
     }
   }
@@ -243,7 +243,7 @@ Scrap.selectOnTap =  function (event) {
 
   // If shift key is not down, clear selection first
   if (!nudgepad.mouse.down || !nudgepad.mouse.down.shiftKey)
-    nudgepad.stage.selection.clear()
+    Design.stage.selection.clear()
 
   $(this).selectMe()
 
@@ -258,7 +258,7 @@ Scrap.unlock = function () {
   // Unlock block on hold
   if (scrap.get('locked')) {
     scrap.unlock()
-    nudgepad.stage.commit()
+    Design.stage.commit()
   }
   
   $(this).selectMe()

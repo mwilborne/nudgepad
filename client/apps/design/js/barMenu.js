@@ -16,7 +16,7 @@ nudgepad.on('main', function () {
   })
   $('.barDroppable').on('slidestart', function() {
     var dropBlock = $(this).attr('title').toLowerCase()
-    nudgepad.stage.dragAndDrop(nudgepad.droppables.get('blocks ' + dropBlock))
+    Design.stage.dragAndDrop(Design.droppables.get('blocks ' + dropBlock))
   })
   
   

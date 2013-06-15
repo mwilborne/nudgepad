@@ -127,8 +127,8 @@
   </head>
   <body>
 <textarea id="nudgepadCodePanel"></textarea>
-<div id="nudgepadPageMenu" class="nudgepad">
-	<div onclick="window.open(nudgepad.stage.activePage,'published')">View</div>
+<div id="nudgepadDesignMenu" class="nudgepad">
+	<div onclick="window.open(Design.stage.activePage,'published')">View</div>
   <div onclick="Design.blank()">New</div>
   <div onclick="Design.duplicate()">Duplicate</div>
   <div onclick="Design.renamePrompt()">Rename</div>
@@ -136,7 +136,7 @@
   <div onclick="nudgepad.invite.prompt()">Invite</div>
   <div onclick="nudgepad.navigation.open('home')">Dashboard</div>
 </div>
-<div id="nudgepadPagesBar" class="nudgepad">
+<div id="nudgepadDesignBar" class="nudgepad">
 
   <div title="menu" id="menuButton"></div>
 
@@ -150,10 +150,10 @@
 
   <div title="Add Block" id="addScrap" class="barButton"><img src="/nudgepad/public/images/plus_lt.png"></div>
   
-  <input class="nudgepadTimeline" id="nudgepadTimeline" type="range" min="0" max="100" step="1" onclick="nudgepad.stage.goto($(this).val())" value="100">
+  <input class="nudgepadTimeline" id="nudgepadTimeline" type="range" min="0" max="100" step="1" onclick="Design.stage.goto($(this).val())" value="100">
   <script type="text/javascript">
     $('#nudgepadTimeline').on('slide', function () {
-      nudgepad.stage.goto($(this).val())
+      Design.stage.goto($(this).val())
   })</script>
   <span class="nudgepadTimeline" id="nudgepadTimelinePosition"></span>
   <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="Design.clearTimeline()">Erase</span>
@@ -165,13 +165,13 @@
   <a onclick="$('#pagesContextMenu').hide()">Close</a>
   <div class="contextMenuSeparator">&nbsp</div>
   <a onclick="$('.nudgepadTimeline').toggle()">Toggle Timeline</a>
-  <a onclick="nudgepad.stage.toggleView()">Toggle View</a>
+  <a onclick="Design.stage.toggleView()">Toggle View</a>
   <div class="contextMenuSeparator">&nbsp</div>
-  <a onclick="nudgepad.stage.editSource()">Edit Page Source</a>
+  <a onclick="Design.stage.editSource()">Edit Page Source</a>
   <div class="contextMenuSeparator">&nbsp</div>
-  <a onclick="nudgepad.stage.selection.renameScraps()">Rename Selected</a>
+  <a onclick="Design.stage.selection.renameScraps()">Rename Selected</a>
   <div class="contextMenuSeparator">&nbsp</div>
-  <a onclick="nudgepad.importPrompt()">Import Url</a>
+  <a onclick="Design.importPrompt()">Import Url</a>
 </div>
 
 <div id="nudgepadRibbon" class="nudgepad">

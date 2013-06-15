@@ -13,7 +13,7 @@ nudgepad.ondrop = function(e) {
       "\n width auto" +
       "\n height auto")
     var scraps = new Space().set('scrap1', space)
-    nudgepad.stage.insert(scraps)
+    Design.stage.insert(scraps)
   }
   reader.readAsDataURL(e.dataTransfer.files[0])
   e.preventDefault()

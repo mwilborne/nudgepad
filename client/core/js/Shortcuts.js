@@ -8,45 +8,45 @@ Events.shortcut.onfire = function (key) {
  */
 nudgepad.bind_shortcuts = function () {
   
-  Events.shortcut.shortcuts['meta+shift+p'] = nudgepad.stage.selection.patchPrompt
+  Events.shortcut.shortcuts['meta+shift+p'] = Design.stage.selection.patchPrompt
   
-  Events.shortcut.shortcuts['ctrl+a'] = nudgepad.stage.selectAll
-  Events.shortcut.shortcuts['meta+a'] = nudgepad.stage.selectAll
+  Events.shortcut.shortcuts['ctrl+a'] = Design.stage.selectAll
+  Events.shortcut.shortcuts['meta+a'] = Design.stage.selectAll
   
-  Events.shortcut.shortcuts['meta+p'] = function () { window.open(nudgepad.stage.activePage, 'published') }
+  Events.shortcut.shortcuts['meta+p'] = function () { window.open(Design.stage.activePage, 'published') }
   
 
-  Events.shortcut.shortcuts['meta+shift+left'] = nudgepad.stage.selection.alignLeft
-  Events.shortcut.shortcuts['meta+shift+right'] = nudgepad.stage.selection.alignRight
-  Events.shortcut.shortcuts['meta+shift+up'] = nudgepad.stage.selection.alignTop
-  Events.shortcut.shortcuts['meta+shift+down'] = nudgepad.stage.selection.alignBottom
+  Events.shortcut.shortcuts['meta+shift+left'] = Design.stage.selection.alignLeft
+  Events.shortcut.shortcuts['meta+shift+right'] = Design.stage.selection.alignRight
+  Events.shortcut.shortcuts['meta+shift+up'] = Design.stage.selection.alignTop
+  Events.shortcut.shortcuts['meta+shift+down'] = Design.stage.selection.alignBottom
   
-  Events.shortcut.shortcuts['meta+shift+v'] = nudgepad.stage.selection.distributeVertical
-  Events.shortcut.shortcuts['meta+shift+h'] = nudgepad.stage.selection.distributeHorizontal
-  Events.shortcut.shortcuts['shift+d'] = nudgepad.stage.selection.distributeHorizontal
+  Events.shortcut.shortcuts['meta+shift+v'] = Design.stage.selection.distributeVertical
+  Events.shortcut.shortcuts['meta+shift+h'] = Design.stage.selection.distributeHorizontal
+  Events.shortcut.shortcuts['shift+d'] = Design.stage.selection.distributeHorizontal
   
   Events.shortcut.shortcuts['alt+o'] = nudgepad.explorer.quickEdit
   
   Events.shortcut.shortcuts['meta+shift+s'] = nudgepad.edit_settings
   
-  var deleteMethod = function () { nudgepad.stage.selection.remove(); nudgepad.stage.commit() }
+  var deleteMethod = function () { Design.stage.selection.remove(); Design.stage.commit() }
   Events.shortcut.shortcuts['delete'] = deleteMethod
   Events.shortcut.shortcuts['backspace'] = deleteMethod
   
-  Events.shortcut.shortcuts['ctrl+d'] = nudgepad.stage.selection.duplicate
-  Events.shortcut.shortcuts['meta+d'] = nudgepad.stage.selection.duplicate
+  Events.shortcut.shortcuts['ctrl+d'] = Design.stage.selection.duplicate
+  Events.shortcut.shortcuts['meta+d'] = Design.stage.selection.duplicate
   
-  var editSourceToggle = function () { ($('.selection').length ? nudgepad.stage.selection.editSource() : nudgepad.stage.editSource())}
+  var editSourceToggle = function () { ($('.selection').length ? Design.stage.selection.editSource() : Design.stage.editSource())}
   Events.shortcut.shortcuts['ctrl+u'] = editSourceToggle
   Events.shortcut.shortcuts['meta+u'] = editSourceToggle
   
   Events.shortcut.shortcuts['meta+shift+u'] = nudgepad.codePanel.toggle
   
-  Events.shortcut.shortcuts['meta+e'] = nudgepad.stage.selection.editProperty
+  Events.shortcut.shortcuts['meta+e'] = Design.stage.selection.editProperty
   
   
   
-  Events.shortcut.shortcuts['meta+l'] = nudgepad.stage.selection.editLoop
+  Events.shortcut.shortcuts['meta+l'] = Design.stage.selection.editLoop
   
   var contextMenuToggle = function () {$('#pagesContextMenu').toggle()}
   Events.shortcut.shortcuts['ctrl+i'] = contextMenuToggle
@@ -59,7 +59,7 @@ nudgepad.bind_shortcuts = function () {
       return false
     if (command.match(/^(w|width) (.*)/)) {
       var match = command.match(/^(w|width) (.*)/)
-      nudgepad.stage.selection.css('width ' + match[2])
+      Design.stage.selection.css('width ' + match[2])
     }
   }
   
@@ -74,32 +74,32 @@ nudgepad.bind_shortcuts = function () {
   Events.shortcut.shortcuts['ctrl+n'] = Design.blank
   Events.shortcut.shortcuts['meta+n'] = Design.blank
   
-  Events.shortcut.shortcuts['esc'] = nudgepad.stage.selection.clear
+  Events.shortcut.shortcuts['esc'] = Design.stage.selection.clear
   
   Events.shortcut.shortcuts['shift+n'] = Design.duplicate
   
-  Events.shortcut.shortcuts['up'] = function (){nudgepad.stage.selection.move(0, -1)}
-  Events.shortcut.shortcuts['left'] = function (){nudgepad.stage.selection.move(-1, 0)}
-  Events.shortcut.shortcuts['down'] = function (){nudgepad.stage.selection.move(0, 1)}
-  Events.shortcut.shortcuts['right'] = function (){nudgepad.stage.selection.move(1, 0)}
+  Events.shortcut.shortcuts['up'] = function (){Design.stage.selection.move(0, -1)}
+  Events.shortcut.shortcuts['left'] = function (){Design.stage.selection.move(-1, 0)}
+  Events.shortcut.shortcuts['down'] = function (){Design.stage.selection.move(0, 1)}
+  Events.shortcut.shortcuts['right'] = function (){Design.stage.selection.move(1, 0)}
   
   Events.shortcut.shortcuts['shift+t'] = function (){ $('.nudgepadTimeline').toggle()}
   
-  Events.shortcut.shortcuts['shift+v'] = nudgepad.stage.toggleView
+  Events.shortcut.shortcuts['shift+v'] = Design.stage.toggleView
   
-  Events.shortcut.shortcuts['shift+up'] = function (){nudgepad.stage.selection.move(0, -10)}
-  Events.shortcut.shortcuts['shift+left'] = function (){nudgepad.stage.selection.move(-10, 0)}
-  Events.shortcut.shortcuts['shift+down'] = function (){nudgepad.stage.selection.move(0, 10)}
-  Events.shortcut.shortcuts['shift+right'] = function (){nudgepad.stage.selection.move(10, 0)}
+  Events.shortcut.shortcuts['shift+up'] = function (){Design.stage.selection.move(0, -10)}
+  Events.shortcut.shortcuts['shift+left'] = function (){Design.stage.selection.move(-10, 0)}
+  Events.shortcut.shortcuts['shift+down'] = function (){Design.stage.selection.move(0, 10)}
+  Events.shortcut.shortcuts['shift+right'] = function (){Design.stage.selection.move(10, 0)}
   
-  Events.shortcut.shortcuts['alt+left'] = nudgepad.stage.back
-  Events.shortcut.shortcuts['alt+right'] = nudgepad.stage.forward
+  Events.shortcut.shortcuts['alt+left'] = Design.stage.back
+  Events.shortcut.shortcuts['alt+right'] = Design.stage.forward
   
-  Events.shortcut.shortcuts['ctrl+z'] = nudgepad.stage.undo
-  Events.shortcut.shortcuts['meta+z'] = nudgepad.stage.undo
-  Events.shortcut.shortcuts['meta+shift+z'] = nudgepad.stage.redo
-  Events.shortcut.shortcuts['meta+y'] = nudgepad.stage.redo
-  Events.shortcut.shortcuts['ctrl+y'] = nudgepad.stage.redo
-  Events.shortcut.shortcuts['meta+shift+c'] = nudgepad.stage.selection.cssPrompt
+  Events.shortcut.shortcuts['ctrl+z'] = Design.stage.undo
+  Events.shortcut.shortcuts['meta+z'] = Design.stage.undo
+  Events.shortcut.shortcuts['meta+shift+z'] = Design.stage.redo
+  Events.shortcut.shortcuts['meta+y'] = Design.stage.redo
+  Events.shortcut.shortcuts['ctrl+y'] = Design.stage.redo
+  Events.shortcut.shortcuts['meta+shift+c'] = Design.stage.selection.cssPrompt
   
 }

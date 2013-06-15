@@ -22,6 +22,15 @@ App.prototype.close = function (name) {
     return false
     
   
+  if (this.oncopy)
+    window.removeEventListener('copy', this.oncopy, false)
+    
+  if (this.oncut)
+    window.removeEventListener('cut', this.oncut, false)
+  
+  if (this.onpaste)
+    window.removeEventListener('paste', this.onpaste, false)
+  
   this._open = false
   App.openApp = false
   
@@ -61,6 +70,15 @@ App.prototype.open = function () {
   // todo: i think we can remove selection
   nudgepad.trigger('selection')
   
+  if (this.oncopy)
+    window.addEventListener('copy', this.oncopy, false)
+  
+  if (this.oncut)
+    window.addEventListener('cut', this.oncut, false)
+
+  if (this.onpaste)
+    window.addEventListener('cut', this.onpaste, false)
+
   // On ready event
   if (this.onready)
     this.onready()

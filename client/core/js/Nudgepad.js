@@ -9,7 +9,7 @@ if (!window.console)
  */
 nudgepad = {}
 Design = {}
-nudgepad.stage = {}
+Design.stage = {}
 nudgepad.id = new Date().getTime()
 nudgepad.tab = new Space('id ' + nudgepad.id)
 nudgepad.tab.set('device', platform.name + (platform.product ? '/' + platform.product : ''))
@@ -159,7 +159,7 @@ nudgepad.main = function (callback) {
     if (!site.get('pages ' + activePage))
       activePage = 'home'
     
-    nudgepad.stage.open(activePage)
+    Design.stage.open(activePage)
     
     // Update all handles on resize
     $(window).on('resize', function () {

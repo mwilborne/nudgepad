@@ -8,14 +8,14 @@ nudgepad.codePanel.livePreviewStart = function () {
 }
 nudgepad.codePanel.livePreview = function () {
   var space = new Space($('#nudgepadCodePanel').val())
-  if (nudgepad.stage.selection.exists()) {
-    nudgepad.stage.selection.clear()
+  if (Design.stage.selection.exists()) {
+    Design.stage.selection.clear()
   }
-//    Design.stage.patch(nudgepad.stage.selection.captured.diff(space))
-//    nudgepad.stage.render()
+//    Design.page.patch(Design.stage.selection.captured.diff(space))
+//    Design.stage.render()
 //  } else {
-    Design.stage = new Page(space)
-    nudgepad.stage.render()
+    Design.page = new Page(space)
+    Design.stage.render()
 //  }
 }
 
@@ -33,13 +33,13 @@ nudgepad.codePanel.isOpen = function () {
 nudgepad.codePanel.load = function () {
   var textarea = $('#nudgepadCodePanel')
   // todo: allow for just showing of selection
-//  if (nudgepad.stage.selection.exists()) {
-//    nudgepad.stage.selection.clear()
-//    nudgepad.stage.selection.capture()
-//    nudgepad.stage.selection.save()
-//    textarea.val(nudgepad.stage.selection.toSpace().toString())
+//  if (Design.stage.selection.exists()) {
+//    Design.stage.selection.clear()
+//    Design.stage.selection.capture()
+//    Design.stage.selection.save()
+//    textarea.val(Design.stage.selection.toSpace().toString())
 //  } else
-  textarea.val(Design.stage.toString())
+  textarea.val(Design.page.toString())
 }
 
 nudgepad.codePanel.open = function () {
@@ -49,7 +49,7 @@ nudgepad.codePanel.open = function () {
   $('#nudgepadStage').css('padding-left', '40%')
   nudgepad.codePanel.load()
   textarea.on('keyup', nudgepad.codePanel.livePreviewStart)
-  textarea.on('blur', nudgepad.stage.commit)
+  textarea.on('blur', Design.stage.commit)
   textarea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })

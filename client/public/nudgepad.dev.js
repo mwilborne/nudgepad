@@ -9952,7 +9952,7 @@ if (!window.console)
 nudgepad = {}
 nudgepad.apps = {}
 Design = {}
-nudgepad.stage = {}
+Design.stage = {}
 nudgepad.id = new Date().getTime()
 nudgepad.tab = new Space('id ' + nudgepad.id)
 nudgepad.tab.set('device', platform.name + (platform.product ? '/' + platform.product : ''))
@@ -10102,7 +10102,7 @@ nudgepad.main = function (callback) {
     if (!site.get('pages ' + activePage))
       activePage = 'home'
     
-    nudgepad.stage.open(activePage)
+    Design.stage.open(activePage)
     
     // Update all handles on resize
     $(window).on('resize', function () {
@@ -10262,7 +10262,7 @@ nudgepad.ondrop = function(e) {
       "\n width auto" +
       "\n height auto")
     var scraps = new Space().set('scrap1', space)
-    nudgepad.stage.insert(scraps)
+    Design.stage.insert(scraps)
   }
   reader.readAsDataURL(e.dataTransfer.files[0])
   e.preventDefault()
@@ -10347,27 +10347,27 @@ nudgepad.patch = {}
 nudgepad.patch.receive = function (patch) {
   
   patch = new Space(patch)
-  var behind = nudgepad.stage.isBehind()
+  var behind = Design.stage.isBehind()
   
   // If the page has been deleted, change page
-  if (patch.get('pages ' + nudgepad.stage.activePage) === '')
-    nudgepad.stage.back()
+  if (patch.get('pages ' + Design.stage.activePage) === '')
+    Design.stage.back()
   
   site.patch(patch)
   Design.updateTabs()
   
   // If the active page isnt touched, we are all done
-  if (!patch.get('timelines ' + nudgepad.stage.activePage))
+  if (!patch.get('timelines ' + Design.stage.activePage))
     return true    
   
   if (behind)
-    return nudgepad.stage.updateTimeline()
+    return Design.stage.updateTimeline()
   
   if ($('input:focus, div:focus, textarea:focus, a:focus').length)
-    return nudgepad.stage.updateTimeline()
+    return Design.stage.updateTimeline()
 
   // Todo: this breaks if you are in content editable
-  nudgepad.stage.redo()
+  Design.stage.redo()
   nudgepad.notify('Change received', 1000)
 }
 
@@ -10451,45 +10451,45 @@ $.fn.scrollMinimal = function(smooth) {
  */
 nudgepad.bind_shortcuts = function () {
   
-  Events.shortcut.shortcuts['meta+shift+p'] = nudgepad.stage.selection.patchPrompt
+  Events.shortcut.shortcuts['meta+shift+p'] = Design.stage.selection.patchPrompt
   
-  Events.shortcut.shortcuts['ctrl+a'] = nudgepad.stage.selectAll
-  Events.shortcut.shortcuts['meta+a'] = nudgepad.stage.selectAll
+  Events.shortcut.shortcuts['ctrl+a'] = Design.stage.selectAll
+  Events.shortcut.shortcuts['meta+a'] = Design.stage.selectAll
   
-  Events.shortcut.shortcuts['meta+p'] = function () { window.open(nudgepad.stage.activePage, 'published') }
+  Events.shortcut.shortcuts['meta+p'] = function () { window.open(Design.stage.activePage, 'published') }
   
 
-  Events.shortcut.shortcuts['meta+shift+left'] = nudgepad.stage.selection.alignLeft
-  Events.shortcut.shortcuts['meta+shift+right'] = nudgepad.stage.selection.alignRight
-  Events.shortcut.shortcuts['meta+shift+up'] = nudgepad.stage.selection.alignTop
-  Events.shortcut.shortcuts['meta+shift+down'] = nudgepad.stage.selection.alignBottom
+  Events.shortcut.shortcuts['meta+shift+left'] = Design.stage.selection.alignLeft
+  Events.shortcut.shortcuts['meta+shift+right'] = Design.stage.selection.alignRight
+  Events.shortcut.shortcuts['meta+shift+up'] = Design.stage.selection.alignTop
+  Events.shortcut.shortcuts['meta+shift+down'] = Design.stage.selection.alignBottom
   
-  Events.shortcut.shortcuts['meta+shift+v'] = nudgepad.stage.selection.distributeVertical
-  Events.shortcut.shortcuts['meta+shift+h'] = nudgepad.stage.selection.distributeHorizontal
-  Events.shortcut.shortcuts['shift+d'] = nudgepad.stage.selection.distributeHorizontal
+  Events.shortcut.shortcuts['meta+shift+v'] = Design.stage.selection.distributeVertical
+  Events.shortcut.shortcuts['meta+shift+h'] = Design.stage.selection.distributeHorizontal
+  Events.shortcut.shortcuts['shift+d'] = Design.stage.selection.distributeHorizontal
   
   Events.shortcut.shortcuts['alt+o'] = nudgepad.explorer.quickEdit
   
   Events.shortcut.shortcuts['meta+shift+s'] = nudgepad.edit_settings
   
-  var deleteMethod = function () { nudgepad.stage.selection.remove(); nudgepad.stage.commit() }
+  var deleteMethod = function () { Design.stage.selection.remove(); Design.stage.commit() }
   Events.shortcut.shortcuts['delete'] = deleteMethod
   Events.shortcut.shortcuts['backspace'] = deleteMethod
   
-  Events.shortcut.shortcuts['ctrl+d'] = nudgepad.stage.selection.duplicate
-  Events.shortcut.shortcuts['meta+d'] = nudgepad.stage.selection.duplicate
+  Events.shortcut.shortcuts['ctrl+d'] = Design.stage.selection.duplicate
+  Events.shortcut.shortcuts['meta+d'] = Design.stage.selection.duplicate
   
-  var editSourceToggle = function () { ($('.selection').length ? nudgepad.stage.selection.editSource() : nudgepad.stage.editSource())}
+  var editSourceToggle = function () { ($('.selection').length ? Design.stage.selection.editSource() : Design.stage.editSource())}
   Events.shortcut.shortcuts['ctrl+u'] = editSourceToggle
   Events.shortcut.shortcuts['meta+u'] = editSourceToggle
   
   Events.shortcut.shortcuts['meta+shift+u'] = nudgepad.codePanel.toggle
   
-  Events.shortcut.shortcuts['meta+e'] = nudgepad.stage.selection.editProperty
+  Events.shortcut.shortcuts['meta+e'] = Design.stage.selection.editProperty
   
   
   
-  Events.shortcut.shortcuts['meta+l'] = nudgepad.stage.selection.editLoop
+  Events.shortcut.shortcuts['meta+l'] = Design.stage.selection.editLoop
   
   var contextMenuToggle = function () {$('#pagesContextMenu').toggle()}
   Events.shortcut.shortcuts['ctrl+i'] = contextMenuToggle
@@ -10502,7 +10502,7 @@ nudgepad.bind_shortcuts = function () {
       return false
     if (command.match(/^(w|width) (.*)/)) {
       var match = command.match(/^(w|width) (.*)/)
-      nudgepad.stage.selection.css('width ' + match[2])
+      Design.stage.selection.css('width ' + match[2])
     }
   }
   
@@ -10517,33 +10517,33 @@ nudgepad.bind_shortcuts = function () {
   Events.shortcut.shortcuts['ctrl+n'] = Design.blank
   Events.shortcut.shortcuts['meta+n'] = Design.blank
   
-  Events.shortcut.shortcuts['esc'] = nudgepad.stage.selection.clear
+  Events.shortcut.shortcuts['esc'] = Design.stage.selection.clear
   
   Events.shortcut.shortcuts['shift+n'] = Design.duplicate
   
-  Events.shortcut.shortcuts['up'] = function (){nudgepad.stage.selection.move(0, -1)}
-  Events.shortcut.shortcuts['left'] = function (){nudgepad.stage.selection.move(-1, 0)}
-  Events.shortcut.shortcuts['down'] = function (){nudgepad.stage.selection.move(0, 1)}
-  Events.shortcut.shortcuts['right'] = function (){nudgepad.stage.selection.move(1, 0)}
+  Events.shortcut.shortcuts['up'] = function (){Design.stage.selection.move(0, -1)}
+  Events.shortcut.shortcuts['left'] = function (){Design.stage.selection.move(-1, 0)}
+  Events.shortcut.shortcuts['down'] = function (){Design.stage.selection.move(0, 1)}
+  Events.shortcut.shortcuts['right'] = function (){Design.stage.selection.move(1, 0)}
   
   Events.shortcut.shortcuts['shift+t'] = function (){ $('.nudgepadTimeline').toggle()}
   
-  Events.shortcut.shortcuts['shift+v'] = nudgepad.stage.toggleView
+  Events.shortcut.shortcuts['shift+v'] = Design.stage.toggleView
   
-  Events.shortcut.shortcuts['shift+up'] = function (){nudgepad.stage.selection.move(0, -10)}
-  Events.shortcut.shortcuts['shift+left'] = function (){nudgepad.stage.selection.move(-10, 0)}
-  Events.shortcut.shortcuts['shift+down'] = function (){nudgepad.stage.selection.move(0, 10)}
-  Events.shortcut.shortcuts['shift+right'] = function (){nudgepad.stage.selection.move(10, 0)}
+  Events.shortcut.shortcuts['shift+up'] = function (){Design.stage.selection.move(0, -10)}
+  Events.shortcut.shortcuts['shift+left'] = function (){Design.stage.selection.move(-10, 0)}
+  Events.shortcut.shortcuts['shift+down'] = function (){Design.stage.selection.move(0, 10)}
+  Events.shortcut.shortcuts['shift+right'] = function (){Design.stage.selection.move(10, 0)}
   
-  Events.shortcut.shortcuts['alt+left'] = nudgepad.stage.back
-  Events.shortcut.shortcuts['alt+right'] = nudgepad.stage.forward
+  Events.shortcut.shortcuts['alt+left'] = Design.stage.back
+  Events.shortcut.shortcuts['alt+right'] = Design.stage.forward
   
-  Events.shortcut.shortcuts['ctrl+z'] = nudgepad.stage.undo
-  Events.shortcut.shortcuts['meta+z'] = nudgepad.stage.undo
-  Events.shortcut.shortcuts['meta+shift+z'] = nudgepad.stage.redo
-  Events.shortcut.shortcuts['meta+y'] = nudgepad.stage.redo
-  Events.shortcut.shortcuts['ctrl+y'] = nudgepad.stage.redo
-  Events.shortcut.shortcuts['meta+shift+c'] = nudgepad.stage.selection.cssPrompt
+  Events.shortcut.shortcuts['ctrl+z'] = Design.stage.undo
+  Events.shortcut.shortcuts['meta+z'] = Design.stage.undo
+  Events.shortcut.shortcuts['meta+shift+z'] = Design.stage.redo
+  Events.shortcut.shortcuts['meta+y'] = Design.stage.redo
+  Events.shortcut.shortcuts['ctrl+y'] = Design.stage.redo
+  Events.shortcut.shortcuts['meta+shift+c'] = Design.stage.selection.cssPrompt
   
 }
 ;Space.prototype.autokey = function (prefix) {
@@ -10672,7 +10672,7 @@ nudgepad.on('main', nudgepad.apps.surveys.download)
   })
   $('.barDroppable').on('slidestart', function() {
     var dropBlock = $(this).attr('title').toLowerCase()
-    nudgepad.stage.dragAndDrop(nudgepad.droppables.get('blocks ' + dropBlock))
+    Design.stage.dragAndDrop(Design.droppables.get('blocks ' + dropBlock))
   })
   
   
@@ -10692,14 +10692,14 @@ nudgepad.codePanel.livePreviewStart = function () {
 }
 nudgepad.codePanel.livePreview = function () {
   var space = new Space($('#nudgepadCodePanel').val())
-  if (nudgepad.stage.selection.exists()) {
-    nudgepad.stage.selection.clear()
+  if (Design.stage.selection.exists()) {
+    Design.stage.selection.clear()
   }
-//    Design.stage.patch(nudgepad.stage.selection.captured.diff(space))
-//    nudgepad.stage.render()
+//    Design.page.patch(Design.stage.selection.captured.diff(space))
+//    Design.stage.render()
 //  } else {
-    Design.stage = new Page(space)
-    nudgepad.stage.render()
+    Design.page = new Page(space)
+    Design.stage.render()
 //  }
 }
 
@@ -10717,13 +10717,13 @@ nudgepad.codePanel.isOpen = function () {
 nudgepad.codePanel.load = function () {
   var textarea = $('#nudgepadCodePanel')
   // todo: allow for just showing of selection
-//  if (nudgepad.stage.selection.exists()) {
-//    nudgepad.stage.selection.clear()
-//    nudgepad.stage.selection.capture()
-//    nudgepad.stage.selection.save()
-//    textarea.val(nudgepad.stage.selection.toSpace().toString())
+//  if (Design.stage.selection.exists()) {
+//    Design.stage.selection.clear()
+//    Design.stage.selection.capture()
+//    Design.stage.selection.save()
+//    textarea.val(Design.stage.selection.toSpace().toString())
 //  } else
-  textarea.val(Design.stage.toString())
+  textarea.val(Design.page.toString())
 }
 
 nudgepad.codePanel.open = function () {
@@ -10733,7 +10733,7 @@ nudgepad.codePanel.open = function () {
   $('#nudgepadStage').css('padding-left', '40%')
   nudgepad.codePanel.load()
   textarea.on('keyup', nudgepad.codePanel.livePreviewStart)
-  textarea.on('blur', nudgepad.stage.commit)
+  textarea.on('blur', Design.stage.commit)
   textarea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
@@ -10764,7 +10764,7 @@ nudgepad.contentEditor.onblur = function () {
   $(this).removeAttr('contenteditable')
 
   // record the changes for undo/redo
-  nudgepad.stage.commit()
+  Design.stage.commit()
   nudgepad.broadcastSelection()
 }
 
@@ -10779,7 +10779,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
   
   // When focused, it's as if you have nothing selected. We're really going to do 
   // a patch instead
-  nudgepad.stage.selection.clear()
+  Design.stage.selection.clear()
   
   var element = $(selector)
   var scrap = element.scrap()  
@@ -10791,9 +10791,9 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     var tag = scrap.values.tag
     
     if (tag && tag.match(/^(list)$/)) {
-      nudgepad.stage.selection.clear()
+      Design.stage.selection.clear()
       element.selectMe()
-      nudgepad.stage.selection.editSource()
+      Design.stage.selection.editSource()
       return false
     }
     
@@ -10802,7 +10802,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     
     nudgepad.textPrompt('Editing content for this block', scrap.values[attr], function (val) {
       scrap.values[attr] = val
-      nudgepad.stage.commit()
+      Design.stage.commit()
       element.remove()
       $('#nudgepadStageBody').append(scrap.toHtml(null, true))
       element.selectMe()
@@ -10848,7 +10848,7 @@ nudgepad.contentEditor.killEvent = function (event) {
 }
 
 
-;nudgepad.droppables = new Space('blocks\n block\n  block1\n   style\n    background-color #7a8289\n    height 180px\n    width 220px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n block8\n  block1\n   style\n    height 40px\n    width 150px\n    padding 0px\n    font-size 14px\n    text-indent 10px\n    color #555\n    position absolute\n    border 2px solid #ccc\n    -webkit-appearance normal\n    top 0\n    left 0\n   tag input\n   placeholder Type Here\n button\n  block1\n   style\n    background-color #ed2e11\n    height 50px\n    font-family Open Sans\n    width auto\n    cursor pointer\n    font-size 18px\n    line-height 50px\n    text-align center\n    position absolute\n    padding 0px 20px\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 0\n    left 0\n   content Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n fullx\n  fullx\n   style\n    background-color #eee\n    height 60px\n    width 100%\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n graph\n  block1\n   style\n    background-image url(/nudgepad/public/images/graphPlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n header\n  block1\n   style\n    height auto\n    font-family Open Sans\n    width auto\n    font-size 24px\n    font-weight bold\n    position absolute\n    color #333\n    top 0\n    left 0\n   content Title\n image\n  block1\n   style\n    background-image url(/nudgepad/public/images/imagePlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n nav\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 18px\n    line-height 140%\n    color #999\n    position absolute\n    top 0\n    left 0\n   scraps\n    nav1\n     style\n      margin-right 40px\n      float left\n     content Home\n    nav2\n     style\n      margin-right 40px\n      float left\n     content About\n    nav3\n     style\n      margin-right 40px\n      float left\n     content Portfolio\n    nav4\n     style\n      float left\n     content Contact\n paragraph\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 16px\n    width 420px\n    color #222\n    position absolute\n    top 0\n    left 0\n   scraps\n    header\n     style\n      margin-bottom 30px\n      font-size 52px\n     content Born Good\n    subHeader\n     style\n      margin-bottom 30px\n      font-size 18px\n      font-weight bold\n     content About Me\n    nav3\n     style\n      margin-right 40px\n      font-size 16px\n      line-height 140%\n      color #555\n     content When I was a lad I ate four dozen eggs ev\'ry morning to help me get large. And now that I\'m grown I eat five dozen eggs, so I\'m roughly the size of a barge!\n rounded\n  rounded\n   style\n    background-color #e83b1e\n    height 60px\n    width 120px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    text-align center\n    color #333\n    top 0\n    left 0\n    border-radius 5px\n    line-height 60px\n sticky\n  stickyNote\n   style\n    background-color #f4ed04\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyBlue\n  stickyBlue\n   style\n    background-color #15cbf2\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyOrange\n  stickyOrange\n   style\n    background-color #f29215\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n text\n  text\n   style\n    height auto\n    font-family Open Sans\n    width 420px\n    font-size 16px\n    line-height 140%\n    color #555\n    position absolute\n    top 0\n    left 0\n   content There is a place where the sidewalk ends and before the street begins, and there the grass grows soft and white, and there the sun burns crimson bright, and there the moon-bird rests from his flight to cool in the peppermint wind.\nbuttons\n button1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    top 0\n    left 0\n   content Plain Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n button2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    height 40px\n    width 120px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    background -webkit-linear-gradient(top, #ff5e42, #e3543b)\n    border 1px solid #bf4530\n    box-shadow 0px 1px 3px rgba(0,0,0,.5), inset 0px 1px 0px #ffc0b5\n    left 0px\n    top 0px\n   content Fancy Button\n   hover_style\n    background #e3543b\n   active_style\n    background #bf4530\n button3\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    box-shadow 0px 5px 0px 0px #c94932\n    top 0\n    left 0\n   content Drop Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n    box-shadow 0px 5px 0px 0px #a33a27\nelements\n iframe\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   src http://nudgepad.com/iframe\n   style\n    height 245px\n    width 282px\n    top 0px\n    left 0px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n    border-radius 4px 4px 4px 4px\n video\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   frameborder 0\n   width 560\n   height 315\n   allowfullscreen allowfullscreen\n   src http://www.youtube.com/embed/cFEarBzelBs?rel=0\n   style\n    top 0\n    left 0\nforms\n contact_form\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 315px\n    left 154px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() + \'\nname \' + $(\'input.name\').val() + \'\n comment \' + $(\'textarea.comment\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 110px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n   tabindex 2\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 0px\n   content Contact Us\n  comment\n   style\n    height 135px\n    width 264px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 163px\n    left 0px\n    padding 3px\n    margin 0\n   tag textarea\n   placeholder How can we help you?\n   class comment\n   tabindex 3\n  name\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 64px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag text\n   placeholder Your name\n   class name\n   tabindex 1\n email_signup\n  head\n   tag page\n   title email_signup\n   stylesheets /nudgepad/blocks.css site.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 66px\n    left 175px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 66px\n    left -1px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 1px\n   content Join our Email List\nfun\n blog\n  head\n   tag page\n   title {{nudgepad.post.title}}\n   style\n    body\n     width 400px\n     position relative\n     height 100%\n     margin 0 auto\n    html\n     width 100%\n     height 100%\n    .scrap\n     position absolute\n    a\n     text-decoration none\n    a:hover\n     text-decoration underline\n  title\n   style\n    width 100%\n    height auto\n    font-size 36px\n    font-family Georgia\n    color #202020\n    padding 20px\n    line-height 36px\n    top 40px\n    left 0\n   content {{nudgepad.post.title Title of Post}}\n   onedit blog\n  content\n   content {{nudgepad.post.content The post body goes here. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.}}\n   style\n    width 100%\n    height auto\n    background-color transparent\n    color #202020\n    font-family Georgia\n    font-size 16px\n    line-height 22px\n    padding 0px 20px\n    top 150px\n    text-align justify\n   content_format nl2br\n   onedit blog\n book\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block3\n   style\n    left 191px\n    top 77px\n    height 20px\n    width 520px\n    background-color #8b9dc1\n    z-index 2\n  block4\n   style\n    left 0px\n    top 0px\n    height 40px\n    width 960px\n    padding-left 10px\n    -webkit-box-shadow 0 2px 2px -2px rgba(0, 0, 0, .52)\n    border-bottom 1px solid #133783\n    background-color #3b5a9b\n    font-size 30px\n    color #FFFFFF\n    font-family Arial\n    font-weight bold\n    line-height 40px\n   content book\n  block1\n   style\n    left 0px\n    top 77px\n    height 256px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block6\n   style\n    left 191px\n    top 87px\n    height 517px\n    width 520px\n    background-color #f8f8f8\n   content <br>\n  block7\n   content John Doe\n   style\n    left 881px\n    top 13px\n    height 15px\n    width 78.5px\n    color #e1e4ed\n    z-index 2\n  block11\n   style\n    left 0px\n    top 368px\n    height 236px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block8\n   style\n    left 724.5px\n    top 348px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block12\n   style\n    left 725px\n    top 368px\n    height 236px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block13\n   style\n    left 724.5px\n    top 77px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block14\n   style\n    left 725px\n    top 97px\n    height 171px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block15\n   style\n    left 0px\n    top 77px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block16\n   style\n    left 0px\n    top 368px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block2\n   content This is a demo page.\n   style\n    left 0px\n    top 681px\n    height auto\n    padding-top 3px\n    font-size 12px\n    color gray\n    width 970px\n    border-top 1px solid #e1e4ed\n    z-index 2\n  block17\n   tag img\n   src /nudgepad/public/images/obama.jpg\n   style\n    left 290px\n    top 154px\n    width 321.5px\n    height auto\n  block18\n   tag img\n   src /nudgepad/public/images/obama_small.jpg\n   style\n    left 222px\n    top 132px\n    width auto\n    height auto\n  block19\n   content Barack Obama went on a nice stroll with his wife.\n   style\n    left 290px\n    top 132px\n    height 15px\n    width 405.5px\n    color gray\n    z-index 2\n cluster\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block2\n   style\n    left 181px\n    top 60px\n    width 138.5px\n    height auto\n    font-size 15px\n    background transparent\n    color #666666\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n  block3\n   style\n    left 333px\n    top 137px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block7\n   style\n    left 100px\n    top 267px\n    width 66.5px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block8\n   style\n    left 7px\n    top 116px\n    width auto\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 140%\n   content Section Header\n  block9\n   style\n    left 11px\n    top 149px\n    width auto\n    height auto\n    font-size 32px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block10\n   style\n    left 182px\n    top -19px\n    width 368.5px\n    height auto\n    font-size 51px\n    background transparent\n    font-weight bold\n    color #222222\n    line-height 140%\n   content Page Header\n  block11\n   style\n    left 167px\n    top 312px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block12\n   style\n    left 333px\n    top 60px\n    width 34px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block1\n   style\n    left 7px\n    top 368px\n    background transparent\n    height auto\n    font-weight bold\n    width 368.5px\n    color #222222\n    font-size 51px\n    line-height 140%\n   content Page Header\n  block13\n   style\n    left 338px\n    top 99px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block14\n   style\n    left 7px\n    top 202px\n    background transparent\n    height auto\n    width auto\n    color #666666\n    font-size 32px\n    line-height 140%\n   content Small Label\n  block15\n   style\n    left 338px\n    top 267px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block16\n   style\n    left 338px\n    top 376px\n    background transparent\n    height auto\n    width 126.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n meme\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     background-color white\n     height 1000px\n  block17\n   tag img\n   src /nudgepad/public/images/firstworld.jpg\n   style\n    left 0px\n    top 0px\n    width auto\n    height auto\n  block2\n   style\n    left 0px\n    top 0px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content There\'s nothing to drink....\n  block3\n   style\n    left 0px\n    top 267px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content Except for a virtually unlimited supply of clean water.\n mindmap\n  head\n   tag page\n   title Mindmap\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     background-color transparent\n     background-image url(/nudgepad/public/images/textures/tan.jpeg)\n     width 960px\n     height 1000px\n  block2\n   style\n    left 145px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block3\n   style\n    left 283px\n    top 126px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 36px\n    background-color white\n    font-weight normal\n   content Main Topic\n  block4\n   style\n    left 333px\n    top -2px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block5\n   style\n    left 521px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block6\n   style\n    left 521px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block7\n   style\n    left 333px\n    top 281px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block8\n   style\n    left 145px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block9\n   style\n    left 652px\n    top 14px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block10\n   style\n    left 652px\n    top 90px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block11\n   style\n    left 14px\n    top 277px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block12\n   style\n    left 14px\n    top 207px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n times\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n   old_style \n    @font-face {\n      font-family: \'OldLondon\';\n      src: url(\'/nudgepad/public/fonts/OldLondon.ttf\');\n      font-weight: normal;\n      font-style: normal;\n    }\n  block2\n   style\n    left 392px\n    top 114px\n    background transparent\n    height auto\n    width 174.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n    font-family Times\n   content Friday, December 7, 2012\n  block1\n   style\n    left -1px\n    top 26px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    font-family OldLondon\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n   content The Nudgepad Times\n  block17\n   tag img\n   src /nudgepad/public/images/pic.jpg\n   style\n    left 259px\n    top 202px\n    width 336.5px\n    height auto\n  block4\n   style\n    left -1px\n    top 145px\n    height 562px\n    width 94px\n    border-left-width 1px\n    border-color black\n    border-style solid\n    border-right-width 1px\n    border-right-color #e2e2e2\n  block5\n   style\n    left 605.5px\n    top 145px\n    height 562px\n    width 353.5px\n    border-left-width 1px\n    border-color #e2e2e2\n    border-style solid\n    border-right-width 1px\n    border-right-color black\n  block6\n   style\n    left -2px\n    top 707px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n  block7\n   style\n    left 112px\n    top 160px\n    background transparent\n    height auto\n    width auto\n    color #004276\n    font-size 24px\n    font-family Times\n    font-weight bold\n   content Man Points at Map with Elongated Stick\n  block8\n   style\n    left 112px\n    top 202px\n    background transparent\n    height auto\n    width 128.5px\n    color #004276\n    font-size 16px\n    font-family Times\n    font-weight bold\n   content What will he point at next?<br>\n  block9\n   style\n    left 112px\n    top 255px\n    background transparent\n    height auto\n    width 128.5px\n    color #333333\n    font-size 12px\n    font-family Times\n   content The pointing at the stick began when a man in third row stood up to ask a question.<br>\nlists\n list1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    border-top 1px solid #ccc\n    white-space nowrap\n    border-bottom 1px solid #ccc\n    border-left 1px solid #ccc\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     display inline-block\n     text-align center\n     width 120px\n     height 40px\n     line-height 40px\n     background-color #eee\n     border-right 1px solid #ccc\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\n list2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    white-space nowrap\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     line-height 180%\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\nscripts\n googleAnalytics\n  googleAnalytics\n   tag script\n   content \n    var _gaq = _gaq || [];\n    _gaq.push([\'_setAccount\', \'{{site.googleAnalyticsId}}\']);\n    _gaq.push([\'_trackPageview\']);\n    (function() {\n      var ga = document.createElement(\'script\'); ga.tag = \'text/javascript\'; ga.async = true;\n      ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';\n      var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);\n    })();\n jquery\n  jquery\n   tag script\n   src //ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js\n');/**
+;Design.droppables = new Space('blocks\n block\n  block1\n   style\n    background-color #7a8289\n    height 180px\n    width 220px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n block8\n  block1\n   style\n    height 40px\n    width 150px\n    padding 0px\n    font-size 14px\n    text-indent 10px\n    color #555\n    position absolute\n    border 2px solid #ccc\n    -webkit-appearance normal\n    top 0\n    left 0\n   tag input\n   placeholder Type Here\n button\n  block1\n   style\n    background-color #ed2e11\n    height 50px\n    font-family Open Sans\n    width auto\n    cursor pointer\n    font-size 18px\n    line-height 50px\n    text-align center\n    position absolute\n    padding 0px 20px\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 0\n    left 0\n   content Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n fullx\n  fullx\n   style\n    background-color #eee\n    height 60px\n    width 100%\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    color #333\n    top 0\n    left 0\n graph\n  block1\n   style\n    background-image url(/nudgepad/public/images/graphPlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n header\n  block1\n   style\n    height auto\n    font-family Open Sans\n    width auto\n    font-size 24px\n    font-weight bold\n    position absolute\n    color #333\n    top 0\n    left 0\n   content Title\n image\n  block1\n   style\n    background-image url(/nudgepad/public/images/imagePlace.png)\n    background-repeat no-repeat\n    background-color transparent\n    background-size contain\n    background-position center\n    position absolute\n    height 300px\n    width 300px\n    font-size 14px\n    color #fff\n    top 0\n    left 0\n nav\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 18px\n    line-height 140%\n    color #999\n    position absolute\n    top 0\n    left 0\n   scraps\n    nav1\n     style\n      margin-right 40px\n      float left\n     content Home\n    nav2\n     style\n      margin-right 40px\n      float left\n     content About\n    nav3\n     style\n      margin-right 40px\n      float left\n     content Portfolio\n    nav4\n     style\n      float left\n     content Contact\n paragraph\n  nav\n   style\n    height auto\n    font-family Open Sans\n    font-size 16px\n    width 420px\n    color #222\n    position absolute\n    top 0\n    left 0\n   scraps\n    header\n     style\n      margin-bottom 30px\n      font-size 52px\n     content Born Good\n    subHeader\n     style\n      margin-bottom 30px\n      font-size 18px\n      font-weight bold\n     content About Me\n    nav3\n     style\n      margin-right 40px\n      font-size 16px\n      line-height 140%\n      color #555\n     content When I was a lad I ate four dozen eggs ev\'ry morning to help me get large. And now that I\'m grown I eat five dozen eggs, so I\'m roughly the size of a barge!\n rounded\n  rounded\n   style\n    background-color #e83b1e\n    height 60px\n    width 120px\n    position absolute\n    font-size 15px\n    font-family Open Sans\n    text-align center\n    color #333\n    top 0\n    left 0\n    border-radius 5px\n    line-height 60px\n sticky\n  stickyNote\n   style\n    background-color #f4ed04\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyBlue\n  stickyBlue\n   style\n    background-color #15cbf2\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n stickyOrange\n  stickyOrange\n   style\n    background-color #f29215\n    font-family Courier\n    position absolute\n    color #222\n    top 0\n    left 0\n    height auto\n    width 120px\n    font-size 14px\n    line-height 120%\n    padding 10px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n   content I am a sticky note. I do not show up on your live site.\n   draft true\n text\n  text\n   style\n    height auto\n    font-family Open Sans\n    width 420px\n    font-size 16px\n    line-height 140%\n    color #555\n    position absolute\n    top 0\n    left 0\n   content There is a place where the sidewalk ends and before the street begins, and there the grass grows soft and white, and there the sun burns crimson bright, and there the moon-bird rests from his flight to cool in the peppermint wind.\nbuttons\n button1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    top 0\n    left 0\n   content Plain Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n button2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    height 40px\n    width 120px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    background -webkit-linear-gradient(top, #ff5e42, #e3543b)\n    border 1px solid #bf4530\n    box-shadow 0px 1px 3px rgba(0,0,0,.5), inset 0px 1px 0px #ffc0b5\n    left 0px\n    top 0px\n   content Fancy Button\n   hover_style\n    background #e3543b\n   active_style\n    background #bf4530\n button3\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color #e3543b\n    height 40px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 40px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 4px\n    box-shadow 0px 5px 0px 0px #c94932\n    top 0\n    left 0\n   content Drop Button\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n    box-shadow 0px 5px 0px 0px #a33a27\nelements\n iframe\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   src http://nudgepad.com/iframe\n   style\n    height 245px\n    width 282px\n    top 0px\n    left 0px\n    box-shadow 0px 1px 3px rgba(0,0,0,.6)\n    border-radius 4px 4px 4px 4px\n video\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n     background-color white\n  block2\n   tag iframe\n   frameborder 0\n   width 560\n   height 315\n   allowfullscreen allowfullscreen\n   src http://www.youtube.com/embed/cFEarBzelBs?rel=0\n   style\n    top 0\n    left 0\nforms\n contact_form\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 315px\n    left 154px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() + \'\nname \' + $(\'input.name\').val() + \'\n comment \' + $(\'textarea.comment\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 110px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n   tabindex 2\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 0px\n   content Contact Us\n  comment\n   style\n    height 135px\n    width 264px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 163px\n    left 0px\n    padding 3px\n    margin 0\n   tag textarea\n   placeholder How can we help you?\n   class comment\n   tabindex 3\n  name\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 64px\n    left 0px\n    padding 0\n    padding-left 5px\n   tag text\n   placeholder Your name\n   class name\n   tabindex 1\n email_signup\n  head\n   tag page\n   title email_signup\n   stylesheets /nudgepad/blocks.css site.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block3\n   style\n    background-color #e3543b\n    height 35px\n    width 110px\n    cursor pointer\n    font-size 14px\n    line-height 35px\n    text-align center\n    font-weight bold\n    color #fff\n    border-radius 3px\n    top 66px\n    left 175px\n   content Sign Up\n   hover_style\n    background-color #c94932\n   active_style\n    background-color #a33a27\n   click $.post(\'/nudgepad.surveys\', { note : \'email \' + $(\'input.email\').val() } , function () { $(\'.submit_button\').html(\'Success!\') } )\n   class submit_button\n  email_address\n   style\n    height 35px\n    width 168px\n    font-size 14px\n    color #555\n    border 1px solid #ccc\n    -webkit-appearance normal\n    top 66px\n    left -1px\n    padding 0\n    padding-left 5px\n   tag email\n   placeholder Email address\n   class email\n  block1\n   style\n    height auto\n    width auto\n    white-space nowrap\n    font-size 32px\n    line-height 140%\n    color #333\n    top 0px\n    left 1px\n   content Join our Email List\nfun\n blog\n  head\n   tag page\n   title {{nudgepad.post.title}}\n   style\n    body\n     width 400px\n     position relative\n     height 100%\n     margin 0 auto\n    html\n     width 100%\n     height 100%\n    .scrap\n     position absolute\n    a\n     text-decoration none\n    a:hover\n     text-decoration underline\n  title\n   style\n    width 100%\n    height auto\n    font-size 36px\n    font-family Georgia\n    color #202020\n    padding 20px\n    line-height 36px\n    top 40px\n    left 0\n   content {{nudgepad.post.title Title of Post}}\n   onedit blog\n  content\n   content {{nudgepad.post.content The post body goes here. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu. Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.  Lorem ipsum factum ipsum et et tu.}}\n   style\n    width 100%\n    height auto\n    background-color transparent\n    color #202020\n    font-family Georgia\n    font-size 16px\n    line-height 22px\n    padding 0px 20px\n    top 150px\n    text-align justify\n   content_format nl2br\n   onedit blog\n book\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block3\n   style\n    left 191px\n    top 77px\n    height 20px\n    width 520px\n    background-color #8b9dc1\n    z-index 2\n  block4\n   style\n    left 0px\n    top 0px\n    height 40px\n    width 960px\n    padding-left 10px\n    -webkit-box-shadow 0 2px 2px -2px rgba(0, 0, 0, .52)\n    border-bottom 1px solid #133783\n    background-color #3b5a9b\n    font-size 30px\n    color #FFFFFF\n    font-family Arial\n    font-weight bold\n    line-height 40px\n   content book\n  block1\n   style\n    left 0px\n    top 77px\n    height 256px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block6\n   style\n    left 191px\n    top 87px\n    height 517px\n    width 520px\n    background-color #f8f8f8\n   content <br>\n  block7\n   content John Doe\n   style\n    left 881px\n    top 13px\n    height 15px\n    width 78.5px\n    color #e1e4ed\n    z-index 2\n  block11\n   style\n    left 0px\n    top 368px\n    height 236px\n    width 174.5px\n    background-color #f8f8f8\n   content <br>\n  block8\n   style\n    left 724.5px\n    top 348px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block12\n   style\n    left 725px\n    top 368px\n    height 236px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block13\n   style\n    left 724.5px\n    top 77px\n    height 20px\n    width 245.5px\n    background-color #e1e4ed\n   content <br>\n  block14\n   style\n    left 725px\n    top 97px\n    height 171px\n    width 245px\n    background-color #f8f8f8\n   content <br>\n  block15\n   style\n    left 0px\n    top 77px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block16\n   style\n    left 0px\n    top 368px\n    height 20px\n    width 175px\n    background-color #e1e4ed\n   content <br>\n  block2\n   content This is a demo page.\n   style\n    left 0px\n    top 681px\n    height auto\n    padding-top 3px\n    font-size 12px\n    color gray\n    width 970px\n    border-top 1px solid #e1e4ed\n    z-index 2\n  block17\n   tag img\n   src /nudgepad/public/images/obama.jpg\n   style\n    left 290px\n    top 154px\n    width 321.5px\n    height auto\n  block18\n   tag img\n   src /nudgepad/public/images/obama_small.jpg\n   style\n    left 222px\n    top 132px\n    width auto\n    height auto\n  block19\n   content Barack Obama went on a nice stroll with his wife.\n   style\n    left 290px\n    top 132px\n    height 15px\n    width 405.5px\n    color gray\n    z-index 2\n cluster\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n  block2\n   style\n    left 181px\n    top 60px\n    width 138.5px\n    height auto\n    font-size 15px\n    background transparent\n    color #666666\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n  block3\n   style\n    left 333px\n    top 137px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block7\n   style\n    left 100px\n    top 267px\n    width 66.5px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block8\n   style\n    left 7px\n    top 116px\n    width auto\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 140%\n   content Section Header\n  block9\n   style\n    left 11px\n    top 149px\n    width auto\n    height auto\n    font-size 32px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block10\n   style\n    left 182px\n    top -19px\n    width 368.5px\n    height auto\n    font-size 51px\n    background transparent\n    font-weight bold\n    color #222222\n    line-height 140%\n   content Page Header\n  block11\n   style\n    left 167px\n    top 312px\n    width auto\n    height auto\n    font-size 40px\n    background transparent\n    color #666666\n    line-height 140%\n   content Small Label\n  block12\n   style\n    left 333px\n    top 60px\n    width 34px\n    height auto\n    font-size 24px\n    background transparent\n    color #222222\n    line-height 30%\n   content Section Header\n  block1\n   style\n    left 7px\n    top 368px\n    background transparent\n    height auto\n    font-weight bold\n    width 368.5px\n    color #222222\n    font-size 51px\n    line-height 140%\n   content Page Header\n  block13\n   style\n    left 338px\n    top 99px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block14\n   style\n    left 7px\n    top 202px\n    background transparent\n    height auto\n    width auto\n    color #666666\n    font-size 32px\n    line-height 140%\n   content Small Label\n  block15\n   style\n    left 338px\n    top 267px\n    background transparent\n    height auto\n    width auto\n    color #222222\n    font-size 24px\n    line-height 140%\n   content Section Header\n  block16\n   style\n    left 338px\n    top 376px\n    background transparent\n    height auto\n    width 126.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n   content A warm westerly blew over the prairie, making waves, and when I wound down the window I heard it growl in the dry grass like surf. For gulls, there were killdeer plovers, crying out their name as they wheeled and skidded on the wind.\n meme\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     background-color white\n     height 1000px\n  block17\n   tag img\n   src /nudgepad/public/images/firstworld.jpg\n   style\n    left 0px\n    top 0px\n    width auto\n    height auto\n  block2\n   style\n    left 0px\n    top 0px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content There\'s nothing to drink....\n  block3\n   style\n    left 0px\n    top 267px\n    background transparent\n    height auto\n    font-weight bold\n    width 552px\n    color #FFFFFF\n    font-size 36px\n    line-height 140%\n    text-shadow 1px 1px 1px black\n    text-align center\n   content Except for a virtually unlimited supply of clean water.\n mindmap\n  head\n   tag page\n   title Mindmap\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     background-color transparent\n     background-image url(/nudgepad/public/images/textures/tan.jpeg)\n     width 960px\n     height 1000px\n  block2\n   style\n    left 145px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block3\n   style\n    left 283px\n    top 126px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 36px\n    background-color white\n    font-weight normal\n   content Main Topic\n  block4\n   style\n    left 333px\n    top -2px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block5\n   style\n    left 521px\n    top 50px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block6\n   style\n    left 521px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block7\n   style\n    left 333px\n    top 281px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block8\n   style\n    left 145px\n    top 225px\n    width auto\n    padding 15px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 20px\n    background-color white\n    font-weight bold\n   content Subtopic\n  block9\n   style\n    left 652px\n    top 14px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block10\n   style\n    left 652px\n    top 90px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block11\n   style\n    left 14px\n    top 277px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n  block12\n   style\n    left 14px\n    top 207px\n    width auto\n    padding 10px\n    height auto\n    border-radius 20px\n    border 1px solid #333333\n    text-align center\n    font-family Open Sans\n    box-shadow 1px 1px 5px rgba(0,0,0,0.3)\n    font-size 14px\n    background-color white\n   content Minor Topic\n times\n  head\n   tag page\n   title Untitled\n   stylesheets /nudgepad/blocks.css\n   style\n    body\n     width 960px\n     height 1000px\n   old_style \n    @font-face {\n      font-family: \'OldLondon\';\n      src: url(\'/nudgepad/public/fonts/OldLondon.ttf\');\n      font-weight: normal;\n      font-style: normal;\n    }\n  block2\n   style\n    left 392px\n    top 114px\n    background transparent\n    height auto\n    width 174.5px\n    color #666666\n    font-size 15px\n    line-height 140%\n    font-family Times\n   content Friday, December 7, 2012\n  block1\n   style\n    left -1px\n    top 26px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    font-family OldLondon\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n   content The Nudgepad Times\n  block17\n   tag img\n   src /nudgepad/public/images/pic.jpg\n   style\n    left 259px\n    top 202px\n    width 336.5px\n    height auto\n  block4\n   style\n    left -1px\n    top 145px\n    height 562px\n    width 94px\n    border-left-width 1px\n    border-color black\n    border-style solid\n    border-right-width 1px\n    border-right-color #e2e2e2\n  block5\n   style\n    left 605.5px\n    top 145px\n    height 562px\n    width 353.5px\n    border-left-width 1px\n    border-color #e2e2e2\n    border-style solid\n    border-right-width 1px\n    border-right-color black\n  block6\n   style\n    left -2px\n    top 707px\n    background transparent\n    padding-bottom 20px\n    height auto\n    font-weight bold\n    width 960px\n    color #222222\n    font-size 69px\n    line-height 140%\n    border-bottom-width 2px\n    border-left-width 1px\n    border-top-width 1px\n    border-right-width 1px\n    border-color black\n    border-style solid\n    text-align center\n  block7\n   style\n    left 112px\n    top 160px\n    background transparent\n    height auto\n    width auto\n    color #004276\n    font-size 24px\n    font-family Times\n    font-weight bold\n   content Man Points at Map with Elongated Stick\n  block8\n   style\n    left 112px\n    top 202px\n    background transparent\n    height auto\n    width 128.5px\n    color #004276\n    font-size 16px\n    font-family Times\n    font-weight bold\n   content What will he point at next?<br>\n  block9\n   style\n    left 112px\n    top 255px\n    background transparent\n    height auto\n    width 128.5px\n    color #333333\n    font-size 12px\n    font-family Times\n   content The pointing at the stick began when a man in third row stood up to ask a question.<br>\nlists\n list1\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    border-top 1px solid #ccc\n    white-space nowrap\n    border-bottom 1px solid #ccc\n    border-left 1px solid #ccc\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     display inline-block\n     text-align center\n     width 120px\n     height 40px\n     line-height 40px\n     background-color #eee\n     border-right 1px solid #ccc\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\n list2\n  head\n   tag creation\n   title Untitled\n   category content\n   stylesheets /nudgepad/blocks.css\n   scripts http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js\n   style\n    body\n     width 100%\n  block1\n   style\n    background-color transparent\n    height auto\n    width auto\n    font-size 14px\n    white-space nowrap\n    color #333\n    top 0\n    left 0\n   tag list\n   item\n    style\n     color #333\n     line-height 180%\n    content {{value}}\n   items\n    1 Item 1\n    2 Item 2\n    3 Item 3\n    4 Item 4\nscripts\n googleAnalytics\n  googleAnalytics\n   tag script\n   content \n    var _gaq = _gaq || [];\n    _gaq.push([\'_setAccount\', \'{{site.googleAnalyticsId}}\']);\n    _gaq.push([\'_trackPageview\']);\n    (function() {\n      var ga = document.createElement(\'script\'); ga.tag = \'text/javascript\'; ga.async = true;\n      ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';\n      var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);\n    })();\n jquery\n  jquery\n   tag script\n   src //ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js\n');/**
  */
 function EditHandle() {  
 }
@@ -10880,7 +10880,7 @@ EditHandle.update = function () {
   })
 }
 
-;nudgepad.getPageDimensions = function (page) {
+;Design.getPageDimensions = function (page) {
   page = new Page(page)
   page._static = true
   var iframe = $('<iframe class="deleteMe" style="position: fixed; right: 0px; top: 0px;"></iframe>')
@@ -11331,9 +11331,9 @@ nudgepad.images.insertImageScrap = function (filename, drag) {
   
   // Easter Egg: allow swapping of images
   if (!drag && $('.selection').length > 0) {
-    nudgepad.stage.selection.css('background-image url(' + filename + ')')
-    nudgepad.stage.selection.css('background-repeat no-repeat')
-    nudgepad.stage.selection.css('background-position center')
+    Design.stage.selection.css('background-image url(' + filename + ')')
+    Design.stage.selection.css('background-repeat no-repeat')
+    Design.stage.selection.css('background-position center')
     return false
   }
 
@@ -11349,7 +11349,7 @@ nudgepad.images.insertImageScrap = function (filename, drag) {
       "\n width " + this.width + 'px' +
       "\n height " + this.height + 'px')
     var scraps = new Space().set('scrap', space)
-    return nudgepad.stage.insert(scraps, drag)
+    return Design.stage.insert(scraps, drag)
   })
 }
 
@@ -11399,7 +11399,7 @@ nudgepad.on('uploadComplete', function () {
 })
 nudgepad.on('public', nudgepad.images.updateList)
 nudgepad.on('main', nudgepad.images.updateList)
-;nudgepad.importPrompt = function () {
+;Design.importPrompt = function () {
   
   var url = prompt('Enter a url to import')
   if (!url)
@@ -11407,15 +11407,15 @@ nudgepad.on('main', nudgepad.images.updateList)
   
   if (!url.match(/^https?\:\/\//))
     url = 'http://' + url
-  nudgepad.import(url)
+  Design.import(url)
   
 }
 
-nudgepad.import = function (url) {
-  $.get('/nudgepad.import/' + url, {}, function (data) {
-    Design.stage = new Page(data)
-    nudgepad.stage.commit()
-    nudgepad.stage.open(nudgepad.stage.activePage)
+Design.import = function (url) {
+  $.get('/Design.import/' + url, {}, function (data) {
+    Design.page = new Page(data)
+    Design.stage.commit()
+    Design.stage.open(Design.stage.activePage)
   })
 }
 ;// http://stackoverflow.com/questions/3562493/jquery-insert-div-as-certain-index
@@ -11431,7 +11431,7 @@ $.fn.insertAt = function(index, element) {
   return this
 }
 ;$.fn.owner = function () {
-  return Design.stage.get($(this).attr('value')).element()
+  return Design.page.get($(this).attr('value')).element()
 }
 ;$.fn.deselect = function () {
   var id = $(this).attr('id')
@@ -11445,10 +11445,10 @@ $.fn.duplicate = function () {
   
   var scrap = $(this).scrap()
   var id = $(this).attr('id')
-  var parent = Design.stage
+  var parent = Design.page
   var path = $(this).parentPath()
   if (path) {
-    parent = Design.stage.get(path)
+    parent = Design.page.get(path)
     path = path.replace(/ scraps/g,'') + ' '
   }
   var key = parent.autokey(id)
@@ -11470,7 +11470,7 @@ $.fn.parentPath = function () {
 }
 
 $.fn.scrap = function () {
-  return Design.stage.get($(this).attr('path'))
+  return Design.page.get($(this).attr('path'))
 }
 
 /**
@@ -11745,7 +11745,7 @@ nudgepad.MoveHandle.create = function (scrap) {
   div.on("dblclick", function (event) {
     if (event.metaKey) {
       element.togglePosition()
-      nudgepad.stage.commit()
+      Design.stage.commit()
       element.deselect().selectMe()
     } else
       scrap.edit(true)
@@ -11765,7 +11765,7 @@ nudgepad.MoveHandle.mousedown = function () {
   nudgepad.MoveHandle.last_x_change = 0
   nudgepad.MoveHandle.last_y_change = 0
   
-  nudgepad.MoveHandle.scrollTop = nudgepad.stage.scrollTop()
+  nudgepad.MoveHandle.scrollTop = Design.stage.scrollTop()
   return true
 }
 
@@ -11779,7 +11779,7 @@ nudgepad.MoveHandle.selectTopScrap = function () {
   // get element at point
   var offsetLeft = $('#nudgepadStageBody').offset().left
   var offsetTop = $('#nudgepadStageBody').offset().top
-  var element = $.topDiv('.scrap:visible', nudgepad.mouse.down.pageX - offsetLeft, nudgepad.mouse.down.pageY - offsetTop + nudgepad.stage.scrollTop())
+  var element = $.topDiv('.scrap:visible', nudgepad.mouse.down.pageX - offsetLeft, nudgepad.mouse.down.pageY - offsetTop + Design.stage.scrollTop())
   // if a narrow div and no element underneath, return
   if (!element)
     return true
@@ -11790,7 +11790,7 @@ nudgepad.MoveHandle.selectTopScrap = function () {
   // Dont select block if locked
   if (scrap.get('locked'))
     return true
-  nudgepad.stage.selection.clear()
+  Design.stage.selection.clear()
   element.selectMe()
   return true
 }
@@ -11804,7 +11804,7 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
   var scrap = owner.scrap()
   var dimensions = nudgepad.MoveHandle.dimensions
   
-  var scrollChange = nudgepad.stage.scrollTop() - nudgepad.MoveHandle.scrollTop
+  var scrollChange = Design.stage.scrollTop() - nudgepad.MoveHandle.scrollTop
 
   var grid_change = {y : 0, x : 0}
 
@@ -11841,7 +11841,7 @@ nudgepad.MoveHandle.slideend = function () {
   $('.handle').trigger('update').show()
   nudgepad.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
 nudgepad.MoveHandle.slidestart = function () {
@@ -11886,21 +11886,21 @@ nudgepad.oncopy = function(e) {
   if ($('input:focus, div:focus, textarea:focus, a:focus').length)
     return true
   
-  if (!nudgepad.stage.selection.exists())
+  if (!Design.stage.selection.exists())
     return true
   
   if (e.clipboardData) {
     e.preventDefault()
     e.clipboardData.setData(
-        'text/xcustom', nudgepad.stage.selection.toSpace().toString())
+        'text/xcustom', Design.stage.selection.toSpace().toString())
 
     var setStatus = e.clipboardData.setData(
-        'text/plain', nudgepad.stage.selection.toSpace().toString())
+        'text/plain', Design.stage.selection.toSpace().toString())
   }
   if (window.clipboardData) {
     e.returnValue = false
     var setStatus = window.clipboardData.setData(
-      'Text', nudgepad.stage.selection.toSpace().toString())
+      'Text', Design.stage.selection.toSpace().toString())
   }
   mixpanel.track('I copied something')
 }
@@ -11916,26 +11916,26 @@ nudgepad.oncut = function(e) {
   if ($('input:focus, div:focus, textarea:focus, a:focus').length)
     return true
   
-  if (!nudgepad.stage.selection.exists())
+  if (!Design.stage.selection.exists())
     return true
     
   if (e.clipboardData) {
     e.preventDefault()
     e.clipboardData.setData(
-        'text/xcustom', nudgepad.stage.selection.toSpace().toString())
+        'text/xcustom', Design.stage.selection.toSpace().toString())
 
     var setStatus = e.clipboardData.setData(
-        'text/plain', nudgepad.stage.selection.toSpace().toString())
+        'text/plain', Design.stage.selection.toSpace().toString())
     console.log('setData: ' + setStatus)
   }
   if (window.clipboardData) {
     e.returnValue = false
     var setStatus = window.clipboardData.setData(
-      'Text', nudgepad.stage.selection.toSpace().toString())
+      'Text', Design.stage.selection.toSpace().toString())
     console.log('setData: ' + setStatus)
   }
-  nudgepad.stage.selection.remove()
-  nudgepad.stage.commit()
+  Design.stage.selection.remove()
+  Design.stage.commit()
   mixpanel.track('I cut something')
 }
 
@@ -11962,10 +11962,10 @@ nudgepad.onpaste = function(e) {
   
   if (nudgepad.isScraps(pastedText)) {
     
-    nudgepad.stage.insert(pastedText)
-    nudgepad.stage.selection.save()
-    nudgepad.stage.open(nudgepad.stage.activePage)
-    nudgepad.stage.selection.restore()
+    Design.stage.insert(pastedText)
+    Design.stage.selection.save()
+    Design.stage.open(Design.stage.activePage)
+    Design.stage.selection.restore()
   }
   mixpanel.track('I pasted something')
 }
@@ -11987,7 +11987,7 @@ Page.prototype.render = function (context) {
   return this
 }
 ;// What spot the worker is on the timeline for the current page
-Design.stage = new Page()
+Design.page = new Page()
 Design.edge = new Space()
 
 Design.blank = function () {
@@ -12025,18 +12025,18 @@ Design.clearTimeline = function () {
   
   // Send Commit to Server
   var patch = new Space()
-  patch.set('timelines ' + nudgepad.stage.activePage, new Space())
-  for (var i in nudgepad.stage.timeline.keys) {
-    var key = nudgepad.stage.timeline.keys[i]
-    patch.set('timelines ' + nudgepad.stage.activePage + ' ' + key, '')
-    nudgepad.stage.timeline.delete(key)
+  patch.set('timelines ' + Design.stage.activePage, new Space())
+  for (var i in Design.stage.timeline.keys) {
+    var key = Design.stage.timeline.keys[i]
+    patch.set('timelines ' + Design.stage.activePage + ' ' + key, '')
+    Design.stage.timeline.delete(key)
   }
   
-  patch.set('timelines ' + nudgepad.stage.activePage + ' ' + timestamp, Design.edge)
+  patch.set('timelines ' + Design.stage.activePage + ' ' + timestamp, Design.edge)
   // collapse at edge
-  nudgepad.stage.timeline.set(timestamp, Design.edge)
+  Design.stage.timeline.set(timestamp, Design.edge)
 
-  nudgepad.stage.version = nudgepad.stage.timeline.keys.length
+  Design.stage.version = Design.stage.timeline.keys.length
   nudgepad.emit('patch', patch.toString())
   nudgepad.trigger('selection')
   return true
@@ -12076,7 +12076,7 @@ Design.create = function (name, template) {
   
   nudgepad.emit('patch', patch.toString())
   
-  nudgepad.stage.open(name)
+  Design.stage.open(name)
   mixpanel.track("I created a new webpage")
   return name
 }
@@ -12091,7 +12091,7 @@ Design.create = function (name, template) {
  */
 Design.duplicate = function (source, destination, skipPrompt) {
   
-  source = source || nudgepad.stage.activePage
+  source = source || Design.stage.activePage
   
   destination = Design.nextName(destination || source)
   
@@ -12107,10 +12107,10 @@ Design.duplicate = function (source, destination, skipPrompt) {
   mixpanel.track('I duplicated a page')
   
   // If we are duplicating a page thats not open, easy peasy
-  if (source !== nudgepad.stage.activePage)
+  if (source !== Design.stage.activePage)
     return Design.create(destination, site.get('pages').get(source))
   
-  return Design.create(destination, Design.stage)
+  return Design.create(destination, Design.page)
 }
 
 /**
@@ -12145,7 +12145,7 @@ Design.rename = function (new_name) {
   mixpanel.track('I renamed a page')
   
   new_name = Permalink(new_name)
-  var old_name = nudgepad.stage.activePage
+  var old_name = Design.stage.activePage
   
   if (!new_name.length)
     return nudgepad.error('Name cannot be blank')
@@ -12173,7 +12173,7 @@ Design.rename = function (new_name) {
 
   nudgepad.emit('patch', patch.toString())
   
-  nudgepad.stage.open(new_name)
+  Design.stage.open(new_name)
   
   mixpanel.track('I renamed a page')
   
@@ -12182,7 +12182,7 @@ Design.rename = function (new_name) {
 }
 
 Design.renamePrompt = function () {
-  var name = prompt('Enter a new name', nudgepad.stage.activePage)
+  var name = prompt('Enter a new name', Design.stage.activePage)
   if (name)
     Design.rename(name)
 }
@@ -12194,12 +12194,12 @@ Design.renamePrompt = function () {
  * @return {string} todo: why return a string?
  */
 Design.trash = function (name) {
-  name = name || nudgepad.stage.activePage
+  name = name || Design.stage.activePage
   if (name === 'home')
     return nudgepad.error('You cannot delete the home page')
   // If its the currently open page, open the previous page first
-  if (nudgepad.stage.activePage === name)
-    nudgepad.stage.back()
+  if (Design.stage.activePage === name)
+    Design.stage.back()
   
   var patch = new Space()
   patch.set('pages ' + name, '')
@@ -12218,15 +12218,15 @@ Design.trash = function (name) {
 
 ;nudgepad.on('main', function () {
   
-  $('#nudgepadPagesBar #menuButton').on('mousedown', function (event) {
-    if ($('#nudgepadPageMenu:visible').length > 0) {
+  $('#nudgepadDesignBar #menuButton').on('mousedown', function (event) {
+    if ($('#nudgepadDesignMenu:visible').length > 0) {
       nudgepad.popup.hide(event)
       return true
     }
-    nudgepad.popup.open('#nudgepadPageMenu')
+    nudgepad.popup.open('#nudgepadDesignMenu')
     mixpanel.track('I opened the designer menu')
   })
-  $('#nudgepadPagesBar #menuButton').on('mouseup', function (event) {
+  $('#nudgepadDesignBar #menuButton').on('mouseup', function (event) {
     event.stopPropagation()
     return false
   })
@@ -12234,7 +12234,7 @@ Design.trash = function (name) {
   // We do this on live, so that it wont interfere with events bound
   // to items inside the ribbon, but it will prevent events from
   // reaching nudgepadbody hopefull
-  $('#nudgepadPagesBar').on('slide slidestart', function (event) {
+  $('#nudgepadDesignBar').on('slide slidestart', function (event) {
     
     event.stopPropagation()
   })
@@ -12243,13 +12243,13 @@ Design.trash = function (name) {
 
 
 
-;nudgepad.pen = {
+;Design.pen = {
   on : false
 }
 
-nudgepad.pen.draw = function (event) {
+Design.pen.draw = function (event) {
   
-  if (!nudgepad.pen.on && !nudgepad.mouse.down.metaKey)
+  if (!Design.pen.on && !nudgepad.mouse.down.metaKey)
     return true
   
   if (!nudgepad.mouse.isDown)
@@ -12263,7 +12263,7 @@ nudgepad.pen.draw = function (event) {
   var x = nudgepad.mouse.down.pageX - offsetLeft
   var y = nudgepad.mouse.down.pageY - offsetTop
   var scraps = new Space().set('container', new Space("style\n position absolute\n left " + x + "px\n top " + y + "px\n width 1px\n height 1px\n"))
-  var selector = nudgepad.stage.insert(scraps)[0]
+  var selector = Design.stage.insert(scraps)[0]
   var id = $(selector).scrap().id
   console.log(id)
   // Pretend the mousedown was on the stretch handle
@@ -12275,7 +12275,7 @@ nudgepad.pen.draw = function (event) {
 
 nudgepad.on('main', function () {
   // Bind
-  $(document).on("slidestart", nudgepad.pen.draw)
+  $(document).on("slidestart", Design.pen.draw)
 })
 
 
@@ -12294,14 +12294,14 @@ nudgepad.on('main', function () {
 
       $('#droppablesList div img').on('slidestart', function() {
         var dropBlock = $(this).attr('title')
-        nudgepad.stage.dragAndDrop(nudgepad.droppables.get('blocks ' + dropBlock))
+        Design.stage.dragAndDrop(Design.droppables.get('blocks ' + dropBlock))
         mixpanel.track('I dropped a droppable')
       })
 
       $('.droppablesList div img').on('tap', function() {
         
         var dropBlock = $(this).attr('title')
-        nudgepad.stage.insert(nudgepad.droppables.get('blocks ' + dropBlock), false, 0, 0, true)
+        Design.stage.insert(Design.droppables.get('blocks ' + dropBlock), false, 0, 0, true)
         mixpanel.track('I tapped a droppable')
       })
   }
@@ -12362,11 +12362,11 @@ nudgepad.on('main', function () {
   $(document).on('tap', '.imageThumbDrop img', function() {
     var imageY = ($('#nudgepadStage').height() / 2) - 130
     var imageX = 100
-    nudgepad.stage.insert('images\n style\n  position absolute\n  top ' + imageY +'\n  left ' + imageX + '\n tag img\n src ' + $(this).attr('src'))
+    Design.stage.insert('images\n style\n  position absolute\n  top ' + imageY +'\n  left ' + imageX + '\n tag img\n src ' + $(this).attr('src'))
   })
   
   $('#nudgepadRibbon').on('slidestart', '.imageThumbDrop img', function() {
-    nudgepad.stage.dragAndDrop('images\n style\n  position absolute\n  top 0px\n  left 0px\n tag img\n src ' + $(this).attr('src'))
+    Design.stage.dragAndDrop('images\n style\n  position absolute\n  top 0px\n  left 0px\n tag img\n src ' + $(this).attr('src'))
     mixpanel.track('I dropped a ribbon droppable')
   })
 
@@ -12571,7 +12571,7 @@ Scrap.prototype.toHtml = function (context) {
   this.setStyle(context)
   this.div.addClass('scrap')
   this.div.attr('path', this.getPath())
-//  this.div.attr('page', nudgepad.stage.activePage)
+//  this.div.attr('page', Design.stage.activePage)
   this.div.attr('selector', this.selector())
   return this.div.toHtml()
 }
@@ -12618,7 +12618,7 @@ Scrap.selectOnTap =  function (event) {
   // Hold meta key to nest something
   if (nudgepad.mouse.down && nudgepad.mouse.down.metaKey) {
     if (!$(this).hasClass('selection') && $('.selection').length) {
-      nudgepad.stage.selection.nest($(this).attr('path'))
+      Design.stage.selection.nest($(this).attr('path'))
       return false
     }
   }
@@ -12626,7 +12626,7 @@ Scrap.selectOnTap =  function (event) {
 
   // If shift key is not down, clear selection first
   if (!nudgepad.mouse.down || !nudgepad.mouse.down.shiftKey)
-    nudgepad.stage.selection.clear()
+    Design.stage.selection.clear()
 
   $(this).selectMe()
 
@@ -12641,7 +12641,7 @@ Scrap.unlock = function () {
   // Unlock block on hold
   if (scrap.get('locked')) {
     scrap.unlock()
-    nudgepad.stage.commit()
+    Design.stage.commit()
   }
   
   $(this).selectMe()
@@ -12668,43 +12668,43 @@ nudgepad.on('main', function () {
 ;/**
  * @special Singleton
  */
-nudgepad.stage.selection = {}
-nudgepad.stage.selection.saved = []
+Design.stage.selection = {}
+Design.stage.selection.saved = []
 
-nudgepad.stage.selection.alignLeft = function () {
+Design.stage.selection.alignLeft = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().left < edge)
       edge = $(this).position().left
   })
-  nudgepad.stage.selection.css('left ' + edge + 'px')
+  Design.stage.selection.css('left ' + edge + 'px')
 }
 
-nudgepad.stage.selection.alignRight = function () {
+Design.stage.selection.alignRight = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().left > edge)
       edge = $(this).position().left
   })
-  nudgepad.stage.selection.css('left ' + edge + 'px')
+  Design.stage.selection.css('left ' + edge + 'px')
 }
 
-nudgepad.stage.selection.alignTop = function () {
+Design.stage.selection.alignTop = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().top < edge)
       edge = $(this).position().top
   })
-  nudgepad.stage.selection.css('top ' + edge + 'px')
+  Design.stage.selection.css('top ' + edge + 'px')
 }
 
-nudgepad.stage.selection.alignBottom = function () {
+Design.stage.selection.alignBottom = function () {
   var edge
   $('.selection').each(function () {
     if (!edge || $(this).position().top > edge)
       edge = $(this).position().top
   })
-  nudgepad.stage.selection.css('top ' + edge + 'px')
+  Design.stage.selection.css('top ' + edge + 'px')
 }
 
 /**
@@ -12712,7 +12712,7 @@ nudgepad.stage.selection.alignBottom = function () {
  *
  * @param {number}
  */
-nudgepad.stage.selection.boxShadow = function (blur) {
+Design.stage.selection.boxShadow = function (blur) {
   $('.selection').each(function () {
     var scrap = $(this).scrap()
     if(blur < 1){
@@ -12726,15 +12726,15 @@ nudgepad.stage.selection.boxShadow = function (blur) {
   })
 }
 
-nudgepad.stage.selection.capture = function () {
-  nudgepad.stage.selection.captured = nudgepad.stage.selection.toSpace()
+Design.stage.selection.capture = function () {
+  Design.stage.selection.captured = Design.stage.selection.toSpace()
 }
 
 
 /**
  * Deselect all blocks
  */
-nudgepad.stage.selection.clear = function () {
+Design.stage.selection.clear = function () {
   $('.selection').each(function () {
     $(this).deselect()
   })
@@ -12747,9 +12747,9 @@ nudgepad.stage.selection.clear = function () {
  *
  * @param {string}
  */
-nudgepad.stage.selection.css = function (command) {
-  nudgepad.stage.selection.cssPreview(command)
-  nudgepad.stage.commit()
+Design.stage.selection.css = function (command) {
+  Design.stage.selection.cssPreview(command)
+  Design.stage.commit()
   $('.handle').trigger('update')
 }
 
@@ -12758,7 +12758,7 @@ nudgepad.stage.selection.css = function (command) {
  *
  * @param {string}
  */
-nudgepad.stage.selection.cssPreview = function (command) {
+Design.stage.selection.cssPreview = function (command) {
   if (!command)
     return false
   command = new Space(command)
@@ -12778,13 +12778,13 @@ nudgepad.stage.selection.cssPreview = function (command) {
   })
 }
 
-nudgepad.stage.selection.cssPrompt = function () {
+Design.stage.selection.cssPrompt = function () {
   var val = prompt('Enter a CSS command like font-family Arial', '')
   if (val)
-    nudgepad.stage.selection.css(val)
+    Design.stage.selection.css(val)
 }
 
-nudgepad.stage.selection.distributeVertical = function () {
+Design.stage.selection.distributeVertical = function () {
   
   var elements = _.sortBy($('.selection'), function(element){ return $(element).position().top })
   
@@ -12812,10 +12812,10 @@ nudgepad.stage.selection.distributeVertical = function () {
     $(element).css('top', scrap.get('style top'))
   })
   $('.handle').trigger('update')
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.distributeHorizontal = function () {
+Design.stage.selection.distributeHorizontal = function () {
   // this function is currently 3N ish. But that should be fine. But we
   // could clearly make it faster if it feels slow.
   
@@ -12845,22 +12845,22 @@ nudgepad.stage.selection.distributeHorizontal = function () {
     $(element).css('left', scrap.get('style left'))
   })
   $('.handle').trigger('update')
-  nudgepad.stage.commit()
+  Design.stage.commit()
   nudgepad.notify('Distributed', 1000)
 }
 
 /**
  * Duplicate the selected blocks. Offset them to the right.
  */
-nudgepad.stage.selection.duplicate = function () {
+Design.stage.selection.duplicate = function () {
   $('.selection').each(function () {
     $(this).duplicate()
   })
-  nudgepad.stage.commit()
-//  return nudgepad.stage.insert(nudgepad.stage.selection.toSpace(), false, 10, 10, false)
+  Design.stage.commit()
+//  return Design.stage.insert(Design.stage.selection.toSpace(), false, 10, 10, false)
 }
 
-nudgepad.stage.selection.editLoop = function () {
+Design.stage.selection.editLoop = function () {
   
   var property = prompt('What property do you want to edit?')
   if (!property)
@@ -12893,10 +12893,10 @@ nudgepad.stage.selection.editLoop = function () {
     scrap.render()
     
   })
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.editProperty = function () {
+Design.stage.selection.editProperty = function () {
   
   var scrap = $('.selection').scrap()
   
@@ -12907,33 +12907,33 @@ nudgepad.stage.selection.editProperty = function () {
   var value = scrap.get(prop)
   nudgepad.textPrompt('Enter new value...', value.toString(), function (val) {
       scrap.set(prop, val)
-      nudgepad.stage.commit()
-      nudgepad.stage.open(nudgepad.stage.activePage)
+      Design.stage.commit()
+      Design.stage.open(Design.stage.activePage)
   })
 }
 
 /**
  * Advances position_index, advanced position.
  */
-nudgepad.stage.selection.editSource = function () {
-  nudgepad.stage.selection.capture()
-  nudgepad.stage.selection.save()
-  nudgepad.textPrompt('Enter code...', nudgepad.stage.selection.captured.toString(), nudgepad.stage.selection.modify)
+Design.stage.selection.editSource = function () {
+  Design.stage.selection.capture()
+  Design.stage.selection.save()
+  nudgepad.textPrompt('Enter code...', Design.stage.selection.captured.toString(), Design.stage.selection.modify)
 }
 
 /**
  * Return boolean
  */
-nudgepad.stage.selection.exists = function () {
+Design.stage.selection.exists = function () {
   return $('.selection').length
 }
 
-nudgepad.stage.selection.modify = function (val) {
+Design.stage.selection.modify = function (val) {
   var space = new Space(val)
-  Design.stage.patch(nudgepad.stage.selection.captured.diff(space))
-  nudgepad.stage.commit()
-  nudgepad.stage.open(nudgepad.stage.activePage)
-  nudgepad.stage.selection.restore()
+  Design.page.patch(Design.stage.selection.captured.diff(space))
+  Design.stage.commit()
+  Design.stage.open(Design.stage.activePage)
+  Design.stage.selection.restore()
 }
 
 /**
@@ -12942,7 +12942,7 @@ nudgepad.stage.selection.modify = function (val) {
  * @param {number} Number of pixels to move x (positive is right)
  * @param {number} Number of pixels to move y (positive is down)
  */
-nudgepad.stage.selection.move = function (x, y) {
+Design.stage.selection.move = function (x, y) {
   
   if (!$('.selection').length)
     return false
@@ -12961,18 +12961,18 @@ nudgepad.stage.selection.move = function (x, y) {
   nudgepad.popup.open('#nudgepadDimensions')
   
   $('.handle').trigger("update")
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.nest = function (path) {
-  var parent = Design.stage.get(path)
+Design.stage.selection.nest = function (path) {
+  var parent = Design.page.get(path)
   if (!parent)
     return false
   if (!parent.get('scraps'))
     parent.set('scraps', new Space())
   parent = parent.get('scraps')
-  var patch = nudgepad.stage.selection.toSpace()
-  nudgepad.stage.selection.remove()
+  var patch = Design.stage.selection.toSpace()
+  Design.stage.selection.remove()
   
   // update the patch so there is no overwriting
   patch.each(function (key, value) {
@@ -12982,8 +12982,8 @@ nudgepad.stage.selection.nest = function (path) {
   })
   
   parent.patch(patch)
-  nudgepad.stage.commit()
-  nudgepad.stage.open(nudgepad.stage.activePage)
+  Design.stage.commit()
+  Design.stage.open(Design.stage.activePage)
 }
 
 /**
@@ -12991,7 +12991,7 @@ nudgepad.stage.selection.nest = function (path) {
  *
  * @param {Space} The patch
  */
-nudgepad.stage.selection.patch = function (space) {
+Design.stage.selection.patch = function (space) {
 
   if (typeof space === 'string')
     space = new Space(space)
@@ -13003,30 +13003,30 @@ nudgepad.stage.selection.patch = function (space) {
     $(this).replaceWith(scrap.toHtml())
     scrap.element().selectMe()
   })
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
-nudgepad.stage.selection.patchPrompt = function () {
+Design.stage.selection.patchPrompt = function () {
   var val = prompt('Enter a patch like content hi', '')
   if (val)
-    nudgepad.stage.selection.patch(val)
+    Design.stage.selection.patch(val)
 }
 
 /**
  * Delete the selected blocks
  */
-nudgepad.stage.selection.remove = function () {
+Design.stage.selection.remove = function () {
   $('.selection').each(function () {
     // order probably matters here
     // should we move deselect and select to jquery level? i think we probably should
     var scrap = $(this).scrap()
     $(this).deselect().remove()
     if (scrap)
-      Design.stage.delete(scrap.getPath())
+      Design.page.delete(scrap.getPath())
   })
 }
 
-nudgepad.stage.selection.renameScraps = function () {
+Design.stage.selection.renameScraps = function () {
   var todo = $('.selection').length
   $('.selection').each(function (index) {
     var scrap = $(this).scrap()
@@ -13049,25 +13049,25 @@ nudgepad.stage.selection.renameScraps = function () {
     }
     
     var newScrap = new Scrap(newId, scrap.toString())
-    Design.stage.set(newId, newScrap)
+    Design.page.set(newId, newScrap)
     
     $(this).deselect().remove()
-    Design.stage.delete(scrap.getPath())
+    Design.page.delete(scrap.getPath())
     
     
     newScrap.render()
     newScrap.element().selectMe()
     
   })
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
 /**
  * Restore the saved selection
  */
-nudgepad.stage.selection.restore = function () {
-  for (var i in nudgepad.stage.selection.saved) {
-    var selector = nudgepad.stage.selection.saved[i]
+Design.stage.selection.restore = function () {
+  for (var i in Design.stage.selection.saved) {
+    var selector = Design.stage.selection.saved[i]
     if ($(selector).length)
       $(selector).selectMe()
   }
@@ -13076,10 +13076,10 @@ nudgepad.stage.selection.restore = function () {
 /**
  * Save the current selection
  */
-nudgepad.stage.selection.save = function () {
-  nudgepad.stage.selection.saved = []
+Design.stage.selection.save = function () {
+  Design.stage.selection.saved = []
   $('.selection').each(function () {
-    nudgepad.stage.selection.saved.push($(this).scrap().selector())
+    Design.stage.selection.saved.push($(this).scrap().selector())
   })
 }
 
@@ -13088,7 +13088,7 @@ nudgepad.stage.selection.save = function () {
  *
  * @return {string}
  */
-nudgepad.stage.selection.toSpace = function () {
+Design.stage.selection.toSpace = function () {
   var space = new Space()
   $('.selection').each(function () {
     var scrap = $(this).scrap()
@@ -13118,7 +13118,7 @@ nudgepad.updateSelections = function () {
   site.values.collage.each(function (key, value) {
     if (key == nudgepad.id)
       return true
-    if (value.get('page') !== nudgepad.stage.activePage)
+    if (value.get('page') !== Design.stage.activePage)
       return true
     var style = value.get('selection')
     if (style)
@@ -13138,21 +13138,21 @@ Design.spotlight = function () {
   
   var name = prompt('Enter the name of the page to open...', '')
   if (name)
-    nudgepad.stage.open(name)
+    Design.stage.open(name)
 }
 ;/**
  * The Stage holds the current open page.
  * We do a frame so the ribbon doesnt overlap the work area.
  * Its not actually a frame though, just a div with scroll.
  */
-nudgepad.stage.version = 0 // how many steps in we are
-nudgepad.stage.percentElapsed = 100
+Design.stage.version = 0 // how many steps in we are
+Design.stage.percentElapsed = 100
 
 /**
  * Open the previous page
  */
-nudgepad.stage.back = function () {
-  nudgepad.stage.open(site.get('pages').prev(nudgepad.stage.activePage))
+Design.stage.back = function () {
+  Design.stage.open(site.get('pages').prev(Design.stage.activePage))
 }
 
 /**
@@ -13160,13 +13160,13 @@ nudgepad.stage.back = function () {
  *
  * @return {string} todo: why return a string?
  */
-nudgepad.stage.commit = function () {
+Design.stage.commit = function () {
   
   var timestamp = new Date().getTime()
   
   // You are always committing against the edge.
-  var diff = Design.edge.diff(Design.stage)
-  var diffOrder = Design.edge.diffOrder(Design.stage)
+  var diff = Design.edge.diff(Design.page)
+  var diffOrder = Design.edge.diffOrder(Design.page)
 
   if (diff.isEmpty() && diffOrder.isEmpty()) {
     console.log('no change')
@@ -13179,27 +13179,27 @@ nudgepad.stage.commit = function () {
   if (!diffOrder.isEmpty())
     commit.set('order', new Space(diffOrder.toString()))
 
-  nudgepad.stage.timeline.set(timestamp, commit)
-  Design.edge = new Space(Design.stage.toString())
+  Design.stage.timeline.set(timestamp, commit)
+  Design.edge = new Space(Design.page.toString())
   
   // A commit always advances the position index to the edge.
-  nudgepad.stage.version = nudgepad.stage.timeline.keys.length
+  Design.stage.version = Design.stage.timeline.keys.length
   
-  nudgepad.stage.updateTimeline()
+  Design.stage.updateTimeline()
   
   nudgepad.trigger('selection')
   
   // Send Commit to Server
   var patch = new Space()
-  patch.set('timelines ' + nudgepad.stage.activePage + ' ' + timestamp, commit)
-  site.set('pages ' + nudgepad.stage.activePage, new Space(Design.stage.toString()))
+  patch.set('timelines ' + Design.stage.activePage + ' ' + timestamp, commit)
+  site.set('pages ' + Design.stage.activePage, new Space(Design.page.toString()))
 
 //  nudgepad.notify('Saved')
   nudgepad.emit('commit', patch.toString())
   return diff
 }
 
-nudgepad.stage.dragAndDrop = function (scrap) {
+Design.stage.dragAndDrop = function (scrap) {
   
   if (typeof scrap === 'string')
     scrap = new Space(scrap)
@@ -13209,7 +13209,7 @@ nudgepad.stage.dragAndDrop = function (scrap) {
   var height = scrap.get('head style html height')
   var width = scrap.get('head style html height')
   if (!height || !width) {
-    var dimensions = nudgepad.getPageDimensions(scrap)
+    var dimensions = Design.getPageDimensions(scrap)
     // temp fix for sticky
     if (isNaN(dimensions.width)) {
       dimensions.width = 140
@@ -13229,79 +13229,79 @@ nudgepad.stage.dragAndDrop = function (scrap) {
   var left = nudgepad.mouse.move.pageX - pageLeft - halfWidth
   var y = nudgepad.mouse.move.pageY - halfHeight + bodyScroll
 
-  nudgepad.stage.insert(scrap, true, left, y)
+  Design.stage.insert(scrap, true, left, y)
 }
 
 /**
  * Advances position_index, advanced position.
  */
-nudgepad.stage.editSource = function () {
-  nudgepad.textPrompt('Enter code...', Design.stage.toString(), function (val) {
-    Design.stage = new Space(val)
-    nudgepad.stage.commit()
-    nudgepad.stage.open(nudgepad.stage.activePage)
+Design.stage.editSource = function () {
+  nudgepad.textPrompt('Enter code...', Design.page.toString(), function (val) {
+    Design.page = new Space(val)
+    Design.stage.commit()
+    Design.stage.open(Design.stage.activePage)
   })
 }
 
 /**
  * Deletes all scraps from the page and DOM.
  */
-nudgepad.stage.erase = function () {
-  nudgepad.stage.selectAll()
-  nudgepad.stage.selection.remove()
-  nudgepad.stage.commit()
+Design.stage.erase = function () {
+  Design.stage.selectAll()
+  Design.stage.selection.remove()
+  Design.stage.commit()
 }
 
 /**
  * Open the next page
  */
-nudgepad.stage.forward = function () {
-  nudgepad.stage.open(site.get('pages').next(nudgepad.stage.activePage))
+Design.stage.forward = function () {
+  Design.stage.open(site.get('pages').next(Design.stage.activePage))
 }
 
-nudgepad.stage.goto = function (version) {
-  nudgepad.stage.selection.save()
-  nudgepad.stage.selection.clear()
+Design.stage.goto = function (version) {
+  Design.stage.selection.save()
+  Design.stage.selection.clear()
   if (version < 0)
     return false
-  if (version > nudgepad.stage.timeline.keys.length)
+  if (version > Design.stage.timeline.keys.length)
     return false
   
   // If we are going back in time, start from 0
-  if (nudgepad.stage.version > version) {
-    Design.stage = new Page()
-    nudgepad.stage.version = 0
+  if (Design.stage.version > version) {
+    Design.page = new Page()
+    Design.stage.version = 0
   }
-  for (var i = nudgepad.stage.version; i < version; i++) {
-    var timestamp = nudgepad.stage.timeline.keys[i]
-    var patch = nudgepad.stage.timeline.values[timestamp].values.values
-    var orderPatch = nudgepad.stage.timeline.values[timestamp].values.order
+  for (var i = Design.stage.version; i < version; i++) {
+    var timestamp = Design.stage.timeline.keys[i]
+    var patch = Design.stage.timeline.values[timestamp].values.values
+    var orderPatch = Design.stage.timeline.values[timestamp].values.order
     if (patch)
-      Design.stage.patch(patch.toString())
+      Design.page.patch(patch.toString())
     if (orderPatch)
-      Design.stage.patchOrder(orderPatch.toString())
-    nudgepad.stage.version++
+      Design.page.patchOrder(orderPatch.toString())
+    Design.stage.version++
   }
   // Todo: fire an event and have timeline subscribe to that event.
-  nudgepad.stage.updateTimeline()
-  nudgepad.stage.render()
-  nudgepad.stage.selection.restore()
+  Design.stage.updateTimeline()
+  Design.stage.render()
+  Design.stage.selection.restore()
   nudgepad.trigger('stage')
 }
 
-nudgepad.stage.height = function () {
-  return $(window).height() - $('#nudgepadPagesBar').outerHeight()
+Design.stage.height = function () {
+  return $(window).height() - $('#nudgepadDesignBar').outerHeight()
 }
 
-nudgepad.stage.insertBody = function () {
-  if (!Design.stage.get('body')) {
-    Design.stage.set('body', new Scrap('body', 'tag body\nscraps\n'))
-    Design.stage.get('body').render()
+Design.stage.insertBody = function () {
+  if (!Design.page.get('body')) {
+    Design.page.set('body', new Scrap('body', 'tag body\nscraps\n'))
+    Design.page.get('body').render()
   }
-  if (!Design.stage.get('body scraps'))
-    Design.stage.set('body scraps', new Space())
-//    Design.stage.set('body scraps', new Space())
-//    level = Design.stage.get('body scraps')
+  if (!Design.page.get('body scraps'))
+    Design.page.set('body scraps', new Space())
+//    Design.page.set('body scraps', new Space())
+//    level = Design.page.get('body scraps')
 }
 
 /**
@@ -13310,17 +13310,17 @@ nudgepad.stage.insertBody = function () {
  * @param {Space}  An optional space to initialize the scrap with.
  * @return {string} IDs of the new scraps
  */
-nudgepad.stage.insert = function (space, drag, xMove, yMove, center) {
+Design.stage.insert = function (space, drag, xMove, yMove, center) {
   
   if (!space)
     space = 'scrap\n content Hello world\n style\n  position absolute\n  top 10px\n  left 10px'
     
   // temporary fix for the revised scraps
   var patch = new Space(space.toString())
-  nudgepad.stage.selection.clear()
+  Design.stage.selection.clear()
   
-  nudgepad.stage.insertBody()
-  var level = Design.stage.get('body scraps')
+  Design.stage.insertBody()
+  var level = Design.page.get('body scraps')
   
   
   // update the patch so there is no overwriting
@@ -13345,7 +13345,7 @@ nudgepad.stage.insert = function (space, drag, xMove, yMove, center) {
   if (center) {
     var selection_dimensions = $('.selection').dimensions()
     xMove = Math.round(($('#nudgepadStageBody').width() / 2) - selection_dimensions.width/2)
-    yMove = Math.round(nudgepad.stage.scrollTop() + ($(window).height() / 2) - selection_dimensions.height/2)
+    yMove = Math.round(Design.stage.scrollTop() + ($(window).height() / 2) - selection_dimensions.height/2)
   }
   
   if (xMove || yMove) {
@@ -13398,7 +13398,7 @@ nudgepad.stage.insert = function (space, drag, xMove, yMove, center) {
     
     
   } else {
-    nudgepad.stage.commit()  
+    Design.stage.commit()  
   }
   
   return selectors
@@ -13408,30 +13408,30 @@ nudgepad.stage.insert = function (space, drag, xMove, yMove, center) {
  * Is the head behind edge?
  * @returns {bool}
  */
-nudgepad.stage.isBehind = function () {
-  return (nudgepad.stage.version < nudgepad.stage.timeline.keys.length)
+Design.stage.isBehind = function () {
+  return (Design.stage.version < Design.stage.timeline.keys.length)
 }
 
 /**
  * @param {string} Name of page
  */
-nudgepad.stage.open = function (name) {
+Design.stage.open = function (name) {
   
   var page = site.get('pages ' + name)
   if (!page)
     return nudgepad.error('Page ' + name + ' not found')
 
-  nudgepad.stage.selection.clear()
+  Design.stage.selection.clear()
   
   // Page change stuff
-  nudgepad.stage.activePage = name
-  store.set('activePage', nudgepad.stage.activePage)
-  nudgepad.tab.patch('page ' + nudgepad.stage.activePage)
+  Design.stage.activePage = name
+  store.set('activePage', Design.stage.activePage)
+  nudgepad.tab.patch('page ' + Design.stage.activePage)
   Design.updateTabs()
   
-  nudgepad.stage.reload()
-  nudgepad.stage.render()
-  nudgepad.stage.updateTimeline()
+  Design.stage.reload()
+  Design.stage.render()
+  Design.stage.updateTimeline()
   
   nudgepad.trigger('selection')
   
@@ -13439,61 +13439,61 @@ nudgepad.stage.open = function (name) {
   
 }
 
-nudgepad.stage.redo = function () {
-  nudgepad.stage.goto(nudgepad.stage.version + 1)
+Design.stage.redo = function () {
+  Design.stage.goto(Design.stage.version + 1)
 }
 
 /**
  * Refresh the stage.
  */
-nudgepad.stage.render = function () {
+Design.stage.render = function () {
   $('#nudgepadStageHead').html('')
   $('#nudgepadRemoteSelections').html('')
   $(".scrap,#body").remove()
-  Design.stage.loadScraps()
-  Design.stage.render()
+  Design.page.loadScraps()
+  Design.page.render()
   nudgepad.grid.create()
   nudgepad.updateSelections()
 }
 
-nudgepad.stage.reload = function () {
-  var name = nudgepad.stage.activePage
+Design.stage.reload = function () {
+  var name = Design.stage.activePage
   var page = site.get('pages ' + name)
   Design.edge = page
-  Design.stage = new Page(page.toString())
+  Design.page = new Page(page.toString())
   
   // if no timeline, create a blank one
   // todo: think harder about what the hell this will do
   // If no timeline, but yes edge, make the edge the first commit
   // i dont like this
-  nudgepad.stage.setTimeline(name)
-  nudgepad.stage.version = nudgepad.stage.timeline.keys.length
+  Design.stage.setTimeline(name)
+  Design.stage.version = Design.stage.timeline.keys.length
   
 }
 
-nudgepad.stage.reset = function () {
+Design.stage.reset = function () {
   $('#nudgepadStage').height($(window).height() - 40)
 }
 
-nudgepad.stage.ribbonClose = function () {
+Design.stage.ribbonClose = function () {
   $('#nudgepadStage').height($(window).height() - 40)
 }
 
-nudgepad.stage.ribbonOpen = function () {
+Design.stage.ribbonOpen = function () {
   $('#nudgepadStage').height($(window).height() - 122)
 }
 
 /**
  * Returns scroll top of the frame.
  */
-nudgepad.stage.scrollTop = function () {
+Design.stage.scrollTop = function () {
   return $('#nudgepadStage').scrollTop()
 }
 
 /**
  * Selects all blocks
  */
-nudgepad.stage.selectAll = function () {
+Design.stage.selectAll = function () {
   $('.scrap').each(function () {
     $(this).selectMe()
   })
@@ -13502,10 +13502,10 @@ nudgepad.stage.selectAll = function () {
 /**
  * @return {object} Pointer to timeline object
  */
-nudgepad.stage.setTimeline = function (name) {
+Design.stage.setTimeline = function (name) {
   
   if (site.get('timelines ' + name)) {
-    nudgepad.stage.timeline = site.get('timelines ' + name)
+    Design.stage.timeline = site.get('timelines ' + name)
     return true
   }
   
@@ -13541,7 +13541,7 @@ nudgepad.stage.setTimeline = function (name) {
     
   })
   
-  nudgepad.stage.timeline = site.get('timelines ' + name)
+  Design.stage.timeline = site.get('timelines ' + name)
   
 }
 
@@ -13579,25 +13579,25 @@ var stageViews = new Space({
   }
 })
 
-nudgepad.stage.currentView = 'ipad'
+Design.stage.currentView = 'ipad'
 
-nudgepad.stage.toggleView = function () {
+Design.stage.toggleView = function () {
   
-  nudgepad.stage.currentView = stageViews.next(nudgepad.stage.currentView)
-  stageViews.get(nudgepad.stage.currentView)()
+  Design.stage.currentView = stageViews.next(Design.stage.currentView)
+  stageViews.get(Design.stage.currentView)()
   $('#nudgepadStageBody').width()
-  nudgepad.notify(nudgepad.stage.currentView + ' view')
+  nudgepad.notify(Design.stage.currentView + ' view')
 }
 
-nudgepad.stage.undo = function () {
-  nudgepad.stage.goto(nudgepad.stage.version - 1)
+Design.stage.undo = function () {
+  Design.stage.goto(Design.stage.version - 1)
 }
 
-nudgepad.stage.updateTimeline = function () {
+Design.stage.updateTimeline = function () {
   // Set the history slider to the wherever the worker last had it (usally 100 if no history or havent edited it yet)
-  nudgepad.stage.percentElapsed = (nudgepad.stage.timeline.keys.length ? Math.round(100 * nudgepad.stage.version/nudgepad.stage.timeline.keys.length) : 100)
-  $('#nudgepadTimeline').attr('max', nudgepad.stage.timeline.keys.length).val(nudgepad.stage.version)
-  $('#nudgepadTimelinePosition').text(nudgepad.stage.version + '/' + nudgepad.stage.timeline.keys.length)
+  Design.stage.percentElapsed = (Design.stage.timeline.keys.length ? Math.round(100 * Design.stage.version/Design.stage.timeline.keys.length) : 100)
+  $('#nudgepadTimeline').attr('max', Design.stage.timeline.keys.length).val(Design.stage.version)
+  $('#nudgepadTimelinePosition').text(Design.stage.version + '/' + Design.stage.timeline.keys.length)
 }
 
 nudgepad.on('main', function () {
@@ -13610,18 +13610,18 @@ nudgepad.on('main', function () {
   
   /*
   $("#nudgepadStage").on('rendered', function (event, id) {
-    if (Design.stage[id].locked)
+    if (Design.page[id].locked)
       $('.scrap#' + id).addClass('lockedScrap')
   })
   */
 
   $("#nudgepadStage").on("tap", function (event) {
-    nudgepad.stage.selection.clear()
+    Design.stage.selection.clear()
     return true
   })
 
   $(window).on('resize', function () {
-    stageViews.get(nudgepad.stage.currentView)()
+    stageViews.get(Design.stage.currentView)()
     $('#nudgepadStageBody').width()
     if ($('#nudgepadRibbon:visible').length)
       $('#nudgepadStage').height($(window).height() - 122)
@@ -13629,7 +13629,7 @@ nudgepad.on('main', function () {
       $('#nudgepadStage').height($(window).height() - 40)
   })
 
-  nudgepad.stage.reset()
+  Design.stage.reset()
 
 })
 
@@ -13725,7 +13725,7 @@ nudgepad.StretchHandle.slide = function () {
     y0 = nudgepad.StretchHandle.dimensions.middle
   
   var x1 = nudgepad.mouse.move.pageX - $(this).parent().offset().left // + scroll left
-  var y1 = nudgepad.mouse.move.pageY - $(this).parent().offset().top// nudgepad.stage.scrollTop()// + scroll top
+  var y1 = nudgepad.mouse.move.pageY - $(this).parent().offset().top// Design.stage.scrollTop()// + scroll top
 //  console.log(x1)
   
   // todo: fix bug where offset changes
@@ -13823,7 +13823,7 @@ nudgepad.StretchHandle.dblclick = function () {
   // Apply the style to the dom element
   owner.css(scrap.values.style.values)
   $('.' + scrap.id + '_handle').trigger('update').show()
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
 /**
@@ -13835,7 +13835,7 @@ nudgepad.StretchHandle.slideend = function () {
   $('.' + scrap.id + '_handle').trigger('update').show()
   nudgepad.grid.removeSnaplines()
   $('#nudgepadDimensions').hide()
-  nudgepad.stage.commit()
+  Design.stage.commit()
 }
 
 /**
@@ -14011,14 +14011,14 @@ nudgepad.styleEditor = function (scrap) {
    // Duplicate
    var duplicate = $('<div class="editorButton"><img src="/nudgepad/public/images/dup_lt.png"></div>')
    duplicate.on("click", function(){
-     nudgepad.stage.selection.duplicate();
+     Design.stage.selection.duplicate();
    })
    styleEditorContainer.append(duplicate)
    
    // Lock tool
    var lock = $('<div class="editorButton"><img src="/nudgepad/public/images/lock_lt.png"></div>')
    lock.on('tap', function () {
-     nudgepad.stage.selection.patch('locked true')
+     Design.stage.selection.patch('locked true')
      save_button.trigger('click')
      return false
    })
@@ -14030,7 +14030,7 @@ nudgepad.styleEditor = function (scrap) {
    // Remove link or cancel
    var noLink = $('<option>No link</option>')
    noLink.on('click', function () {
-     nudgepad.stage.selection.patch('href ')
+     Design.stage.selection.patch('href ')
    })
    linkOptions.append(noLink)
    
@@ -14038,7 +14038,7 @@ nudgepad.styleEditor = function (scrap) {
    _.each(site.values.pages.values, function (value, name) {
      var link = $('<option value="' + name + '">' + ToProperCase(name) + '</option>')
      link.on('click', function () {
-       nudgepad.stage.selection.patch('tag a\nhref ' + $(this).attr('value'))
+       Design.stage.selection.patch('tag a\nhref ' + $(this).attr('value'))
      })
      linkOptions.append(link)
    })
@@ -14046,14 +14046,14 @@ nudgepad.styleEditor = function (scrap) {
    // Create a link to a new page that doesnt exist
    var newPageLink = $('<option>New Page</option>')
    newPageLink.on('click', function () {
-     var linkUrl = prompt('Enter the name of your new page', Design.nextName(nudgepad.stage.activePage))
+     var linkUrl = prompt('Enter the name of your new page', Design.nextName(Design.stage.activePage))
      if (linkUrl) {
        linkUrl = Permalink(linkUrl)
-       nudgepad.stage.selection.patch('tag a\nhref ' + linkUrl)
+       Design.stage.selection.patch('tag a\nhref ' + linkUrl)
        save_button.trigger('click')
-       var currentPage = nudgepad.stage.activePage
+       var currentPage = Design.stage.activePage
        Design.duplicate(null, linkUrl, true)
-       nudgepad.stage.open(currentPage)
+       Design.stage.open(currentPage)
      }
    })
    linkOptions.append(newPageLink)
@@ -14063,7 +14063,7 @@ nudgepad.styleEditor = function (scrap) {
    externalLink.on('click', function () {
      var linkUrl = prompt('Enter the url to link to', 'http://')
      if (linkUrl)
-       nudgepad.stage.selection.patch('tag a\nhref ' + linkUrl)
+       Design.stage.selection.patch('tag a\nhref ' + linkUrl)
    })
    linkOptions.append(externalLink)
    
@@ -14128,8 +14128,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness1
   var buttonRoundness1 = $('<div id="roundessOne" class="toolButton toolButtonOne">0</div>')
   buttonRoundness1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 0px 0px 0px 0px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 0px 0px 0px 0px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14138,8 +14138,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness2
   var buttonRoundness2 = $('<div id="roundessTwo" class="toolButton toolButtonTwo">4</div>')
   buttonRoundness2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 4px 4px 4px 4px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 4px 4px 4px 4px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14148,8 +14148,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness2
   var buttonRoundness3 = $('<div class="toolButton toolButtonTwo">10</div>')
   buttonRoundness3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 10px 10px 10px 10px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 10px 10px 10px 10px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14158,8 +14158,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Roundness3
   var buttonRoundness4 = $('<div class="toolButton toolButtonThree">50</div>')
   buttonRoundness4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border-radius 50px 50px 50px 50px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border-radius 50px 50px 50px 50px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14183,8 +14183,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Border
   var buttonBorder2 = $('<div class="toolButton toolButtonTwo">0</div>')
   buttonBorder2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border none')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border none')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14193,8 +14193,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Border
   var buttonBorder3 = $('<div class="toolButton toolButtonTwo">1</div>')
   buttonBorder3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border 1px solid ' + currentBorderColor)
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border 1px solid ' + currentBorderColor)
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14203,8 +14203,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Border
   var buttonBorder4 = $('<div class="toolButton toolButtonThree">5</div>')
   buttonBorder4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('border 5px solid ' + currentBorderColor)
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('border 5px solid ' + currentBorderColor)
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14221,8 +14221,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity
   var buttonOpacity1 = $('<div class="toolButton toolButtonOne">1</div>')
   buttonOpacity1.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity 1')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity 1')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14231,8 +14231,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity
   var buttonOpacity2 = $('<div id="opacityOne" class="toolButton toolButtonTwo">.8</div>')
   buttonOpacity2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity .8')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity .8')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14241,8 +14241,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity
   var buttonOpacity3 = $('<div class="toolButton toolButtonTwo">.5</div>')
   buttonOpacity3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity .5')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity .5')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14251,8 +14251,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Opacity4
   var buttonOpacity4 = $('<div class="toolButton toolButtonThree">.2</div>')
   buttonOpacity4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('opacity .2')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('opacity .2')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14269,8 +14269,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow1 = $('<div class="toolButton toolButtonOne">0</div>')
   buttonShadow1.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow none')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow none')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14279,8 +14279,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow2 = $('<div id="shadowOne" class="toolButton toolButtonTwo">Out</div>')
   buttonShadow2.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow 0px 1px 3px rgba(0,0,0,.6)')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow 0px 1px 3px rgba(0,0,0,.6)')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14289,8 +14289,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow3 = $('<div id="shadowTwo" class="toolButton toolButtonTwo">In</div>')
   buttonShadow3.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow inset 0px 1px 3px rgba(0,0,0,.6)')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow inset 0px 1px 3px rgba(0,0,0,.6)')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14299,8 +14299,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Shadow
   var buttonShadow4 = $('<div id="ShadowThree" class="toolButton toolButtonThree">All</div>')
   buttonShadow4.on('tap', function () {
-    nudgepad.stage.selection.cssPreview('box-shadow 0px 0px 0px 4px rgba(0,0,0,.2)')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('box-shadow 0px 0px 0px 4px rgba(0,0,0,.2)')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14329,8 +14329,8 @@ nudgepad.styleEditor = function (scrap) {
   var buttonFontFamily = $('<select id="fontFamily" class="toolButton" name="fontFamilyDropdown"><option>Arial</option><option>Arvo</option><option>Courier</option><option>Helvetica</option><option>Open Sans</option><option>Times</option><option>Titillium Web</option></select>')
   buttonFontFamily.on('change', function () {
     currentFont = $('#fontFamily').val();
-    nudgepad.stage.selection.cssPreview('font-family ' + currentFont)
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-family ' + currentFont)
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14358,8 +14358,8 @@ nudgepad.styleEditor = function (scrap) {
   var buttonFontSize = $('<select id="fontSize" name="fontDropdown"><option>11</option><option>12</option><option>13</option><option>14</option><option>16</option><option>18</option><option>24</option><option>32</option><option>40</option><option>48</option><option>56</option><option>64</option><option>72</option></select>')
   buttonFontSize.on('change', function () {
     currentFontSize = $('#fontSize').val()
-    nudgepad.stage.selection.cssPreview('font-size ' + currentFontSize + 'px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-size ' + currentFontSize + 'px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14368,11 +14368,11 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Auto Resize
   var buttonResize = $('<div id="resize" class="toolButton" title="Auto Resize"><img src="/nudgepad/public/images/contract.png"></div>')
   buttonResize.on('click', function () {
-    nudgepad.stage.selection.cssPreview({
+    Design.stage.selection.cssPreview({
     "width" : "auto",
     "height" : "auto"
     })
-    nudgepad.stage.commit()
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14393,8 +14393,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment1 = $('<div class="toolButton toolButtonOne"><img src="/nudgepad/public/images/left_lt.png"></div>')
   buttonAlignment1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align left')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align left')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14403,8 +14403,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment2 = $('<div class="toolButton toolButtonTwo"><img src="/nudgepad/public/images/center_lt.png"></div>')
   buttonAlignment2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align center')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align center')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14413,8 +14413,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment3 = $('<div class="toolButton toolButtonTwo"><img src="/nudgepad/public/images/right_lt.png"></div>')
   buttonAlignment3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align right')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align right')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14423,8 +14423,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Alignment
   var buttonAlignment4 = $('<div class="toolButton toolButtonThree"><img src="/nudgepad/public/images/justify_lt.png"></div>')
   buttonAlignment4.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-align justify')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-align justify')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14441,8 +14441,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding1 = $('<div class="toolButton toolButtonOne">0</div>')
   buttonPadding1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 0px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 0px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14451,8 +14451,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding2 = $('<div class="toolButton toolButtonTwo">10</div>')
   buttonPadding2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 10px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 10px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14461,8 +14461,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding3 = $('<div class="toolButton toolButtonTwo">20</div>')
   buttonPadding3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 20px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 20px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14471,8 +14471,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - Padding
   var buttonPadding4 = $('<div class="toolButton toolButtonTwo">40</div>')
   buttonPadding4.on('click', function () {
-    nudgepad.stage.selection.cssPreview('padding 40px')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('padding 40px')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14493,7 +14493,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - LineHeight1
   var buttonLineHeight1 = $('<div id="lineHeightOne" class="toolButton toolButtonOne">100</div>')
   buttonLineHeight1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('line-height 100%')
+    Design.stage.selection.cssPreview('line-height 100%')
     return false
   })
   columnRightText.append(buttonLineHeight1)
@@ -14501,7 +14501,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - LineHeight2
   var buttonLineHeight2 = $('<div id="lineHeightTwo" class="toolButton toolButtonTwo">140</div>')
   buttonLineHeight2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('line-height 140%')
+    Design.stage.selection.cssPreview('line-height 140%')
     return false
   })
   columnRightText.append(buttonLineHeight2)
@@ -14509,7 +14509,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - LineHeight
   var buttonLineHeight3 = $('<div id="lineHeightTwo" class="toolButton toolButtonTwo">180</div>')
   buttonLineHeight3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('line-height 180%')
+    Design.stage.selection.cssPreview('line-height 180%')
     return false
   })
   columnRightText.append(buttonLineHeight3)
@@ -14518,7 +14518,7 @@ nudgepad.styleEditor = function (scrap) {
   var buttonLineHeight4 = $('<div id="lineHeightThree" class="toolButton toolButtonThree">Mid</div>')
   buttonLineHeight4.on('click', function () {
     var currentHeight = $('.selection').css('height')
-    nudgepad.stage.selection.cssPreview('line-height ' + currentHeight)
+    Design.stage.selection.cssPreview('line-height ' + currentHeight)
     return false
   })
   columnRightText.append(buttonLineHeight4)
@@ -14534,8 +14534,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle1
   var buttonTextStyle1 = $('<div id="textStyleOne" class="toolButton toolButtonOne">B</div>')
   buttonTextStyle1.on('click', function () {
-    nudgepad.stage.selection.cssPreview('font-weight bold')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-weight bold')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14544,8 +14544,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle
   var buttonTextStyle2 = $('<div id="italics" class="toolButton toolButtonTwo">I</div>')
   buttonTextStyle2.on('click', function () {
-    nudgepad.stage.selection.cssPreview('font-style italic')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('font-style italic')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14554,8 +14554,8 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle2
   var buttonTextStyle3 = $('<div id="textStyleTwo" class="toolButton toolButtonTwo">U</div>')
   buttonTextStyle3.on('click', function () {
-    nudgepad.stage.selection.cssPreview('text-decoration underline')
-    nudgepad.stage.commit()
+    Design.stage.selection.cssPreview('text-decoration underline')
+    Design.stage.commit()
     $('.handle').trigger('update')
     return false
   })
@@ -14564,7 +14564,7 @@ nudgepad.styleEditor = function (scrap) {
   // Button - TextStyle3
   var buttonTextStyle4 = $('<div id="textStyleThree" class="toolButton toolButtonThree">Auto</div>')
   buttonTextStyle4.on('click', function () {
-    nudgepad.stage.selection.cssPreview({
+    Design.stage.selection.cssPreview({
     "text-decoration" : "none",
     "font-weight" : "normal",
     "font-style" : "normal"
@@ -14596,7 +14596,7 @@ nudgepad.styleEditor = function (scrap) {
   // Insert save button
   var save_button = $('<div id="nudgepadStyleEditorSaveButton">Save</div>')
   save_button.on('click', function () {
-    nudgepad.stage.commit()
+    Design.stage.commit()
     $('.handle').trigger('update')
     styleEditor.remove()
     modal_screen.remove()
@@ -14612,7 +14612,7 @@ nudgepad.styleEditor = function (scrap) {
   $(".colorPicker").spectrum({
       color: currentColor,
       move: function(color) {
-        nudgepad.stage.selection.cssPreview('background-color ' + color.toHexString());
+        Design.stage.selection.cssPreview('background-color ' + color.toHexString());
         currentColor = color.toHexString();
       },
       change: function(color) {
@@ -14623,7 +14623,7 @@ nudgepad.styleEditor = function (scrap) {
           colorType = "background-color "
       },
       hide: function() {
-        nudgepad.stage.commit()
+        Design.stage.commit()
         $('.handle').trigger('update')
       }
   });
@@ -14631,7 +14631,7 @@ nudgepad.styleEditor = function (scrap) {
   $(".colorBorderPicker").spectrum({
       color: currentBorderColor,
       move: function(color) {
-        nudgepad.stage.selection.cssPreview('border-color ' + color.toHexString());
+        Design.stage.selection.cssPreview('border-color ' + color.toHexString());
         currentBorderColor = color.toHexString();
       },
       change: function(color) {
@@ -14642,7 +14642,7 @@ nudgepad.styleEditor = function (scrap) {
           colorType = "border-color "
       },
       hide: function() {
-        nudgepad.stage.commit()
+        Design.stage.commit()
         $('.handle').trigger('update')
       }
   });
@@ -14650,7 +14650,7 @@ nudgepad.styleEditor = function (scrap) {
   $(".colorFontPicker").spectrum({
       color: currentFontColor,
       move: function(color) {
-        nudgepad.stage.selection.cssPreview('color ' + color.toHexString());
+        Design.stage.selection.cssPreview('color ' + color.toHexString());
         currentBorderColor = color.toHexString();
       },
       change: function(color) {
@@ -14661,7 +14661,7 @@ nudgepad.styleEditor = function (scrap) {
           colorType = "color "
       },
       hide: function() {
-        nudgepad.stage.commit()
+        Design.stage.commit()
         $('.handle').trigger('update')
       }
   });
@@ -14671,7 +14671,7 @@ nudgepad.styleEditor = function (scrap) {
       if (e.which == 13) {
           e.preventDefault();
           var inputColor = $(this).val()
-          nudgepad.stage.selection.css(colorType + inputColor);
+          Design.stage.selection.css(colorType + inputColor);
           return false
       }
   });
@@ -14688,7 +14688,7 @@ nudgepad.styleEditor = function (scrap) {
   // Focus CSS editor
  // text_area.focus()
  // scroll to reveal the styleEditor
-  var difference = styleEditor.position().top + styleEditor.outerHeight() - nudgepad.stage.height()
+  var difference = styleEditor.position().top + styleEditor.outerHeight() - Design.stage.height()
   if (difference > 0) {
     $('#nudgepadStage').scrollTop($('#nudgepadStage').scrollTop() + difference)
     styleEditor.css('top', parseFloat(styleEditor.css('top')) - difference)
@@ -14706,7 +14706,7 @@ nudgepad.styleEditor = function (scrap) {
     var div = $('<span>' + name + '</span>')
     
     // Make active page white
-    if (name === nudgepad.stage.activePage)
+    if (name === Design.stage.activePage)
       div.css('color', 'white')
       
     var title = ''
@@ -14723,7 +14723,7 @@ nudgepad.styleEditor = function (scrap) {
     
     div.on('click', function () {
       mixpanel.track('I clicked a page tab')
-      nudgepad.stage.open($(this).text())
+      Design.stage.open($(this).text())
       return true
     })
     div.attr('value', name)
@@ -14897,7 +14897,7 @@ nudgepad.apps.develop.home = function () {
 
 nudgepad.apps.develop.import = function () {
   nudgepad.textPrompt('Import a Site ', '', function (val) {
-    $.post('/nudgepad.import', {space : val}, function (err) {
+    $.post('/Design.import', {space : val}, function (err) {
       nudgepad.notify('Imported. Please restart')
     })
   })
@@ -15019,7 +15019,7 @@ nudgepad.explorer.create = function (path, callback) {
 nudgepad.explorer.downloadTimelines = function () {
   $.get('/nudgepad.site.timelines', {}, function (data) {
     var space = new Space(data)
-    space.delete(nudgepad.stage.activePage) // We already have the open page
+    space.delete(Design.stage.activePage) // We already have the open page
     site.get('timelines').patch(space)
   })
 }

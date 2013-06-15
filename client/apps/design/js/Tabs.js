@@ -5,7 +5,7 @@ Design.updateTabs = function () {
     var div = $('<span>' + name + '</span>')
     
     // Make active page white
-    if (name === nudgepad.stage.activePage)
+    if (name === Design.stage.activePage)
       div.css('color', 'white')
       
     var title = ''
@@ -22,7 +22,7 @@ Design.updateTabs = function () {
     
     div.on('click', function () {
       mixpanel.track('I clicked a page tab')
-      nudgepad.stage.open($(this).text())
+      Design.stage.open($(this).text())
       return true
     })
     div.attr('value', name)

@@ -228,6 +228,10 @@ body {
   display: none;
   left: 45%;
 }
+
+#nudgepadSurveysApp #entriesCount {
+  color: #777;
+}
 /* we do this purely to force hardware acceleration to get around the flicker
 http://davidwalsh.name/translate3d
 .nudgepad {
@@ -306,7 +310,7 @@ http://davidwalsh.name/translate3d
 }
 /*----------------App Bar-------------------*/
 
-#nudgepadPagesBar {
+#nudgepadDesignBar {
   position: fixed;
   bottom: 0px;
   height: 50px;
@@ -317,7 +321,7 @@ http://davidwalsh.name/translate3d
   font-family: 'Titillium Web';
 }
 
-#nudgepadPagesBar .barButton {
+#nudgepadDesignBar .barButton {
   height: 40px;
   line-height: 40px;
   width: 44px;
@@ -336,20 +340,20 @@ http://davidwalsh.name/translate3d
    cursor: pointer;
 }
 
-#nudgepadPagesBar .barButton img {
+#nudgepadDesignBar .barButton img {
   padding-top: 12px;
   opacity: .4;
 }
 
-#nudgepadPagesBar .barButton:hover img{
+#nudgepadDesignBar .barButton:hover img{
   opacity: .7;
 }
 
-#nudgepadPagesBar .barButton:active img{
+#nudgepadDesignBar .barButton:active img{
   opacity: 1;
 }
 
-#nudgepadPagesBar #addScrap {
+#nudgepadDesignBar #addScrap {
   display: none;
 }
 
@@ -364,7 +368,7 @@ http://davidwalsh.name/translate3d
   color: #777;
 }
 
-#nudgepadPageMenu{
+#nudgepadDesignMenu{
   background-color: #333;
   border-radius: 3px 0px 0px 0px;
   width: 200px;
@@ -378,16 +382,16 @@ http://davidwalsh.name/translate3d
   bottom: 50;
 }
 
-#nudgepadPageMenu div{
+#nudgepadDesignMenu div{
   padding: 6px 30px;
   cursor: pointer;
 }
 
-#nudgepadPageMenu div:hover {
+#nudgepadDesignMenu div:hover {
   background-color: #2a2a2a;
 }
 
-#nudgepadPageMenu div:active {
+#nudgepadDesignMenu div:active {
   background-color: #1a1a1a;
 }
 
@@ -412,7 +416,7 @@ http://davidwalsh.name/translate3d
   color: grey;
 }
 
-#nudgepadPagesBar #menuButton {
+#nudgepadDesignBar #menuButton {
   height: 50px;
   width: 50px;
   background-color: #1a86d6;
@@ -423,15 +427,15 @@ http://davidwalsh.name/translate3d
   cursor: pointer;
 }
 
-#nudgepadPagesBar #menuButton:hover {
+#nudgepadDesignBar #menuButton:hover {
   background-color: #3575b5;
 }
 
-#nudgepadPagesBar #menuButton:active {
+#nudgepadDesignBar #menuButton:active {
   background-color: #2c659e;
 }
 
-#nudgepadPagesBar #pageOptions {
+#nudgepadDesignBar #pageOptions {
   float: right;
   background-image: url(/nudgepad/public/images/page-option.png);
   background-repeat: no-repeat;
