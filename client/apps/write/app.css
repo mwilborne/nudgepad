@@ -1,27 +1,28 @@
-#postsColumn {
+#WritePostColumn {
   float: left;
   width: 25%;
 }
 
-#composeColumn {
+#WriteComposeColumn {
   float: left;
   width: 75%;
 }
 
-#postsContent {
+#WritePostContent {
   padding: 40px 0px;
 }
 
-#postsTitle {
+#WritePostTitle {
   margin-bottom: 20px;
   font-size: 18px;
 }
 
-#WriteApp div #posts {
+#WritePosts {
   cursor : pointer;
   text-align : left;
 }
-#WriteApp #title {
+
+#WriteTitle {
   width : 100%;
   text-indent : 10px;
   padding : 0px;
@@ -33,7 +34,7 @@
   margin-top: 40px;
 }
 
-#WriteApp div #permalink {
+#WritePermalink {
   left : 0px;
   top : 629px;
   font-size : 13px;
@@ -45,7 +46,7 @@
   text-overflow : ellipsis;
 }
 
-#WriteApp #content {
+#WriteContent {
   width : 100%;
   font-size : 16px;
   resize : none;
@@ -54,13 +55,13 @@
   padding : 20px 10px;
 }
 
-#WriteApp #advancedToggle {
+#WriteAdvancedToggle {
   float: right;
   margin-left: 10px;
   position: relative;
 }
 
-#WriteApp div #advanced {
+#WriteAdvanced {
   display : none;
   right : 0px;
   top : 40px;
@@ -75,7 +76,7 @@
   position : absolute;
 }
 
-#WriteApp #deleteButton {
+#WriteDeleteButton {
   background-color: #555;
   height: 40px;
   width: 100px;
@@ -88,7 +89,7 @@
   line-height: 40px;
 }
 
-#WriteApp #publishButton {
+#WritePublishButton {
   background-color: #1a86d6;
   height: 40px;
   width: 100px;

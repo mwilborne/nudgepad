@@ -52,16 +52,16 @@ Write.blankTheme = new Space({
 })
 
 Write.createPost = function () {
-  $('.nudgepad#content,.nudgepad#title').val('')
-  $('.nudgepad#advanced').val('timestamp ' + new Date().getTime() + '\ntemplate blog')
-  $('.nudgepad#permalink').attr('value', '')
-  $('.nudgepad#title').focus()
+  $('#WriteContent,#WriteTitle').val('')
+  $('#WriteAdvanced').val('timestamp ' + new Date().getTime() + '\ntemplate blog')
+  $('#WritePermalink').attr('value', '')
+  $('#WriteTitle').focus()
   Write.activePost = null
 }
 
 Write.deletePost = function () {
   Write.activePost = null
-  var name = Permalink($('.nudgepad#permalink').attr('value'))
+  var name = Permalink($('#WritePermalink').attr('value'))
   if (!name)
     return nudgepad.error('No post to delete')
   
@@ -80,18 +80,18 @@ Write.deletePost = function () {
 Write.editPost = function (name) {
   Write.activePost = name
   var post = site.get('posts ' + name)
-  $('.nudgepad#content').val(post.get('content'))
-  $('.nudgepad#title').val(post.get('title'))
+  $('#WriteContent').val(post.get('content'))
+  $('#WriteTitle').val(post.get('title'))
   var postSettings = new Space(post.toString())
   postSettings.delete('title')
   postSettings.delete('content')
-  $('.nudgepad#advanced').val(postSettings.toString())
+  $('#WriteAdvanced').val(postSettings.toString())
   // http://{{nudgepad.domain}}/<a class="nudgepad" id="permalink" target="_blog"></a>
-  $('.nudgepad#permalink').text('http://' + nudgepad.domain + '/' + name).attr('value', name)
+  $('#WritePermalink').text('http://' + nudgepad.domain + '/' + name).attr('value', name)
   
   Write.updateLinks()
   
-  $('.nudgepad#content').focus()
+  $('#WriteContent').focus()
   
 }
 
@@ -112,7 +112,7 @@ Write.activePost = null
 
 Write.onopen = function () {
   Write.initialize()
-  $('.nudgepad#posts').html('')
+  $('#WritePosts').html('')
   if (!site.get('posts'))
     return true
   _.each(site.get('posts').keys, function (name) {
@@ -129,7 +129,7 @@ Write.onopen = function () {
       })
       .attr('value', name)
       .attr('title', name)
-    $('.nudgepad#posts').append(div)
+    $('#WritePosts').append(div)
   })
   
 }
@@ -145,7 +145,7 @@ Write.onready = function () {
 
 Write.savePost = function () {
 
-  var name = Permalink($('.nudgepad#permalink').attr('value'))
+  var name = Permalink($('#WritePermalink').attr('value'))
   
   if (!name)
     return nudgepad.error('Title cannot be blank')
@@ -155,9 +155,9 @@ Write.savePost = function () {
   if (!post)
     post = new Space()
 
-  post.set('content', $('.nudgepad#content').val())
-  post.set('title', $('.nudgepad#title').val())
-  post.patch($('.nudgepad#advanced').val())
+  post.set('content', $('#WriteContent').val())
+  post.set('title', $('#WriteTitle').val())
+  post.patch($('#WriteAdvanced').val())
   
   site.set('posts ' + name, post)
   
@@ -180,15 +180,15 @@ Write.savePost = function () {
 }
 
 Write.updateLinks = function () {
-  $('.nudgepad#posts div').css('color', '#777')
+  $('#WritePosts div').css('color', '#777')
   // todo: improve this
-  $('.nudgepad#posts div').each(function () {
+  $('#WritePosts div').each(function () {
     if ($(this).attr('value') == Write.activePost)
       $(this).css('color', '#333')  
   })
 }
 
 Write.updatePermalink = function () {
-  var permalink = Permalink($('.nudgepad#title').val())
-  $('.nudgepad#permalink').text('http://' + nudgepad.domain + '/' + permalink).attr('value', permalink)
+  var permalink = Permalink($('#WriteTitle').val())
+  $('#WritePermalink').text('http://' + nudgepad.domain + '/' + permalink).attr('value', permalink)
 }

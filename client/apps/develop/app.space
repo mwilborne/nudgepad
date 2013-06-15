@@ -3,3 +3,4 @@ description Edit the backend and files of your site.
 html app.html
 js app.js
 css app.css
+color rgba(36, 65, 112, 1)
