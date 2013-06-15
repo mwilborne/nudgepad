@@ -1,62 +1,28 @@
-.nudgepadAppContainer {
-  width : 94%;
-  max-width: 1000px;
-  position : relative;
-  margin : 0 auto;  
-}
-
-.colStandard {
+.LaunchAppCol {
   width: 32%;
   float: left;
 }
 
-.marStandard {
+.LaunchAppMar {
   margin-right: 2%;
 }
 
-.appBlock {
+.LaunchAppSquare {
   cursor : pointer;
   font-weight : 300;
   margin-top: 20px;
   color: #fff;
 }
 
-.lastApp{
-  margin-right: 0px;
-}
-
-.topBlock {
+.LaunchAppTopBlock {
   padding: 80px 20px;
   font-size: 3.375em;
 }
 
-.subBlock {
+.LaunchAppSubBlock {
   font-size: 0.875em;
   background: rgba(0,0,0,.2);
   padding: 20px;
   font-weight: 400;
 }
 
-#accountBlock {
-  background-color : #ABC1C7;
-}
-
-#designBlock {
-  background-color : #1a86d6;
-}
-
-#developBlock {
-  background-color : #244170;
-}
-
-#formsBlock {
-  background-color : #472936;
-}
-
-#writeBlock {
-  background-color : #edc811;
-}
-
-#statsBlock {
-  background-color : #ed2a11;
-}

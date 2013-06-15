@@ -1,3 +1,10 @@
+.nudgepadAppContainer {
+  width : 94%;
+  max-width: 1000px;
+  position : relative;
+  margin : 0 auto;  
+}
+
 .nudgepadAppNav {
   width: 100%;
   background-color: #222;
