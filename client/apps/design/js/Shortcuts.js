@@ -36,7 +36,7 @@ Design.editSourceToggle = function () { ($('.selection').length ? Design.stage.s
 Design.shortcuts['ctrl+u'] = Design.editSourceToggle
 Design.shortcuts['meta+u'] = Design.editSourceToggle
 
-Design.shortcuts['meta+shift+u'] = nudgepad.codePanel.toggle
+Design.shortcuts['meta+shift+u'] = Design.codePanel.toggle
 
 Design.shortcuts['meta+e'] = Design.stage.selection.editProperty
 

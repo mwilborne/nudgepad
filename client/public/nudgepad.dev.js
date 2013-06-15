@@ -10483,7 +10483,7 @@ nudgepad.bind_shortcuts = function () {
   Events.shortcut.shortcuts['ctrl+u'] = editSourceToggle
   Events.shortcut.shortcuts['meta+u'] = editSourceToggle
   
-  Events.shortcut.shortcuts['meta+shift+u'] = nudgepad.codePanel.toggle
+  Events.shortcut.shortcuts['meta+shift+u'] = Design.codePanel.toggle
   
   Events.shortcut.shortcuts['meta+e'] = Design.stage.selection.editProperty
   
@@ -10682,15 +10682,15 @@ nudgepad.on('main', nudgepad.apps.surveys.download)
   })
   
 })
-;nudgepad.codePanel = {}
+;Design.codePanel = {}
 
-nudgepad.codePanel.livePreview = false
-nudgepad.codePanel.livePreviewTimeout = false
-nudgepad.codePanel.livePreviewStart = function () {
-  clearTimeout(nudgepad.codePanel.livePreviewTimeout)
-  nudgepad.codePanel.livePreviewTimeout = setTimeout('nudgepad.codePanel.livePreview()', 500)
+Design.codePanel.livePreview = false
+Design.codePanel.livePreviewTimeout = false
+Design.codePanel.livePreviewStart = function () {
+  clearTimeout(Design.codePanel.livePreviewTimeout)
+  Design.codePanel.livePreviewTimeout = setTimeout('Design.codePanel.livePreview()', 500)
 }
-nudgepad.codePanel.livePreview = function () {
+Design.codePanel.livePreview = function () {
   var space = new Space($('#nudgepadCodePanel').val())
   if (Design.stage.selection.exists()) {
     Design.stage.selection.clear()
@@ -10703,18 +10703,18 @@ nudgepad.codePanel.livePreview = function () {
 //  }
 }
 
-nudgepad.codePanel.close = function () {
+Design.codePanel.close = function () {
   $('#nudgepadCodePanel').hide()
-  $('#nudgepadStage').css('padding-left', nudgepad.codePanel.currentPadding)
-  nudgepad.off('selection', nudgepad.codePanel.load)
-  nudgepad.off('stage', nudgepad.codePanel.load)
+  $('#nudgepadStage').css('padding-left', Design.codePanel.currentPadding)
+  nudgepad.off('selection', Design.codePanel.load)
+  nudgepad.off('stage', Design.codePanel.load)
 }
 
-nudgepad.codePanel.isOpen = function () {
+Design.codePanel.isOpen = function () {
   return $('#nudgepadCodePanel:visible').length > 0
 }
 
-nudgepad.codePanel.load = function () {
+Design.codePanel.load = function () {
   var textarea = $('#nudgepadCodePanel')
   // todo: allow for just showing of selection
 //  if (Design.stage.selection.exists()) {
@@ -10726,46 +10726,46 @@ nudgepad.codePanel.load = function () {
   textarea.val(Design.page.toString())
 }
 
-nudgepad.codePanel.open = function () {
+Design.codePanel.open = function () {
   var textarea = $('#nudgepadCodePanel')
   textarea.show()
-  nudgepad.codePanel.currentPadding = $('#nudgepadStage').css('padding-left')
+  Design.codePanel.currentPadding = $('#nudgepadStage').css('padding-left')
   $('#nudgepadStage').css('padding-left', '40%')
-  nudgepad.codePanel.load()
-  textarea.on('keyup', nudgepad.codePanel.livePreviewStart)
+  Design.codePanel.load()
+  textarea.on('keyup', Design.codePanel.livePreviewStart)
   textarea.on('blur', Design.stage.commit)
   textarea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
-  nudgepad.on('selection', nudgepad.codePanel.load)
-  nudgepad.on('stage', nudgepad.codePanel.load)
+  nudgepad.on('selection', Design.codePanel.load)
+  nudgepad.on('stage', Design.codePanel.load)
 }
 
-nudgepad.codePanel.toggle = function () {
-  if (nudgepad.codePanel.isOpen())
-    nudgepad.codePanel.close()
+Design.codePanel.toggle = function () {
+  if (Design.codePanel.isOpen())
+    Design.codePanel.close()
   else
-    nudgepad.codePanel.open()
+    Design.codePanel.open()
 }
-;nudgepad.contentEditor = {}
+;Design.contentEditor = {}
 
 /**
  * Fires when a block being edited a blur occurs.
  */
-nudgepad.contentEditor.onblur = function () {
+Design.contentEditor.onblur = function () {
   
   var scrap = $(this).scrap()
   scrap.set('content', $(this).html())
 
   // rebind the blocks
-  $(this).off('tap mousedown slide slidestart hold slideend', nudgepad.contentEditor.killEvent)
+  $(this).off('tap mousedown slide slidestart hold slideend', Design.contentEditor.killEvent)
 
   // remove the ability to edit & select text.
   $(this).removeAttr('contenteditable')
 
   // record the changes for undo/redo
   Design.stage.commit()
-  nudgepad.broadcastSelection()
+  Design.broadcastSelection()
 }
 
 /**
@@ -10774,7 +10774,7 @@ nudgepad.contentEditor.onblur = function () {
  * @param {string} Scrap id
  * @param {bool} Whether to select all on focus
  */
-nudgepad.contentEditor.focus = function (selector, selectAll) {
+Design.contentEditor.focus = function (selector, selectAll) {
   
   
   // When focused, it's as if you have nothing selected. We're really going to do 
@@ -10810,16 +10810,16 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     return
   }
   
-  nudgepad.broadcastSelection(scrap.selector())
+  Design.broadcastSelection(scrap.selector())
 
   // set element to editable
   element.attr('contenteditable', 'true')
   
   // stop propagation (todo: perhaps we could use these to make some sweet events!)
-  element.on('tap slide slidestart hold slideend', nudgepad.contentEditor.killEvent)
+  element.on('tap slide slidestart hold slideend', Design.contentEditor.killEvent)
   
   // on blur, remove all this stuff.
-  element.on('blur', nudgepad.contentEditor.onblur)
+  element.on('blur', Design.contentEditor.onblur)
   
   // focus the element
   element.focus()
@@ -10841,7 +10841,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
  * @param {object} event
  * @return false.
  */
-nudgepad.contentEditor.killEvent = function (event) {
+Design.contentEditor.killEvent = function (event) {
   // 
   Mouse.down.stopPropagation()
   return false
@@ -11305,7 +11305,7 @@ Grid.prototype.removeSnaplines = function () {
 ;/**
  * @special Singleton
  */
-nudgepad.images = {}
+Design.images = {}
 
 /**
  * given url(http://foobar.com/foob.png) returns foob.png
@@ -11313,8 +11313,8 @@ nudgepad.images = {}
  * @param {string} 
  * @return {string} 
  */
-nudgepad.images.getFilename = function (url) {
-  var file = nudgepad.images.parseBackgroundUrl(url).split(/\//)
+Design.images.getFilename = function (url) {
+  var file = Design.images.parseBackgroundUrl(url).split(/\//)
   return file[file.length-1]
   
 }
@@ -11324,10 +11324,10 @@ nudgepad.images.getFilename = function (url) {
  * @param {bool} Whether to insert it via drag and drop.
  * @return {string} Scrap id
  */
-nudgepad.images.insertImageScrap = function (filename, drag) {
+Design.images.insertImageScrap = function (filename, drag) {
 
   if (filename.match(/^url\(/))
-    filename = nudgepad.images.parseBackgroundUrl(filename)
+    filename = Design.images.parseBackgroundUrl(filename)
   
   // Easter Egg: allow swapping of images
   if (!drag && $('.selection').length > 0) {
@@ -11359,7 +11359,7 @@ nudgepad.images.insertImageScrap = function (filename, drag) {
  * @param {string}
  * @return {bool}
  */
-nudgepad.images.isImage = function (filename) {
+Design.images.isImage = function (filename) {
   return filename.match(/\.(png|jpg|jpeg|gif)$/i)
 }
 
@@ -11369,7 +11369,7 @@ nudgepad.images.isImage = function (filename) {
  * @param {string} 
  * @return {string} 
  */
-nudgepad.images.parseBackgroundUrl = function (url) {
+Design.images.parseBackgroundUrl = function (url) {
   return url.split(/(\(|\))/).slice(2)[0]
 }
 
@@ -11377,13 +11377,13 @@ nudgepad.images.parseBackgroundUrl = function (url) {
  * Downloads the latest list of images from server and stores
  * it in a property which is used to render the droppables.
  */
-nudgepad.images.images = new Space()
-nudgepad.images.updateList = function () {
+Design.images.images = new Space()
+Design.images.updateList = function () {
   $.get('/Explorer.public', {}, function (space) {
     var dropImageDiv = ''
-    nudgepad.images.images = new Space(space)
-    nudgepad.images.images.each(function (key, value) {
-      if (nudgepad.images.isImage(key))
+    Design.images.images = new Space(space)
+    Design.images.images.each(function (key, value) {
+      if (Design.images.isImage(key))
         dropImageDiv += '<div class="imageThumbDrop">&nbsp;<img src="/'+ key +'">&nbsp;</div>'
     })
 
@@ -11393,12 +11393,12 @@ nudgepad.images.updateList = function () {
 }
 
 // When an image is uploaded
-nudgepad.on('uploadComplete', nudgepad.images.updateList)
+nudgepad.on('uploadComplete', Design.images.updateList)
 nudgepad.on('uploadComplete', function () {
   mixpanel.track('I uploaded something')
 })
-nudgepad.on('public', nudgepad.images.updateList)
-nudgepad.on('main', nudgepad.images.updateList)
+nudgepad.on('public', Design.images.updateList)
+nudgepad.on('main', Design.images.updateList)
 ;Design.importPrompt = function () {
   
   var url = prompt('Enter a url to import')
@@ -12395,7 +12395,7 @@ Scrap.prototype.edit = function (selectAll) {
   
   // Default block editor
   else
-    nudgepad.contentEditor.focus(this.selector(), selectAll)
+    Design.contentEditor.focus(this.selector(), selectAll)
 
   return this
 }
@@ -13097,7 +13097,7 @@ Design.stage.selection.toSpace = function () {
   return space
 }
 
-nudgepad.broadcastSelection = function (extra) {
+Design.broadcastSelection = function (extra) {
   nudgepad.setTabColor()
   var selection = extra || ''
   var first = ''
@@ -13113,7 +13113,7 @@ nudgepad.broadcastSelection = function (extra) {
   
 }
 
-nudgepad.updateSelections = function () {
+Design.updateSelections = function () {
   $('#nudgepadRemoteSelections').html('')
   site.values.collage.each(function (key, value) {
     if (key == nudgepad.id)
@@ -13126,9 +13126,9 @@ nudgepad.updateSelections = function () {
   })
 }
 
-nudgepad.on('selection', nudgepad.broadcastSelection)
+nudgepad.on('selection', Design.broadcastSelection)
 
-nudgepad.on('collage.update', nudgepad.updateSelections)
+nudgepad.on('collage.update', Design.updateSelections)
 
 
 ;/**
@@ -13453,7 +13453,7 @@ Design.stage.render = function () {
   Design.page.loadScraps()
   Design.page.render()
   Design.grid.create()
-  nudgepad.updateSelections()
+  Design.updateSelections()
 }
 
 Design.stage.reload = function () {

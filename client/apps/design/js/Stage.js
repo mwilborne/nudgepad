@@ -313,7 +313,7 @@ Design.stage.render = function () {
   Design.page.loadScraps()
   Design.page.render()
   Design.grid.create()
-  nudgepad.updateSelections()
+  Design.updateSelections()
 }
 
 Design.stage.reload = function () {

@@ -12,7 +12,7 @@ Scrap.prototype.edit = function (selectAll) {
   
   // Default block editor
   else
-    nudgepad.contentEditor.focus(this.selector(), selectAll)
+    Design.contentEditor.focus(this.selector(), selectAll)
 
   return this
 }

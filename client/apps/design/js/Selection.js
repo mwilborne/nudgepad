@@ -430,7 +430,7 @@ Design.stage.selection.toSpace = function () {
   return space
 }
 
-nudgepad.broadcastSelection = function (extra) {
+Design.broadcastSelection = function (extra) {
   nudgepad.setTabColor()
   var selection = extra || ''
   var first = ''
@@ -446,7 +446,7 @@ nudgepad.broadcastSelection = function (extra) {
   
 }
 
-nudgepad.updateSelections = function () {
+Design.updateSelections = function () {
   $('#nudgepadRemoteSelections').html('')
   site.values.collage.each(function (key, value) {
     if (key == nudgepad.id)
@@ -459,8 +459,8 @@ nudgepad.updateSelections = function () {
   })
 }
 
-nudgepad.on('selection', nudgepad.broadcastSelection)
+nudgepad.on('selection', Design.broadcastSelection)
 
-nudgepad.on('collage.update', nudgepad.updateSelections)
+nudgepad.on('collage.update', Design.updateSelections)
 
 

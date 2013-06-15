@@ -195,6 +195,24 @@ nudgepad.quit = function () {
   $('.scrap,.nudgepad').remove()
 }
 
+nudgepad.reloadMessageOneTime = ''
+nudgepad.reloadMessage = function () {
+  var message
+  if (message = nudgepad.reloadMessageOneTime) {
+    nudgepad.reloadMessageOneTime = ''
+    return message
+  }
+  return 'Are you sure you want to leave Nudgepad?'
+}
+
+nudgepad.restartCheck = function () {
+  $.get('/nudgepad.started', {}, function (data) {
+    if (data !== site.get('started')) {
+      nudgepad.reloadMessageOneTime = 'Your site restarted. Please refresh the page.'
+      location.reload()
+    }
+  })
+}
 
 /**
  * Fire a Nudgepad event.

@@ -1,8 +1,6 @@
-nudgepad.on('main', function () {
-  
-  if (nudgepad.cookie.email !== ('owner@' + nudgepad.domain))
-    return true
-  
+var SignupForm = {}
+
+SignupForm.open = function () {
   $('#nudgepadSignupFormDomain').text(nudgepad.domain).attr('href', 'http://' + nudgepad.domain)
   // Hack because I was too lazy to do this in HTML so just used the code from the
   // nudgepad prototype. Recursion would be nice :)
@@ -39,5 +37,13 @@ nudgepad.on('main', function () {
 
   $('#nudgepadSignupFormEmail').focus()
   
+}
+
+nudgepad.on('main', function () {
+  
+  if (nudgepad.cookie.email !== ('owner@' + nudgepad.domain))
+    return true
+  
+  SignupForm.open()
   
 })
