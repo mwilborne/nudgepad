@@ -3,6 +3,8 @@ var Design = new App('Design')
 // What spot the worker is on the timeline for the current page
 Design.page = new Page()
 Design.edge = new Space()
+Design.stage = {}
+Design.stage.selection = {}
 
 Design.blank = function () {
 

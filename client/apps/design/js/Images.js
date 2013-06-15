@@ -75,7 +75,7 @@ Design.images.parseBackgroundUrl = function (url) {
  */
 Design.images.images = new Space()
 Design.images.updateList = function () {
-  $.get('/Explorer.public', {}, function (space) {
+  $.get('/nudgepad.explorer.public', {}, function (space) {
     var dropImageDiv = ''
     Design.images.images = new Space(space)
     Design.images.images.each(function (key, value) {

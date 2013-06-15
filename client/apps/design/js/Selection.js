@@ -1,7 +1,7 @@
 /**
  * @special Singleton
  */
-Design.stage.selection = {}
+
 Design.stage.selection.saved = []
 
 Design.stage.selection.alignLeft = function () {

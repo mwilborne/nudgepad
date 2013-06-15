@@ -1,3 +1,4 @@
+
 /**
  * The Stage holds the current open page.
  * We do a frame so the ribbon doesnt overlap the work area.
