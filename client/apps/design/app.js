@@ -216,6 +216,8 @@ Design.nextName = function (prefix) {
  */
 Design.oncopy = function(e) {
   
+  console.log('copyyed')
+  
   // Return true if worker is editing an input
   if ($('input:focus, div:focus, textarea:focus, a:focus').length)
     return true
@@ -391,6 +393,8 @@ Design.onresize = function () {
 /**
  */
 Design.onpaste = function(e) {
+
+  console.log('pasted')
 
   // Return true if worker is editing an input
   if ($('input:focus, div:focus, textarea:focus, a:focus').length)

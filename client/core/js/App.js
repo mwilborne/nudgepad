@@ -31,7 +31,7 @@ App.prototype.close = function (name) {
   if (this.onpaste)
     window.removeEventListener('paste', this.onpaste, false)
 
-  if (this.onpaste)
+  if (this.ondrop)
     window.removeEventListener('drop', this.ondrop, false)
 
   if (this.onresize)
@@ -91,7 +91,7 @@ App.prototype.open = function () {
     window.addEventListener('cut', this.oncut, false)
 
   if (this.onpaste)
-    window.addEventListener('cut', this.onpaste, false)
+    window.addEventListener('paste', this.onpaste, false)
 
   if (this.ondrop)
     window.addEventListener('drop', this.ondrop, false)
