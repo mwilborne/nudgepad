@@ -21,7 +21,7 @@ Design.shortcuts['meta+shift+v'] = Design.stage.selection.distributeVertical
 Design.shortcuts['meta+shift+h'] = Design.stage.selection.distributeHorizontal
 Design.shortcuts['shift+d'] = Design.stage.selection.distributeHorizontal
 
-Design.shortcuts['alt+o'] = nudgepad.explorer.quickEdit
+Design.shortcuts['alt+o'] = Explorer.quickEdit
 
 Design.shortcuts['meta+shift+s'] = nudgepad.edit_settings
 
@@ -58,7 +58,7 @@ Design.shortcuts['shift+space'] = function () {
   }
 }
 
-Design.shortcuts['meta+shift+m'] = function () {nudgepad.explorer.edit('/public/manifest.webapp')}
+Design.shortcuts['meta+shift+m'] = function () {Explorer.edit('/public/manifest.webapp')}
 
 Design.shortcuts['meta+backspace'] = Design.trash
 

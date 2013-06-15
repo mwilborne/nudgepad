@@ -1,10 +1,13 @@
-nudgepad.notifyTimeout = false
-nudgepad.notify = function (message, time) {
+var Flasher = {}
+
+Flasher.timeout = false
+
+Flasher.flash = function (message, time) {
   Blinker.change(message)
-  clearTimeout(nudgepad.notifyTimeout)
+  clearTimeout(Flasher.timeout)
   $('#nudgepadNotify').html(message)
   nudgepad.popup.open('#nudgepadNotify')
   $('#nudgepadNotify').css('left', ($(window).width() - $('#nudgepadNotify').width())/2)
   if (time)
-    nudgepad.notifyTimeout = setTimeout("$('#nudgepadNotify').hide()", time)
+    Flasher.timeout = setTimeout("$('#nudgepadNotify').hide()", time)
 }

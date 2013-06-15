@@ -73,7 +73,7 @@ nudgepad.main = function (callback) {
   
   nudgepad.query = ParseQueryString()
   // Fetch all files in the background.
-  nudgepad.explorer.getSite(function () {
+  Explorer.getSite(function () {
     
     
     // Open socket
@@ -114,7 +114,7 @@ nudgepad.main = function (callback) {
     
     nudgepad.socket.on('collage.delete', function (id) {
       var tabName = site.get('collage ' + id)
-      nudgepad.notify(tabName.get('name') + ' closed a tab')
+      Flasher.flash(tabName.get('name') + ' closed a tab')
       site.values.collage.delete(id)
       nudgepad.trigger('collage.update')
     })
@@ -123,7 +123,7 @@ nudgepad.main = function (callback) {
       patch = new Space(patch)
       site.values.collage.patch(patch)
       var id = patch.keys[0]
-      nudgepad.notify(patch.get(id + ' name') + ' opened a tab')
+      Flasher.flash(patch.get(id + ' name') + ' opened a tab')
     })
 
     nudgepad.socket.on('ack', function (message) {
@@ -146,13 +146,13 @@ nudgepad.main = function (callback) {
     $('body').scrollTop(0)
     $('body').scrollLeft(0)
 
-    nudgepad.navigation.openAppFromQueryString()
+    Launcher.openAppFromQueryString()
     
     $('#nudgepadLoadingScreen').hide()
     
     // fetch other timelines in background for now
     // SLOW
-    nudgepad.explorer.downloadTimelines()
+    Explorer.downloadTimelines()
     
     nudgepad.trigger('main')
     

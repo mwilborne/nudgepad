@@ -179,7 +179,7 @@ Design.stage.selection.distributeHorizontal = function () {
   })
   $('.handle').trigger('update')
   Design.stage.commit()
-  nudgepad.notify('Distributed', 1000)
+  Flasher.flash('Distributed', 1000)
 }
 
 /**

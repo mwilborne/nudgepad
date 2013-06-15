@@ -54,7 +54,7 @@ Design.stage.commit = function () {
   patch.set('timelines ' + Design.stage.activePage + ' ' + timestamp, commit)
   site.set('pages ' + Design.stage.activePage, new Space(Design.page.toString()))
 
-//  nudgepad.notify('Saved')
+//  Flasher.flash('Saved')
   nudgepad.emit('commit', patch.toString())
   return diff
 }
@@ -86,8 +86,8 @@ Design.stage.dragAndDrop = function (scrap) {
   var pageLeft = $('#nudgepadStageBody').offset().left
   var bodyScroll = $('#nudgepadStage').scrollTop()
   
-  var left = nudgepad.mouse.move.pageX - pageLeft - halfWidth
-  var y = nudgepad.mouse.move.pageY - halfHeight + bodyScroll
+  var left = Mouse.move.pageX - pageLeft - halfWidth
+  var y = Mouse.move.pageY - halfHeight + bodyScroll
 
   Design.stage.insert(scrap, true, left, y)
 }
@@ -396,7 +396,7 @@ Design.stage.setTimeline = function (name) {
     var patch = new Space()
     patch.set('timelines ' + name, timeline)
     nudgepad.emit('patch', patch.toString())
-    nudgepad.notify('Timeline created')
+    Flasher.flash('Timeline created')
     
     
   })
@@ -446,7 +446,7 @@ Design.stage.toggleView = function () {
   Design.stage.currentView = stageViews.next(Design.stage.currentView)
   stageViews.get(Design.stage.currentView)()
   $('#nudgepadStageBody').width()
-  nudgepad.notify(Design.stage.currentView + ' view')
+  Flasher.flash(Design.stage.currentView + ' view')
 }
 
 Design.stage.undo = function () {

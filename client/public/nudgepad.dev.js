@@ -10025,7 +10025,7 @@ nudgepad.main = function (callback) {
   
   nudgepad.query = ParseQueryString()
   // Fetch all files in the background.
-  nudgepad.explorer.getSite(function () {
+  Explorer.getSite(function () {
     
     
     // SLOW?? maybe not anymore
@@ -10071,7 +10071,7 @@ nudgepad.main = function (callback) {
     
     nudgepad.socket.on('collage.delete', function (id) {
       var tabName = site.get('collage ' + id)
-      nudgepad.notify(tabName.get('name') + ' closed a tab')
+      Flasher.flash(tabName.get('name') + ' closed a tab')
       site.values.collage.delete(id)
       nudgepad.trigger('collage.update')
     })
@@ -10080,7 +10080,7 @@ nudgepad.main = function (callback) {
       patch = new Space(patch)
       site.values.collage.patch(patch)
       var id = patch.keys[0]
-      nudgepad.notify(patch.get(id + ' name') + ' opened a tab')
+      Flasher.flash(patch.get(id + ' name') + ' opened a tab')
     })
 
     nudgepad.socket.on('ack', function (message) {
@@ -10119,7 +10119,7 @@ nudgepad.main = function (callback) {
     $('body').scrollTop(0)
     $('body').scrollLeft(0)
 
-    nudgepad.navigation.openAppFromQueryString()
+    Launcher.openAppFromQueryString()
     
     $('#nudgepadLoadingScreen').hide()
     
@@ -10128,7 +10128,7 @@ nudgepad.main = function (callback) {
     
     // fetch other timelines in background for now
     // SLOW
-    nudgepad.explorer.downloadTimelines()
+    Explorer.downloadTimelines()
     
     nudgepad.trigger('main')
     
@@ -10234,15 +10234,15 @@ nudgepad.iosMain = function () {
     })
   }
 }
-;nudgepad.notifyTimeout = false
-nudgepad.notify = function (message, time) {
+;Flasher.timeout = false
+Flasher.flash = function (message, time) {
   Blinker.change(message)
-  clearTimeout(nudgepad.notifyTimeout)
+  clearTimeout(Flasher.timeout)
   $('#nudgepadNotify').html(message)
   nudgepad.popup.open('#nudgepadNotify')
   $('#nudgepadNotify').css('left', ($(window).width() - $('#nudgepadNotify').width())/2)
   if (time)
-    nudgepad.notifyTimeout = setTimeout("$('#nudgepadNotify').hide()", time)
+    Flasher.timeout = setTimeout("$('#nudgepadNotify').hide()", time)
 }
 ;nudgepad.on('disconnect', function () {
   $('#nudgepadConnectionStatus').html('Disconnected from server. Attempting to reconnect...').show()
@@ -10320,7 +10320,7 @@ nudgepad.on('main', function () {
 ;// An event for if the server goes into a read only mode.
 
 ;nudgepad.restart = function () {
-  nudgepad.notify('Site restarted. Please refresh.') 
+  Flasher.flash('Site restarted. Please refresh.') 
   // i think we should maybe just do a location.reload()
 }
 ;// sometimes you'll be working on a site that has been deleted.
@@ -10368,7 +10368,7 @@ nudgepad.patch.receive = function (patch) {
 
   // Todo: this breaks if you are in content editable
   Design.stage.redo()
-  nudgepad.notify('Change received', 1000)
+  Flasher.flash('Change received', 1000)
 }
 
 nudgepad.on('patch', nudgepad.patch.receive)
@@ -10468,7 +10468,7 @@ nudgepad.bind_shortcuts = function () {
   Events.shortcut.shortcuts['meta+shift+h'] = Design.stage.selection.distributeHorizontal
   Events.shortcut.shortcuts['shift+d'] = Design.stage.selection.distributeHorizontal
   
-  Events.shortcut.shortcuts['alt+o'] = nudgepad.explorer.quickEdit
+  Events.shortcut.shortcuts['alt+o'] = Explorer.quickEdit
   
   Events.shortcut.shortcuts['meta+shift+s'] = nudgepad.edit_settings
   
@@ -10506,7 +10506,7 @@ nudgepad.bind_shortcuts = function () {
     }
   }
   
-  Events.shortcut.shortcuts['meta+shift+m'] = function () {nudgepad.explorer.edit('/public/manifest.webapp')}
+  Events.shortcut.shortcuts['meta+shift+m'] = function () {Explorer.edit('/public/manifest.webapp')}
   
   Events.shortcut.shortcuts['meta+backspace'] = Design.trash
   
@@ -10843,7 +10843,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
  */
 nudgepad.contentEditor.killEvent = function (event) {
   // 
-  nudgepad.mouse.down.stopPropagation()
+  Mouse.down.stopPropagation()
   return false
 }
 
@@ -11379,7 +11379,7 @@ nudgepad.images.parseBackgroundUrl = function (url) {
  */
 nudgepad.images.images = new Space()
 nudgepad.images.updateList = function () {
-  $.get('/nudgepad.explorer.public', {}, function (space) {
+  $.get('/Explorer.public', {}, function (space) {
     var dropImageDiv = ''
     nudgepad.images.images = new Space(space)
     nudgepad.images.images.each(function (key, value) {
@@ -11563,18 +11563,18 @@ $.fn.toggleSize = function () {
  *
  * @special Singleton.
  */
-nudgepad.mouse = {}
+Mouse = {}
 
 // Is the mouse down?
-nudgepad.mouse.isDown = false
+Mouse.isDown = false
 
 /**
  * When a mousedown starts, we keep track of how far the mouse moves. Helpful for
  * drag and drop and drawing stuff.
  */
-nudgepad.mouse.yChange = 0
-nudgepad.mouse.xChange = 0
-nudgepad.mouse.pathDistance = 0
+Mouse.yChange = 0
+Mouse.xChange = 0
+Mouse.pathDistance = 0
 
 /**
  * Update our Mouse object
@@ -11582,14 +11582,14 @@ nudgepad.mouse.pathDistance = 0
  * @param {object} The mousedown event
  * @return true. Continue propagation.
  */
-nudgepad.mouse.onmousedown = function (event) {
+Mouse.onmousedown = function (event) {
   //  console.log('mouse down')
-  nudgepad.mouse.isDown = true
-  nudgepad.mouse.down = event
-  nudgepad.mouse.target = event.srcElement || event.originalTarget || event.target
-  nudgepad.mouse.lastX = event.pageX
-  nudgepad.mouse.lastY = event.pageY
-  nudgepad.mouse.pathDistance = 0
+  Mouse.isDown = true
+  Mouse.down = event
+  Mouse.target = event.srcElement || event.originalTarget || event.target
+  Mouse.lastX = event.pageX
+  Mouse.lastY = event.pageY
+  Mouse.pathDistance = 0
   return true
 }
 
@@ -11599,21 +11599,21 @@ nudgepad.mouse.onmousedown = function (event) {
  * @param {object} The move event
  * @return true. Continue propagation.
  */
-nudgepad.mouse.onmousemove = function (event) {
-  nudgepad.mouse.move = event
+Mouse.onmousemove = function (event) {
+  Mouse.move = event
 //  console.log('mouse move')
-  if (!nudgepad.mouse.isDown)
+  if (!Mouse.isDown)
     return true
   
-  nudgepad.mouse.pathDistance += Math.abs(event.pageX - nudgepad.mouse.lastX) + Math.abs(event.pageY - nudgepad.mouse.lastY)
-  nudgepad.mouse.lastX = event.pageX
-  nudgepad.mouse.lastY = event.pageY
-  nudgepad.mouse.xChange = event.pageX - nudgepad.mouse.down.pageX
-  nudgepad.mouse.yChange = event.pageY - nudgepad.mouse.down.pageY
-  nudgepad.mouse.distance = // a2 + b2 = c2 solving for c
+  Mouse.pathDistance += Math.abs(event.pageX - Mouse.lastX) + Math.abs(event.pageY - Mouse.lastY)
+  Mouse.lastX = event.pageX
+  Mouse.lastY = event.pageY
+  Mouse.xChange = event.pageX - Mouse.down.pageX
+  Mouse.yChange = event.pageY - Mouse.down.pageY
+  Mouse.distance = // a2 + b2 = c2 solving for c
     Math.pow(
-      Math.pow(nudgepad.mouse.xChange, 2) +
-      Math.pow(nudgepad.mouse.yChange, 2),
+      Math.pow(Mouse.xChange, 2) +
+      Math.pow(Mouse.yChange, 2),
     .5)
   // todo: rotation
   return true
@@ -11625,14 +11625,14 @@ nudgepad.mouse.onmousemove = function (event) {
  * @param {object} The mouseup event
  * @return true. Continue propagation.
  */
-nudgepad.mouse.onmouseup = function (event) {
-  nudgepad.mouse.isDown = false
-  nudgepad.mouse.xChange = event.pageX - nudgepad.mouse.down.pageX
-  nudgepad.mouse.yChange = event.pageY - nudgepad.mouse.down.pageY
-  nudgepad.mouse.distance = // a2 + b2 = c2 solving for c
+Mouse.onmouseup = function (event) {
+  Mouse.isDown = false
+  Mouse.xChange = event.pageX - Mouse.down.pageX
+  Mouse.yChange = event.pageY - Mouse.down.pageY
+  Mouse.distance = // a2 + b2 = c2 solving for c
     Math.pow(
-      Math.pow(nudgepad.mouse.xChange, 2) +
-      Math.pow(nudgepad.mouse.yChange, 2),
+      Math.pow(Mouse.xChange, 2) +
+      Math.pow(Mouse.yChange, 2),
     .5)
   return true
 }
@@ -11643,14 +11643,14 @@ nudgepad.mouse.onmouseup = function (event) {
  * @param {object} The mouseup event
  * @return true. Continue propagation.
  */
-nudgepad.mouse.onTouchEnd = function (event) {
-  nudgepad.mouse.isDown = false
-  nudgepad.mouse.xChange = event.pageX - nudgepad.mouse.down.pageX
-  nudgepad.mouse.yChange = event.pageY - nudgepad.mouse.down.pageY
-  nudgepad.mouse.distance = // a2 + b2 = c2 solving for c
+Mouse.onTouchEnd = function (event) {
+  Mouse.isDown = false
+  Mouse.xChange = event.pageX - Mouse.down.pageX
+  Mouse.yChange = event.pageY - Mouse.down.pageY
+  Mouse.distance = // a2 + b2 = c2 solving for c
     Math.pow(
-      Math.pow(nudgepad.mouse.xChange, 2) +
-      Math.pow(nudgepad.mouse.yChange, 2),
+      Math.pow(Mouse.xChange, 2) +
+      Math.pow(Mouse.yChange, 2),
     .5)
   return true
 }
@@ -11661,14 +11661,14 @@ nudgepad.mouse.onTouchEnd = function (event) {
  * @param {object} The mousedown event
  * @return true. Continue propagation.
  */
-nudgepad.mouse.onTouchStart = function (event) {
+Mouse.onTouchStart = function (event) {
   //  console.log('mouse down')
-  nudgepad.mouse.isDown = true
-  nudgepad.mouse.down = event
-  nudgepad.mouse.target = event.srcElement || event.originalTarget || event.target
-  nudgepad.mouse.lastX = event.pageX
-  nudgepad.mouse.lastY = event.pageY
-  nudgepad.mouse.pathDistance = 0
+  Mouse.isDown = true
+  Mouse.down = event
+  Mouse.target = event.srcElement || event.originalTarget || event.target
+  Mouse.lastX = event.pageX
+  Mouse.lastY = event.pageY
+  Mouse.pathDistance = 0
   return true
 }
 
@@ -11678,21 +11678,21 @@ nudgepad.mouse.onTouchStart = function (event) {
  * @param {object} The move event
  * @return true. Continue propagation.
  */
-nudgepad.mouse.onTouchMove = function (event) {
-  nudgepad.mouse.move = event
+Mouse.onTouchMove = function (event) {
+  Mouse.move = event
 //  console.log('mouse move')
-  if (!nudgepad.mouse.isDown)
+  if (!Mouse.isDown)
     return true
   
-  nudgepad.mouse.pathDistance += Math.abs(event.pageX - nudgepad.mouse.lastX) + Math.abs(event.pageY - nudgepad.mouse.lastY)
-  nudgepad.mouse.lastX = event.pageX
-  nudgepad.mouse.lastY = event.pageY
-  nudgepad.mouse.xChange = event.pageX - nudgepad.mouse.down.pageX
-  nudgepad.mouse.yChange = event.pageY - nudgepad.mouse.down.pageY
-  nudgepad.mouse.distance = // a2 + b2 = c2 solving for c
+  Mouse.pathDistance += Math.abs(event.pageX - Mouse.lastX) + Math.abs(event.pageY - Mouse.lastY)
+  Mouse.lastX = event.pageX
+  Mouse.lastY = event.pageY
+  Mouse.xChange = event.pageX - Mouse.down.pageX
+  Mouse.yChange = event.pageY - Mouse.down.pageY
+  Mouse.distance = // a2 + b2 = c2 solving for c
     Math.pow(
-      Math.pow(nudgepad.mouse.xChange, 2) +
-      Math.pow(nudgepad.mouse.yChange, 2),
+      Math.pow(Mouse.xChange, 2) +
+      Math.pow(Mouse.yChange, 2),
     .5)
   // todo: rotation
   return true
@@ -11701,13 +11701,13 @@ nudgepad.mouse.onTouchMove = function (event) {
 nudgepad.on('main', function () {
 
   if ( navigator.userAgent.match(/(iPad|iPhone|iPod)/i) ) {
-    document.addEventListener('touchstart', nudgepad.mouse.onTouchStart, true)
-    document.addEventListener('touchend', nudgepad.mouse.onTouchEnd, true)
-    document.addEventListener('touchmove', nudgepad.mouse.onTouchMove, true)
+    document.addEventListener('touchstart', Mouse.onTouchStart, true)
+    document.addEventListener('touchend', Mouse.onTouchEnd, true)
+    document.addEventListener('touchmove', Mouse.onTouchMove, true)
   } else {
-    document.addEventListener('mousedown', nudgepad.mouse.onmousedown, true)
-    document.addEventListener('mousemove', nudgepad.mouse.onmousemove, true)
-    document.addEventListener('mouseup', nudgepad.mouse.onmouseup, true)
+    document.addEventListener('mousedown', Mouse.onmousedown, true)
+    document.addEventListener('mousemove', Mouse.onmousemove, true)
+    document.addEventListener('mouseup', Mouse.onmouseup, true)
   }
 })
 ;/**
@@ -11779,7 +11779,7 @@ nudgepad.MoveHandle.selectTopScrap = function () {
   // get element at point
   var offsetLeft = $('#nudgepadStageBody').offset().left
   var offsetTop = $('#nudgepadStageBody').offset().top
-  var element = $.topDiv('.scrap:visible', nudgepad.mouse.down.pageX - offsetLeft, nudgepad.mouse.down.pageY - offsetTop + Design.stage.scrollTop())
+  var element = $.topDiv('.scrap:visible', Mouse.down.pageX - offsetLeft, Mouse.down.pageY - offsetTop + Design.stage.scrollTop())
   // if a narrow div and no element underneath, return
   if (!element)
     return true
@@ -11810,13 +11810,13 @@ nudgepad.MoveHandle.slide = function (event, mouseEvent) {
 
   if (!mouseEvent.shiftKey) {
     grid_change = Design.grid.getDelta([
-      {x : dimensions.left + nudgepad.mouse.xChange, y : dimensions.top + nudgepad.mouse.yChange + scrollChange},
-      {x : dimensions.right + nudgepad.mouse.xChange, y : dimensions.bottom + nudgepad.mouse.yChange + scrollChange},
-      {x :  dimensions.center + nudgepad.mouse.xChange, y : dimensions.middle + nudgepad.mouse.yChange + scrollChange}
+      {x : dimensions.left + Mouse.xChange, y : dimensions.top + Mouse.yChange + scrollChange},
+      {x : dimensions.right + Mouse.xChange, y : dimensions.bottom + Mouse.yChange + scrollChange},
+      {x :  dimensions.center + Mouse.xChange, y : dimensions.middle + Mouse.yChange + scrollChange}
     ])
   }
-  var y_change = nudgepad.mouse.yChange + scrollChange + grid_change.y
-  var x_change = nudgepad.mouse.xChange + grid_change.x
+  var y_change = Mouse.yChange + scrollChange + grid_change.y
+  var x_change = Mouse.xChange + grid_change.x
   
 
   $('.selection').each(function (){
@@ -11859,7 +11859,7 @@ nudgepad.MoveHandle.slidestart = function () {
 // Dont propogate tap events
 nudgepad.MoveHandle.tap = function () {
   // If shift key is down, remove from selection
-  if (nudgepad.mouse.down && nudgepad.mouse.down.shiftKey)
+  if (Mouse.down && Mouse.down.shiftKey)
     $(this).owner().deselect()
   return false
 }
@@ -12211,7 +12211,7 @@ Design.trash = function (name) {
   
   // Delete page from open pages
   Design.updateTabs()
-  nudgepad.notify('Deleted ' + name, 1000)
+  Flasher.flash('Deleted ' + name, 1000)
   mixpanel.track('I deleted a page')
   return ''
 }
@@ -12249,19 +12249,19 @@ Design.trash = function (name) {
 
 Design.pen.draw = function (event) {
   
-  if (!Design.pen.on && !nudgepad.mouse.down.metaKey)
+  if (!Design.pen.on && !Mouse.down.metaKey)
     return true
   
-  if (!nudgepad.mouse.isDown)
+  if (!Mouse.isDown)
     return true
   
-  if ($.isOnScrollbar(nudgepad.mouse.down.clientX, nudgepad.mouse.down.clientY))
+  if ($.isOnScrollbar(Mouse.down.clientX, Mouse.down.clientY))
     return true
   
   var offsetLeft = $('#nudgepadStageBody').offset().left
   var offsetTop = $('#nudgepadStageBody').offset().top
-  var x = nudgepad.mouse.down.pageX - offsetLeft
-  var y = nudgepad.mouse.down.pageY - offsetTop
+  var x = Mouse.down.pageX - offsetLeft
+  var y = Mouse.down.pageY - offsetTop
   var scraps = new Space().set('container', new Space("style\n position absolute\n left " + x + "px\n top " + y + "px\n width 1px\n height 1px\n"))
   var selector = Design.stage.insert(scraps)[0]
   var id = $(selector).scrap().id
@@ -12616,7 +12616,7 @@ Scrap.selectOnTap =  function (event) {
 
 
   // Hold meta key to nest something
-  if (nudgepad.mouse.down && nudgepad.mouse.down.metaKey) {
+  if (Mouse.down && Mouse.down.metaKey) {
     if (!$(this).hasClass('selection') && $('.selection').length) {
       Design.stage.selection.nest($(this).attr('path'))
       return false
@@ -12625,7 +12625,7 @@ Scrap.selectOnTap =  function (event) {
   
 
   // If shift key is not down, clear selection first
-  if (!nudgepad.mouse.down || !nudgepad.mouse.down.shiftKey)
+  if (!Mouse.down || !Mouse.down.shiftKey)
     Design.stage.selection.clear()
 
   $(this).selectMe()
@@ -12846,7 +12846,7 @@ Design.stage.selection.distributeHorizontal = function () {
   })
   $('.handle').trigger('update')
   Design.stage.commit()
-  nudgepad.notify('Distributed', 1000)
+  Flasher.flash('Distributed', 1000)
 }
 
 /**
@@ -13194,7 +13194,7 @@ Design.stage.commit = function () {
   patch.set('timelines ' + Design.stage.activePage + ' ' + timestamp, commit)
   site.set('pages ' + Design.stage.activePage, new Space(Design.page.toString()))
 
-//  nudgepad.notify('Saved')
+//  Flasher.flash('Saved')
   nudgepad.emit('commit', patch.toString())
   return diff
 }
@@ -13226,8 +13226,8 @@ Design.stage.dragAndDrop = function (scrap) {
   var pageLeft = $('#nudgepadStageBody').offset().left
   var bodyScroll = $('#nudgepadStage').scrollTop()
   
-  var left = nudgepad.mouse.move.pageX - pageLeft - halfWidth
-  var y = nudgepad.mouse.move.pageY - halfHeight + bodyScroll
+  var left = Mouse.move.pageX - pageLeft - halfWidth
+  var y = Mouse.move.pageY - halfHeight + bodyScroll
 
   Design.stage.insert(scrap, true, left, y)
 }
@@ -13536,7 +13536,7 @@ Design.stage.setTimeline = function (name) {
     var patch = new Space()
     patch.set('timelines ' + name, timeline)
     nudgepad.emit('patch', patch.toString())
-    nudgepad.notify('Timeline created')
+    Flasher.flash('Timeline created')
     
     
   })
@@ -13586,7 +13586,7 @@ Design.stage.toggleView = function () {
   Design.stage.currentView = stageViews.next(Design.stage.currentView)
   stageViews.get(Design.stage.currentView)()
   $('#nudgepadStageBody').width()
-  nudgepad.notify(Design.stage.currentView + ' view')
+  Flasher.flash(Design.stage.currentView + ' view')
 }
 
 Design.stage.undo = function () {
@@ -13724,8 +13724,8 @@ nudgepad.StretchHandle.slide = function () {
   else
     y0 = nudgepad.StretchHandle.dimensions.middle
   
-  var x1 = nudgepad.mouse.move.pageX - $(this).parent().offset().left // + scroll left
-  var y1 = nudgepad.mouse.move.pageY - $(this).parent().offset().top// Design.stage.scrollTop()// + scroll top
+  var x1 = Mouse.move.pageX - $(this).parent().offset().left // + scroll left
+  var y1 = Mouse.move.pageY - $(this).parent().offset().top// Design.stage.scrollTop()// + scroll top
 //  console.log(x1)
   
   // todo: fix bug where offset changes
@@ -14886,7 +14886,7 @@ nudgepad.apps.develop.createFile = function () {
   var name = prompt('Name your file')
   if (!name)
     return false
-  nudgepad.explorer.create(nudgepad.apps.develop.pathPretty + name, nudgepad.apps.develop.refresh)
+  Explorer.create(nudgepad.apps.develop.pathPretty + name, nudgepad.apps.develop.refresh)
 }
 
 nudgepad.apps.develop.home = function () {
@@ -14898,7 +14898,7 @@ nudgepad.apps.develop.home = function () {
 nudgepad.apps.develop.import = function () {
   nudgepad.textPrompt('Import a Site ', '', function (val) {
     $.post('/Design.import', {space : val}, function (err) {
-      nudgepad.notify('Imported. Please restart')
+      Flasher.flash('Imported. Please restart')
     })
   })
 }
@@ -14954,7 +14954,7 @@ nudgepad.apps.develop.refresh = function () {
     $('.nudgepad#logHolder').html(data)
     $('#logHolder').scrollTop($('#logHolder').height())
   })
-  $.get('/nudgepad.explorer.list', {}, function (data) {
+  $.get('/Explorer.list', {}, function (data) {
     nudgepad.apps.develop.files = new Space(data)
     nudgepad.apps.develop.renderExplorer()
     
@@ -14962,14 +14962,14 @@ nudgepad.apps.develop.refresh = function () {
 }
 
 $(document).on('click', 'td.explorerEdit', function () {
-  nudgepad.explorer.edit(nudgepad.apps.develop.pathPretty + $(this).parent().attr('value'))
+  Explorer.edit(nudgepad.apps.develop.pathPretty + $(this).parent().attr('value'))
 })
 
 $(document).on('click', 'td.explorerRename', function () {
   var newName = prompt('Rename this file', $(this).parent().attr('value'))
   if (!newName)
     return false
-  nudgepad.explorer.rename(nudgepad.apps.develop.pathPretty + $(this).parent().attr('value'),
+  Explorer.rename(nudgepad.apps.develop.pathPretty + $(this).parent().attr('value'),
     nudgepad.apps.develop.pathPretty + newName, nudgepad.apps.develop.refreshFiles)
 })
 
@@ -14977,7 +14977,7 @@ $(document).on('click', 'td.explorerRemove', function () {
   var name = $(this).parent().attr('value')
   if (!confirm('Are you sure you want to delete ' + name + '?'))
     return false
-  nudgepad.explorer.remove(nudgepad.apps.develop.pathPretty + name, nudgepad.apps.develop.refresh)
+  Explorer.remove(nudgepad.apps.develop.pathPretty + name, nudgepad.apps.develop.refresh)
 })
 
 $(document).on('click', 'td.explorerFolderName', function () {
@@ -15005,18 +15005,18 @@ $(document).on('click', '.devToggleOption', function () {
 ;/**
  * @special Singleton
  */
-nudgepad.explorer = {}
+Explorer = {}
 
-nudgepad.explorer.create = function (path, callback) {
+Explorer.create = function (path, callback) {
   var req = {}
   req.path = path
   req.content = ''
-  $.post('/nudgepad.explorer.save', req, function (err) {
+  $.post('/Explorer.save', req, function (err) {
     callback()
   })
 }
 
-nudgepad.explorer.downloadTimelines = function () {
+Explorer.downloadTimelines = function () {
   $.get('/nudgepad.site.timelines', {}, function (data) {
     var space = new Space(data)
     space.delete(Design.stage.activePage) // We already have the open page
@@ -15029,7 +15029,7 @@ nudgepad.explorer.downloadTimelines = function () {
  *
  * @param {function}
  */
-nudgepad.explorer.getSite = function (callback) {
+Explorer.getSite = function (callback) {
   var activePage = store.get('activePage') || 'home'
   $.get('/nudgepad.site', { activePage : activePage, id : nudgepad.id }, function (space) {
     site = new Space(space)
@@ -15041,25 +15041,25 @@ nudgepad.explorer.getSite = function (callback) {
   })
 }
 
-nudgepad.explorer.quickEdit = function () {
-  nudgepad.explorer.edit(prompt('Enter path to file you want to edit', 'public/nudgepad.site.css'))
+Explorer.quickEdit = function () {
+  Explorer.edit(prompt('Enter path to file you want to edit', 'public/nudgepad.site.css'))
 }
 
-nudgepad.explorer.remove = function (path, callback) {
+Explorer.remove = function (path, callback) {
   var req = {}
   req.path = path
-  $.post( 'nudgepad.explorer.remove', req, function (data) {
+  $.post( 'Explorer.remove', req, function (data) {
     callback()
   })
 }
 
-nudgepad.explorer.rename = function (oldPath, newPath, callback) {
+Explorer.rename = function (oldPath, newPath, callback) {
   var req = {}
   req.oldPath = oldPath
   req.newPath = newPath
   if (!newPath)
     return nudgepad.error('No name provided')
-  $.post('/nudgepad.explorer.rename', req, function (err) {
+  $.post('/Explorer.rename', req, function (err) {
     callback()
   })
 }
@@ -15069,15 +15069,15 @@ nudgepad.explorer.rename = function (oldPath, newPath, callback) {
  *
  * @param {string} File you want to edit
  */
-nudgepad.explorer.edit = function (path) {
+Explorer.edit = function (path) {
   var req = {}
   req.path = path
-  $.post( 'nudgepad.explorer.get', req, function (data) {
+  $.post( 'Explorer.get', req, function (data) {
     nudgepad.textPrompt('Editing ' + path, data, function (val) {
       var req = {}
       req.path = path
       req.content = val + ''
-      $.post('/nudgepad.explorer.save', req, function (err) {
+      $.post('/Explorer.save', req, function (err) {
         console.log(err)
       })
     })
@@ -15107,7 +15107,7 @@ nudgepad.apps.git.push = function () {
 
 nudgepad.apps.git.send = function (command) {
   $.post('nudgepad.exec', {command : command}, function (result) {
-    nudgepad.notify(result)
+    Flasher.flash(result)
   }, null, function (error, message) {
     nudgepad.error(error.responseText)
   })
@@ -15125,9 +15125,9 @@ nudgepad.apps.home.onopen = function () {
   $('.nudgepad#domainName').text(nudgepad.domain)
 }
 ;// Nudgepad App navigation
-nudgepad.navigation = {}
+Launcher = {}
 
-nudgepad.navigation.open = function (name, dontRecord) {
+Launcher.open = function (name, dontRecord) {
   if (name === 'pages')
     Design.open()
   else if (nudgepad.apps[name])
@@ -15144,16 +15144,16 @@ nudgepad.navigation.open = function (name, dontRecord) {
   history.pushState(name, 'Nudgepad - ' + name, '/nudgepad?app=' + name)
 }
 
-nudgepad.navigation.openAppFromQueryString = function () {
+Launcher.openAppFromQueryString = function () {
   
   // Get query string. If nothing, set default to home app
   var name = ParseQueryString().app || 'home'
-  nudgepad.navigation.open(name, true)
+  Launcher.open(name, true)
 }
 
 // Revert to a previously saved state
 window.addEventListener('popstate', function (event) {
-  nudgepad.navigation.openAppFromQueryString()
+  Launcher.openAppFromQueryString()
 })
 ;nudgepad.apps.account = new App('account')
 
@@ -15188,15 +15188,15 @@ nudgepad.apps.account.save = function () {
     })
   }, false, 'Send')
 }
-;nudgepad.invite = {}
+;Inviter = {}
 
-nudgepad.invite.prompt = function () {
+Inviter.prompt = function () {
   var val = prompt('Invite people to edit this site. Add one or more emails, separated by spaces', '')
   if (!val)
     return false
   
-  $.post('/nudgepad.invite', {emails : val}, function (result) {
-    nudgepad.notify('Invite Sent')
+  $.post('/Inviter', {emails : val}, function (result) {
+    Flasher.flash('Invite Sent')
     mixpanel.track('I invited people')
   })
 }

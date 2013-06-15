@@ -33,7 +33,7 @@ nudgepad.patch.receive = function (patch) {
 
   // Todo: this breaks if you are in content editable
   Design.stage.redo()
-  nudgepad.notify('Change received', 1000)
+  Flasher.flash('Change received', 1000)
 }
 
 nudgepad.on('patch', nudgepad.patch.receive)

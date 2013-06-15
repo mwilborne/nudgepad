@@ -68,7 +68,7 @@ Develop.createFile = function () {
   var name = prompt('Name your file')
   if (!name)
     return false
-  nudgepad.explorer.create(Develop.pathPretty + name, Develop.refresh)
+  Explorer.create(Develop.pathPretty + name, Develop.refresh)
 }
 
 Develop.home = function () {
@@ -80,7 +80,7 @@ Develop.home = function () {
 Develop.import = function () {
   nudgepad.textPrompt('Import a Site ', '', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
-      nudgepad.notify('Imported. Please restart')
+      Flasher.flash('Imported. Please restart')
     })
   })
 }
@@ -136,7 +136,7 @@ Develop.refresh = function () {
     $('.nudgepad#logHolder').html(data)
     $('#logHolder').scrollTop($('#logHolder').height())
   })
-  $.get('/nudgepad.explorer.list', {}, function (data) {
+  $.get('/Explorer.list', {}, function (data) {
     Develop.files = new Space(data)
     Develop.renderExplorer()
     
@@ -144,14 +144,14 @@ Develop.refresh = function () {
 }
 
 $(document).on('click', 'td.explorerEdit', function () {
-  nudgepad.explorer.edit(Develop.pathPretty + $(this).parent().attr('value'))
+  Explorer.edit(Develop.pathPretty + $(this).parent().attr('value'))
 })
 
 $(document).on('click', 'td.explorerRename', function () {
   var newName = prompt('Rename this file', $(this).parent().attr('value'))
   if (!newName)
     return false
-  nudgepad.explorer.rename(Develop.pathPretty + $(this).parent().attr('value'),
+  Explorer.rename(Develop.pathPretty + $(this).parent().attr('value'),
     Develop.pathPretty + newName, Develop.refreshFiles)
 })
 
@@ -159,7 +159,7 @@ $(document).on('click', 'td.explorerRemove', function () {
   var name = $(this).parent().attr('value')
   if (!confirm('Are you sure you want to delete ' + name + '?'))
     return false
-  nudgepad.explorer.remove(Develop.pathPretty + name, Develop.refresh)
+  Explorer.remove(Develop.pathPretty + name, Develop.refresh)
 })
 
 $(document).on('click', 'td.explorerFolderName', function () {

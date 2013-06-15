@@ -233,7 +233,7 @@ Scrap.selectOnTap =  function (event) {
 
 
   // Hold meta key to nest something
-  if (nudgepad.mouse.down && nudgepad.mouse.down.metaKey) {
+  if (Mouse.down && Mouse.down.metaKey) {
     if (!$(this).hasClass('selection') && $('.selection').length) {
       Design.stage.selection.nest($(this).attr('path'))
       return false
@@ -242,7 +242,7 @@ Scrap.selectOnTap =  function (event) {
   
 
   // If shift key is not down, clear selection first
-  if (!nudgepad.mouse.down || !nudgepad.mouse.down.shiftKey)
+  if (!Mouse.down || !Mouse.down.shiftKey)
     Design.stage.selection.clear()
 
   $(this).selectMe()

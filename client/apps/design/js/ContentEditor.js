@@ -94,7 +94,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
  */
 nudgepad.contentEditor.killEvent = function (event) {
   // 
-  nudgepad.mouse.down.stopPropagation()
+  Mouse.down.stopPropagation()
   return false
 }
 

@@ -37,6 +37,9 @@ App.prototype.close = function (name) {
   if (this.onresize)
     window.removeEventListener('resize', this.onresize, false)
 
+  if (this.onkeydown)
+    $("body").off("keydown", this.onkeydown)
+
   Events.shortcut.shortcuts = {}
   
   if (this.onclose)
@@ -95,6 +98,9 @@ App.prototype.open = function () {
 
   if (this.onresize)
     window.addEventListener('resize', this.onresize, false)
+    
+  if (this.onkeydown)
+    $("body").on("keydown", this.onkeydown)  
   
   if (this.shortcuts)
     Events.shortcut.shortcuts = this.shortcuts

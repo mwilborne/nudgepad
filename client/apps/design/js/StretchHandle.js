@@ -89,8 +89,8 @@ nudgepad.StretchHandle.slide = function () {
   else
     y0 = nudgepad.StretchHandle.dimensions.middle
   
-  var x1 = nudgepad.mouse.move.pageX - $(this).parent().offset().left // + scroll left
-  var y1 = nudgepad.mouse.move.pageY - $(this).parent().offset().top// Design.stage.scrollTop()// + scroll top
+  var x1 = Mouse.move.pageX - $(this).parent().offset().left // + scroll left
+  var y1 = Mouse.move.pageY - $(this).parent().offset().top// Design.stage.scrollTop()// + scroll top
 //  console.log(x1)
   
   // todo: fix bug where offset changes

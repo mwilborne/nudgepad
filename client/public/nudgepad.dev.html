@@ -133,8 +133,8 @@
   <div onclick="Design.duplicate()">Duplicate</div>
   <div onclick="Design.renamePrompt()">Rename</div>
   <div onclick="Design.trash()">Delete</div>
-  <div onclick="nudgepad.invite.prompt()">Invite</div>
-  <div onclick="nudgepad.navigation.open('home')">Dashboard</div>
+  <div onclick="Inviter.prompt()">Invite</div>
+  <div onclick="Launcher.open('home')">Dashboard</div>
 </div>
 <div id="nudgepadDesignBar" class="nudgepad">
 
@@ -189,7 +189,7 @@
 <div class="nudgepadApp" id="nudgepadDevelopApp">
 	<div class="appNav">
 		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton developAppButton" onclick="nudgepad.navigation.open('home')">
+  		<div id="menuBack" class="squareButton developAppButton" onclick="Launcher.open('home')">
 		  	Back
 		  </div>
 			<a id="console" class="nudgepad developAppButton" onclick="nudgepad.console()" title="Console">
@@ -234,23 +234,23 @@
 <div class="nudgepadApp" id="nudgepadHomeApp">
   <div class="nudgepadAppContainer nudgepad">
 	  <div class="colStandard marStandard">
-    	<div class="appBlock" id="designBlock" onclick="nudgepad.navigation.open('pages')">
+    	<div class="appBlock" id="designBlock" onclick="Launcher.open('pages')">
 		    <div class="topBlock">Design</div>
 		    <div class="subBlock">Edit the layout and style of your site.</div>
 		  </div>
-			<div class="appBlock" id="accountBlock" onclick="nudgepad.navigation.open('account')">
+			<div class="appBlock" id="accountBlock" onclick="Launcher.open('account')">
 		    <div class="topBlock">Manage</div>
 		    <div class="subBlock">Update your email address or logout.</div>
 		  </div>
 		</div>
 		<div class="colStandard marStandard">
-			<div class="appBlock" id="developBlock" onclick="nudgepad.navigation.open('develop')">
+			<div class="appBlock" id="developBlock" onclick="Launcher.open('develop')">
 		    <div class="topBlock">Develop</div>
 		    <div class="subBlock">Write code and maintain the backend.</div>
 		  </div>
 		</div>
     <div class="colStandard">
-	  	<div class="appBlock" id="writeBlock" onclick="nudgepad.navigation.open('Write')">
+	  	<div class="appBlock" id="writeBlock" onclick="Launcher.open('Write')">
 		    <div class="topBlock">Write</div>
 		    <div class="subBlock">Write new posts or update existing content.</div>
 		  </div>
@@ -261,7 +261,7 @@
 <div class="nudgepadApp" id="ManageApp">
 	<div class="appNav">
 		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
+  		<div id="menuBack" class="squareButton" onclick="Launcher.open('home')">
 		  	Back
 		  </div>
 		  <a id="logout" class="squareButton" href="/nudgepad.logout" title="Logout">
@@ -300,7 +300,7 @@
 <div class="nudgepadApp" id="WriteApp">
 	<div class="appNav">
 		<div class="appNavContainer">
-  		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
+  		<div id="menuBack" class="squareButton" onclick="Launcher.open('home')">
 		  	Back
 		  </div>
 			<div id="advancedToggle" class="squareButton" onclick="$('.nudgepad#advanced').toggle()">

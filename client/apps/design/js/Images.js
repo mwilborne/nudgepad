@@ -75,7 +75,7 @@ nudgepad.images.parseBackgroundUrl = function (url) {
  */
 nudgepad.images.images = new Space()
 nudgepad.images.updateList = function () {
-  $.get('/nudgepad.explorer.public', {}, function (space) {
+  $.get('/Explorer.public', {}, function (space) {
     var dropImageDiv = ''
     nudgepad.images.images = new Space(space)
     nudgepad.images.images.each(function (key, value) {
