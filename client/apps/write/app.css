@@ -17,11 +17,11 @@
    font-size: 18px;
 }
 
-#nudgepadBlogApp div #posts {
+#WriteApp div #posts {
   cursor : pointer;
   text-align : left;
 }
-#nudgepadBlogApp #title {
+#WriteApp #title {
   width : 100%;
   text-indent : 10px;
   padding : 0px;
@@ -32,7 +32,7 @@
   border-bottom : 1px solid #ccc;
   margin-top: 40px;
 }
-#nudgepadBlogApp div #permalink {
+#WriteApp div #permalink {
   left : 0px;
   top : 629px;
   font-size : 13px;
@@ -44,7 +44,7 @@
   text-overflow : ellipsis;
 }
 
-#nudgepadBlogApp #content {
+#WriteApp #content {
   width : 100%;
   font-size : 16px;
   resize : none;
@@ -52,12 +52,12 @@
   border : none;
   padding : 20px 10px;
 }
-#nudgepadBlogApp #advancedToggle {
+#WriteApp #advancedToggle {
 float: right;
 margin-left: 10px;
 position: relative;
 }
-#nudgepadBlogApp div #advanced {
+#WriteApp div #advanced {
   display : none;
   right : 0px;
   top : 40px;
@@ -72,7 +72,7 @@ position: relative;
   position : absolute;
 }
 
-#nudgepadBlogApp #deleteButton {
+#WriteApp #deleteButton {
    background-color: #555;
    height: 40px;
    width: 100px;
@@ -86,7 +86,7 @@ position: relative;
 }
 
 
-#nudgepadBlogApp #publishButton {
+#WriteApp #publishButton {
    background-color: #1a86d6;
    height: 40px;
    width: 100px;

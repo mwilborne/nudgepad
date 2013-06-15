@@ -67,7 +67,7 @@
   background-color: #427a14;
 }
 
-.nudgepadAppBody .sectionLabel {
+.nudgepadAppContainer .sectionLabel {
    font-size: 36px;
    margin-top: 60px;
    border-bottom: 3px solid #ccc;
@@ -75,12 +75,12 @@
    margin-bottom: 20px;
 }
 
-.nudgepadAppBody .formLabel {
+.nudgepadAppContainer .formLabel {
    font-size: 18px;
    margin-top: 20px;
 }
 
-.nudgepadAppBody #email {
+.nudgepadAppContainer #email {
   width: 300px;
   font-size: 15px;
   padding: 10px;
@@ -88,7 +88,7 @@
   border: 1px solid #ccc;
 }
 
-.nudgepadAppBody #updateButton {
+.nudgepadAppContainer #updateButton {
   background-color: #1a86d6;
   height: 40px;
   width: 100px;
@@ -100,26 +100,26 @@
   line-height: 40px;
 }
 
-.nudgepadAppBody .plan {
+.nudgepadAppContainer .plan {
    margin-top: 20px;
    font-size: 18px;
 }
 
-.nudgepadAppBody .plan a {
+.nudgepadAppContainer .plan a {
    text-decoration: none;
 }
 
-.nudgepadAppBody .planDescription {
+.nudgepadAppContainer .planDescription {
    color: #666;
 }
 
-.nudgepadAppBody .selectedPlan {
+.nudgepadAppContainer .selectedPlan {
    background-image: url(/nudgepad/public/images/checkbox.png);
    background-repeat: no-repeat;
    text-indent: 30px;
 }
 
-.nudgepadAppBody .unselectedPlan {
+.nudgepadAppContainer .unselectedPlan {
    background-image: url(/nudgepad/public/images/unchecked.png);
    background-repeat: no-repeat;
    text-indent: 30px;

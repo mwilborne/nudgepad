@@ -2,7 +2,7 @@
   clear: both;
 }
 
-.nudgepadAppBody {
+.nudgepadAppContainer {
   width : 94%;
   max-width: 1000px;
   position : relative;

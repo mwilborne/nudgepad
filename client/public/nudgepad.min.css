@@ -105,7 +105,7 @@ body {
   background-color: #427a14;
 }
 
-.nudgepadAppBody .sectionLabel {
+.nudgepadAppContainer .sectionLabel {
    font-size: 36px;
    margin-top: 60px;
    border-bottom: 3px solid #ccc;
@@ -113,12 +113,12 @@ body {
    margin-bottom: 20px;
 }
 
-.nudgepadAppBody .formLabel {
+.nudgepadAppContainer .formLabel {
    font-size: 18px;
    margin-top: 20px;
 }
 
-.nudgepadAppBody #email {
+.nudgepadAppContainer #email {
   width: 300px;
   font-size: 15px;
   padding: 10px;
@@ -126,7 +126,7 @@ body {
   border: 1px solid #ccc;
 }
 
-.nudgepadAppBody #updateButton {
+.nudgepadAppContainer #updateButton {
   background-color: #1a86d6;
   height: 40px;
   width: 100px;
@@ -138,26 +138,26 @@ body {
   line-height: 40px;
 }
 
-.nudgepadAppBody .plan {
+.nudgepadAppContainer .plan {
    margin-top: 20px;
    font-size: 18px;
 }
 
-.nudgepadAppBody .plan a {
+.nudgepadAppContainer .plan a {
    text-decoration: none;
 }
 
-.nudgepadAppBody .planDescription {
+.nudgepadAppContainer .planDescription {
    color: #666;
 }
 
-.nudgepadAppBody .selectedPlan {
+.nudgepadAppContainer .selectedPlan {
    background-image: url(/nudgepad/public/images/checkbox.png);
    background-repeat: no-repeat;
    text-indent: 30px;
 }
 
-.nudgepadAppBody .unselectedPlan {
+.nudgepadAppContainer .unselectedPlan {
    background-image: url(/nudgepad/public/images/unchecked.png);
    background-repeat: no-repeat;
    text-indent: 30px;
@@ -191,11 +191,11 @@ http://davidwalsh.name/translate3d
    font-size: 18px;
 }
 
-#nudgepadBlogApp div #posts {
+#WriteApp div #posts {
   cursor : pointer;
   text-align : left;
 }
-#nudgepadBlogApp #title {
+#WriteApp #title {
   width : 100%;
   text-indent : 10px;
   padding : 0px;
@@ -206,7 +206,7 @@ http://davidwalsh.name/translate3d
   border-bottom : 1px solid #ccc;
   margin-top: 40px;
 }
-#nudgepadBlogApp div #permalink {
+#WriteApp div #permalink {
   left : 0px;
   top : 629px;
   font-size : 13px;
@@ -218,7 +218,7 @@ http://davidwalsh.name/translate3d
   text-overflow : ellipsis;
 }
 
-#nudgepadBlogApp #content {
+#WriteApp #content {
   width : 100%;
   font-size : 16px;
   resize : none;
@@ -226,12 +226,12 @@ http://davidwalsh.name/translate3d
   border : none;
   padding : 20px 10px;
 }
-#nudgepadBlogApp #advancedToggle {
+#WriteApp #advancedToggle {
 float: right;
 margin-left: 10px;
 position: relative;
 }
-#nudgepadBlogApp div #advanced {
+#WriteApp div #advanced {
   display : none;
   right : 0px;
   top : 40px;
@@ -246,7 +246,7 @@ position: relative;
   position : absolute;
 }
 
-#nudgepadBlogApp #deleteButton {
+#WriteApp #deleteButton {
    background-color: #555;
    height: 40px;
    width: 100px;
@@ -260,7 +260,7 @@ position: relative;
 }
 
 
-#nudgepadBlogApp #publishButton {
+#WriteApp #publishButton {
    background-color: #1a86d6;
    height: 40px;
    width: 100px;
@@ -692,7 +692,7 @@ td {
   clear: both;
 }
 
-.nudgepadAppBody {
+.nudgepadAppContainer {
   width : 94%;
   max-width: 1000px;
   position : relative;
