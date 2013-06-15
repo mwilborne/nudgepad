@@ -1,10 +1,4 @@
-untrack:
-	git update-index --assume-unchanged production
-
-track:
-	git update-index --no-assume-unchanged production
-
-min:
+all:
 	node build.js prod
 	cp production/nudgepad.min.js production/nudgepad.temp.js
 	java -jar ~/compiler.jar --js=production/nudgepad.temp.js --js_output_file=production/nudgepad.min.js --language_in=ECMASCRIPT5
@@ -13,4 +7,10 @@ min:
 	cat public/js/compiler_workaround.js >> production/nudgepad.min.js
 	# todo: minify css
 
-deploy: min track
+untrack:
+	git update-index --assume-unchanged production
+
+track:
+	git update-index --no-assume-unchanged production
+
+
