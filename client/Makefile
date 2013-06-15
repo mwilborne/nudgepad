@@ -8,9 +8,15 @@ all:
 	# todo: minify css
 
 untrack:
-	git update-index --assume-unchanged production
+	git update-index --assume-unchanged production/nudgepad.dev.html
+	git update-index --assume-unchanged production/nudgepad.min.html
+	git update-index --assume-unchanged production/nudgepad.min.css
+	git update-index --assume-unchanged production/nudgepad.min.js
 
 track:
-	git update-index --no-assume-unchanged production
+	git update-index --no-assume-unchanged production/nudgepad.dev.html
+	git update-index --no-assume-unchanged production/nudgepad.min.html
+	git update-index --no-assume-unchanged production/nudgepad.min.css
+	git update-index --no-assume-unchanged production/nudgepad.min.js
 
 
