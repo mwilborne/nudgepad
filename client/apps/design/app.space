@@ -1,6 +1,6 @@
 name Design
 description Design pages in NudgePad.
 html app.html
-js app.js js
+js app.js js Shortcuts.js
 css app.css css
 color rgba(26, 134, 214, 1)
