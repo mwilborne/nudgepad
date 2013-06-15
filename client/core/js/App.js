@@ -76,7 +76,7 @@ App.prototype.open = function () {
   if (this.onopen)
     this.onopen()
   
-  $('#nudgepad' + ToProperCase(this.name) + 'App').show()
+  $('.App' + this.name).show()
   
   App.openApp = this
   this._open = true
