@@ -129,10 +129,10 @@
 <textarea id="nudgepadCodePanel"></textarea>
 <div id="nudgepadPageMenu" class="nudgepad">
 	<div onclick="window.open(nudgepad.stage.activePage,'published')">View</div>
-  <div onclick="nudgepad.pages.blank()">New</div>
-  <div onclick="nudgepad.pages.duplicate()">Duplicate</div>
-  <div onclick="nudgepad.pages.renamePrompt()">Rename</div>
-  <div onclick="nudgepad.pages.trash()">Delete</div>
+  <div onclick="Design.blank()">New</div>
+  <div onclick="Design.duplicate()">Duplicate</div>
+  <div onclick="Design.renamePrompt()">Rename</div>
+  <div onclick="Design.trash()">Delete</div>
   <div onclick="nudgepad.invite.prompt()">Invite</div>
   <div onclick="nudgepad.navigation.open('home')">Dashboard</div>
 </div>
@@ -156,7 +156,7 @@
       nudgepad.stage.goto($(this).val())
   })</script>
   <span class="nudgepadTimeline" id="nudgepadTimelinePosition"></span>
-  <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="nudgepad.pages.clearTimeline()">Erase</span>
+  <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="Design.clearTimeline()">Erase</span>
   
   <div id="nudgepadTabs"><span>Index</span></div>
   
@@ -250,7 +250,7 @@
 		  </div>
 		</div>
     <div class="colStandard">
-	  	<div class="appBlock" id="writeBlock" onclick="nudgepad.navigation.open('blog')">
+	  	<div class="appBlock" id="writeBlock" onclick="nudgepad.navigation.open('Write')">
 		    <div class="topBlock">Write</div>
 		    <div class="subBlock">Write new posts or update existing content.</div>
 		  </div>
@@ -307,7 +307,7 @@
 				<img src="nudgepad/public/images/bulb.png">
 			</div>
 			<textarea id="advanced" placeholder="Advanced" tabindex="3" class="nudgepad"></textarea>
-		  <div id="addPageButton" class="secondaryButton" onclick="nudgepad.apps.blog.createPost()">
+		  <div id="addPageButton" class="secondaryButton" onclick="Write.createPost()">
 			  New Post
 			</div>
 		<div class="clear"></div>
@@ -321,10 +321,10 @@
 	    </div>
 	  </div>
 	  <div id="composeColumn">
-		  <input id="title" placeholder="Title" tabindex="1" class="nudgepad" onkeyup="nudgepad.apps.blog.updatePermalink()"></input>
+		  <input id="title" placeholder="Title" tabindex="1" class="nudgepad" onkeyup="Write.updatePermalink()"></input>
 	  	<textarea id="content" placeholder="Write your post here..." tabindex="2" class="nudgepad"></textarea>
-		  <div id="publishButton" class="nudgepad" onclick="nudgepad.apps.blog.savePost()">Publish</div>
-	    <div id="deleteButton" class="nudgepad" onclick="nudgepad.apps.blog.deletePost()">Delete</div>
+		  <div id="publishButton" class="nudgepad" onclick="Write.savePost()">Publish</div>
+	    <div id="deleteButton" class="nudgepad" onclick="Write.deletePost()">Delete</div>
 	    <div class="clear"></div>
 	    <div id="permalink" class="nudgepad" onclick="window.open($(this).attr('value'), 'published')"></div>
 	  </div>

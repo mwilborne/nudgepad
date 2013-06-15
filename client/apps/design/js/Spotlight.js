@@ -1,7 +1,7 @@
 /**
  * Launches the spotlight page picker
  */
-nudgepad.pages.spotlight = function () {
+Design.spotlight = function () {
   
   var name = prompt('Enter the name of the page to open...', '')
   if (name)

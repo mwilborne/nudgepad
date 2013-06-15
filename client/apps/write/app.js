@@ -105,7 +105,7 @@ Write.initialize = function () {
   nudgepad.emit('patch', patch.toString())
   site.set('pages blog', Write.blankTheme)
   
-  nudgepad.pages.updateTabs()// todo: delete this
+  Design.updateTabs()// todo: delete this
 }
 
 Write.activePost = null

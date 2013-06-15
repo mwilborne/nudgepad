@@ -65,18 +65,18 @@ nudgepad.bind_shortcuts = function () {
   
   Events.shortcut.shortcuts['meta+shift+m'] = function () {nudgepad.explorer.edit('/public/manifest.webapp')}
   
-  Events.shortcut.shortcuts['meta+backspace'] = nudgepad.pages.trash
+  Events.shortcut.shortcuts['meta+backspace'] = Design.trash
   
-  Events.shortcut.shortcuts['meta+o'] = nudgepad.pages.spotlight
-  Events.shortcut.shortcuts['ctrl+o'] = nudgepad.pages.spotlight
+  Events.shortcut.shortcuts['meta+o'] = Design.spotlight
+  Events.shortcut.shortcuts['ctrl+o'] = Design.spotlight
   
   
-  Events.shortcut.shortcuts['ctrl+n'] = nudgepad.pages.blank
-  Events.shortcut.shortcuts['meta+n'] = nudgepad.pages.blank
+  Events.shortcut.shortcuts['ctrl+n'] = Design.blank
+  Events.shortcut.shortcuts['meta+n'] = Design.blank
   
   Events.shortcut.shortcuts['esc'] = nudgepad.stage.selection.clear
   
-  Events.shortcut.shortcuts['shift+n'] = nudgepad.pages.duplicate
+  Events.shortcut.shortcuts['shift+n'] = Design.duplicate
   
   Events.shortcut.shortcuts['up'] = function (){nudgepad.stage.selection.move(0, -1)}
   Events.shortcut.shortcuts['left'] = function (){nudgepad.stage.selection.move(-1, 0)}

@@ -2,10 +2,10 @@
 nudgepad.navigation = {}
 
 nudgepad.navigation.open = function (name, dontRecord) {
-  if (name === 'pages')
-    nudgepad.pages.open()
-  else if (nudgepad.apps[name])
-    nudgepad.apps[name].open()
+
+
+  if (window[name])
+    window[name].open()
   else
     return false
 
@@ -20,8 +20,8 @@ nudgepad.navigation.open = function (name, dontRecord) {
 
 nudgepad.navigation.openAppFromQueryString = function () {
   
-  // Get query string. If nothing, set default to home app
-  var name = ParseQueryString().app || 'home'
+  // Get query string. If nothing, set default to Launch app
+  var name = ParseQueryString().app || 'Launch'
   nudgepad.navigation.open(name, true)
 }
 

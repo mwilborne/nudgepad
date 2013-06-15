@@ -8,8 +8,7 @@ if (!window.console)
  * @special Singleton
  */
 nudgepad = {}
-nudgepad.apps = {}
-nudgepad.pages = {}
+Design = {}
 nudgepad.stage = {}
 nudgepad.id = new Date().getTime()
 nudgepad.tab = new Space('id ' + nudgepad.id)

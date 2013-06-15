@@ -8,7 +8,10 @@
 function App(name) {
   this.name = name
   this._open = false
+  App.apps.push(name)
 }
+
+App.apps = []
 
 App.openApp = null
 
@@ -25,7 +28,7 @@ App.prototype.close = function (name) {
   $('.nudgepadApp').hide()
   
   if (name)
-    nudgepad.apps[name].open()
+    window[name].open()
   
 }
 

@@ -1,21 +1,21 @@
-nudgepad.apps.account = new App('account')
+var Manage = new App('Manage')
 
-nudgepad.apps.account.onopen = function () {
+Manage.onopen = function () {
   $('.nudgepad#email').val(nudgepad.cookie.email)
 }
 
-nudgepad.apps.account.save = function () {
+Manage.save = function () {
   var email = $('.nudgepad#email').val()
   
   if (!ValidateEmail(email))
     return nudgepad.error('Invalid Email')
   
   if (email === nudgepad.cookie.email)
-    return nudgepad.apps.home.open()
+    return Launch.open()
   
   $.post('/nudgepad.updateEmail', {email : email}, function () {
     nudgepad.warnBeforeReload = false
-    document.location = '/nudgepad?app=home'
+    document.location = '/nudgepad?app=Launch'
   })
 }
 

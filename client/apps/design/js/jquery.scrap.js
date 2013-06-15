@@ -10,10 +10,10 @@ $.fn.duplicate = function () {
   
   var scrap = $(this).scrap()
   var id = $(this).attr('id')
-  var parent = nudgepad.pages.stage
+  var parent = Design.stage
   var path = $(this).parentPath()
   if (path) {
-    parent = nudgepad.pages.stage.get(path)
+    parent = Design.stage.get(path)
     path = path.replace(/ scraps/g,'') + ' '
   }
   var key = parent.autokey(id)
@@ -35,7 +35,7 @@ $.fn.parentPath = function () {
 }
 
 $.fn.scrap = function () {
-  return nudgepad.pages.stage.get($(this).attr('path'))
+  return Design.stage.get($(this).attr('path'))
 }
 
 /**

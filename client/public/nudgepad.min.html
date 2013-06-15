@@ -17,13 +17,62 @@
     mixpanel.init("cddd496663c58cf984f006dba0ec67bc");</script><!-- end Mixpanel -->
   </head>
   <body>
+<div id="nudgepadConnectionStatus" class="nudgepad">Connecting to server...</div>
+<div id="nudgepadError" class="nudgepad"></div>
+<div id="nudgepadJavascriptError" class="nudgepad"></div>
+<div id="nudgepadLoadingScreen" class="nudgepad">Loading Nudgepad...</div>
+<div id="nudgepadNotify" class="nudgepad">Published</div>
+<div id="nudgepadTemp" class="nudgepad"></div>
+<div id="nudgepadWorkerError" class="nudgepad"></div>
+<div class="nudgepadApp" id="nudgepadStatsApp">
+	<div class="appNav">
+		<div class="appNavContainer">
+  		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
+		  	Back
+		  </div>
+		  <a id="logout" class="squareButton" href="/nudgepad.logout" title="Logout">
+		  	Logout
+		  </a>
+		  <a href="http://pro.nudgepad.com" id="upgrade" class="secondaryButton">
+			  Upgrade
+			</a>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="nudgepadAppBody">
+    <div class="sectionLabel nudgepad">Visits</div>
+    <div id="visits" class="nudgepad">0</div>
+  </div>
+</div>
+<div class="nudgepadApp" id="nudgepadSurveysApp">
+	<div class="appNav">
+		<div class="appNavContainer">
+  		<div id="menuBack" class="squareButton" onclick="nudgepad.navigation.open('home')">
+		  	Back
+		  </div>
+		  <a id="logout" class="squareButton" href="/nudgepad.logout" title="Logout">
+		  	Logout
+		  </a>
+		  <a href="http://pro.nudgepad.com" id="upgrade" class="secondaryButton">
+			  Upgrade
+			</a>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="nudgepadAppBody">
+    <div class="sectionLabel nudgepad">
+	    <span>Responses &nbsp; - &nbsp;</span> <span id="entriesCount" class="nudgepad">0</span>
+	  </div>
+    <pre id="entries" class="nudgepad"></pre>
+  </div>
+</div>
 <textarea id="nudgepadCodePanel"></textarea>
 <div id="nudgepadPageMenu" class="nudgepad">
 	<div onclick="window.open(nudgepad.stage.activePage,'published')">View</div>
-  <div onclick="nudgepad.pages.blank()">New</div>
-  <div onclick="nudgepad.pages.duplicate()">Duplicate</div>
-  <div onclick="nudgepad.pages.renamePrompt()">Rename</div>
-  <div onclick="nudgepad.pages.trash()">Delete</div>
+  <div onclick="Design.blank()">New</div>
+  <div onclick="Design.duplicate()">Duplicate</div>
+  <div onclick="Design.renamePrompt()">Rename</div>
+  <div onclick="Design.trash()">Delete</div>
   <div onclick="nudgepad.invite.prompt()">Invite</div>
   <div onclick="nudgepad.navigation.open('home')">Dashboard</div>
 </div>
@@ -47,7 +96,7 @@
       nudgepad.stage.goto($(this).val())
   })</script>
   <span class="nudgepadTimeline" id="nudgepadTimelinePosition"></span>
-  <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="nudgepad.pages.clearTimeline()">Erase</span>
+  <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="Design.clearTimeline()">Erase</span>
   
   <div id="nudgepadTabs"><span>Index</span></div>
   

@@ -263,7 +263,7 @@ nudgepad.stage.selection.exists = function () {
 
 nudgepad.stage.selection.modify = function (val) {
   var space = new Space(val)
-  nudgepad.pages.stage.patch(nudgepad.stage.selection.captured.diff(space))
+  Design.stage.patch(nudgepad.stage.selection.captured.diff(space))
   nudgepad.stage.commit()
   nudgepad.stage.open(nudgepad.stage.activePage)
   nudgepad.stage.selection.restore()
@@ -298,7 +298,7 @@ nudgepad.stage.selection.move = function (x, y) {
 }
 
 nudgepad.stage.selection.nest = function (path) {
-  var parent = nudgepad.pages.stage.get(path)
+  var parent = Design.stage.get(path)
   if (!parent)
     return false
   if (!parent.get('scraps'))
@@ -355,7 +355,7 @@ nudgepad.stage.selection.remove = function () {
     var scrap = $(this).scrap()
     $(this).deselect().remove()
     if (scrap)
-      nudgepad.pages.stage.delete(scrap.getPath())
+      Design.stage.delete(scrap.getPath())
   })
 }
 
@@ -382,10 +382,10 @@ nudgepad.stage.selection.renameScraps = function () {
     }
     
     var newScrap = new Scrap(newId, scrap.toString())
-    nudgepad.pages.stage.set(newId, newScrap)
+    Design.stage.set(newId, newScrap)
     
     $(this).deselect().remove()
-    nudgepad.pages.stage.delete(scrap.getPath())
+    Design.stage.delete(scrap.getPath())
     
     
     newScrap.render()

@@ -1,5 +1,5 @@
 name Develop
 description Edit the backend and files of your site.
 html app.html
-js js
-css css
+js app.js
+css app.css

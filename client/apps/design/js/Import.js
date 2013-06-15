@@ -12,7 +12,7 @@ nudgepad.importPrompt = function () {
 
 nudgepad.import = function (url) {
   $.get('/nudgepad.import/' + url, {}, function (data) {
-    nudgepad.pages.stage = new Page(data)
+    Design.stage = new Page(data)
     nudgepad.stage.commit()
     nudgepad.stage.open(nudgepad.stage.activePage)
   })

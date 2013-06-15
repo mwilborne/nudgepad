@@ -23,8 +23,8 @@ nudgepad.stage.commit = function () {
   var timestamp = new Date().getTime()
   
   // You are always committing against the edge.
-  var diff = nudgepad.pages.edge.diff(nudgepad.pages.stage)
-  var diffOrder = nudgepad.pages.edge.diffOrder(nudgepad.pages.stage)
+  var diff = Design.edge.diff(Design.stage)
+  var diffOrder = Design.edge.diffOrder(Design.stage)
 
   if (diff.isEmpty() && diffOrder.isEmpty()) {
     console.log('no change')
@@ -38,7 +38,7 @@ nudgepad.stage.commit = function () {
     commit.set('order', new Space(diffOrder.toString()))
 
   nudgepad.stage.timeline.set(timestamp, commit)
-  nudgepad.pages.edge = new Space(nudgepad.pages.stage.toString())
+  Design.edge = new Space(Design.stage.toString())
   
   // A commit always advances the position index to the edge.
   nudgepad.stage.version = nudgepad.stage.timeline.keys.length
@@ -50,7 +50,7 @@ nudgepad.stage.commit = function () {
   // Send Commit to Server
   var patch = new Space()
   patch.set('timelines ' + nudgepad.stage.activePage + ' ' + timestamp, commit)
-  site.set('pages ' + nudgepad.stage.activePage, new Space(nudgepad.pages.stage.toString()))
+  site.set('pages ' + nudgepad.stage.activePage, new Space(Design.stage.toString()))
 
 //  nudgepad.notify('Saved')
   nudgepad.emit('commit', patch.toString())
@@ -94,8 +94,8 @@ nudgepad.stage.dragAndDrop = function (scrap) {
  * Advances position_index, advanced position.
  */
 nudgepad.stage.editSource = function () {
-  nudgepad.textPrompt('Enter code...', nudgepad.pages.stage.toString(), function (val) {
-    nudgepad.pages.stage = new Space(val)
+  nudgepad.textPrompt('Enter code...', Design.stage.toString(), function (val) {
+    Design.stage = new Space(val)
     nudgepad.stage.commit()
     nudgepad.stage.open(nudgepad.stage.activePage)
   })
@@ -127,7 +127,7 @@ nudgepad.stage.goto = function (version) {
   
   // If we are going back in time, start from 0
   if (nudgepad.stage.version > version) {
-    nudgepad.pages.stage = new Page()
+    Design.stage = new Page()
     nudgepad.stage.version = 0
   }
   for (var i = nudgepad.stage.version; i < version; i++) {
@@ -135,9 +135,9 @@ nudgepad.stage.goto = function (version) {
     var patch = nudgepad.stage.timeline.values[timestamp].values.values
     var orderPatch = nudgepad.stage.timeline.values[timestamp].values.order
     if (patch)
-      nudgepad.pages.stage.patch(patch.toString())
+      Design.stage.patch(patch.toString())
     if (orderPatch)
-      nudgepad.pages.stage.patchOrder(orderPatch.toString())
+      Design.stage.patchOrder(orderPatch.toString())
     nudgepad.stage.version++
   }
   // Todo: fire an event and have timeline subscribe to that event.
@@ -152,14 +152,14 @@ nudgepad.stage.height = function () {
 }
 
 nudgepad.stage.insertBody = function () {
-  if (!nudgepad.pages.stage.get('body')) {
-    nudgepad.pages.stage.set('body', new Scrap('body', 'tag body\nscraps\n'))
-    nudgepad.pages.stage.get('body').render()
+  if (!Design.stage.get('body')) {
+    Design.stage.set('body', new Scrap('body', 'tag body\nscraps\n'))
+    Design.stage.get('body').render()
   }
-  if (!nudgepad.pages.stage.get('body scraps'))
-    nudgepad.pages.stage.set('body scraps', new Space())
-//    nudgepad.pages.stage.set('body scraps', new Space())
-//    level = nudgepad.pages.stage.get('body scraps')
+  if (!Design.stage.get('body scraps'))
+    Design.stage.set('body scraps', new Space())
+//    Design.stage.set('body scraps', new Space())
+//    level = Design.stage.get('body scraps')
 }
 
 /**
@@ -178,7 +178,7 @@ nudgepad.stage.insert = function (space, drag, xMove, yMove, center) {
   nudgepad.stage.selection.clear()
   
   nudgepad.stage.insertBody()
-  var level = nudgepad.pages.stage.get('body scraps')
+  var level = Design.stage.get('body scraps')
   
   
   // update the patch so there is no overwriting
@@ -285,7 +285,7 @@ nudgepad.stage.open = function (name) {
   nudgepad.stage.activePage = name
   store.set('activePage', nudgepad.stage.activePage)
   nudgepad.tab.patch('page ' + nudgepad.stage.activePage)
-  nudgepad.pages.updateTabs()
+  Design.updateTabs()
   
   nudgepad.stage.reload()
   nudgepad.stage.render()
@@ -308,8 +308,8 @@ nudgepad.stage.render = function () {
   $('#nudgepadStageHead').html('')
   $('#nudgepadRemoteSelections').html('')
   $(".scrap,#body").remove()
-  nudgepad.pages.stage.loadScraps()
-  nudgepad.pages.stage.render()
+  Design.stage.loadScraps()
+  Design.stage.render()
   nudgepad.grid.create()
   nudgepad.updateSelections()
 }
@@ -317,8 +317,8 @@ nudgepad.stage.render = function () {
 nudgepad.stage.reload = function () {
   var name = nudgepad.stage.activePage
   var page = site.get('pages ' + name)
-  nudgepad.pages.edge = page
-  nudgepad.pages.stage = new Page(page.toString())
+  Design.edge = page
+  Design.stage = new Page(page.toString())
   
   // if no timeline, create a blank one
   // todo: think harder about what the hell this will do
@@ -468,7 +468,7 @@ nudgepad.on('main', function () {
   
   /*
   $("#nudgepadStage").on('rendered', function (event, id) {
-    if (nudgepad.pages.stage[id].locked)
+    if (Design.stage[id].locked)
       $('.scrap#' + id).addClass('lockedScrap')
   })
   */

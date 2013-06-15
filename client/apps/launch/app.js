@@ -1,5 +1,5 @@
-nudgepad.apps.home = new App('home')
+var Launch = new App('Launch')
 
-nudgepad.apps.home.onopen = function () {
+Launch.onopen = function () {
   $('.nudgepad#domainName').text(nudgepad.domain)
 }

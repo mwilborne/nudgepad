@@ -145,3 +145,54 @@ td {
 #nudgepadExplorer tr.explorerFile {
   border-bottom: 1px solid #ccc;
 }
+
+#nudgepadEditorConsole {
+  padding : 3px;
+  font-family : monospace;
+  font-size : 16px;
+  outline : 0;
+  top : 50px;
+  bottom : 150px;
+  position : fixed;
+  left : 50px;
+  right : 50px;
+  z-index : 1010;
+  background-color : rgba(255,255,255,0.9);
+  box-shadow : 0px 1px 3px rgba(0,0,0,.5);
+}
+
+#nudgepadEditorConsole {
+  overflow-y: scroll;
+}
+
+#nudgepadEditorCheckbox {
+  left : 675px;
+  bottom : 101px;
+  position : fixed;
+  z-index : 1010;
+  line-height: 40px;
+}
+
+#nudgepadEditorLabel {
+  left : 700px;
+  height : 40px;
+  bottom : 90px;
+  line-height : 40px;
+  font-size : 20px;
+  position : fixed;
+  z-index : 1010;
+}
+
+#nudgepadEditorInput {
+  width : 560px;
+  height : 40px;
+  bottom : 90px;
+  left : 90px;
+  line-height : 40px;
+  font-size : 20px;
+  position : fixed;
+  border: 1px solid #ddd;
+  z-index : 1010;
+}
+
+

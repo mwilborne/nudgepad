@@ -19,7 +19,7 @@ nudgepad.patch.receive = function (patch) {
     nudgepad.stage.back()
   
   site.patch(patch)
-  nudgepad.pages.updateTabs()
+  Design.updateTabs()
   
   // If the active page isnt touched, we are all done
   if (!patch.get('timelines ' + nudgepad.stage.activePage))

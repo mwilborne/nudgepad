@@ -1,8 +1,8 @@
 // What spot the worker is on the timeline for the current page
-nudgepad.pages.stage = new Page()
-nudgepad.pages.edge = new Space()
+Design.stage = new Page()
+Design.edge = new Space()
 
-nudgepad.pages.blank = function () {
+Design.blank = function () {
 
   var page = new Space(
 'head\n\
@@ -18,17 +18,17 @@ nudgepad.pages.blank = function () {
 body\n\
  tag body\n\
  scraps\n')
-  var pageName = prompt('Name your page', nudgepad.pages.nextName())
+  var pageName = prompt('Name your page', Design.nextName())
   if (!pageName)
     return null
-  nudgepad.pages.create(pageName, page)
+  Design.create(pageName, page)
   
 }
 
 /**
  *
  */
-nudgepad.pages.clearTimeline = function () {
+Design.clearTimeline = function () {
   
   if (!confirm("Are you sure you want to erase the history of this page?"))
     return false
@@ -44,9 +44,9 @@ nudgepad.pages.clearTimeline = function () {
     nudgepad.stage.timeline.delete(key)
   }
   
-  patch.set('timelines ' + nudgepad.stage.activePage + ' ' + timestamp, nudgepad.pages.edge)
+  patch.set('timelines ' + nudgepad.stage.activePage + ' ' + timestamp, Design.edge)
   // collapse at edge
-  nudgepad.stage.timeline.set(timestamp, nudgepad.pages.edge)
+  nudgepad.stage.timeline.set(timestamp, Design.edge)
 
   nudgepad.stage.version = nudgepad.stage.timeline.keys.length
   nudgepad.emit('patch', patch.toString())
@@ -61,9 +61,9 @@ nudgepad.pages.clearTimeline = function () {
  * @param {Space} A first patch to initialize the page with.
  * @return {string} The name of the created page
  */
-nudgepad.pages.create = function (name, template) {
+Design.create = function (name, template) {
   
-  name = (name ? Permalink(name) : nudgepad.pages.nextName())
+  name = (name ? Permalink(name) : Design.nextName())
   
   // page already exists
   if (site.get('pages ' + name))
@@ -101,11 +101,11 @@ nudgepad.pages.create = function (name, template) {
  * @param {bool} We need to skip prompting for unit testing.
  * @return {string} Name of new page
  */
-nudgepad.pages.duplicate = function (source, destination, skipPrompt) {
+Design.duplicate = function (source, destination, skipPrompt) {
   
   source = source || nudgepad.stage.activePage
   
-  destination = nudgepad.pages.nextName(destination || source)
+  destination = Design.nextName(destination || source)
   
   if (!skipPrompt) {
     destination = prompt('Name your new page', destination)
@@ -120,9 +120,9 @@ nudgepad.pages.duplicate = function (source, destination, skipPrompt) {
   
   // If we are duplicating a page thats not open, easy peasy
   if (source !== nudgepad.stage.activePage)
-    return nudgepad.pages.create(destination, site.get('pages').get(source))
+    return Design.create(destination, site.get('pages').get(source))
   
-  return nudgepad.pages.create(destination, nudgepad.pages.stage)
+  return Design.create(destination, Design.stage)
 }
 
 /**
@@ -131,7 +131,7 @@ nudgepad.pages.duplicate = function (source, destination, skipPrompt) {
  * @param {string} Optional prefix to add to the name. Defaults to untitled_
  * @return {string} The new name
  */
-nudgepad.pages.nextName = function (prefix) {
+Design.nextName = function (prefix) {
   var prefix = prefix || 'untitled'
   if (!(prefix in site.values.pages.values))
     return prefix
@@ -141,7 +141,7 @@ nudgepad.pages.nextName = function (prefix) {
   }
 }
 
-nudgepad.pages.open = function () {
+Design.open = function () {
   if (App.openApp)
     App.openApp.close()
 }
@@ -152,7 +152,7 @@ nudgepad.pages.open = function () {
  * @param {string} New name
  * @return {string} todo: why return a string?
  */
-nudgepad.pages.rename = function (new_name) {
+Design.rename = function (new_name) {
   
   mixpanel.track('I renamed a page')
   
@@ -174,7 +174,7 @@ nudgepad.pages.rename = function (new_name) {
   site.delete('pages ' + old_name)
   site.delete('timelines ' + old_name)
   
-  nudgepad.pages.updateTabs()
+  Design.updateTabs()
   
   // Todo, push this to server side?
   var patch = new Space()
@@ -193,10 +193,10 @@ nudgepad.pages.rename = function (new_name) {
 
 }
 
-nudgepad.pages.renamePrompt = function () {
+Design.renamePrompt = function () {
   var name = prompt('Enter a new name', nudgepad.stage.activePage)
   if (name)
-    nudgepad.pages.rename(name)
+    Design.rename(name)
 }
 
 /**
@@ -205,7 +205,7 @@ nudgepad.pages.renamePrompt = function () {
  * @param {string} Name of the file
  * @return {string} todo: why return a string?
  */
-nudgepad.pages.trash = function (name) {
+Design.trash = function (name) {
   name = name || nudgepad.stage.activePage
   if (name === 'home')
     return nudgepad.error('You cannot delete the home page')
@@ -222,7 +222,7 @@ nudgepad.pages.trash = function (name) {
   site.get('timelines').delete(name)
   
   // Delete page from open pages
-  nudgepad.pages.updateTabs()
+  Design.updateTabs()
   nudgepad.notify('Deleted ' + name, 1000)
   mixpanel.track('I deleted a page')
   return ''

@@ -7,8 +7,8 @@
 Scrap.prototype.onedit = '' // String, name of app to open.
 Scrap.prototype.edit = function (selectAll) {
   
-  if (this.values.onedit && nudgepad.apps[this.values.onedit])
-    nudgepad.apps[this.values.onedit].open()
+  if (this.values.onedit && window[this.values.onedit])
+    window[this.values.onedit].open()
   
   // Default block editor
   else

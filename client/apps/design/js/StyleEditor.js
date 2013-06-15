@@ -136,13 +136,13 @@ nudgepad.styleEditor = function (scrap) {
    // Create a link to a new page that doesnt exist
    var newPageLink = $('<option>New Page</option>')
    newPageLink.on('click', function () {
-     var linkUrl = prompt('Enter the name of your new page', nudgepad.pages.nextName(nudgepad.stage.activePage))
+     var linkUrl = prompt('Enter the name of your new page', Design.nextName(nudgepad.stage.activePage))
      if (linkUrl) {
        linkUrl = Permalink(linkUrl)
        nudgepad.stage.selection.patch('tag a\nhref ' + linkUrl)
        save_button.trigger('click')
        var currentPage = nudgepad.stage.activePage
-       nudgepad.pages.duplicate(null, linkUrl, true)
+       Design.duplicate(null, linkUrl, true)
        nudgepad.stage.open(currentPage)
      }
    })

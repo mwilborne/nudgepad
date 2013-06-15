@@ -1,4 +1,4 @@
-nudgepad.pages.updateTabs = function () {
+Design.updateTabs = function () {
   $('#nudgepadTabs').html('')
   var keys = site.get('pages').keys
   _.each(keys, function (name) {
@@ -32,6 +32,6 @@ nudgepad.pages.updateTabs = function () {
   
 }
 
-nudgepad.on('collage.update', nudgepad.pages.updateTabs)
+nudgepad.on('collage.update', Design.updateTabs)
 
 

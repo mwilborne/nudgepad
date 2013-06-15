@@ -11,10 +11,10 @@ nudgepad.codePanel.livePreview = function () {
   if (nudgepad.stage.selection.exists()) {
     nudgepad.stage.selection.clear()
   }
-//    nudgepad.pages.stage.patch(nudgepad.stage.selection.captured.diff(space))
+//    Design.stage.patch(nudgepad.stage.selection.captured.diff(space))
 //    nudgepad.stage.render()
 //  } else {
-    nudgepad.pages.stage = new Page(space)
+    Design.stage = new Page(space)
     nudgepad.stage.render()
 //  }
 }
@@ -39,7 +39,7 @@ nudgepad.codePanel.load = function () {
 //    nudgepad.stage.selection.save()
 //    textarea.val(nudgepad.stage.selection.toSpace().toString())
 //  } else
-  textarea.val(nudgepad.pages.stage.toString())
+  textarea.val(Design.stage.toString())
 }
 
 nudgepad.codePanel.open = function () {
