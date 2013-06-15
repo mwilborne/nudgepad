@@ -150,7 +150,7 @@ Design.stage.goto = function (version) {
 }
 
 Design.stage.height = function () {
-  return $(window).height() - $('#nudgepadDesignBar').outerHeight()
+  return $(window).height() - $('#DesignBar').outerHeight()
 }
 
 Design.stage.insertBody = function () {
@@ -456,8 +456,8 @@ Design.stage.undo = function () {
 Design.stage.updateTimeline = function () {
   // Set the history slider to the wherever the worker last had it (usally 100 if no history or havent edited it yet)
   Design.stage.percentElapsed = (Design.stage.timeline.keys.length ? Math.round(100 * Design.stage.version/Design.stage.timeline.keys.length) : 100)
-  $('#nudgepadTimeline').attr('max', Design.stage.timeline.keys.length).val(Design.stage.version)
-  $('#nudgepadTimelinePosition').text(Design.stage.version + '/' + Design.stage.timeline.keys.length)
+  $('#DesignTimeline').attr('max', Design.stage.timeline.keys.length).val(Design.stage.version)
+  $('#DesignTimelinePosition').text(Design.stage.version + '/' + Design.stage.timeline.keys.length)
 }
 
 nudgepad.on('main', function () {

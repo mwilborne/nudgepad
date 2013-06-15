@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/nudgepad/apps/design/css/handles.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/outlineFix.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/pagesBar.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/apps/design/css/pagesContextMenu.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/apps/design/css/DesignContextMenu.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/range.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/ribbonFrame.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/scrap.css" type="text/css"/>
@@ -127,7 +127,7 @@
   </head>
   <body>
 <textarea id="nudgepadCodePanel"></textarea>
-<div id="nudgepadDesignMenu" class="nudgepad">
+<div id="DesignMenu" class="nudgepad">
 	<div onclick="window.open(Design.stage.activePage,'published')">View</div>
   <div onclick="Design.blank()">New</div>
   <div onclick="Design.duplicate()">Duplicate</div>
@@ -136,7 +136,7 @@
   <div onclick="Inviter.prompt()">Invite</div>
   <div onclick="Launcher.open('home')">Dashboard</div>
 </div>
-<div id="nudgepadDesignBar" class="nudgepad">
+<div id="DesignBar" class="nudgepad">
 
   <div title="menu" id="menuButton"></div>
 
@@ -150,21 +150,21 @@
 
   <div title="Add Block" id="addScrap" class="barButton"><img src="/nudgepad/public/images/plus_lt.png"></div>
   
-  <input class="nudgepadTimeline" id="nudgepadTimeline" type="range" min="0" max="100" step="1" onclick="Design.stage.goto($(this).val())" value="100">
+  <input class="DesignTimeline" id="DesignTimeline" type="range" min="0" max="100" step="1" onclick="Design.stage.goto($(this).val())" value="100">
   <script type="text/javascript">
-    $('#nudgepadTimeline').on('slide', function () {
+    $('#DesignTimeline').on('slide', function () {
       Design.stage.goto($(this).val())
   })</script>
-  <span class="nudgepadTimeline" id="nudgepadTimelinePosition"></span>
-  <span class="nudgepadTimeline" id="nudgepadTimelineClear" onclick="Design.clearTimeline()">Erase</span>
+  <span class="DesignTimeline" id="DesignTimelinePosition"></span>
+  <span class="DesignTimeline" id="DesignTimelineClear" onclick="Design.clearTimeline()">Erase</span>
   
-  <div id="nudgepadTabs"><span>Index</span></div>
+  <div id="DesignTabs"><span>Index</span></div>
   
 </div>
-<div id="pagesContextMenu">
-  <a onclick="$('#pagesContextMenu').hide()">Close</a>
+<div id="DesignContextMenu">
+  <a onclick="$('#DesignContextMenu').hide()">Close</a>
   <div class="contextMenuSeparator">&nbsp</div>
-  <a onclick="$('.nudgepadTimeline').toggle()">Toggle Timeline</a>
+  <a onclick="$('.DesignTimeline').toggle()">Toggle Timeline</a>
   <a onclick="Design.stage.toggleView()">Toggle View</a>
   <div class="contextMenuSeparator">&nbsp</div>
   <a onclick="Design.stage.editSource()">Edit Page Source</a>

@@ -310,7 +310,7 @@ http://davidwalsh.name/translate3d
 }
 /*----------------App Bar-------------------*/
 
-#nudgepadDesignBar {
+#DesignBar {
   position: fixed;
   bottom: 0px;
   height: 50px;
@@ -321,7 +321,7 @@ http://davidwalsh.name/translate3d
   font-family: 'Titillium Web';
 }
 
-#nudgepadDesignBar .barButton {
+#DesignBar .barButton {
   height: 40px;
   line-height: 40px;
   width: 44px;
@@ -340,25 +340,25 @@ http://davidwalsh.name/translate3d
    cursor: pointer;
 }
 
-#nudgepadDesignBar .barButton img {
+#DesignBar .barButton img {
   padding-top: 12px;
   opacity: .4;
 }
 
-#nudgepadDesignBar .barButton:hover img{
+#DesignBar .barButton:hover img{
   opacity: .7;
 }
 
-#nudgepadDesignBar .barButton:active img{
+#DesignBar .barButton:active img{
   opacity: 1;
 }
 
-#nudgepadDesignBar #addScrap {
+#DesignBar #addScrap {
   display: none;
 }
 
 
-#nudgepadTabs {
+#DesignTabs {
   float: right;
   max-width: 600px;
   overflow: hidden;
@@ -368,7 +368,7 @@ http://davidwalsh.name/translate3d
   color: #777;
 }
 
-#nudgepadDesignMenu{
+#DesignMenu{
   background-color: #333;
   border-radius: 3px 0px 0px 0px;
   width: 200px;
@@ -382,41 +382,41 @@ http://davidwalsh.name/translate3d
   bottom: 50;
 }
 
-#nudgepadDesignMenu div{
+#DesignMenu div{
   padding: 6px 30px;
   cursor: pointer;
 }
 
-#nudgepadDesignMenu div:hover {
+#DesignMenu div:hover {
   background-color: #2a2a2a;
 }
 
-#nudgepadDesignMenu div:active {
+#DesignMenu div:active {
   background-color: #1a1a1a;
 }
 
-#nudgepadTabs span {
+#DesignTabs span {
   margin-right: 20px;
 }
 
-#nudgepadTabs span {
+#DesignTabs span {
   cursor: pointer;
 }
 
-#nudgepadTabs span.openPage {
+#DesignTabs span.openPage {
   text-decoration: underline;
 }
 
-.nudgepadTimeline {
+.DesignTimeline {
   line-height: 40px;
   display: none;
 }
 
-#nudgepadTimelinePosition, #nudgepadTimelineClear {
+#DesignTimelinePosition, #DesignTimelineClear {
   color: grey;
 }
 
-#nudgepadDesignBar #menuButton {
+#DesignBar #menuButton {
   height: 50px;
   width: 50px;
   background-color: #1a86d6;
@@ -427,15 +427,15 @@ http://davidwalsh.name/translate3d
   cursor: pointer;
 }
 
-#nudgepadDesignBar #menuButton:hover {
+#DesignBar #menuButton:hover {
   background-color: #3575b5;
 }
 
-#nudgepadDesignBar #menuButton:active {
+#DesignBar #menuButton:active {
   background-color: #2c659e;
 }
 
-#nudgepadDesignBar #pageOptions {
+#DesignBar #pageOptions {
   float: right;
   background-image: url(/nudgepad/public/images/page-option.png);
   background-repeat: no-repeat;
@@ -446,7 +446,7 @@ http://davidwalsh.name/translate3d
    opacity: .2;
 }
 
-#pagesContextMenu {
+#DesignContextMenu {
   position: fixed;
   top: 0;
   left: 0;
@@ -459,7 +459,7 @@ http://davidwalsh.name/translate3d
   box-shadow: 0px 1px 3px rgba(0,0,0,.6);
 }
 
-#pagesContextMenu a {
+#DesignContextMenu a {
   padding: 6px;
   border-bottom: 1px solid #333;
   display: block;
@@ -470,7 +470,7 @@ http://davidwalsh.name/translate3d
   border-bottom: 1px solid #aaa;
 }
 
-#pagesContextMenu a:hover {
+#DesignContextMenu a:hover {
   background-color: #2a2a2a;
 }
 .nudgepadRange {

@@ -10491,7 +10491,7 @@ nudgepad.bind_shortcuts = function () {
   
   Events.shortcut.shortcuts['meta+l'] = Design.stage.selection.editLoop
   
-  var contextMenuToggle = function () {$('#pagesContextMenu').toggle()}
+  var contextMenuToggle = function () {$('#DesignContextMenu').toggle()}
   Events.shortcut.shortcuts['ctrl+i'] = contextMenuToggle
   Events.shortcut.shortcuts['meta+i'] = contextMenuToggle
   
@@ -10526,7 +10526,7 @@ nudgepad.bind_shortcuts = function () {
   Events.shortcut.shortcuts['down'] = function (){Design.stage.selection.move(0, 1)}
   Events.shortcut.shortcuts['right'] = function (){Design.stage.selection.move(1, 0)}
   
-  Events.shortcut.shortcuts['shift+t'] = function (){ $('.nudgepadTimeline').toggle()}
+  Events.shortcut.shortcuts['shift+t'] = function (){ $('.DesignTimeline').toggle()}
   
   Events.shortcut.shortcuts['shift+v'] = Design.stage.toggleView
   
@@ -12218,15 +12218,15 @@ Design.trash = function (name) {
 
 ;nudgepad.on('main', function () {
   
-  $('#nudgepadDesignBar #menuButton').on('mousedown', function (event) {
-    if ($('#nudgepadDesignMenu:visible').length > 0) {
+  $('#DesignBar #menuButton').on('mousedown', function (event) {
+    if ($('#DesignMenu:visible').length > 0) {
       Popup.hide(event)
       return true
     }
-    Popup.open('#nudgepadDesignMenu')
+    Popup.open('#DesignMenu')
     mixpanel.track('I opened the designer menu')
   })
-  $('#nudgepadDesignBar #menuButton').on('mouseup', function (event) {
+  $('#DesignBar #menuButton').on('mouseup', function (event) {
     event.stopPropagation()
     return false
   })
@@ -12234,7 +12234,7 @@ Design.trash = function (name) {
   // We do this on live, so that it wont interfere with events bound
   // to items inside the ribbon, but it will prevent events from
   // reaching nudgepadbody hopefull
-  $('#nudgepadDesignBar').on('slide slidestart', function (event) {
+  $('#DesignBar').on('slide slidestart', function (event) {
     
     event.stopPropagation()
   })
@@ -13290,7 +13290,7 @@ Design.stage.goto = function (version) {
 }
 
 Design.stage.height = function () {
-  return $(window).height() - $('#nudgepadDesignBar').outerHeight()
+  return $(window).height() - $('#DesignBar').outerHeight()
 }
 
 Design.stage.insertBody = function () {
@@ -13596,8 +13596,8 @@ Design.stage.undo = function () {
 Design.stage.updateTimeline = function () {
   // Set the history slider to the wherever the worker last had it (usally 100 if no history or havent edited it yet)
   Design.stage.percentElapsed = (Design.stage.timeline.keys.length ? Math.round(100 * Design.stage.version/Design.stage.timeline.keys.length) : 100)
-  $('#nudgepadTimeline').attr('max', Design.stage.timeline.keys.length).val(Design.stage.version)
-  $('#nudgepadTimelinePosition').text(Design.stage.version + '/' + Design.stage.timeline.keys.length)
+  $('#DesignTimeline').attr('max', Design.stage.timeline.keys.length).val(Design.stage.version)
+  $('#DesignTimelinePosition').text(Design.stage.version + '/' + Design.stage.timeline.keys.length)
 }
 
 nudgepad.on('main', function () {
@@ -14700,7 +14700,7 @@ nudgepad.styleEditor = function (scrap) {
   }
 }
 ;Design.updateTabs = function () {
-  $('#nudgepadTabs').html('')
+  $('#DesignTabs').html('')
   var keys = site.get('pages').keys
   _.each(keys, function (name) {
     var div = $('<span>' + name + '</span>')
@@ -14727,7 +14727,7 @@ nudgepad.styleEditor = function (scrap) {
       return true
     })
     div.attr('value', name)
-    $('#nudgepadTabs').append(div)
+    $('#DesignTabs').append(div)
     
   })
   

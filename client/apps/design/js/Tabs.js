@@ -1,5 +1,5 @@
 Design.updateTabs = function () {
-  $('#nudgepadTabs').html('')
+  $('#DesignTabs').html('')
   var keys = site.get('pages').keys
   _.each(keys, function (name) {
     var div = $('<span>' + name + '</span>')
@@ -26,7 +26,7 @@ Design.updateTabs = function () {
       return true
     })
     div.attr('value', name)
-    $('#nudgepadTabs').append(div)
+    $('#DesignTabs').append(div)
     
   })
   

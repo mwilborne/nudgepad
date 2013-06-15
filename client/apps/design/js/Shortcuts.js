@@ -43,7 +43,7 @@ Design.shortcuts['meta+e'] = Design.stage.selection.editProperty
 
 Design.shortcuts['meta+l'] = Design.stage.selection.editLoop
 
-Design.contextMenuToggle = function () {$('#pagesContextMenu').toggle()}
+Design.contextMenuToggle = function () {$('#DesignContextMenu').toggle()}
 Design.shortcuts['ctrl+i'] = Design.contextMenuToggle
 Design.shortcuts['meta+i'] = Design.contextMenuToggle
 
@@ -78,7 +78,7 @@ Design.shortcuts['left'] = function (){Design.stage.selection.move(-1, 0)}
 Design.shortcuts['down'] = function (){Design.stage.selection.move(0, 1)}
 Design.shortcuts['right'] = function (){Design.stage.selection.move(1, 0)}
 
-Design.shortcuts['shift+t'] = function (){ $('.nudgepadTimeline').toggle()}
+Design.shortcuts['shift+t'] = function (){ $('.DesignTimeline').toggle()}
 
 Design.shortcuts['shift+v'] = Design.stage.toggleView
 
