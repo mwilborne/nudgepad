@@ -97,7 +97,7 @@ Develop.renderExplorer = function () {
   if (Develop.path)
     files = files.get(Develop.path)
   
-  var explorer = '<table id="nudgepadExplorer">'
+  var explorer = '<table id="DevelopExplorer">'
   explorer += '<tr class="explorerHeader"><td>Filename</td><td></td><td></td><td>Size</td><td>Age</td></tr>'
   
   var filenames = files.keys
@@ -191,10 +191,10 @@ $(document).on('click', '.devToggleOption', function () {
  */
 Develop.console = function () {
   mixpanel.track('I opened the console')
-  var output = $('<pre id="nudgepadEditorConsole"></pre>')
-  var input = $('<input id="nudgepadEditorInput" type="text"/>')
-  var checkbox = $('<input type="checkbox" id="nudgepadEditorCheckbox"/>')
-  var label = $('<label for="nudgepadEditorCheckbox" id="nudgepadEditorLabel">Shell</label>')
+  var output = $('<pre id="DevelopConsole"></pre>')
+  var input = $('<input id="DevelopConsoleInput" type="text"/>')
+  var checkbox = $('<input type="checkbox" id="DevelopConsoleCheckbox"/>')
+  var label = $('<label for="DevelopConsoleCheckbox" id="DevelopConsoleLabel">Shell</label>')
   var modal_screen = $('<div id="nudgepadEditorModalScreen"/>')
   modal_screen.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()

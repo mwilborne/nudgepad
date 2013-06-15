@@ -1,15 +1,15 @@
 .nudgepadApp .developAppButton {
-   background-color: #333;
-   height: 40px;
-   margin-left: 10px;
-   width: 100px;
-   text-decoration: none;
-   text-align: center;
-   float: right;
-   line-height: 40px;
-   color: #fff;
-   font-size: 15px;
-   cursor: pointer;
+  background-color: #333;
+  height: 40px;
+  margin-left: 10px;
+  width: 100px;
+  text-decoration: none;
+  text-align: center;
+  float: right;
+  line-height: 40px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 .nudgepadApp .developAppButton:hover {
@@ -17,25 +17,25 @@
 }
 
 .nudgepadApp #devToggle {
-   margin-top: 40px;
+  margin-top: 40px;
 }
 
 .nudgepadApp .devToggleOption {
-   float: left;
-   width: 80px;
-   text-align: center;
-   background-color: #f8f8f8;
-   height: 40px;
-   line-height: 40px;
+  float: left;
+  width: 80px;
+  text-align: center;
+  background-color: #f8f8f8;
+  height: 40px;
+  line-height: 40px;
 }
 
 .nudgepadApp .devSelect {
-   background-color: #555;
-   color: #fff;
+  background-color: #555;
+  color: #fff;
 }
 
 .nudgepadApp #explorerHolder {
-   cursor: pointer;
+  cursor: pointer;
 }
 
 .nudgepadApp #explorerPath {
@@ -72,20 +72,20 @@
 }
 
 .devToggleOption {
-   cursor: pointer;
+  cursor: pointer;
 }
 
 #logHolder {
-   border: none;
-   font-size: 15px;
+  border: none;
+  font-size: 15px;
 }
 
 #infoContent {
-   display: none;
+  display: none;
 }
 
 #logsContent {
-   display: none;
+  display: none;
 }
 
 .nudgepad.selectable {
@@ -96,57 +96,53 @@
 
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 td {
-   width: 300px;
+  width: 300px;
+
+}
    
 .explorerFolderName {
-      width: 300px;
-}
-
-}
-
-#nudgepadExplorer .file {
-  
+  width: 300px;
 }
 
 .explorerRename, .explorerRemove {
   color: #eee;
 }
 
-#nudgepadExplorer tr td.explorerEdit:hover,
-#nudgepadExplorer tr td.explorerFolderName:hover,
-#nudgepadExplorer tr td.explorerRename:hover,
-#nudgepadExplorer tr td.explorerRemove:hover,
-#nudgepadExplorer tr td.explorerCreate:hover {
+#DevelopExplorer tr td.explorerEdit:hover,
+#DevelopExplorer tr td.explorerFolderName:hover,
+#DevelopExplorer tr td.explorerRename:hover,
+#DevelopExplorer tr td.explorerRemove:hover,
+#DevelopExplorer tr td.explorerCreate:hover {
   text-decoration: underline;
   cursor: pointer;
   color: #1a86d6;
 }
 
-#nudgepadExplorer tr:hover td.explorerRename, #nudgepadExplorer tr:hover td.explorerRemove {
+#DevelopExplorer tr:hover td.explorerRename, #DevelopExplorer tr:hover td.explorerRemove {
   color: #1a86d6;
 }
 
-#nudgepadExplorer tr th {
+#DevelopExplorer tr th {
   color: #888888;
 }
 
-#nudgepadExplorer tr.explorerHeader {
+#DevelopExplorer tr.explorerHeader {
   border-bottom: 3px solid #555;
 }
 
-#nudgepadExplorer tr.explorerFolder {
+#DevelopExplorer tr.explorerFolder {
   border-bottom: 1px solid #ccc;
 }
 
-#nudgepadExplorer tr.explorerFile {
+#DevelopExplorer tr.explorerFile {
   border-bottom: 1px solid #ccc;
 }
 
-#nudgepadEditorConsole {
+#DevelopConsole {
   padding : 3px;
   font-family : monospace;
   font-size : 16px;
@@ -161,11 +157,11 @@ td {
   box-shadow : 0px 1px 3px rgba(0,0,0,.5);
 }
 
-#nudgepadEditorConsole {
+#DevelopConsole {
   overflow-y: scroll;
 }
 
-#nudgepadEditorCheckbox {
+#DevelopConsoleCheckbox {
   left : 675px;
   bottom : 101px;
   position : fixed;
@@ -173,7 +169,7 @@ td {
   line-height: 40px;
 }
 
-#nudgepadEditorLabel {
+#DevelopConsoleLabel {
   left : 700px;
   height : 40px;
   bottom : 90px;
@@ -183,7 +179,7 @@ td {
   z-index : 1010;
 }
 
-#nudgepadEditorInput {
+#DevelopConsoleInput {
   width : 560px;
   height : 40px;
   bottom : 90px;

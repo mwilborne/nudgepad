@@ -1,7 +1,3 @@
-.clear {
-  clear: both;
-}
-
 .nudgepadAppContainer {
   width : 94%;
   max-width: 1000px;
@@ -10,12 +6,12 @@
 }
 
 .colStandard {
-   width: 32%;
-   float: left;
+  width: 32%;
+  float: left;
 }
 
 .marStandard {
-   margin-right: 2%;
+  margin-right: 2%;
 }
 
 .appBlock {
@@ -26,12 +22,12 @@
 }
 
 .lastApp{
-   margin-right: 0px;
+  margin-right: 0px;
 }
 
 .topBlock {
   padding: 80px 20px;
-   font-size: 3.375em;
+  font-size: 3.375em;
 }
 
 .subBlock {

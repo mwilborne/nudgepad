@@ -61,6 +61,9 @@ body {
   font-family: 'Titillium Web';
 }
 
+.clear {
+  clear: both;
+}
 
 
 

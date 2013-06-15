@@ -1,20 +1,20 @@
 #postsColumn {
-   float: left;
-   width: 25%;
+  float: left;
+  width: 25%;
 }
 
 #composeColumn {
-   float: left;
-   width: 75%;
+  float: left;
+  width: 75%;
 }
 
 #postsContent {
-   padding: 40px 0px;
+  padding: 40px 0px;
 }
 
 #postsTitle {
-   margin-bottom: 20px;
-   font-size: 18px;
+  margin-bottom: 20px;
+  font-size: 18px;
 }
 
 #WriteApp div #posts {
@@ -32,6 +32,7 @@
   border-bottom : 1px solid #ccc;
   margin-top: 40px;
 }
+
 #WriteApp div #permalink {
   left : 0px;
   top : 629px;
@@ -52,11 +53,13 @@
   border : none;
   padding : 20px 10px;
 }
+
 #WriteApp #advancedToggle {
-float: right;
-margin-left: 10px;
-position: relative;
+  float: right;
+  margin-left: 10px;
+  position: relative;
 }
+
 #WriteApp div #advanced {
   display : none;
   right : 0px;
@@ -73,29 +76,28 @@ position: relative;
 }
 
 #WriteApp #deleteButton {
-   background-color: #555;
-   height: 40px;
-   width: 100px;
-   color: #fff;
-   font-size : 15px;
-   margin-top: 10px;
-   float: right;
-   text-align: center;
-   cursor : pointer;
-   line-height: 40px;
+  background-color: #555;
+  height: 40px;
+  width: 100px;
+  color: #fff;
+  font-size : 15px;
+  margin-top: 10px;
+  float: right;
+  text-align: center;
+  cursor : pointer;
+  line-height: 40px;
 }
 
-
 #WriteApp #publishButton {
-   background-color: #1a86d6;
-   height: 40px;
-   width: 100px;
-   color: #fff;
-   font-size : 15px;
-   margin-top: 10px;
-   margin-left: 10px;
-   float: right;
-   text-align: center;
-   cursor : pointer;
-   line-height: 40px;
+  background-color: #1a86d6;
+  height: 40px;
+  width: 100px;
+  color: #fff;
+  font-size : 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  float: right;
+  text-align: center;
+  cursor : pointer;
+  line-height: 40px;
 }

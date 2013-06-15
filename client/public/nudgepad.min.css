@@ -306,7 +306,7 @@ position: relative;
   z-index: 4001;
   text-align: right;
 }
-#nudgepadEditorConsole {
+#DevelopConsole {
   padding : 3px;
   font-family : monospace;
   font-size : 16px;
@@ -321,11 +321,11 @@ position: relative;
   box-shadow : 0px 1px 3px rgba(0,0,0,.5);
 }
 
-#nudgepadEditorConsole {
+#DevelopConsole {
   overflow-y: scroll;
 }
 
-#nudgepadEditorCheckbox {
+#DevelopConsoleCheckbox {
   left : 675px;
   bottom : 101px;
   position : fixed;
@@ -333,7 +333,7 @@ position: relative;
   line-height: 40px;
 }
 
-#nudgepadEditorLabel {
+#DevelopConsoleLabel {
   left : 700px;
   height : 40px;
   bottom : 90px;
@@ -343,7 +343,7 @@ position: relative;
   z-index : 1010;
 }
 
-#nudgepadEditorInput {
+#DevelopConsoleInput {
   width : 560px;
   height : 40px;
   bottom : 90px;
@@ -466,7 +466,7 @@ td {
 
 }
 
-#nudgepadExplorer .file {
+#DevelopExplorer .file {
   
 }
 
@@ -474,33 +474,33 @@ td {
   color: #eee;
 }
 
-#nudgepadExplorer tr td.explorerEdit:hover,
-#nudgepadExplorer tr td.explorerFolderName:hover,
-#nudgepadExplorer tr td.explorerRename:hover,
-#nudgepadExplorer tr td.explorerRemove:hover,
-#nudgepadExplorer tr td.explorerCreate:hover {
+#DevelopExplorer tr td.explorerEdit:hover,
+#DevelopExplorer tr td.explorerFolderName:hover,
+#DevelopExplorer tr td.explorerRename:hover,
+#DevelopExplorer tr td.explorerRemove:hover,
+#DevelopExplorer tr td.explorerCreate:hover {
   text-decoration: underline;
   cursor: pointer;
   color: #1a86d6;
 }
 
-#nudgepadExplorer tr:hover td.explorerRename, #nudgepadExplorer tr:hover td.explorerRemove {
+#DevelopExplorer tr:hover td.explorerRename, #DevelopExplorer tr:hover td.explorerRemove {
   color: #1a86d6;
 }
 
-#nudgepadExplorer tr th {
+#DevelopExplorer tr th {
   color: #888888;
 }
 
-#nudgepadExplorer tr.explorerHeader {
+#DevelopExplorer tr.explorerHeader {
   border-bottom: 3px solid #555;
 }
 
-#nudgepadExplorer tr.explorerFolder {
+#DevelopExplorer tr.explorerFolder {
   border-bottom: 1px solid #ccc;
 }
 
-#nudgepadExplorer tr.explorerFile {
+#DevelopExplorer tr.explorerFile {
   border-bottom: 1px solid #ccc;
 }#DesignDimensions {
   display: none;
@@ -2041,7 +2041,7 @@ body {
   user-select: none;
 }
 
-textarea.nudgepad, input.nudgepad, #nudgepadEditorConsole {
+textarea.nudgepad, input.nudgepad, #DevelopConsole {
   -webkit-user-select: auto;
   -moz-user-select: text;
   user-select: text;

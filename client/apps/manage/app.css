@@ -1,18 +1,18 @@
 .nudgepadApp .appNav {
-   width: 100%;
-   background-color: #222;
+  width: 100%;
+  background-color: #222;
 }
 
 .nudgepadApp .appNavContainer {
-   padding: 10px;
+  padding: 10px;
 }
 
 .nudgepadApp .squareButton { 
-   width: 40px;
-   height: 40px;
-   text-align: center;
-   cursor: pointer;
-   background-color: #444;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #444;
 }
 
 .nudgepadApp .squareButton:hover { 
@@ -24,39 +24,39 @@
 }
 
 .nudgepadApp #logout {
-   line-height: 40px;
-   color: #fff;
-   text-decoration: none;
-   width: 100px;
-   float: right;
-   margin-left: 10px;
+  line-height: 40px;
+  color: #fff;
+  text-decoration: none;
+  width: 100px;
+  float: right;
+  margin-left: 10px;
 }
 
 .nudgepadApp .squareButton img {
-   padding-top: 12px;
+  padding-top: 12px;
 }
 
 .nudgepadApp #menuBack {
-   font-size: 15px;
-   float: left;
-   background-repeat: no-repeat;
-   background-position: 10px center;
-   width: 70px;
-   line-height: 40px;
-   color: #fff;
+  font-size: 15px;
+  float: left;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  width: 70px;
+  line-height: 40px;
+  color: #fff;
 }
 
 .nudgepadApp .secondaryButton {
-   background-color: #64b81f;
-   height: 40px;
-   width: 100px;
-   text-align: center;
-   float: right;
-   line-height: 40px;
-   color: #fff;
-   font-size: 15px;
-   cursor: pointer;
-   text-decoration: none;
+  background-color: #64b81f;
+  height: 40px;
+  width: 100px;
+  text-align: center;
+  float: right;
+  line-height: 40px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .nudgepadApp .secondaryButton:hover { 
@@ -68,16 +68,16 @@
 }
 
 .nudgepadAppContainer .sectionLabel {
-   font-size: 36px;
-   margin-top: 60px;
-   border-bottom: 3px solid #ccc;
-   padding-bottom: 5px;
-   margin-bottom: 20px;
+  font-size: 36px;
+  margin-top: 60px;
+  border-bottom: 3px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .nudgepadAppContainer .formLabel {
-   font-size: 18px;
-   margin-top: 20px;
+  font-size: 18px;
+  margin-top: 20px;
 }
 
 .nudgepadAppContainer #email {
@@ -98,30 +98,4 @@
   text-align: center;
   cursor : pointer;
   line-height: 40px;
-}
-
-.nudgepadAppContainer .plan {
-   margin-top: 20px;
-   font-size: 18px;
-}
-
-.nudgepadAppContainer .plan a {
-   text-decoration: none;
-}
-
-.nudgepadAppContainer .planDescription {
-   color: #666;
-}
-
-.nudgepadAppContainer .selectedPlan {
-   background-image: url(/nudgepad/public/images/checkbox.png);
-   background-repeat: no-repeat;
-   text-indent: 30px;
-}
-
-.nudgepadAppContainer .unselectedPlan {
-   background-image: url(/nudgepad/public/images/unchecked.png);
-   background-repeat: no-repeat;
-   text-indent: 30px;
-   text-decoration: none;
 }
