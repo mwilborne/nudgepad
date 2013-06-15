@@ -6,8 +6,6 @@
  */
 Design.stage.version = 0 // how many steps in we are
 Design.stage.percentElapsed = 100
-Design.stage.activePage = 'home'
-// store.get('activePage')
 
 /**
  * Open the previous page

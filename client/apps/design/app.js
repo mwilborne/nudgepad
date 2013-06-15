@@ -4,6 +4,8 @@ var Design = new App('Design')
 Design.page = new Page()
 Design.edge = new Space()
 Design.stage = {}
+Design.stage.activePage = 'home'
+// store.get('activePage')
 Design.stage.selection = {}
 
 Design.blank = function () {
@@ -210,11 +212,6 @@ Design.nextName = function (prefix) {
   }
 }
 
-Design.open = function () {
-  if (App.openApp)
-    App.openApp.close()
-}
-
 /**
  */
 Design.oncopy = function(e) {
@@ -351,6 +348,8 @@ Design.onkeydown = function (event) {
 Design.onopen = function () {
   Design.grid = new Grid()
   
+  $('#DesignStage,#DesignBar').show()
+  
   nudgepad.on('selection', Design.broadcastSelection)
   nudgepad.on('collage.update', Design.updateSelections)
   
@@ -366,6 +365,11 @@ Design.onopen = function () {
   // Prevent Images from dragging on Firefox
   $(document).on('dragstart', 'img', function(event) { event.preventDefault()})
   
+  var page = store.get('activePage') || 'home'
+  if (!site.get('pages ' + page))
+    page = 'home'
+  Design.stage.open(page)
+  
   if (!navigator.userAgent.match(/iPad|iPhone|iPod/i))
     return null
   
@@ -373,6 +377,10 @@ Design.onopen = function () {
   $(document).on("touchstart", Design.stopPropagation)
   // Allow someone to drag
   $(document).on("touchmove", Design.preventDefault)
+}
+
+Design.onready = function () {
+  $('#Design').hide()
 }
 
 Design.onresize = function () {
