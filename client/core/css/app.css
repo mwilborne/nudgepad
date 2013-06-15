@@ -24,14 +24,12 @@
   background-color: #222;
 }
 
-.AppBackButton {
-  font-size: 15px;
-  float: left;
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  width: 70px;
-  line-height: 40px;
-  color: #fff;
+.AppSectionLabel {
+  font-size: 36px;
+  margin-top: 60px;
+  border-bottom: 3px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 .AppSquareButton { 
@@ -40,6 +38,16 @@
   text-align: center;
   cursor: pointer;
   background-color: #444;
+}
+
+.AppBackButton {
+  font-size: 15px;
+  float: left;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  width: 70px;
+  line-height: 40px;
+  color: #fff;
 }
 
 .AppSquareButton img {
