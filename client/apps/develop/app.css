@@ -1,4 +1,4 @@
-.nudgepadApp .developAppButton {
+.DevelopButton {
   background-color: #333;
   height: 40px;
   margin-left: 10px;
@@ -12,15 +12,15 @@
   cursor: pointer;
 }
 
-.nudgepadApp .developAppButton:hover {
+.DevelopButton:hover {
   background-color: #000;
 }
 
-.nudgepadApp #devToggle {
+#DevelopToggle {
   margin-top: 40px;
 }
 
-.nudgepadApp .devToggleOption {
+.DevelopToggleOption {
   float: left;
   width: 80px;
   text-align: center;
@@ -29,16 +29,16 @@
   line-height: 40px;
 }
 
-.nudgepadApp .devSelect {
+.DevelopSelect {
   background-color: #555;
   color: #fff;
 }
 
-.nudgepadApp #explorerHolder {
+#DevelopExplorerHolder {
   cursor: pointer;
 }
 
-.nudgepadApp #explorerPath {
+#DevelopExplorerPath {
   font-size : 15px;
   color : #333;
   text-align : left;
@@ -47,11 +47,11 @@
   cursor: pointer;
 }
 
-.nudgepadApp .explorerHeader {
+.DevelopExplorerHeader {
   font-size : 24px;
 }
 
-.explorerEdit {
+.DevelopExplorerEdit {
   color: #555;
   height: 40px;
   line-height: 40px;
@@ -61,7 +61,7 @@
   background-repeat: no-repeat;
 }
 
-.explorerFolderName {
+.DevelopExplorerFolderName {
   height: 40px;
   line-height: 40px;
   color: #1a86d6;
@@ -71,58 +71,56 @@
   background-repeat: no-repeat;
 }
 
-.devToggleOption {
+.DevelopToggleOption {
   cursor: pointer;
 }
 
-#logHolder {
+#DevelopLogHolder {
   border: none;
   font-size: 15px;
 }
 
-#infoContent {
+#DevelopInfoContent {
   display: none;
 }
 
-#logsContent {
+#DevelopLogsContent {
   display: none;
 }
 
-.nudgepad.selectable {
+.DevelopSelectable {
   -webkit-user-select: auto;
   -moz-user-select: text;
   user-select: auto;
 }
 
 
-table {
+#DevelopExplorer {
   border-collapse: collapse;
 }
 
-td {
+#DevelopExplorer tr td {
   width: 300px;
-
 }
    
-.explorerFolderName {
+.DevelopExplorerFolderName {
   width: 300px;
 }
 
-.explorerRename, .explorerRemove {
+.DevelopExplorerRename, .DevelopExplorerRemove {
   color: #eee;
 }
 
-#DevelopExplorer tr td.explorerEdit:hover,
-#DevelopExplorer tr td.explorerFolderName:hover,
-#DevelopExplorer tr td.explorerRename:hover,
-#DevelopExplorer tr td.explorerRemove:hover,
-#DevelopExplorer tr td.explorerCreate:hover {
+#DevelopExplorer tr td.DevelopExplorerEdit:hover,
+#DevelopExplorer tr td.DevelopExplorerFolderName:hover,
+#DevelopExplorer tr td.DevelopExplorerRename:hover,
+#DevelopExplorer tr td.DevelopExplorerRemove:hover {
   text-decoration: underline;
   cursor: pointer;
   color: #1a86d6;
 }
 
-#DevelopExplorer tr:hover td.explorerRename, #DevelopExplorer tr:hover td.explorerRemove {
+#DevelopExplorer tr:hover td.DevelopExplorerRename, #DevelopExplorer tr:hover td.DevelopExplorerRemove {
   color: #1a86d6;
 }
 
@@ -130,15 +128,15 @@ td {
   color: #888888;
 }
 
-#DevelopExplorer tr.explorerHeader {
+#DevelopExplorer tr.DevelopExplorerHeader {
   border-bottom: 3px solid #555;
 }
 
-#DevelopExplorer tr.explorerFolder {
+#DevelopExplorer tr.DevelopExplorerFolder {
   border-bottom: 1px solid #ccc;
 }
 
-#DevelopExplorer tr.explorerFile {
+#DevelopExplorer tr.DevelopExplorerFile {
   border-bottom: 1px solid #ccc;
 }
 

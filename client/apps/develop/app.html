@@ -1,45 +1,45 @@
 <div class="nudgepadApp" id="DevelopApp">
 	<div class="nudgepadAppNav">
 		<div class="nudgepadAppNavContainer">
-  		<div class="nudgepadSquareButton developAppButton nudgepadAppBackButton" onclick="Launcher.open('Launch')">
+  		<div class="nudgepadSquareButton DevelopButton nudgepadAppBackButton" onclick="Launcher.open('Launch')">
 		  	Back
 		  </div>
-			<a id="console" class="nudgepad developAppButton" onclick="Develop.console()" title="Console">
+			<a id="DevelopConsole" class="nudgepad DevelopButton" onclick="Develop.console()" title="Console">
 		  	Console
 		  </a>
-			<a href="/nudgepad.export" target="blank" class="nudgepad developAppButton">
+			<a href="/nudgepad.export" target="blank" class="nudgepad DevelopButton">
 		  	Export
 		  </a>
-		  <a onclick="Develop.import()" class="nudgepad developAppButton">
+		  <a onclick="Develop.import()" class="nudgepad DevelopButton">
 		  	Import
 		  </a>
-		  <a onclick="Develop.clone()" class="nudgepad developAppButton">
+		  <a onclick="Develop.clone()" class="nudgepad DevelopButton">
 		  	Clone
 		  </a>
-		  <a id="restart" class="nudgepad developAppButton" onclick="$.get('/nudgepad.restart')">
+		  <a id="DevelopRestart" class="nudgepad DevelopButton" onclick="$.get('/nudgepad.restart')">
 		  	Restart
 		  </a>
 		<div class="clear"></div>
 		</div>
 	</div>
   <div class="nudgepadAppContainer nudgepad">
-	  <div id="devToggle">
-	  	<div class="devToggleOption devSelect">Files</div>
-			<div class="devToggleOption">Logs</div>
-			<div class="devToggleOption">Info</div>
+	  <div id="DevelopToggle">
+	  	<div class="DevelopToggleOption DevelopSelect">Files</div>
+			<div class="DevelopToggleOption">Logs</div>
+			<div class="DevelopToggleOption">Info</div>
 	    <div class="clear"></div>
 	  </div>
-	  <div id="filesContent" class="devAppContent">
-	  	<div id="explorerPath" class="nudgepad" onclick="Develop.home()"></div>
-		  <div id="explorerHolder" class="nudgepad"></div>
+	  <div id="DevelopFilesContent" class="DevelopAppContent">
+	  	<div id="DevelopExplorerPath" class="nudgepad" onclick="Develop.home()"></div>
+		  <div id="DevelopExplorerHolder" class="nudgepad"></div>
 		</div>
-		<div id="logsContent" class="devAppContent">
+		<div id="DevelopLogsContent" class="devAppContent">
 	  	<div class="DevelopSectionLabel">Logs</div>
-		  <pre id="logHolder" readonly="readonly" class="nudgepad selectable"></pre>
+		  <pre id="DevelopLogHolder" readonly="readonly" class="nudgepad DevelopSelectable"></pre>
 		</div>
-		<div id="infoContent" class="devAppContent">
+		<div id="DevelopInfoContent" class="devAppContent">
 	  	<div class="DevelopSectionLabel">Info</div>
-		  <pre id="statusArea" readonly="readonly" class="nudgepad selectable"></pre>
+		  <pre id="DevelopStatusArea" readonly="readonly" class="nudgepad DevelopSelectable"></pre>
 		</div>
 	</div>
 </div>

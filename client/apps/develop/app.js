@@ -98,7 +98,7 @@ Develop.renderExplorer = function () {
     files = files.get(Develop.path)
   
   var explorer = '<table id="DevelopExplorer">'
-  explorer += '<tr class="explorerHeader"><td>Filename</td><td></td><td></td><td>Size</td><td>Age</td></tr>'
+  explorer += '<tr class="DevelopExplorerHeader"><td>Filename</td><td></td><td></td><td>Size</td><td>Age</td></tr>'
   
   var filenames = files.keys
   for (var i in filenames) {
@@ -107,34 +107,34 @@ Develop.renderExplorer = function () {
     var item = files.values[name]
     var row = '<tr'
     if (item.get('timeSinceLastChange')) {
-      row += ' class="explorerFile" value="' + name + '">'
-      row += '<td class="explorerEdit standardCell">' + name + '</td>'
-      row += '<td class="explorerRename standardCell">Rename</td>'
-      row += '<td class="explorerRemove standardCell">Delete</td>'
+      row += ' class="DevelopExplorerFile" value="' + name + '">'
+      row += '<td class="DevelopExplorerEdit standardCell">' + name + '</td>'
+      row += '<td class="DevelopExplorerRename standardCell">Rename</td>'
+      row += '<td class="DevelopExplorerRemove standardCell">Delete</td>'
       row += '<td class="standardCell">' + (item.get('size')) + 'KB</td>'
       row += '<td class="standardCell">' + moment(item.get('mtime')).fromNow() + '</td>'
     } else {
-      row += ' class="explorerFolder" value="' + name + '">'
-      row += '<td class="explorerFolderName standardCell" colspan=5>' + name + '</td>'
+      row += ' class="DevelopExplorerFolder" value="' + name + '">'
+      row += '<td class="DevelopExplorerFolderName standardCell" colspan=5>' + name + '</td>'
     }
     row += '</tr>'
     explorer += row
   }
   explorer += '</table>'
   Develop.explorer = explorer
-  $('.nudgepad#explorerPath').text(nudgepad.domain + '/' + Develop.pathPretty)
-  $('.nudgepad#explorerHolder').html(Develop.explorer)
+  $('#DevelopExplorerPath').text(nudgepad.domain + '/' + Develop.pathPretty)
+  $('#DevelopExplorerHolder').html(Develop.explorer)
 }
 
 Develop.refresh = function () {
   $.get('/nudgepad.status', {}, function (data) {
     Develop.status = data
-    $('.nudgepad#statusArea').text(Develop.status)
+    $('#DevelopStatusArea').text(Develop.status)
   })
   $.get('/nudgepad.logs', {}, function (data) {
     Develop.log = data
-    $('.nudgepad#logHolder').html(data)
-    $('#logHolder').scrollTop($('#logHolder').height())
+    $('#DevelopLogHolder').html(data)
+    $('#DevelopLogHolder').scrollTop($('#DevelopLogHolder').height())
   })
   $.get('/Explorer.list', {}, function (data) {
     Develop.files = new Space(data)
@@ -143,11 +143,11 @@ Develop.refresh = function () {
   })
 }
 
-$(document).on('click', 'td.explorerEdit', function () {
+$(document).on('click', 'td.DevelopExplorerEdit', function () {
   Explorer.edit(Develop.pathPretty + $(this).parent().attr('value'))
 })
 
-$(document).on('click', 'td.explorerRename', function () {
+$(document).on('click', 'td.DevelopExplorerRename', function () {
   var newName = prompt('Rename this file', $(this).parent().attr('value'))
   if (!newName)
     return false
@@ -155,14 +155,14 @@ $(document).on('click', 'td.explorerRename', function () {
     Develop.pathPretty + newName, Develop.refreshFiles)
 })
 
-$(document).on('click', 'td.explorerRemove', function () {
+$(document).on('click', 'td.DevelopExplorerRemove', function () {
   var name = $(this).parent().attr('value')
   if (!confirm('Are you sure you want to delete ' + name + '?'))
     return false
   Explorer.remove(Develop.pathPretty + name, Develop.refresh)
 })
 
-$(document).on('click', 'td.explorerFolderName', function () {
+$(document).on('click', 'td.DevelopExplorerFolderName', function () {
   if (Develop.path)
     Develop.path += ' ' + $(this).parent().attr('value')
   else
@@ -173,12 +173,12 @@ $(document).on('click', 'td.explorerFolderName', function () {
 
 var visibleContent;
 
-$(document).on('click', '.devToggleOption', function () {
+$(document).on('click', '.DevelopToggleOption', function () {
   visibleContent = $(this).text().toLowerCase() + 'Content'
-  if(!$(this).hasClass('devSelect')) {
-    $('div').removeClass('devSelect');
-    $(this).addClass('devSelect')
-    $('.devAppContent').hide()
+  if(!$(this).hasClass('DevelopSelect')) {
+    $('div').removeClass('DevelopSelect');
+    $(this).addClass('DevelopSelect')
+    $('.DevelopAppContent').hide()
     $('#' + visibleContent).show()
   }
 })
