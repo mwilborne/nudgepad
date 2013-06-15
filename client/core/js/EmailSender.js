@@ -1,7 +1,7 @@
-nudgepad.emailPrompt = function () {
+var EmailSender = function () {
   
   var message = new Space('to \nsubject \nmessage \n')
-  nudgepad.textPrompt('Send an email', message.toString(), function (val) {
+  TextPrompt('Send an email', message.toString(), function (val) {
     
     var space = new Space(val)
     

@@ -96,7 +96,7 @@ Design.stage.dragAndDrop = function (scrap) {
  * Advances position_index, advanced position.
  */
 Design.stage.editSource = function () {
-  nudgepad.textPrompt('Enter code...', Design.page.toString(), function (val) {
+  TextPrompt('Enter code...', Design.page.toString(), function (val) {
     Design.page = new Space(val)
     Design.stage.commit()
     Design.stage.open(Design.stage.activePage)
@@ -286,7 +286,7 @@ Design.stage.open = function (name) {
   // Page change stuff
   Design.stage.activePage = name
   store.set('activePage', Design.stage.activePage)
-  nudgepad.tab.patch('page ' + Design.stage.activePage)
+  Tab.patch('page ' + Design.stage.activePage)
   Design.updateTabs()
   
   Design.stage.reload()

@@ -9,30 +9,6 @@ if (!window.console)
  */
 var nudgepad = {}
 nudgepad.id = new Date().getTime()
-nudgepad.tab = new Space('id ' + nudgepad.id)
-nudgepad.tab.set('device', platform.name + (platform.product ? '/' + platform.product : ''))
-
-nudgepad.setColor = function () {
-  if (nudgepad.tab.get('color'))
-    return true
-  var colors = ['red', 'green', 'violet', 'yellow', 'blue', 'orange', 'indigo']
-  var used = []
-  site.values.collage.each(function (key, value) {
-    if (value.get('color'))
-      used.push(value.get('color'))
-  })
-  var freeColors = _.difference(colors, used)
-  if (freeColors.length < 1)
-    freeColors.push('black')
-  nudgepad.tab.set('color', freeColors[0])
-}
-
-nudgepad.tab.on('patch', function () {
-  site.set('collage ' + nudgepad.id, this)
-  nudgepad.emit('collage.update', this)
-})
-
-
 nudgepad.isTesting = false
 
 // Nudgepad Events
@@ -60,8 +36,8 @@ nudgepad.main = function (callback) {
   // Load plugins
   nudgepad.cookie = parseCookie(document.cookie)
   nudgepad.name = ParseName(nudgepad.cookie.email)
-  nudgepad.tab.set('email', nudgepad.cookie.email)
-  nudgepad.tab.set('name', nudgepad.name)
+  Tab.set('email', nudgepad.cookie.email)
+  Tab.set('name', nudgepad.name)
   
   
   // In case we open multiple tabs
@@ -70,6 +46,11 @@ nudgepad.main = function (callback) {
   // TODO: on capture phase, capture block clicks, check if shiftkey is held,
   // if shiftkey is not held, prevent any events from firing on click?
   // document.body.addEventListener('mouseup', PopupHider.hide, true)
+  
+  Events.shortcut.onfire = function (key) {
+    mixpanel.track('I used the keyboard shortcut ' +  key)
+  }
+  
   
   nudgepad.query = ParseQueryString()
   // Fetch all files in the background.

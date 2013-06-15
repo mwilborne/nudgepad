@@ -238,7 +238,7 @@ Design.stage.selection.editProperty = function () {
     return false
   
   var value = scrap.get(prop)
-  nudgepad.textPrompt('Enter new value...', value.toString(), function (val) {
+  TextPrompt('Enter new value...', value.toString(), function (val) {
       scrap.set(prop, val)
       Design.stage.commit()
       Design.stage.open(Design.stage.activePage)
@@ -251,7 +251,7 @@ Design.stage.selection.editProperty = function () {
 Design.stage.selection.editSource = function () {
   Design.stage.selection.capture()
   Design.stage.selection.save()
-  nudgepad.textPrompt('Enter code...', Design.stage.selection.captured.toString(), Design.stage.selection.modify)
+  TextPrompt('Enter code...', Design.stage.selection.captured.toString(), Design.stage.selection.modify)
 }
 
 /**
@@ -291,7 +291,7 @@ Design.stage.selection.move = function (x, y) {
     left : 10 + el.offset().left + el.outerWidth(),
     top : -10 + el.offset().top + Math.round(el.outerHeight()/2)
     }).html(position)
-  nudgepad.popup.open('#nudgepadDimensions')
+  Popup.open('#nudgepadDimensions')
   
   $('.handle').trigger("update")
   Design.stage.commit()
@@ -431,7 +431,7 @@ Design.stage.selection.toSpace = function () {
 }
 
 nudgepad.broadcastSelection = function (extra) {
-  nudgepad.setColor()
+  nudgepad.setTabColor()
   var selection = extra || ''
   var first = ''
   $('.selection').each(function () {
@@ -441,8 +441,8 @@ nudgepad.broadcastSelection = function (extra) {
     }
   })
 
-  selection += '{box-shadow: 0 0 4px ' + nudgepad.tab.get('color') + ';cursor: not-allowed;}'
-  nudgepad.tab.patch('selection ' + selection)
+  selection += '{box-shadow: 0 0 4px ' + Tab.get('color') + ';cursor: not-allowed;}'
+  Tab.patch('selection ' + selection)
   
 }
 

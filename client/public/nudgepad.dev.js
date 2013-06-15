@@ -9954,11 +9954,11 @@ nudgepad.apps = {}
 Design = {}
 Design.stage = {}
 nudgepad.id = new Date().getTime()
-nudgepad.tab = new Space('id ' + nudgepad.id)
-nudgepad.tab.set('device', platform.name + (platform.product ? '/' + platform.product : ''))
+Tab = new Space('id ' + nudgepad.id)
+Tab.set('device', platform.name + (platform.product ? '/' + platform.product : ''))
 
-nudgepad.setColor = function () {
-  if (nudgepad.tab.get('color'))
+nudgepad.setTabColor = function () {
+  if (Tab.get('color'))
     return true
   var colors = ['red', 'green', 'violet', 'yellow', 'blue', 'orange', 'indigo']
   var used = []
@@ -9969,10 +9969,10 @@ nudgepad.setColor = function () {
   var freeColors = _.difference(colors, used)
   if (freeColors.length < 1)
     freeColors.push('black')
-  nudgepad.tab.set('color', freeColors[0])
+  Tab.set('color', freeColors[0])
 }
 
-nudgepad.tab.on('patch', function () {
+Tab.on('patch', function () {
   site.set('collage ' + nudgepad.id, this)
   nudgepad.emit('collage.update', this)
 })
@@ -10006,8 +10006,8 @@ nudgepad.main = function (callback) {
   Design.grid = new Grid()
   nudgepad.cookie = parseCookie(document.cookie)
   nudgepad.name = ParseName(nudgepad.cookie.email)
-  nudgepad.tab.set('email', nudgepad.cookie.email)
-  nudgepad.tab.set('name', nudgepad.name)
+  Tab.set('email', nudgepad.cookie.email)
+  Tab.set('name', nudgepad.name)
   
   
   // In case we open multiple tabs
@@ -10239,7 +10239,7 @@ Flasher.flash = function (message, time) {
   Blinker.change(message)
   clearTimeout(Flasher.timeout)
   $('#nudgepadNotify').html(message)
-  nudgepad.popup.open('#nudgepadNotify')
+  Popup.open('#nudgepadNotify')
   $('#nudgepadNotify').css('left', ($(window).width() - $('#nudgepadNotify').width())/2)
   if (time)
     Flasher.timeout = setTimeout("$('#nudgepadNotify').hide()", time)
@@ -10329,7 +10329,7 @@ nudgepad.on('main', function () {
 
 ;nudgepad.error = function (message) {
   $('#nudgepadWorkerError').html(message)
-  nudgepad.popup.open('#nudgepadWorkerError')
+  Popup.open('#nudgepadWorkerError')
   return false
 }
 
@@ -10373,30 +10373,30 @@ nudgepad.patch.receive = function (patch) {
 
 nudgepad.on('patch', nudgepad.patch.receive)
 
-;nudgepad.popup = {}
+;Popup = {}
 
 /**
  * @param {object} mouseup event
  */
-nudgepad.popup.hide = function (event) {
+Popup.hide = function (event) {
 
   if (event.which !== 1)
     return true
   console.log('hide')
   $('.nudgepadPopup').hide()
   console.log(event)
-  $('body').off('mouseup touchend', nudgepad.popup.hide)
-  nudgepad.popup.isOpen = false
+  $('body').off('mouseup touchend', Popup.hide)
+  Popup.isOpen = false
   return true
 }
 
-nudgepad.popup.isOpen = false
+Popup.isOpen = false
 
-nudgepad.popup.open = function (element) {
+Popup.open = function (element) {
   $(element).addClass('nudgepadPopup').show()
-  if (!nudgepad.popup.isOpen) {
-    $('body').on('mouseup touchend', nudgepad.popup.hide)
-    nudgepad.popup.isOpen = true
+  if (!Popup.isOpen) {
+    $('body').on('mouseup touchend', Popup.hide)
+    Popup.isOpen = true
   }
   
   return true
@@ -10564,7 +10564,7 @@ nudgepad.bind_shortcuts = function () {
  * @param {string} Default value to prefill the prompt with.
  * @param {function} Function to run with whatever the worker entered.
  */
-nudgepad.textPrompt = function (message, default_value, onsubmit, onkeypress, submitLabel) {
+TextPrompt = function (message, default_value, onsubmit, onkeypress, submitLabel) {
   var text_area = $('<textarea id="nudgepadEditorTextarea" class="nudgepad"></textarea>')
   text_area.val(default_value)
   var modal_screen = $('<div id="nudgepadEditorModalScreen" class="nudgepad"/>')
@@ -10800,7 +10800,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     if (tag && tag.match(/^(textarea|input|password)$/))
       attr = 'placeholder'
     
-    nudgepad.textPrompt('Editing content for this block', scrap.values[attr], function (val) {
+    TextPrompt('Editing content for this block', scrap.values[attr], function (val) {
       scrap.values[attr] = val
       Design.stage.commit()
       element.remove()
@@ -12220,10 +12220,10 @@ Design.trash = function (name) {
   
   $('#nudgepadDesignBar #menuButton').on('mousedown', function (event) {
     if ($('#nudgepadDesignMenu:visible').length > 0) {
-      nudgepad.popup.hide(event)
+      Popup.hide(event)
       return true
     }
-    nudgepad.popup.open('#nudgepadDesignMenu')
+    Popup.open('#nudgepadDesignMenu')
     mixpanel.track('I opened the designer menu')
   })
   $('#nudgepadDesignBar #menuButton').on('mouseup', function (event) {
@@ -12905,7 +12905,7 @@ Design.stage.selection.editProperty = function () {
     return false
   
   var value = scrap.get(prop)
-  nudgepad.textPrompt('Enter new value...', value.toString(), function (val) {
+  TextPrompt('Enter new value...', value.toString(), function (val) {
       scrap.set(prop, val)
       Design.stage.commit()
       Design.stage.open(Design.stage.activePage)
@@ -12918,7 +12918,7 @@ Design.stage.selection.editProperty = function () {
 Design.stage.selection.editSource = function () {
   Design.stage.selection.capture()
   Design.stage.selection.save()
-  nudgepad.textPrompt('Enter code...', Design.stage.selection.captured.toString(), Design.stage.selection.modify)
+  TextPrompt('Enter code...', Design.stage.selection.captured.toString(), Design.stage.selection.modify)
 }
 
 /**
@@ -12958,7 +12958,7 @@ Design.stage.selection.move = function (x, y) {
     left : 10 + el.offset().left + el.outerWidth(),
     top : -10 + el.offset().top + Math.round(el.outerHeight()/2)
     }).html(position)
-  nudgepad.popup.open('#nudgepadDimensions')
+  Popup.open('#nudgepadDimensions')
   
   $('.handle').trigger("update")
   Design.stage.commit()
@@ -13098,7 +13098,7 @@ Design.stage.selection.toSpace = function () {
 }
 
 nudgepad.broadcastSelection = function (extra) {
-  nudgepad.setColor()
+  nudgepad.setTabColor()
   var selection = extra || ''
   var first = ''
   $('.selection').each(function () {
@@ -13108,8 +13108,8 @@ nudgepad.broadcastSelection = function (extra) {
     }
   })
 
-  selection += '{box-shadow: 0 0 4px ' + nudgepad.tab.get('color') + ';cursor: not-allowed;}'
-  nudgepad.tab.patch('selection ' + selection)
+  selection += '{box-shadow: 0 0 4px ' + Tab.get('color') + ';cursor: not-allowed;}'
+  Tab.patch('selection ' + selection)
   
 }
 
@@ -13236,7 +13236,7 @@ Design.stage.dragAndDrop = function (scrap) {
  * Advances position_index, advanced position.
  */
 Design.stage.editSource = function () {
-  nudgepad.textPrompt('Enter code...', Design.page.toString(), function (val) {
+  TextPrompt('Enter code...', Design.page.toString(), function (val) {
     Design.page = new Space(val)
     Design.stage.commit()
     Design.stage.open(Design.stage.activePage)
@@ -13426,7 +13426,7 @@ Design.stage.open = function (name) {
   // Page change stuff
   Design.stage.activePage = name
   store.set('activePage', Design.stage.activePage)
-  nudgepad.tab.patch('page ' + Design.stage.activePage)
+  Tab.patch('page ' + Design.stage.activePage)
   Design.updateTabs()
   
   Design.stage.reload()
@@ -14896,7 +14896,7 @@ nudgepad.apps.develop.home = function () {
 }
 
 nudgepad.apps.develop.import = function () {
-  nudgepad.textPrompt('Import a Site ', '', function (val) {
+  TextPrompt('Import a Site ', '', function (val) {
     $.post('/Design.import', {space : val}, function (err) {
       Flasher.flash('Imported. Please restart')
     })
@@ -15073,7 +15073,7 @@ Explorer.edit = function (path) {
   var req = {}
   req.path = path
   $.post( 'Explorer.get', req, function (data) {
-    nudgepad.textPrompt('Editing ' + path, data, function (val) {
+    TextPrompt('Editing ' + path, data, function (val) {
       var req = {}
       req.path = path
       req.content = val + ''
@@ -15179,7 +15179,7 @@ nudgepad.apps.account.save = function () {
 ;nudgepad.emailPrompt = function () {
   
   var message = new Space('to \nsubject \nmessage \n')
-  nudgepad.textPrompt('Send an email', message.toString(), function (val) {
+  TextPrompt('Send an email', message.toString(), function (val) {
     
     var space = new Space(val)
     

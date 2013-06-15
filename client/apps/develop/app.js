@@ -78,7 +78,7 @@ Develop.home = function () {
 }
 
 Develop.import = function () {
-  nudgepad.textPrompt('Import a Site ', '', function (val) {
+  TextPrompt('Import a Site ', '', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
       Flasher.flash('Imported. Please restart')
     })

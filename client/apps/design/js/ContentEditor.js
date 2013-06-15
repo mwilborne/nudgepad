@@ -51,7 +51,7 @@ nudgepad.contentEditor.focus = function (selector, selectAll) {
     if (tag && tag.match(/^(textarea|input|password)$/))
       attr = 'placeholder'
     
-    nudgepad.textPrompt('Editing content for this block', scrap.values[attr], function (val) {
+    TextPrompt('Editing content for this block', scrap.values[attr], function (val) {
       scrap.values[attr] = val
       Design.stage.commit()
       element.remove()

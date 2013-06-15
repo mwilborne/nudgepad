@@ -1,6 +1,6 @@
 nudgepad.error = function (message) {
   $('#nudgepadWorkerError').html(message)
-  nudgepad.popup.open('#nudgepadWorkerError')
+  Popup.open('#nudgepadWorkerError')
   return false
 }
 

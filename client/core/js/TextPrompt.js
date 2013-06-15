@@ -5,7 +5,7 @@
  * @param {string} Default value to prefill the prompt with.
  * @param {function} Function to run with whatever the worker entered.
  */
-nudgepad.textPrompt = function (message, default_value, onsubmit, onkeypress, submitLabel) {
+var TextPrompt = function (message, default_value, onsubmit, onkeypress, submitLabel) {
   var text_area = $('<textarea id="nudgepadEditorTextarea" class="nudgepad"></textarea>')
   text_area.val(default_value)
   var modal_screen = $('<div id="nudgepadEditorModalScreen" class="nudgepad"/>')

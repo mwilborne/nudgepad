@@ -2,10 +2,10 @@ nudgepad.on('main', function () {
   
   $('#nudgepadDesignBar #menuButton').on('mousedown', function (event) {
     if ($('#nudgepadDesignMenu:visible').length > 0) {
-      nudgepad.popup.hide(event)
+      Popup.hide(event)
       return true
     }
-    nudgepad.popup.open('#nudgepadDesignMenu')
+    Popup.open('#nudgepadDesignMenu')
     mixpanel.track('I opened the designer menu')
   })
   $('#nudgepadDesignBar #menuButton').on('mouseup', function (event) {

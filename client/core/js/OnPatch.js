@@ -1,15 +1,9 @@
 /**
- * Singleton.
- * Namespace for methods that do realtime syncing.
- */
-nudgepad.patch = {}
-
-/**
  * Handles incoming patches to site
  *
  * @param {Space}
  */
-nudgepad.patch.receive = function (patch) {
+nudgepad.on('patch', function (patch) {
   
   patch = new Space(patch)
   var behind = Design.stage.isBehind()
@@ -34,7 +28,7 @@ nudgepad.patch.receive = function (patch) {
   // Todo: this breaks if you are in content editable
   Design.stage.redo()
   Flasher.flash('Change received', 1000)
-}
+})
 
-nudgepad.on('patch', nudgepad.patch.receive)
+
 
