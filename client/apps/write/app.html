@@ -7,7 +7,7 @@
 			<div id="WriteAdvancedToggle" class="AppSquareButton" onclick="$('#WriteAdvanced').toggle()">
 				<img src="nudgepad/public/images/bulb.png">
 			</div>
-			<textarea id="WriteAdvanced" placeholder="Advanced" tabindex="3" class="nudgepad"></textarea>
+			<textarea id="WriteAdvanced" placeholder="Advanced" tabindex="3"></textarea>
 		  <div id="WriteNewPostButton" onclick="Write.createPost()">
 			  New Post
 			</div>
@@ -17,17 +17,17 @@
   <div class="AppContainer">
 		<div id="WritePostColumn">
 			<div id="WritePostContent">
-	  	  <div id="WritePostTitle" class="nudgepad">Old Posts</div>
-	      <div id="WritePosts" class="nudgepad"></div>
+	  	  <div id="WritePostTitle">Old Posts</div>
+	      <div id="WritePosts"></div>
 	    </div>
 	  </div>
 	  <div id="WriteComposeColumn">
-		  <input id="WriteTitle" placeholder="Title" tabindex="1" class="nudgepad" onkeyup="Write.updatePermalink()"></input>
-	  	<textarea id="WriteContent" placeholder="Write your post here..." tabindex="2" class="nudgepad"></textarea>
-		  <div id="WritePublishButton" class="nudgepad" onclick="Write.savePost()">Publish</div>
-	    <div id="WriteDeleteButton" class="nudgepad" onclick="Write.deletePost()">Delete</div>
+		  <input id="WriteTitle" placeholder="Title" tabindex="1" onkeyup="Write.updatePermalink()"></input>
+	  	<textarea id="WriteContent" placeholder="Write your post here..." tabindex="2"></textarea>
+		  <div id="WritePublishButton" onclick="Write.savePost()">Publish</div>
+	    <div id="WriteDeleteButton" onclick="Write.deletePost()">Delete</div>
 	    <div class="clear"></div>
-	    <div id="WritePermalink" class="nudgepad" onclick="window.open($(this).attr('value'), 'published')"></div>
+	    <div id="WritePermalink" onclick="window.open($(this).attr('value'), 'published')"></div>
 	  </div>
   </div>
 </div>

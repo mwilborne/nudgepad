@@ -5,9 +5,9 @@ Flasher.timeout = false
 Flasher.flash = function (message, time) {
   Blinker.change(message)
   clearTimeout(Flasher.timeout)
-  $('#nudgepadNotify').html(message)
-  Popup.open('#nudgepadNotify')
-  $('#nudgepadNotify').css('left', ($(window).width() - $('#nudgepadNotify').width())/2)
+  $('#Flasher').html(message)
+  Popup.open('#Flasher')
+  $('#Flasher').css('left', ($(window).width() - $('#Flasher').width())/2)
   if (time)
-    Flasher.timeout = setTimeout("$('#nudgepadNotify').hide()", time)
+    Flasher.timeout = setTimeout("$('#Flasher').hide()", time)
 }

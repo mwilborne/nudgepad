@@ -1,28 +1,28 @@
-var SignupForm = {}
+var RegisterForm = {}
 
-SignupForm.open = function () {
-  $('#nudgepadSignupFormDomain').text(nudgepad.domain).attr('href', 'http://' + nudgepad.domain)
+RegisterForm.open = function () {
+  $('#RegisterFormDomain').text(nudgepad.domain).attr('href', 'http://' + nudgepad.domain)
   // Hack because I was too lazy to do this in HTML so just used the code from the
   // nudgepad prototype. Recursion would be nice :)
   var leftMargin = Math.round(($(window).width() - 725)/2)
   if (leftMargin > 0) {
-    $('#nudgepadSignupFormModal').children().each(function () {
+    $('#RegisterFormModal').children().each(function () {
       $(this).css('left', parseFloat($(this).css('left')) + leftMargin + 'px')
       $(this).on('click', function (event) {
         event.stopPropagation()
       })
     })
   }
-  $('#nudgepadSignupFormModal').show()
+  $('#RegisterFormModal').show()
   
-  $('#nudgepadSignupFormModal').on('click', function () {
+  $('#RegisterFormModal').on('click', function () {
     $(this).remove()
   })
   
   
-  $('#nudgepadSignupFormButton').on('click', function () {
+  $('#RegisterFormButton').on('click', function () {
     
-    var email = $('#nudgepadSignupFormEmail').val()
+    var email = $('#RegisterFormEmail').val()
 
     if (!ValidateEmail(email))
       return nudgepad.error('Invalid Email')
@@ -35,7 +35,7 @@ SignupForm.open = function () {
     
   })
 
-  $('#nudgepadSignupFormEmail').focus()
+  $('#RegisterFormEmail').focus()
   
 }
 
@@ -44,6 +44,6 @@ nudgepad.on('main', function () {
   if (nudgepad.cookie.email !== ('owner@' + nudgepad.domain))
     return true
   
-  SignupForm.open()
+  RegisterForm.open()
   
 })

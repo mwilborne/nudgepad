@@ -19,7 +19,7 @@ nudgepad.styleEditor = function (scrap) {
   $('.handle').remove()
   
   // Insert Modal
-  var modal_screen = $('<div id="DesignStyleEditorModal" class="nudgepad"/>')
+  var modal_screen = $('<div id="DesignStyleEditorModal"/>')
   modal_screen.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
@@ -33,7 +33,7 @@ nudgepad.styleEditor = function (scrap) {
   // Create styleEditor div
   // width 295px
   // height 320px
-  var styleEditor = $('<div id="DesignStyleEditor" class="nudgepad"></div>')
+  var styleEditor = $('<div id="DesignStyleEditor"></div>')
   
   styleEditor.css({
     "left" : element.offset().left + 2 + "px",

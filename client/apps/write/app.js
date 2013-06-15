@@ -86,7 +86,7 @@ Write.editPost = function (name) {
   postSettings.delete('title')
   postSettings.delete('content')
   $('#WriteAdvanced').val(postSettings.toString())
-  // http://{{nudgepad.domain}}/<a class="nudgepad" id="permalink" target="_blog"></a>
+  // http://{{nudgepad.domain}}/<a id="permalink" target="_blog"></a>
   $('#WritePermalink').text('http://' + nudgepad.domain + '/' + name).attr('value', name)
   
   Write.updateLinks()

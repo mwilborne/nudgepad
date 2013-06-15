@@ -1,4 +1,4 @@
-#nudgepadSignupFormModal {
+#RegisterFormModal {
   top: 0;
   left: 0;
   height: 100%;
@@ -11,24 +11,24 @@
   font-family : 'Titillium Web';
 }
 
-#signupContainer {
+#RegisterContainer {
    margin: 100px auto 0px auto;
    width: 640px;
    background-color: #eee;
 }
 
-#signupContent {
+#RegisterContent {
    padding: 40px;
 }
 
-#nudgepadSignupFormPrototypeLive {
+#RegisterFormPrototypeLive {
   font-size : 24px;
   line-height : 140%;
   color : #222;
   float: left;
 }
 
-#nudgepadSignupFormDomain {
+#RegisterFormDomain {
   width : 250px;
   font-size : 24px;
   line-height : 140%;
@@ -38,7 +38,7 @@
   margin-left: 10px;
 }
 
-#nudgepadSignupFormEmail {
+#RegisterFormEmail {
   height : 50px;
   width : 424px;
   padding : 0px;
@@ -50,7 +50,7 @@
   float: left;
   margin-top: 20px;
 }
-#nudgepadSignupFormButton {
+#RegisterFormButton {
   background-color : #1a86d6;
   height : 50px;
   width : 80px;
@@ -64,19 +64,19 @@
   margin-top: 20px;
   margin-left: 10px;
 }
-#nudgepadSignupFormButton:hover {
+#RegisterFormButton:hover {
   background-color : #3575b5;
 }
-#nudgepadSignupFormButton:active {
+#RegisterFormButton:active {
   background-color : #2c659e;
 }
-#nudgepadSignupFormInstructions {
+#RegisterFormInstructions {
   font-size : 18px;
   line-height : 140%;
   color : rgb(119, 119, 119);
   margin-top: 20px;
 }
-#nudgepadSignupFormSkip {
+#RegisterFormSkip {
   font-size : 14px;
   line-height : 140%;
   color : #1a86d6;
@@ -86,10 +86,10 @@
   font-weight: 400;
 }
 
-#nudgepadSignupFormSkip:hover {
+#RegisterFormSkip:hover {
      text-decoration: underline;
 }
 
-#nudgepadSignupFormDomain:hover {
+#RegisterFormDomain:hover {
   text-decoration: underline;
 }

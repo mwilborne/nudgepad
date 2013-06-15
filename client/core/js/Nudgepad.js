@@ -75,12 +75,12 @@ nudgepad.main = function (callback) {
     nudgepad.socket.on('connect_failed', function (error) {
       console.log('Connect failed')
       console.log(error)
-      $('#nudgepadConnectionStatus').html('Connection to server failed...').show()
+      $('#ConnectionStatus').html('Connection to server failed...').show()
     })
 
     nudgepad.socket.on('error', function (error) {
       console.log(error)
-      $('#nudgepadConnectionStatus').html('Connecting to server...').show()
+      $('#ConnectionStatus').html('Connecting to server...').show()
     })
 
     nudgepad.socket.on('disconnect', function (message) {
@@ -113,7 +113,7 @@ nudgepad.main = function (callback) {
 
     nudgepad.socket.on('connect', function (message) {
       console.log('connected to server %s', message)
-      $('#nudgepadConnectionStatus').html('Connected!').fadeOut()
+      $('#ConnectionStatus').html('Connected!').fadeOut()
       nudgepad.restartCheck()
     })
     
@@ -129,7 +129,7 @@ nudgepad.main = function (callback) {
 
     Launcher.openAppFromQueryString()
     
-    $('#nudgepadLoadingScreen').hide()
+    $('#LoadingScreen').hide()
     
     // fetch other timelines in background for now
     // SLOW

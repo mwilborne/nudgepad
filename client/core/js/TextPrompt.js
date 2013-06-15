@@ -6,9 +6,9 @@
  * @param {function} Function to run with whatever the worker entered.
  */
 var TextPrompt = function (message, default_value, onsubmit, onkeypress, submitLabel) {
-  var text_area = $('<textarea id="nudgepadEditorTextarea" class="nudgepad"></textarea>')
+  var text_area = $('<textarea id="TextPrompt"></textarea>')
   text_area.val(default_value)
-  var modal_screen = $('<div id="nudgepadEditorModalScreen" class="nudgepad"/>')
+  var modal_screen = $('<div id="ModalScreen"/>')
   modal_screen.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
@@ -18,10 +18,10 @@ var TextPrompt = function (message, default_value, onsubmit, onkeypress, submitL
   if (onkeypress)
     text_area.on('keypress', onkeypress)
     
-  var save_button = $('<div id="nudgepadEditorSaveButton" class="nudgepad">' + (submitLabel || 'Save') + '</div>')
-  var cancel_button = $('<div id="nudgepadEditorCancelButton" class="nudgepad">Cancel</div>')
+  var save_button = $('<div id="SaveButton">' + (submitLabel || 'Save') + '</div>')
+  var cancel_button = $('<div id="CancelButton">Cancel</div>')
   
-  var button_container = $('<div id="nudgepadEditorButtonContainer" class="nudgepad"></div>')
+  var button_container = $('<div id="ButtonContainer"></div>')
   modal_screen.on('click', function () {
     cancel_button.trigger('click')
   })

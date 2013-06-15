@@ -252,10 +252,6 @@
   display: none;
 }
 
-#DesignRibbon .nudgepad {
-  position: absolute;
-}
-
 #DesignDroppablesList {
   float: left;
 }

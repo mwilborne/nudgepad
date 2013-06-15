@@ -191,7 +191,7 @@ Develop.console = function () {
   var input = $('<input id="DevelopConsoleInput" type="text"/>')
   var checkbox = $('<input type="checkbox" id="DevelopConsoleCheckbox"/>')
   var label = $('<label for="DevelopConsoleCheckbox" id="DevelopConsoleLabel">Shell</label>')
-  var modal_screen = $('<div id="nudgepadEditorModalScreen"/>')
+  var modal_screen = $('<div id="ModalScreen"/>')
   modal_screen.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
@@ -202,10 +202,10 @@ Develop.console = function () {
 //  if (onkeypress)
 //    output.on('keypress', onkeypress)
     
-  var send_button = $('<div id="nudgepadEditorSaveButton">Send</div>')
-  var cancel_button = $('<div id="nudgepadEditorCancelButton">Close</div>')
+  var send_button = $('<div id="SaveButton">Send</div>')
+  var cancel_button = $('<div id="CancelButton">Close</div>')
   
-  var button_container = $('<div id="nudgepadEditorButtonContainer"></div>')
+  var button_container = $('<div id="ButtonContainer"></div>')
   modal_screen.on('click', function () {
     cancel_button.trigger('click')
   })

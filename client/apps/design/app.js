@@ -139,7 +139,7 @@ Design.getPageDimensions = function (page) {
   iframe.attr('scrolling', 'no')
   iframe.css('width', 1)
   iframe.css('height', 1)
-  $('#nudgepadTemp').append(iframe)
+  $('#Temp').append(iframe)
   iframe.contents().find('body').append(page.toHtml())
   var box = {}
   var first = false
