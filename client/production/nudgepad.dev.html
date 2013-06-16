@@ -4,7 +4,7 @@
     <title>Loading Nudgepad...</title>
     <link rel="stylesheet" href="/nudgepad/core/css/app.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/core.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/core/css/signupForm.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/registerForm.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/userSelectFix.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/app.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/apps/design/css/spectrum.css" type="text/css"/>
@@ -59,7 +59,7 @@
     <script type="text/javascript" src="/nudgepad/core/js/OnSiteDeleted.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/OnWorkerError.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Popup.js"></script>
-    <script type="text/javascript" src="/nudgepad/core/js/SignUpForm.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/RegisterForm.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Space.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Tab.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/TextPrompt.js"></script>
@@ -81,11 +81,11 @@
     <script type="text/javascript" src="/nudgepad/apps/design/js/Scrap.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/ScrollMinimal.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/Selection.js"></script>
-    <script type="text/javascript" src="/nudgepad/apps/design/js/Shortcuts.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/Stage.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/StretchHandle.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/StyleEditor.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/design/js/Tabs.js"></script>
+    <script type="text/javascript" src="/nudgepad/apps/design/Shortcuts.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/develop/app.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/launch/app.js"></script>
     <script type="text/javascript" src="/nudgepad/apps/manage/app.js"></script>
@@ -101,38 +101,37 @@
     mixpanel.init("cddd496663c58cf984f006dba0ec67bc");</script><!-- end Mixpanel -->
   </head>
   <body>
-<div id="nudgepadConnectionStatus" class="nudgepad">Connecting to server...</div>
-<div id="nudgepadError" class="nudgepad"></div>
-<div id="nudgepadJavascriptError" class="nudgepad"></div>
-<div id="nudgepadLoadingScreen" class="nudgepad">Loading Nudgepad...</div>
-<div id="nudgepadNotify" class="nudgepad">Published</div>
-<div id="nudgepadTemp" class="nudgepad"></div>
-<div id="nudgepadWorkerError" class="nudgepad"></div>
-<div id="nudgepadSignupFormModal" class="nudgepad">
-	<div id="signupContainer">
-		<div id="signupContent">
-			<div id="nudgepadSignupFormPrototypeLive">Your site is now live at</div>
-			<a id="nudgepadSignupFormDomain" target="published"></a>
+<div id="ConnectionStatus">Connecting to server...</div>
+<div id="JavascriptError"></div>
+<div id="LoadingScreen">Loading Nudgepad...</div>
+<div id="Flasher">Published</div>
+<div id="Temp"></div>
+<div id="WorkerError"></div>
+<div id="RegisterFormModal">
+	<div id="RegisterContainer">
+		<div id="RegisterContent">
+			<div id="RegisterFormPrototypeLive">Your site is now live at</div>
+			<a id="RegisterFormDomain" target="published"></a>
 			<div class="clear"></div>
-			<div id="nudgepadSignupFormInstructions">If you want to edit your site beyond this session, please type your email address below.</div>
-			<input id="nudgepadSignupFormEmail" type="email" placeholder="Email"></input>  
-			<div id="nudgepadSignupFormButton">Submit</div>
+			<div id="RegisterFormInstructions">If you want to edit your site beyond this session, please type your email address below.</div>
+			<input id="RegisterFormEmail" type="email" placeholder="Email"></input>  
+			<div id="RegisterFormButton">Submit</div>
 			<div class="clear"></div>
-			<div id="nudgepadSignupFormSkip" onclick="$('#nudgepadSignupFormModal').remove()">Skip this step</div>
+			<div id="RegisterFormSkip" onclick="$('#RegisterFormModal').remove()">Skip this step</div>
 		</div>
 	</div>
 </div>
 <div class="App" id="Design">
 </div>
   
-<div id="DesignStage" class="nudgepad">
+<div id="DesignStage">
   <div id="DesignStageHead"></div>
   <div id="DesignStageBody"></div>
   <div id="DesignStageBottomPadding"></div>
   <style type="text/css" id="DesignRemoteSelections"></style>
 </div>
 
-<div id="DesignBar" class="nudgepad">
+<div id="DesignBar">
 
   <div title="menu" id="DesignBarMenuButton"></div>
 
@@ -171,7 +170,7 @@
   <a onclick="Design.importPrompt()">Import Url</a>
 </div>
 
-<div id="DesignMenu" class="nudgepad">
+<div id="DesignMenu">
 	<div onclick="window.open(Design.stage.activePage,'published')">View</div>
   <div onclick="Design.blank()">New</div>
   <div onclick="Design.duplicate()">Duplicate</div>
@@ -181,7 +180,7 @@
   <div onclick="Launcher.open('Launch')">Dashboard</div>
 </div>
 
-<div id="DesignRibbon" class="nudgepad">
+<div id="DesignRibbon">
 	<div id="DesignRibbonUploadButton" class="DesignImageDroppableOptions"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;"></iframe></div>
   <div id="DesignDroppablesList"></div>
   <div id="DesignImageDroppablesList" class="DesignImageDroppableOptions"></div>
@@ -194,25 +193,25 @@
   		<div class="AppSquareButton AppBackButton" onclick="Launcher.open('Launch')">
 		  	Back
 		  </div>
-			<a class="nudgepad DevelopButton" onclick="Develop.console()" title="Console">
+			<a class="DevelopButton" onclick="Develop.console()" title="Console">
 		  	Console
 		  </a>
-			<a href="/nudgepad.export" target="blank" class="nudgepad DevelopButton">
+			<a href="/nudgepad.export" target="blank" class="DevelopButton">
 		  	Export
 		  </a>
-		  <a onclick="Develop.import()" class="nudgepad DevelopButton">
+		  <a onclick="Develop.import()" class="DevelopButton">
 		  	Import
 		  </a>
-		  <a onclick="Develop.clone()" class="nudgepad DevelopButton">
+		  <a onclick="Develop.clone()" class="DevelopButton">
 		  	Clone
 		  </a>
-		  <a id="DevelopRestart" class="nudgepad DevelopButton" onclick="$.get('/nudgepad.restart')">
+		  <a id="DevelopRestart" class="DevelopButton" onclick="$.get('/nudgepad.restart')">
 		  	Restart
 		  </a>
 		<div class="clear"></div>
 		</div>
 	</div>
-  <div class="AppContainer nudgepad">
+  <div class="AppContainer">
 	  <div id="DevelopToggle">
 	  	<div class="DevelopToggleOption DevelopSelect" value="DevelopFilesContent">Files</div>
 			<div class="DevelopToggleOption" value="DevelopLogsContent">Logs</div>
@@ -220,43 +219,61 @@
 	    <div class="clear"></div>
 	  </div>
 	  <div id="DevelopFilesContent" class="DevelopContent">
-	  	<div id="DevelopExplorerPath" class="nudgepad" onclick="Develop.home()"></div>
-		  <div id="DevelopExplorerHolder" class="nudgepad"></div>
+	  	<div id="DevelopExplorerPath" onclick="Develop.home()"></div>
+		  <div id="DevelopExplorerHolder"></div>
 		</div>
 		<div id="DevelopLogsContent" class="DevelopContent">
 	  	<div class="DevelopSectionLabel">Logs</div>
-		  <pre id="DevelopLogHolder" readonly="readonly" class="nudgepad DevelopSelectable"></pre>
+		  <pre id="DevelopLogHolder" readonly="readonly" class="DevelopSelectable"></pre>
 		</div>
 		<div id="DevelopInfoContent" class="DevelopContent">
 	  	<div class="DevelopSectionLabel">Info</div>
-		  <pre id="DevelopStatusArea" readonly="readonly" class="nudgepad DevelopSelectable"></pre>
+		  <pre id="DevelopStatusArea" readonly="readonly" class="DevelopSelectable"></pre>
 		</div>
 	</div>
 </div>
 <div class="App" id="Launch">
-  <div class="AppContainer nudgepad">
-	  <div class="LaunchCol LaunchMar">
+  <div class="AppContainer">
+    
+	  <div class="LaunchColumn LaunchMargin">
+	    
+	    
     	<div class="LaunchSquare" style="background-color : #1a86d6;" onclick="Launcher.open('Design')">
 		    <div class="LaunchTopBlock">Design</div>
 		    <div class="LaunchSubBlock">Edit the layout and style of your site.</div>
 		  </div>
+		  
 			<div class="LaunchSquare" style="background-color : #ABC1C7;" onclick="Launcher.open('Manage')">
 		    <div class="LaunchTopBlock">Manage</div>
 		    <div class="LaunchSubBlock">Update your email address or logout.</div>
 		  </div>
+		  
+		  
 		</div>
-		<div class="LaunchCol LaunchMar">
+		
+		<div class="LaunchColumn LaunchMargin">
+		  
+		  
 			<div class="LaunchSquare" style="background-color : #244170;" onclick="Launcher.open('Develop')">
 		    <div class="LaunchTopBlock">Develop</div>
 		    <div class="LaunchSubBlock">Write code and maintain the backend.</div>
 		  </div>
+		  
+		  
 		</div>
-    <div class="LaunchCol">
+		
+    <div class="LaunchColumn">
+      
+      
 	  	<div class="LaunchSquare" style="background-color : #edc811;" onclick="Launcher.open('Write')">
 		    <div class="LaunchTopBlock">Write</div>
 		    <div class="LaunchSubBlock">Write new posts or update existing content.</div>
 		  </div>
+		  
+		  
 		</div>
+		
+		
 	  <div class="clear"></div>
   </div>
 </div>
@@ -272,15 +289,15 @@
 		<div class="clear"></div>
 		</div>
 	</div>
-  <div class="AppContainer nudgepad">
+  <div class="AppContainer">
 	  <div class="AppSectionLabel">
 		  Account Info
 		</div>
 	  <div id="ManageFormLabel">
 	  	Email
 	  </div>
-	  <input type="email" id="ManageEmail" tabindex="2" value="" class="nudgepad"></input>
-	  <div id="ManageUpdateButton" class="nudgepad" onclick="Manage.save()">
+	  <input type="email" id="ManageEmail" tabindex="2" value=""></input>
+	  <div id="ManageUpdateButton" onclick="Manage.save()">
 		  Update
 		</div>
 	</div>
@@ -294,7 +311,7 @@
 			<div id="WriteAdvancedToggle" class="AppSquareButton" onclick="$('#WriteAdvanced').toggle()">
 				<img src="nudgepad/public/images/bulb.png">
 			</div>
-			<textarea id="WriteAdvanced" placeholder="Advanced" tabindex="3" class="nudgepad"></textarea>
+			<textarea id="WriteAdvanced" placeholder="Advanced" tabindex="3"></textarea>
 		  <div id="WriteNewPostButton" onclick="Write.createPost()">
 			  New Post
 			</div>
@@ -304,17 +321,17 @@
   <div class="AppContainer">
 		<div id="WritePostColumn">
 			<div id="WritePostContent">
-	  	  <div id="WritePostTitle" class="nudgepad">Old Posts</div>
-	      <div id="WritePosts" class="nudgepad"></div>
+	  	  <div id="WritePostTitle">Old Posts</div>
+	      <div id="WritePosts"></div>
 	    </div>
 	  </div>
 	  <div id="WriteComposeColumn">
-		  <input id="WriteTitle" placeholder="Title" tabindex="1" class="nudgepad" onkeyup="Write.updatePermalink()"></input>
-	  	<textarea id="WriteContent" placeholder="Write your post here..." tabindex="2" class="nudgepad"></textarea>
-		  <div id="WritePublishButton" class="nudgepad" onclick="Write.savePost()">Publish</div>
-	    <div id="WriteDeleteButton" class="nudgepad" onclick="Write.deletePost()">Delete</div>
+		  <input id="WriteTitle" placeholder="Title" tabindex="1" onkeyup="Write.updatePermalink()"></input>
+	  	<textarea id="WriteContent" placeholder="Write your post here..." tabindex="2"></textarea>
+		  <div id="WritePublishButton" onclick="Write.savePost()">Publish</div>
+	    <div id="WriteDeleteButton" onclick="Write.deletePost()">Delete</div>
 	    <div class="clear"></div>
-	    <div id="WritePermalink" class="nudgepad" onclick="window.open($(this).attr('value'), 'published')"></div>
+	    <div id="WritePermalink" onclick="window.open($(this).attr('value'), 'published')"></div>
 	  </div>
   </div>
 </div>
