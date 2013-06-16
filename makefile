@@ -8,7 +8,7 @@ test-server:
 		server/tests
 
 cloc:
-	~/cloc client/apps client/build.js client/core client/public install/ server/ system/ client/public/js/space.js client/public/js/Lasso.js client/public/js/scraps.js client/public/js/events.js
+	~/cloc client/apps client/build.js client/core client/public/*.html install/ server/ system/ client/public/js/space.js client/public/js/Lasso.js client/public/js/scraps.js client/public/js/events.js --by-file-by-lang
 #test-client:
 #	open client/tests/main.dev.html
 
