@@ -11,7 +11,7 @@ if (process.argv.length < 4) {
   process.exit()
 }
 
-var http_server,
+var httpServer,
     io
 
 var fs = require('fs'),
@@ -381,7 +381,7 @@ app.use('/', function (req, res, next) {
 
 // Start Listening
 console.log('Starting %s on port %s', app.domain, app.port)
-http_server = http.createServer(app).listen(app.port)
+httpServer = http.createServer(app).listen(app.port)
 
 
 fs.writeFileSync(runningPath + app.domain, app.port, 'utf8')
@@ -396,7 +396,7 @@ process.on('SIGTERM', function () {
   process.exit(0)
 })
 
-require('./socket.js')(app, http_server)
+require('./socket.js')(app, httpServer)
 
 console.log('Server started...')
 speedcoach('end of app.js')

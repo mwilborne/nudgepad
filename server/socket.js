@@ -4,10 +4,10 @@ var socketio = require('socket.io'),
     parseCookie = require('cookie').parse,
     ParseName = require('./ParseName.js')
 
-module.exports = function (app, http_server) {
+module.exports = function (app, httpServer) {
   
   /********* SOCKET IO STUFF **********/ 
-  app.SocketIO = socketio.listen(http_server)
+  app.SocketIO = socketio.listen(httpServer)
   
   // 3 is max
   app.SocketIO.set('log level', 0)
