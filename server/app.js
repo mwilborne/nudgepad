@@ -372,20 +372,9 @@ try {
 
 
 /*********** ! ***********/
-app.use('/', function (req, res, next) {
-  
-
-  var page = app.Project.get('pages').get('notFound')
-  if (!page)
-    return res.send('Not found', 404)
-  
-  page = new Page(page.values)
-  return res.send(page.toHtml(), 404)
-  
-  
+app.use('/', function (req, res, next) {  
+  res.status(404).sendfile(app.paths.project + 'notFound.html')
 })
-
-
 
 
 /********* START SERVER **********/ 
