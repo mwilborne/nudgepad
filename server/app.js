@@ -228,9 +228,6 @@ app.use('/', app.privateCheck)
 // over a private/pages/home
 app.use('/', express.static(app.paths.project, { maxAge: 31557600000 }))
 
-/********** blog *************/
-require('./blog.js')(app)
-
 /********** surveys *************/
 require('./surveys.js')(app)
 
@@ -302,20 +299,7 @@ if (app.development) {
   app.watchDir(clientPath + 'core')
 }
 
-/*********** sendPage method ************/
-app.pageOptions = {
-  beautify : true
-}
 
-app.sendPage = function(req, res, name) {
-  
-  var scraps = app.Project.get('pages ' + name)
-  var page = new Page(scraps)
-  var context = {}
-  context.project = app.Project
-  context.request = req
-  return res.send(page.toHtml(context, app.pageOptions))
-}
 
 
 require('./project.js')(app)
@@ -366,11 +350,9 @@ require('./updateEmail.js')(app)
 require('./logout.js')(app)
 require('./logs.js')(app)
 require('./clear.js')(app)
-require('./home.js')(app)
 require('./stats.js')(app)
 require('./ExpressFs.js')(app)
 require('./import.js')(app)
-require('./pages.js')(app)
 
 
 /*********** Eval any custom code ***********/

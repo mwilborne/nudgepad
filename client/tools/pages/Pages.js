@@ -50,6 +50,18 @@ Pages.clearTimeline = function () {
   return true
 }
 
+Pages.compile = function (scraps) {
+  /*********** sendPage method ************/
+  var options = {
+    beautify : true
+  }
+
+  var page = new Page(scraps.toString())
+  var context = {}
+  context.project = Project
+  return page.toHtml(context, options)
+}
+
 /**
  * Creates a new page. todo: rename page param to edge
  *

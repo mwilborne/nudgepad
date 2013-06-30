@@ -6,6 +6,29 @@ Blog.activePost = null
 // Default theme
 Blog.blankTheme = new Space('title\n tag title\n content {{post.title Post Title}}\nstylesheet\n tag link\n rel stylesheet\n href project.css\ncontainer\n style\n  width 90%\n  max-width 800px\n  height 100%\n  margin 0 auto\n scraps\n  block1\n   style\n    height auto\n    font-family Open Sans\n    width auto\n    font-size 48px\n    font-weight normal\n    color #333\n    text-decoration none\n    font-style normal\n    padding 10px\n   content {{post.title Post Title}}\n  block14\n   style\n    height auto\n    font-family Open Sans\n    width auto\n    font-size 18px\n    font-weight normal\n    color #333\n    text-decoration none\n    font-style normal\n    padding 10px\n   content {{post.content Lorem ipsum foobar }}\n')
 
+Blog.compilePost = function () {
+  /*
+  var template = post.get('template')
+
+   // We could easily cache this for speed if need be.
+   var view = app.Project.get('pages ' + template)
+   if (!view)
+     return next()
+
+   view = new Page(view)
+
+   // Create a context for the page with pointers to the relevant objects
+   // This should be fast and not resource intensive as we are just creating
+   // pointers by reference. We could speed it up if its a bottleneck.
+   var context = {}
+   context.project = app.Project
+   context.request = req
+   context.post = post.values
+
+   return res.send(view.toHtml(context))
+   */
+}
+
 Blog.createPost = function () {
   $('#BlogContent,#BlogTitle').val('')
   $('#BlogAdvanced').val('timestamp ' + new Date().getTime() + '\ntemplate blog')
