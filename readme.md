@@ -322,17 +322,6 @@ Screens is an instance of Space that is composed of all the Screen instances.
 Screens.length()
 ```
 
-#### fs
-
-fs is an experimental idea to provide a Node.js fs like object in the browser,
-which then executes the equivalent commands on the server via ajax.
-
-To write to a file:
-
-```
-fs.writeFile(filename, data, callback)
-```
-
 #### Launcher
 
 Open an app
