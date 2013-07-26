@@ -14,7 +14,7 @@ Designer.styleEditor.livePreview = function () {
 
 Designer.styleEditor.edit = function (scrap) {
   
-  $('.handle').remove()
+  $('.DesignerHandle').remove()
   
   // Insert Modal
   var modal_screen = $('<div id="DesignerStyleEditorModal"/>')
@@ -218,7 +218,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonRoundness1.on('click', function () {
     Designer.stage.selection.cssPreview('border-radius 0px 0px 0px 0px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonRoundness1)
@@ -228,7 +228,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonRoundness2.on('tap', function () {
     Designer.stage.selection.cssPreview('border-radius 4px 4px 4px 4px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonRoundness2)
@@ -238,7 +238,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonRoundness3.on('tap', function () {
     Designer.stage.selection.cssPreview('border-radius 10px 10px 10px 10px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonRoundness3)
@@ -248,7 +248,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonRoundness4.on('tap', function () {
     Designer.stage.selection.cssPreview('border-radius 50px 50px 50px 50px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonRoundness4)
@@ -273,7 +273,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonBorder2.on('tap', function () {
     Designer.stage.selection.cssPreview('border none')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonBorder2)
@@ -283,7 +283,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonBorder3.on('tap', function () {
     Designer.stage.selection.cssPreview('border 1px solid ' + currentBorderColor)
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonBorder3)
@@ -293,7 +293,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonBorder4.on('tap', function () {
     Designer.stage.selection.cssPreview('border 5px solid ' + currentBorderColor)
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeft.append(buttonBorder4)
@@ -311,7 +311,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonOpacity1.on('tap', function () {
     Designer.stage.selection.cssPreview('opacity 1')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonOpacity1)
@@ -321,7 +321,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonOpacity2.on('tap', function () {
     Designer.stage.selection.cssPreview('opacity .8')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonOpacity2)
@@ -331,7 +331,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonOpacity3.on('tap', function () {
     Designer.stage.selection.cssPreview('opacity .5')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonOpacity3)
@@ -341,7 +341,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonOpacity4.on('tap', function () {
     Designer.stage.selection.cssPreview('opacity .2')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonOpacity4)
@@ -359,7 +359,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonShadow1.on('tap', function () {
     Designer.stage.selection.cssPreview('box-shadow none')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonShadow1)
@@ -369,7 +369,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonShadow2.on('tap', function () {
     Designer.stage.selection.cssPreview('box-shadow 0px 1px 3px rgba(0,0,0,.6)')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonShadow2)
@@ -379,7 +379,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonShadow3.on('tap', function () {
     Designer.stage.selection.cssPreview('box-shadow inset 0px 1px 3px rgba(0,0,0,.6)')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonShadow3)
@@ -389,7 +389,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonShadow4.on('tap', function () {
     Designer.stage.selection.cssPreview('box-shadow 0px 0px 0px 4px rgba(0,0,0,.2)')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRight.append(buttonShadow4)
@@ -419,7 +419,7 @@ Designer.styleEditor.edit = function (scrap) {
     currentFont = $('#fontFamily').val();
     Designer.stage.selection.cssPreview('font-family ' + currentFont)
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
     textEditorContainer.append(buttonFontFamily)
@@ -448,7 +448,7 @@ Designer.styleEditor.edit = function (scrap) {
     currentFontSize = $('#fontSize').val()
     Designer.stage.selection.cssPreview('font-size ' + currentFontSize + 'px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   textEditorContainer.append(buttonFontSize)
@@ -461,7 +461,7 @@ Designer.styleEditor.edit = function (scrap) {
     "height" : "auto"
     })
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   textEditorContainer.append(buttonResize)
@@ -483,7 +483,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonAlignment1.on('click', function () {
     Designer.stage.selection.cssPreview('text-align left')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonAlignment1)
@@ -493,7 +493,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonAlignment2.on('click', function () {
     Designer.stage.selection.cssPreview('text-align center')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonAlignment2)
@@ -503,7 +503,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonAlignment3.on('click', function () {
     Designer.stage.selection.cssPreview('text-align right')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonAlignment3)
@@ -513,7 +513,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonAlignment4.on('click', function () {
     Designer.stage.selection.cssPreview('text-align justify')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonAlignment4)
@@ -531,7 +531,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonPadding1.on('click', function () {
     Designer.stage.selection.cssPreview('padding 0px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonPadding1)
@@ -541,7 +541,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonPadding2.on('click', function () {
     Designer.stage.selection.cssPreview('padding 10px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonPadding2)
@@ -551,7 +551,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonPadding3.on('click', function () {
     Designer.stage.selection.cssPreview('padding 20px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonPadding3)
@@ -561,7 +561,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonPadding4.on('click', function () {
     Designer.stage.selection.cssPreview('padding 40px')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnLeftText.append(buttonPadding4)
@@ -624,7 +624,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonTextStyle1.on('click', function () {
     Designer.stage.selection.cssPreview('font-weight bold')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRightText.append(buttonTextStyle1)
@@ -634,7 +634,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonTextStyle2.on('click', function () {
     Designer.stage.selection.cssPreview('font-style italic')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRightText.append(buttonTextStyle2)
@@ -644,7 +644,7 @@ Designer.styleEditor.edit = function (scrap) {
   buttonTextStyle3.on('click', function () {
     Designer.stage.selection.cssPreview('text-decoration underline')
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     return false
   })
   columnRightText.append(buttonTextStyle3)
@@ -685,7 +685,7 @@ Designer.styleEditor.edit = function (scrap) {
   var save_button = $('<div id="DesignerStyleEditorSaveButton">Save</div>')
   save_button.on('click', function () {
     Designer.stage.commit()
-    $('.handle').trigger('update')
+    $('.DesignerHandle').trigger('update')
     styleEditor.remove()
     modal_screen.remove()
   })
@@ -712,7 +712,7 @@ Designer.styleEditor.edit = function (scrap) {
       },
       hide: function() {
         Designer.stage.commit()
-        $('.handle').trigger('update')
+        $('.DesignerHandle').trigger('update')
       }
   });
   
@@ -731,7 +731,7 @@ Designer.styleEditor.edit = function (scrap) {
       },
       hide: function() {
         Designer.stage.commit()
-        $('.handle').trigger('update')
+        $('.DesignerHandle').trigger('update')
       }
   });
   
@@ -750,7 +750,7 @@ Designer.styleEditor.edit = function (scrap) {
       },
       hide: function() {
         Designer.stage.commit()
-        $('.handle').trigger('update')
+        $('.DesignerHandle').trigger('update')
       }
   });
   

@@ -227,7 +227,7 @@ Designer.stage.insert = function (space, drag, xMove, yMove, center) {
     })
   }
   
-  $('.handle').trigger('update')
+  $('.DesignerHandle').trigger('update')
   
   if (drag) {
     var name = Designer.stage.selection.elements().attr('id')

@@ -30,7 +30,7 @@ Designer.stage.selection.clear = function () {
 Designer.stage.selection.css = function (command) {
   Designer.stage.selection.cssPreview(command)
   Designer.stage.commit()
-  $('.handle').trigger('update')
+  $('.DesignerHandle').trigger('update')
 }
 
 /**
@@ -135,7 +135,7 @@ Designer.stage.selection.move = function (x, y) {
     }).html(position)
   Popup.open('#DesignerDimensions')
   
-  $('.handle').trigger("update")
+  $('.DesignerHandle').trigger("update")
   Designer.stage.commit()
 }
 

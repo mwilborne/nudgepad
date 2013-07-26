@@ -5,7 +5,9 @@ Designer.EditHandle.create = function (scrap) {
   var element = scrap.element()
   var container = $('<div class="DesignerEditHandle"></div>')
   container.attr('value', scrap.getPath())
-  container.addClass('handle editHandle ' + scrap.id + 'Handle')
+  container.addClass('DesignerHandle')
+  container.addClass('editHandle')
+  container.addClass(scrap.id + 'Handle')
   
   var edit = $('<div class="DesignerEditStyleHandle"></div>')
   edit.on('tap', function () {

@@ -23,7 +23,10 @@ Designer.StretchHandle.create = function (scrap, row, column, fixed) {
                (column == "left" ? "w" : (column == "right" ? 'e' : ''))
   var div = $('<div></div>')
   div.attr('value', scrap.getPath())
-  div.addClass('handle stretchHandle stretchHandle' + scrap.id + ' ' + scrap.id + 'Handle')
+  div.addClass('DesignerHandle')
+  div.addClass('stretchHandle')
+  div.addClass('stretchHandle' + scrap.id)
+  div.addClass(scrap.id + 'Handle')
   div.attr('id', 'stretchHandle' + toProperCase(row) + toProperCase(column) + scrap.id)
   div.css({
     "cursor" : cursor + "-resize",

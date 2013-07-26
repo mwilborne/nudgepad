@@ -11,7 +11,9 @@ Designer.MoveHandle.create = function (scrap) {
   
   var div = $('<div></div>')
   div.attr('value', scrap.getPath())
-  div.addClass('handle ' + scrap.id + 'Handle moveHandle')
+  div.addClass('DesignerHandle')
+  div.addClass(scrap.id + 'Handle')
+  div.addClass('moveHandle')
   div.attr('id', 'moveHandle' + scrap.id)
   div.attr('title', scrap.id)
   
@@ -47,39 +49,12 @@ Designer.MoveHandle.dimensions = {}
 
 //If small block is on top of (higher z-index) a bigger block, selects small block
 Designer.MoveHandle.mousedown = function () {
-//  Designer.MoveHandle.selectTopScrap()
   Designer.MoveHandle.dimensions = $(this).owner().dimensions()
   Designer.grid.create()
   Designer.MoveHandle.last_x_change = 0
   Designer.MoveHandle.last_y_change = 0
   
   Designer.MoveHandle.scrollTop = Designer.stage.scrollTop()
-  return true
-}
-
-/**
- * if the click is on another smaller div select that one instead of move.
- *
- * @param true. Allow propogation
- */
-Designer.MoveHandle.selectTopScrap = function () {
-
-  // get element at point
-  var offsetLeft = $('#DesignerStageBody').offset().left
-  var offsetTop = $('#DesignerStageBody').offset().top
-  var element = $.topDiv('.DesignerScrap:visible', Designer.Mouse.down.pageX - offsetLeft, Designer.Mouse.down.pageY - offsetTop + Designer.stage.scrollTop())
-  // if a narrow div and no element underneath, return
-  if (!element)
-    return true
-  // Its the selection block
-  if (element.hasClass(Designer.stage.selection.className))
-    return true
-  var scrap = element.scrap()
-  // Dont select block if locked
-  if (scrap.get('locked'))
-    return true
-  Designer.stage.selection.clear()
-  element.selectMe()
   return true
 }
 
@@ -126,7 +101,7 @@ Designer.MoveHandle.slide = function (event, mouseEvent) {
 
 Designer.MoveHandle.slideend = function () {
   
-  $('.handle').trigger('update').show()
+  $('.DesignerHandle').trigger('update').show()
   Designer.grid.removeSnaplines()
   $('#DesignerDimensions').hide()
   Designer.stage.commit()
@@ -134,7 +109,7 @@ Designer.MoveHandle.slideend = function () {
 
 Designer.MoveHandle.slidestart = function () {
   
-  $('.handle').not(this).hide()
+  $('.DesignerHandle').not(this).hide()
   var owner = $(this).owner()
   var position = 'X ' + parseFloat(owner.css('left')) + '<br>Y ' + parseFloat(owner.css('top'))
   $('#DesignerDimensions').css({
