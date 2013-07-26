@@ -13,8 +13,8 @@ Designer.MoveHandle.create = function (scrap) {
   div.attr('value', scrap.getPath())
   div.addClass('DesignerHandle')
   div.addClass(scrap.id + 'Handle')
-  div.addClass('moveHandle')
-  div.attr('id', 'moveHandle' + scrap.id)
+  div.addClass('DesignerMoveHandle')
+  div.attr('id', 'DesignerMoveHandle' + scrap.id)
   div.attr('title', scrap.id)
   
   var position = element.css('position')

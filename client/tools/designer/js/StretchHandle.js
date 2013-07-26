@@ -24,10 +24,10 @@ Designer.StretchHandle.create = function (scrap, row, column, fixed) {
   var div = $('<div></div>')
   div.attr('value', scrap.getPath())
   div.addClass('DesignerHandle')
-  div.addClass('stretchHandle')
-  div.addClass('stretchHandle' + scrap.id)
+  div.addClass('DesignerStretchHandle')
+  div.addClass('DesignerStretchHandle' + scrap.id)
   div.addClass(scrap.id + 'Handle')
-  div.attr('id', 'stretchHandle' + toProperCase(row) + toProperCase(column) + scrap.id)
+  div.attr('id', 'DesignerStretchHandle' + toProperCase(row) + toProperCase(column) + scrap.id)
   div.css({
     "cursor" : cursor + "-resize",
     "position" : position,
@@ -169,7 +169,7 @@ Designer.StretchHandle.slide = function () {
     }).html(position)
   
   // Reposition stretch handles
-  $('.stretchHandle' + scrap.id).trigger('update')
+  $('.DesignerStretchHandle' + scrap.id).trigger('update')
   return false
   
 }
@@ -180,7 +180,7 @@ Designer.StretchHandle.slide = function () {
 Designer.StretchHandle.slidestart = function (event) {
   var owner = $(this).owner()
   var scrap = owner.scrap()
-  $('.' + scrap.id + 'Handle').not('.stretchHandle' + scrap.id).hide()
+  $('.' + scrap.id + 'Handle').not('.DesignerStretchHandle' + scrap.id).hide()
   
 
   var position = 'W ' + parseFloat(owner.css('width')) + '<br> H ' + parseFloat(owner.css('height'))

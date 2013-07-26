@@ -232,9 +232,9 @@ Designer.stage.insert = function (space, drag, xMove, yMove, center) {
   if (drag) {
     var name = Designer.stage.selection.elements().attr('id')
     // Pretend the mousedown was on the move handle
-    Events.slide.target = $("#moveHandle" + name)
-    $("#moveHandle" + name).triggerHandler("mousedown")
-    $("#moveHandle" + name).triggerHandler("slidestart")
+    Events.slide.target = $("#DesignerMoveHandle" + name)
+    $("#DesignerMoveHandle" + name).triggerHandler("mousedown")
+    $("#DesignerMoveHandle" + name).triggerHandler("slidestart")
     
     
     Designer.stage.selection.elements().each(function () {
@@ -255,13 +255,13 @@ Designer.stage.insert = function (space, drag, xMove, yMove, center) {
         'top' : subject.offset().top,
         'left' : subject.offset().left
       })
-      $("#moveHandle" + name).on("slide", function (event) {
+      $("#DesignerMoveHandle" + name).on("slide", function (event) {
         ghost.css({
           'top' : subject.offset().top,
           'left' : subject.offset().left
         })
       })
-      $("#moveHandle" + name).on("slideend", function (event) {
+      $("#DesignerMoveHandle" + name).on("slideend", function (event) {
         subject.css('opacity', opacity)
         ghost.remove()
       })
