@@ -73,10 +73,6 @@ Explorer.mkdir = function (path, callback) {
   })
 }
 
-Explorer.quickEdit = function () {
-  Explorer.edit(prompt('Enter path to file you want to edit', 'project.css'))
-}
-
 Explorer.remove = function (path, callback) {
   var req = {}
   req.path = path

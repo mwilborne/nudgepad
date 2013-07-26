@@ -4,65 +4,9 @@
 
 Designer.stage.selection.saved = []
 
-Designer.stage.selection.alignLeft = function () {
-  var edge
-  $('.selection').each(function () {
-    if (!edge || $(this).position().left < edge)
-      edge = $(this).position().left
-  })
-  Designer.stage.selection.css('left ' + edge + 'px')
-}
-
-Designer.stage.selection.alignRight = function () {
-  var edge
-  $('.selection').each(function () {
-    if (!edge || $(this).position().left > edge)
-      edge = $(this).position().left
-  })
-  Designer.stage.selection.css('left ' + edge + 'px')
-}
-
-Designer.stage.selection.alignTop = function () {
-  var edge
-  $('.selection').each(function () {
-    if (!edge || $(this).position().top < edge)
-      edge = $(this).position().top
-  })
-  Designer.stage.selection.css('top ' + edge + 'px')
-}
-
-Designer.stage.selection.alignBottom = function () {
-  var edge
-  $('.selection').each(function () {
-    if (!edge || $(this).position().top > edge)
-      edge = $(this).position().top
-  })
-  Designer.stage.selection.css('top ' + edge + 'px')
-}
-
-/**
- * Change the box shadow of selected blocks.
- *
- * @param {number}
- */
-Designer.stage.selection.boxShadow = function (blur) {
-  $('.selection').each(function () {
-    var scrap = $(this).scrap()
-    if(blur < 1){
-      scrap.set('style box-shadow', 'none')
-      $(this).css( 'box-shadow', 'none')
-    }
-    else{
-      scrap.set('style box-shadow', '0px 1px ' + blur + 'px' + ' #888')
-      $(this).css( 'box-shadow', '0px 1px ' + blur + 'px' + ' #888')
-    }
-  })
-}
-
 Designer.stage.selection.capture = function () {
   Designer.stage.selection.captured = Designer.stage.selection.toSpace()
 }
-
 
 /**
  * Deselect all blocks
@@ -113,12 +57,6 @@ Designer.stage.selection.cssPreview = function (command) {
   })
 }
 
-Designer.stage.selection.cssPrompt = function () {
-  var val = prompt('Enter a CSS command like font-family Arial', '')
-  if (val)
-    Designer.stage.selection.css(val)
-}
-
 /**
  * Delete the selected blocks
  */
@@ -133,71 +71,6 @@ Designer.stage.selection.delete = function () {
   })
 }
 
-Designer.stage.selection.distributeVertical = function () {
-  
-  var elements = _.sortBy($('.selection'), function(element){ return $(element).position().top })
-  
-  // calculate total whitespace.
-  var whitespace = 0
-  var count = 0
-  _.each(elements, function (element, index, list) {
-    if (index === 0)
-      return true
-    var last = list[index - 1]
-    var id = $(element).attr('id')
-    // The space betweein
-    whitespace += $(element).position().top - ($(last).position().top + $(last).outerHeight())
-    count++
-  })
-  var theSpaceBetween = Math.floor(whitespace/count)
-  if (theSpaceBetween < 0) theSpaceBetween = 0
-  
-  _.each(elements, function (element, index, list) {
-    if (index === 0)
-      return true
-    var last = list[index - 1]
-    var scrap = $(element).scrap()
-    scrap.set('style top', (($(last).position().top + $(last).outerHeight()) + theSpaceBetween) + 'px')
-    $(element).css('top', scrap.get('style top'))
-  })
-  $('.handle').trigger('update')
-  Designer.stage.commit()
-}
-
-Designer.stage.selection.distributeHorizontal = function () {
-  // this function is currently 3N ish. But that should be fine. But we
-  // could clearly make it faster if it feels slow.
-  
-  var elements = _.sortBy($('.selection'), function(element){ return $(element).position().left })
-  
-  // calculate total whitespace.
-  var whitespace = 0
-  var count = 0
-  _.each(elements, function (element, index, list) {
-    if (index === 0)
-      return true
-    var last = list[index - 1]
-    var id = $(element).attr('id')
-    // The space betweein
-    whitespace += $(element).position().left - ($(last).position().left + $(last).outerWidth())
-    count++
-  })
-  var theSpaceBetween = Math.floor(whitespace/count)
-  if (theSpaceBetween < 0) theSpaceBetween = 0
-  
-  _.each(elements, function (element, index, list) {
-    if (index === 0)
-      return true
-    var last = list[index - 1]
-    var scrap = $(element).scrap()
-    scrap.set('style left', ($(last).position().left + $(last).outerWidth() + theSpaceBetween) + 'px')
-    $(element).css('left', scrap.get('style left'))
-  })
-  $('.handle').trigger('update')
-  Designer.stage.commit()
-  Flasher.success('Distributed', 1000)
-}
-
 /**
  * Duplicate the selected blocks. Offset them to the right.
  */
@@ -207,58 +80,6 @@ Designer.stage.selection.duplicate = function () {
   })
   Designer.stage.commit()
 //  return Designer.stage.insert(Designer.stage.selection.toSpace(), false, 10, 10, false)
-}
-
-Designer.stage.selection.editLoop = function () {
-  
-  var property = prompt('What property do you want to edit?')
-  if (!property)
-    return false
-  
-  var todo = $('.selection').length
-  $('.selection').each(function (index) {
-    
-    var scrap = $(this).scrap()
-    $(this).addClass('DesignerHighlightedScrap')
-    // If its offscreen, scroll to bring it fully on screen.
-    $(this).scrollMinimal()
-    var value = scrap.get(property)
-  
-    var newValue = prompt('Set ' + property + ' of ' + id + ' to', value)
-    
-    
-    if (!newValue) {
-      return true
-    }
-    
-    // If they didnt change name continue
-    if (newValue == value) {
-      $(this).removeClass('DesignerHighlightedScrap')
-      return true
-    } 
-    $(this).removeClass('DesignerHighlightedScrap')
-    
-    scrap.set(property, newValue)
-    scrap.render()
-    
-  })
-  Designer.stage.commit()
-}
-
-Designer.stage.selection.editProperty = function () {
-  
-  var scrap = $('.selection').scrap()
-  
-  var prop = prompt('What property do you want to edit?', '')
-  if (!prop)
-    return false
-  
-  var value = scrap.get(prop)
-  TextPrompt.open('Enter new value...', value.toString(), function (val) {
-      scrap.set(prop, val)
-      Designer.stage.commit()
-      Designer.stage.open(Designer.stage.activePage)
-  })
 }
 
 /**
@@ -351,48 +172,6 @@ Designer.stage.selection.patch = function (space) {
     scrap.patch(space)
     $(this).replaceWith(scrap.toHtml(Scrap.devFilter))
     scrap.element().selectMe()
-  })
-  Designer.stage.commit()
-}
-
-Designer.stage.selection.patchPrompt = function () {
-  var val = prompt('Enter a patch like content hi', '')
-  if (val)
-    Designer.stage.selection.patch(val)
-}
-
-Designer.stage.selection.renameScraps = function () {
-  var todo = $('.selection').length
-  $('.selection').each(function (index) {
-    var scrap = $(this).scrap()
-    $(this).addClass('DesignerHighlightedScrap')
-    
-    // If its offscreen, scroll to bring it fully on screen.
-    $(this).scrollMinimal()
-    
-    var newId = prompt('Renaming block ' + (index + 1) + '/' + todo + '. Enter a new ID', scrap.id)
-    
-    // If they didnt change name continue
-    if (newId == scrap.id) {
-      $(this).removeClass('DesignerHighlightedScrap')
-      return true
-    }
-      
-    
-    if (!newId) {
-      return true
-    }
-    
-    var newScrap = new Scrap(newId, scrap.toString())
-    Designer.page.set(newId, newScrap)
-    
-    $(this).deselect().remove()
-    Designer.page.delete(scrap.getPath())
-    
-    
-    newScrap.render()
-    newScrap.element().selectMe()
-    
   })
   Designer.stage.commit()
 }
