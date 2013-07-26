@@ -45,9 +45,9 @@ Grid.prototype.addDynamicPoints = function () {
 
   var grid = this
   // Cap grid at 200 elements for now
-  if ($('#DesignerStageBody #body').children('.scrap:not(.selection)').length > 200)
+  if ($('#DesignerStageBody #body').children('.DesignerScrap:not(.DesignerSelection)').length > 200)
     return true
-  $('#DesignerStageBody #body').children('.scrap:not(.selection)').each(function(){
+  $('#DesignerStageBody #body').children('.DesignerScrap:not(.DesignerSelection)').each(function(){
     // Make sure no problem fetching scrap
     var scrap = $(this).scrap()
     if (scrap)

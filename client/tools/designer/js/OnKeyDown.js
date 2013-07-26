@@ -15,11 +15,11 @@ Designer.onkeydown = function (event) {
   if ((event.keyCode < 48 && event.keyCode != 32) || event.keyCode > 90)
     return true
   // if no subject return
-  if (!$('.selection').length)
+  if (!$('.DesignerSelection').length)
     return true
   // if an input or something return true
-  if ($('.selection').is("input") || $('.selection').is("textarea"))
+  if ($('.DesignerSelection').is("input") || $('.DesignerSelection').is("textarea"))
     return true
   // trigger edit event on the scrap
-  $('.selection').scrap().edit()
+  $('.DesignerSelection').scrap().edit()
 }

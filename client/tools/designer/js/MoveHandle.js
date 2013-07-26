@@ -67,12 +67,12 @@ Designer.MoveHandle.selectTopScrap = function () {
   // get element at point
   var offsetLeft = $('#DesignerStageBody').offset().left
   var offsetTop = $('#DesignerStageBody').offset().top
-  var element = $.topDiv('.scrap:visible', Designer.Mouse.down.pageX - offsetLeft, Designer.Mouse.down.pageY - offsetTop + Designer.stage.scrollTop())
+  var element = $.topDiv('.DesignerScrap:visible', Designer.Mouse.down.pageX - offsetLeft, Designer.Mouse.down.pageY - offsetTop + Designer.stage.scrollTop())
   // if a narrow div and no element underneath, return
   if (!element)
     return true
   // Its the selection block
-  if (element.hasClass("selection"))
+  if (element.hasClass("DesignerSelection"))
     return true
   var scrap = element.scrap()
   // Dont select block if locked
@@ -107,7 +107,7 @@ Designer.MoveHandle.slide = function (event, mouseEvent) {
   var x_change = Designer.Mouse.xChange + grid_change.x
   
 
-  $('.selection').each(function (){
+  $('.DesignerSelection').each(function (){
     $(this).scrap().move(x_change - Designer.MoveHandle.last_x_change, y_change - Designer.MoveHandle.last_y_change)
   })
   

@@ -90,7 +90,7 @@ Designer.styleEditor.edit = function (scrap) {
    * Color Options
    */
    
-   var currentColor = $('.selection').css('background-color');
+   var currentColor = $('.DesignerSelection').css('background-color');
    
    // Picker - Background Color
    var colorPicker = $('<div class="colorBackground"><input type="text" class="colorPicker"></div>')
@@ -182,7 +182,7 @@ Designer.styleEditor.edit = function (scrap) {
    // Moveup tool
    var moveUp = $('<div class="editorButton"><img src="/nudgepad/public/images/up_lt.png" title="Increase z-index"></div>')
    moveUp.on('tap', function () {
-     $('.selection').each(function () {
+     $('.DesignerSelection').each(function () {
         $(this).scrap().moveUp()  
       })
      text_area.val(scrap.get('style'))
@@ -193,7 +193,7 @@ Designer.styleEditor.edit = function (scrap) {
    // Movedown tool
    var moveDown = $('<div class="editorButton"><img src="/nudgepad/public/images/down_lt.png" title="Decrease z-index"></div>')
    moveDown.on('tap', function () {
-     $('.selection').each(function () {
+     $('.DesignerSelection').each(function () {
        $(this).scrap().moveDown()  
      })
      text_area.val(scrap.get('style'))
@@ -262,7 +262,7 @@ Designer.styleEditor.edit = function (scrap) {
   columnLeft.append(headerBorder)
   
   // Button - BorderColor
-  var currentBorderColor = $('.selection').css('border-color');
+  var currentBorderColor = $('.DesignerSelection').css('border-color');
   
   // Picker - Border Color
   var colorBorderPicker = $('<div class="colorBorder"><input type="text" class="colorBorderPicker toolButton toolButtonOne"></div>')
@@ -402,7 +402,7 @@ Designer.styleEditor.edit = function (scrap) {
   var textEditorContainer = $('<div id="DesignerStyleEditorTextEditor"></div>')
   styleEditor.append(textEditorContainer)
   
-  var currentFont = $('.selection').css('font-family');
+  var currentFont = $('.DesignerSelection').css('font-family');
   
   var setCurrentFont = function() {
     $(':input[name=fontFamilyDropdown] option').each(function(i, selected) {
@@ -425,13 +425,13 @@ Designer.styleEditor.edit = function (scrap) {
     textEditorContainer.append(buttonFontFamily)
   
   // Button - Font Color
-  var currentFontColor = $('.selection').css('color');
+  var currentFontColor = $('.DesignerSelection').css('color');
   
   // Picker - Font Color
   var colorFontPicker = $('<div class="colorFont"><input type="text" class="colorFontPicker toolButton toolButtonOne"></div>')
   textEditorContainer.append(colorFontPicker)
   
-  var currentFontSize = $('.selection').css('font-size');
+  var currentFontSize = $('.DesignerSelection').css('font-size');
   
   var setCurrentFontSize = function() {
     $(':input[name=fontDropdown] option').each(function(i, selected) {
@@ -605,7 +605,7 @@ Designer.styleEditor.edit = function (scrap) {
   // Button - LineHeight
   var buttonLineHeight4 = $('<div id="lineHeightThree" class="toolButton toolButtonThree">Mid</div>')
   buttonLineHeight4.on('click', function () {
-    var currentHeight = $('.selection').css('height')
+    var currentHeight = $('.DesignerSelection').css('height')
     Designer.stage.selection.cssPreview('line-height ' + currentHeight)
     return false
   })

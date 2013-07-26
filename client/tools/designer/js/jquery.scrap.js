@@ -1,6 +1,6 @@
 $.fn.deselect = function (quiet) {
   var id = $(this).attr('id')
-  $(this).removeClass('selection')
+  $(this).removeClass('DesignerSelection')
   $('.' + id + 'Handle').remove()
   if (!quiet)
     Designer.trigger('selection')
@@ -55,9 +55,9 @@ $.fn.selectMe = function (quiet) {
     return false
   
   // Dont double select things
-  if ($(this).hasClass('selection'))
+  if ($(this).hasClass('DesignerSelection'))
     return this
-  $(this).addClass('selection')
+  $(this).addClass('DesignerSelection')
   
 
   Designer.MoveHandle.create(scrap)

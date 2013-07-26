@@ -26,7 +26,7 @@ Designer.images.insertImageScrap = function (filename, drag) {
     filename = Designer.images.parseBackgroundUrl(filename)
   
   // Easter Egg: allow swapping of images
-  if (!drag && $('.selection').length > 0) {
+  if (!drag && $('.DesignerSelection').length > 0) {
     Designer.stage.selection.css('background-image url(' + filename + ')')
     Designer.stage.selection.css('background-repeat no-repeat')
     Designer.stage.selection.css('background-position center')
@@ -76,7 +76,7 @@ Designer.images.updateList = function () {
       // we add the &nbsp; to give it a line height
       // todo: use flex box to get vertical align
       if (Designer.images.isImage(key))
-        $('#DesignerImagesList').append('<div class="Image">&nbsp;<img src="/'+ key +'">&nbsp;</div>')
+        $('#DesignerImagesList').append('<div class="DesignerImageComponent">&nbsp;<img src="/'+ key +'">&nbsp;</div>')
     })
   })
 }
@@ -97,13 +97,13 @@ Designer.on('close', function () {
 
 Designer.on('firstOpen', function () {
   
-  $('#DesignerImagesList').on('tap', '.Image img', function() {
+  $('#DesignerImagesList').on('tap', '.DesignerImageComponent img', function() {
     var imageY = ($('#DesignerStage').height() / 2) - 130
     var imageX = 100
     Designer.stage.insert('images\n style\n  position absolute\n  top ' + imageY +'\n  left ' + imageX + '\n tag img\n src ' + $(this).attr('src'))
   })
   
-  $('#DesignerImagesList').on('slidestart', '.Image img', function() {
+  $('#DesignerImagesList').on('slidestart', '.DesignerImageComponent img', function() {
     Designer.stage.dragAndDrop('images\n style\n  position absolute\n  top 0px\n  left 0px\n tag img\n src ' + $(this).attr('src'))
     mixpanel.track('I dropped an image component')
   })

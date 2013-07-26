@@ -12,9 +12,9 @@ Designer.stage.selection.capture = function () {
  * Deselect all blocks
  */
 Designer.stage.selection.clear = function () {
-  if (!$('.selection').length)
+  if (!$('.DesignerSelection').length)
     return true
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     $(this).deselect(true)
   })
   Designer.trigger('selection')
@@ -46,7 +46,7 @@ Designer.stage.selection.cssPreview = function (command) {
 //  command = command.split(/ /)
 //  var property = command.shift()
 //  var value = command.join(' ')
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     var style = $(this).scrap().get('style')
     if (!style) {
       $(this).scrap().set('style', new Space())
@@ -61,7 +61,7 @@ Designer.stage.selection.cssPreview = function (command) {
  * Delete the selected blocks
  */
 Designer.stage.selection.delete = function () {
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     // order probably matters here
     // should we move deselect and select to jquery level? i think we probably should
     var scrap = $(this).scrap()
@@ -75,7 +75,7 @@ Designer.stage.selection.delete = function () {
  * Duplicate the selected blocks. Offset them to the right.
  */
 Designer.stage.selection.duplicate = function () {
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     $(this).duplicate()
   })
   Designer.stage.commit()
@@ -95,7 +95,7 @@ Designer.stage.selection.editSource = function () {
  * Return boolean
  */
 Designer.stage.selection.exists = function () {
-  return $('.selection').length
+  return $('.DesignerSelection').length
 }
 
 Designer.stage.selection.modify = function (val) {
@@ -114,15 +114,15 @@ Designer.stage.selection.modify = function (val) {
  */
 Designer.stage.selection.move = function (x, y) {
   
-  if (!$('.selection').length)
+  if (!$('.DesignerSelection').length)
     return false
   
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     $(this).scrap().move(x, y)
   })
   
   // Show dimensions
-  var el = $($('.selection')[0])
+  var el = $($('.DesignerSelection')[0])
   var position = 'X ' + parseFloat(el.css('left')) + '<br>Y ' + parseFloat(el.css('top'))
   $('#DesignerDimensions').css({
     left : 10 + el.offset().left + el.outerWidth(),
@@ -166,7 +166,7 @@ Designer.stage.selection.patch = function (space) {
   if (typeof space === 'string')
     space = new Space(space)
 
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     var scrap = $(this).scrap()
     $(this).deselect()
     scrap.patch(space)
@@ -193,7 +193,7 @@ Designer.stage.selection.restore = function () {
  */
 Designer.stage.selection.save = function () {
   Designer.stage.selection.saved = []
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     Designer.stage.selection.saved.push($(this).scrap().selector())
   })
 }
@@ -205,7 +205,7 @@ Designer.stage.selection.save = function () {
  */
 Designer.stage.selection.toSpace = function () {
   var space = new Space()
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     var scrap = $(this).scrap()
     space.set(scrap.getPath(), new Space(scrap.toString()))
   })
@@ -215,7 +215,7 @@ Designer.stage.selection.toSpace = function () {
 Designer.broadcastSelection = function (extra) {
   var selection = extra || ''
   var first = ''
-  $('.selection').each(function () {
+  $('.DesignerSelection').each(function () {
     if ($(this).scrap()) {
       selection += first + $(this).scrap().selector()
       first = ','

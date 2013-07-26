@@ -30,7 +30,7 @@ Scrap.devFilter = function () {
   if (this.div.tag === 'script')
     return ''
   
-  this.div.addClass('scrap')
+  this.div.addClass('DesignerScrap')
   this.div.attr('path', this.getPath())
   // Remove JS
   _.each(this.div.attrs, function (value, key, obj) {
@@ -254,7 +254,7 @@ Scrap.prototype.unlock = function () {
     return true
   
   this.delete('locked')
-  $(this.selector()).removeClass('lockedScrap')
+  $(this.selector()).removeClass('DesignerLockedScrap')
   return true
   
 }
@@ -289,7 +289,7 @@ Scrap.selectOnTap =  function (event) {
 
   // Hold meta key to nest something
   if (Designer.Mouse.down && Designer.Mouse.down.altKey) {
-    if (!$(this).hasClass('selection') && $('.selection').length) {
+    if (!$(this).hasClass('DesignerSelection') && $('.DesignerSelection').length) {
       Designer.stage.selection.nest($(this).attr('path'))
       return false
     }

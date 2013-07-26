@@ -74,7 +74,7 @@ function Scrap (path, space) {
 }
 
 /**
- * Turns a style object like color red into css like .scrap { color : red; }
+ * Turns a style object like color red into css like div { color : red; }
  * Also evals any variables.
  *
  * @param {string} DOM selector. .class #id etc.

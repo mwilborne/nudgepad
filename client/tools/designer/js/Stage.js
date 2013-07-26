@@ -19,7 +19,7 @@ Designer.stage.close = function () {
   $('#DesignerStageBody').attr('style', '')
   $('#DesignerStageHead').html('')
   $('#DesignerRemoteSelections').html('')
-  $(".scrap,#body").remove()
+  $(".DesignerScrap,#body").remove()
 }
 
 /**
@@ -114,7 +114,7 @@ Designer.stage.expand = function () {
   // that way anyway, maybe theres a better way to do it via css), so we need
   // to do it manually.
   var max = 700
-  $('.scrap').each(function () {
+  $('.DesignerScrap').each(function () {
     var bottom = $(this).position().top + $(this).outerHeight()
     if (bottom > max)
       max = bottom
@@ -216,13 +216,13 @@ Designer.stage.insert = function (space, drag, xMove, yMove, center) {
   })
   
   if (center) {
-    var selection_dimensions = $('.selection').dimensions()
+    var selection_dimensions = $('.DesignerSelection').dimensions()
     xMove = Math.round(($('#DesignerStageBody').width() / 2) - selection_dimensions.width/2)
     yMove = Math.round(Designer.stage.scrollTop() + ($(window).height() / 2) - selection_dimensions.height/2)
   }
   
   if (xMove || yMove) {
-    $('.selection').each(function () {
+    $('.DesignerSelection').each(function () {
       $(this).scrap().move(xMove, yMove)
     })
   }
@@ -230,20 +230,20 @@ Designer.stage.insert = function (space, drag, xMove, yMove, center) {
   $('.handle').trigger('update')
   
   if (drag) {
-    var name = $('.selection').attr('id')
+    var name = $('.DesignerSelection').attr('id')
     // Pretend the mousedown was on the move handle
     Events.slide.target = $("#moveHandle" + name)
     $("#moveHandle" + name).triggerHandler("mousedown")
     $("#moveHandle" + name).triggerHandler("slidestart")
     
     
-    $('.selection').each(function () {
+    $('.DesignerSelection').each(function () {
       var subject = $(this)
       var ghost = subject.clone()
       var opacity = subject.css('opacity')
       var scrap = $(this).scrap()
       subject.css('opacity', '0.01')
-      ghost.attr('id', 'nudgepad_move_ghost').removeClass('scrap selection')
+      ghost.attr('id', 'nudgepad_move_ghost').removeClass('DesignerScrap DesignerSelection')
       ghost.on('mousedown', function () {subject.remove()})
       // space.style
       ghost.css('font-family', $('#DesignerStageBody').css('font-family'))
@@ -354,7 +354,7 @@ Designer.stage.scrollTop = function () {
  * Selects all blocks
  */
 Designer.stage.selectAll = function () {
-  $('.scrap').each(function () {
+  $('.DesignerScrap').each(function () {
     $(this).selectMe(true)
   })
   Designer.trigger('selection')

@@ -333,7 +333,7 @@
   background-color: #3a3a3a;
 }
 
-#DesignerImagesList .Image {
+#DesignerImagesList .DesignerImageComponent {
   float: left;
   height: 60px;
   width: 60px;
@@ -346,7 +346,7 @@
   padding: 0;
 }
 
-#DesignerImagesList .Image img {
+#DesignerImagesList .DesignerImageComponent img {
   padding: 0;
   max-height: 50px;
   max-width: 50px;
@@ -354,7 +354,7 @@
   line-height: 60px;
 }
 
-.Component {
+.DesignerComponent {
   float: left;
   height: 60px;
   width: 60px;
@@ -371,23 +371,21 @@
   user-select: none;
 }
 
-
 /** Todo: put these under #DesignerStage namespace? **/
-.scrap {
+.DesignerScrap {
   z-index: 1;
   word-wrap: break-word;
 }
 
-
-.scrap:hover:not(.lockedScrap), .selection {
+.DesignerScrap:hover:not(.DesignerLockedScrap), .DesignerSelection {
   box-shadow: 0 0 1px #777;
 }
 
-.lockedScrap {
+.DesignerLockedScrap {
   cursor: not-allowed;
 }
 
-.scrap:focus {
+.DesignerScrap:focus {
   -webkit-user-select: auto;
   -moz-user-select: text;
   user-select: auto;
@@ -395,14 +393,14 @@
   outline: 1px solid #5555ff;
 }
 
-.selection.DesignerHighlightedScrap {
+.DesignerSelection.DesignerHighlightedScrap {
   outline: 2px solid blue;
   box-shadow: 1px 1px 8px 8px blue;
   z-index: 100;
 }
 
 
-.ComponentSet {
+.DesignerComponentSet {
   display: none;
 }
 

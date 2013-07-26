@@ -20,8 +20,8 @@ Designer.on('open', function () {
   
   Project.on('delete', Designer.updateTabs)
   
-  Lasso.selector = '#DesignerStageBody .scrap:visible'
-  $(document).on('lasso', '.scrap', function () {
+  Lasso.selector = '#DesignerStageBody .DesignerScrap:visible'
+  $(document).on('lasso', '.DesignerScrap', function () {
     $(this).selectMe(true)
     return false
   })
@@ -130,14 +130,14 @@ Designer.on('open', function () {
   // Todo: refactor
   Events.shortcut.onfire = Designer.trackShortcuts
   
-  $(document).on('click', 'a.scrap, .scrap a, .scrap div', Scrap.disableLinks)
-  $('#DesignerStage').on("tap", ".scrap", Scrap.selectOnTap)
+  $(document).on('click', 'a.DesignerScrap, .DesignerScrap a, .DesignerScrap div', Scrap.disableLinks)
+  $('#DesignerStage').on("tap", ".DesignerScrap", Scrap.selectOnTap)
   
-  $('body').on("hold", ".scrap", Scrap.unlock)
+  $('body').on("hold", ".DesignerScrap", Scrap.unlock)
   
   // When editing input blocks, prevent them from taking focus
-  $(document).on('mousedown click','input.scrap,textarea.scrap', Designer.returnFalse)
-  $(document).on('focus', 'input.scrap,textarea.scrap', Designer.blurThis)
+  $(document).on('mousedown click','input.DesignerScrap,textarea.DesignerScrap', Designer.returnFalse)
+  $(document).on('focus', 'input.DesignerScrap,textarea.DesignerScrap', Designer.blurThis)
   
   $("#DesignerStage").on("tap", Designer.stage.clearOnTap)
   $(window).on('resize', Designer.stage.onresize)
@@ -147,14 +147,14 @@ Designer.on('open', function () {
 Designer.on('selection', Designer.broadcastSelection)
 
 Designer.on('close', function () {
-  $(document).off('click', 'a.scrap, .scrap a, .scrap div', Scrap.disableLinks)
-  $('#DesignerStage').off("tap", ".scrap", Scrap.selectOnTap)
+  $(document).off('click', 'a.DesignerScrap, .DesignerScrap a, .DesignerScrap div', Scrap.disableLinks)
+  $('#DesignerStage').off("tap", ".DesignerScrap", Scrap.selectOnTap)
   
-  $('body').off("hold", ".scrap", Scrap.unlock)
+  $('body').off("hold", ".DesignerScrap", Scrap.unlock)
   
   // When editing input blocks, prevent them from taking focus
-  $(document).off('mousedown click','input.scrap,textarea.scrap', Designer.returnFalse)
-  $(document).off('focus', 'input.scrap,textarea.scrap', Designer.blurThis)
+  $(document).off('mousedown click','input.DesignerScrap,textarea.DesignerScrap', Designer.returnFalse)
+  $(document).off('focus', 'input.DesignerScrap,textarea.DesignerScrap', Designer.blurThis)
   
   $("#DesignerStage").off("tap", Designer.stage.clearOnTap)
   $(window).off('resize', Designer.stage.onresize)
