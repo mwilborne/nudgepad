@@ -17,7 +17,7 @@ Designer.shortcuts['backspace'] = Designer.deleteShortcut
 Designer.shortcuts['ctrl+d'] = Designer.stage.selection.duplicate
 Designer.shortcuts['meta+d'] = Designer.stage.selection.duplicate
 
-Designer.editSourceToggle = function () { ($('.DesignerSelection').length ? Designer.stage.selection.editSource() : Designer.stage.editSource())}
+Designer.editSourceToggle = function () { (Designer.stage.selection.elements().length ? Designer.stage.selection.editSource() : Designer.stage.editSource())}
 Designer.shortcuts['ctrl+u'] = Designer.editSourceToggle
 Designer.shortcuts['meta+u'] = Designer.editSourceToggle
 

@@ -72,7 +72,7 @@ Designer.MoveHandle.selectTopScrap = function () {
   if (!element)
     return true
   // Its the selection block
-  if (element.hasClass("DesignerSelection"))
+  if (element.hasClass(Designer.stage.selection.className))
     return true
   var scrap = element.scrap()
   // Dont select block if locked
@@ -107,7 +107,7 @@ Designer.MoveHandle.slide = function (event, mouseEvent) {
   var x_change = Designer.Mouse.xChange + grid_change.x
   
 
-  $('.DesignerSelection').each(function (){
+  Designer.stage.selection.elements().each(function (){
     $(this).scrap().move(x_change - Designer.MoveHandle.last_x_change, y_change - Designer.MoveHandle.last_y_change)
   })
   

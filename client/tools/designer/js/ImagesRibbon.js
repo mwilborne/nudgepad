@@ -26,7 +26,7 @@ Designer.images.insertImageScrap = function (filename, drag) {
     filename = Designer.images.parseBackgroundUrl(filename)
   
   // Easter Egg: allow swapping of images
-  if (!drag && $('.DesignerSelection').length > 0) {
+  if (!drag && Designer.stage.selection.elements().length > 0) {
     Designer.stage.selection.css('background-image url(' + filename + ')')
     Designer.stage.selection.css('background-repeat no-repeat')
     Designer.stage.selection.css('background-position center')
