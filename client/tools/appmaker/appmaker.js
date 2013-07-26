@@ -82,7 +82,7 @@ AppMaker.qrCode = function (containerid) {
   
 //  var link = 'http://' + document.location.host + '/manifest.webapp'
   var link = 'http://' + document.location.host + '/install.html'
-  PreviewBox('<div id="qrCode">')
+  PreviewBox.open('<div id="qrCode">')
   // <div id="AppMakerManifestLink">' + link + '</div>
   
   var qrcode = new QRCode("qrCode", {

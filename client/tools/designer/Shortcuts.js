@@ -52,3 +52,8 @@ Designer.shortcuts['meta+shift+z'] = Designer.stage.redo
 Designer.shortcuts['meta+y'] = Designer.stage.redo
 Designer.shortcuts['ctrl+y'] = Designer.stage.redo
 
+Designer.shortcuts['shift+/'] = function () {
+  var html = $('#DesignerShortcuts').html()
+  PreviewBox.toggle(html)
+}
+

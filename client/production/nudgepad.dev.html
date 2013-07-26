@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/nudgepad/tools/appmaker/fire.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/blog/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/tool.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/designer/css/shortcutTable.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/spectrum.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/styleEditor.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/files/tool.css" type="text/css"/>
@@ -152,8 +153,8 @@
 </div>
 
 
-<div id="PreviewBoxDimmer" class="Dimmer PreviewBox" ></div>
-<div id="PreviewBoxContainer" class="PreviewBox"></div>
+<div id="PreviewBoxDimmer" class="Dimmer PreviewBox" onclick="PreviewBox.close()"></div>
+<div id="PreviewBoxContainer" class="PreviewBox" onclick="PreviewBox.close()"></div>
 <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
 
 <div id="TextPromptContainer" class="TextPrompt">
@@ -287,30 +288,6 @@ body
      content Blog Post Content
 </space>
 
-<div class="Tool" id="Designer">
-</div>
-  
-<div id="DesignerStage" style="display: none;">
-  <div id="DesignerStageHead"></div>
-  <div id="DesignerStageBody"></div>
-  <div id="DesignerStageBottomPadding"></div>
-  <style type="text/css" id="DesignerRemoteSelections"></style>
-</div>
-
-<textarea id="DesignerCodePanel"></textarea>
-
-<div id="DesignerDimensions"></div>
-
-
-<div id="DesignerMenu">
-	<div onclick="window.open(Designer.stage.activePage + '.html?' + new Date().getTime(),'published')">Visit</div>
-  <div onclick="Designer.menu.blank()">New</div>
-  <div onclick="Designer.menu.duplicate()">Duplicate</div>
-  <div onclick="Designer.menu.renamePrompt()">Rename</div>
-  <div onclick="Designer.menu.delete()">Delete</div>
-  <div onclick="Designer.importUrlPrompt()">Import</div>
-  <div onclick="Launcher.open('Home')">Home</div>
-</div>
 <div id="DesignerBar" style="display: none;">
 
   <div title="menu" id="DesignerBarMenuButton"></div>
@@ -334,18 +311,20 @@ body
   <div id="DesignerTabs"></div>
   
 </div>
-
-<div id="DesignerImagesRibbon" class="DesignerRibbon">
-  
-	<div id="DesignerUploadButton"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;"></iframe></div>
-	
-  <div id="DesignerImagesList"></div>
-  
-</div>
-
-<div id="DesignerComponentsRibbon" class="DesignerRibbon">
-  <div id="DesignerComponentsList"></div>
-</div>
+<space id="DesignerBlankPage" style="display: none;">
+head
+ tag head
+ scraps
+  title
+   tag title
+   content Untitled
+  style
+   tag style
+   content body {font-family: Helvetica; font-weight: 200;}
+body
+ tag body
+ scraps
+</space>
 <space class="DesignerComponentSet" path="mockup block">
 thumb
  title Gray Block
@@ -432,20 +411,83 @@ stickyNote
  draft true
 </space>
 
-<space id="DesignerBlankPage" style="display: none;">
-head
- tag head
- scraps
-  title
-   tag title
-   content Untitled
-  style
-   tag style
-   content body {font-family: Helvetica; font-weight: 200;}
-body
- tag body
- scraps
-</space>
+<div id="DesignerMenu">
+	<div onclick="window.open(Designer.stage.activePage + '.html?' + new Date().getTime(),'published')">Visit</div>
+  <div onclick="Designer.menu.blank()">New</div>
+  <div onclick="Designer.menu.duplicate()">Duplicate</div>
+  <div onclick="Designer.menu.renamePrompt()">Rename</div>
+  <div onclick="Designer.menu.delete()">Delete</div>
+  <div onclick="Designer.importUrlPrompt()">Import</div>
+  <div onclick="Launcher.open('Home')">Home</div>
+</div>
+
+<div id="DesignerImagesRibbon" class="DesignerRibbon">
+  
+	<div id="DesignerUploadButton"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;"></iframe></div>
+	
+  <div id="DesignerImagesList"></div>
+  
+</div>
+
+<div id="DesignerComponentsRibbon" class="DesignerRibbon">
+  <div id="DesignerComponentsList"></div>
+</div>
+<div id="DesignerShortcuts" style="display: none;">
+<div id="DesignerShortcutsTableContainer">
+
+<h3>Page</h3>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">command+n</td><td>New Page</td></tr>
+<tr><td class="DesignerShortcutCode">ctrl+p</td><td>Publish Page</td></tr>
+<tr><td class="DesignerShortcutCode">command+backspace</td><td>Delete Page</td></tr>
+<tr><td class="DesignerShortcutCode">alt+left</td><td>Previous Page</td></tr>
+<tr><td class="DesignerShortcutCode">alt+right</td><td>Next Page</td></tr>
+</table>
+
+<h4>History</h4>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">command+z</td><td>Undo</td></tr>
+<tr><td class="DesignerShortcutCode">command+y</td><td>Redo</td></tr>
+</table>
+
+<h4>Selection</h4>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">command+d</td><td>Duplicate</td></tr>
+<tr><td class="DesignerShortcutCode">command+a</td><td>Select All</td></tr>
+<tr><td class="DesignerShortcutCode">delete</td><td>Delete</td></tr>
+<tr><td class="DesignerShortcutCode">command+u</td><td>Edit Source</td></tr>
+</table>
+
+<h4>Moving Selection</h4>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">up</td><td>Move up 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">left</td><td>Move left 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">down</td><td>Move down 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">right</td><td>Move right 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">up</td><td>Move up 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">left</td><td>Move left 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">down</td><td>Move down 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">right</td><td>Move right 10 pixels</td></tr>
+</table>
+
+</div>
+
+</div>
+<div class="Tool" id="Designer">
+</div>
+  
+<div id="DesignerStage" style="display: none;">
+  <div id="DesignerStageHead"></div>
+  <div id="DesignerStageBody"></div>
+  <div id="DesignerStageBottomPadding"></div>
+  <style type="text/css" id="DesignerRemoteSelections"></style>
+</div>
+
+<textarea id="DesignerCodePanel"></textarea>
+
+<div id="DesignerDimensions"></div>
+
+
 <div class="Tool" id="Files">
 	<div class="ToolNav">
 		<div class="ToolNavContainer">
