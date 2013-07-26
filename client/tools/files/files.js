@@ -125,7 +125,7 @@ $(document).on('click', '.FilesExplorerEdit', function () {
 
 $(document).on('click', '.FilesExplorerPreview', function () {
   var path = $(this).parent().attr('path').replace(/ /g, '/')
-  ImagePreview('<img src="' + path + '">')
+  PreviewBox('<img src="' + path + '">')
 })
 
 $(document).on('click', '.FilesExplorerRename', function () {

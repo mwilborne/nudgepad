@@ -1,4 +1,4 @@
-#ImagePreviewContainer {
+#PreviewBoxContainer {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -29,13 +29,13 @@
   display: none;
 }
 
-#ImagePreviewContainer img {
+#PreviewBoxContainer img {
   height: auto;
   width: auto;
   max-height: 80%;
   max-width: 80%;
 }
 
-.ImagePreview {
+.PreviewBox {
   display: none;
 }
