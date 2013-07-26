@@ -50,7 +50,7 @@ Designer.stage.commit = function () {
   Designer.edge = new Space(Designer.page.toString())
   
   // A commit always advances the position index to the edge.
-  Designer.stage.version = Designer.stage.timeline.keys.length
+  Designer.stage.version = Designer.stage.timeline.length()
   
   Designer.trigger('selection')
   Designer.trigger('commit')
@@ -138,7 +138,7 @@ Designer.stage.goto = function (version) {
   Designer.stage.selection.clear()
   if (version < 0)
     return false
-  if (version > Designer.stage.timeline.keys.length)
+  if (version > Designer.stage.timeline.length())
     return false
   
   // If we are going back in time, start from 0
@@ -148,8 +148,8 @@ Designer.stage.goto = function (version) {
   }
   for (var i = Designer.stage.version; i < version; i++) {
     var timestamp = Designer.stage.timeline.keys[i]
-    var patch = Designer.stage.timeline.values[timestamp].values.values
-    var orderPatch = Designer.stage.timeline.values[timestamp].values.order
+    var patch = Designer.stage.timeline.get(timestamp + ' values')
+    var orderPatch = Designer.stage.timeline.get(timestamp + ' order')
     if (patch)
       Designer.page.patch(patch.toString())
     if (orderPatch)
@@ -282,7 +282,7 @@ Designer.stage.insert = function (space, drag, xMove, yMove, center) {
  * @returns {bool}
  */
 Designer.stage.isBehind = function () {
-  return (Designer.stage.version < Designer.stage.timeline.keys.length)
+  return (Designer.stage.version < Designer.stage.timeline.length())
 }
 
 /**
@@ -326,7 +326,13 @@ Designer.stage.redo = function () {
 Designer.stage.render = function () {
   Designer.stage.close()
   Designer.page.loadScraps()
-  Designer.page.render()
+  
+  // Render elements
+  Designer.page.each(function (key, value) {
+    value.render()
+  })
+  
+
   Designer.grid.create()
   Designer.updateSelections()
 }
@@ -452,9 +458,9 @@ Designer.stage.undo = function () {
 
 Designer.stage.updateTimeline = function () {
   // Set the history slider to the wherever the maker last had it (usally 100 if no history or havent edited it yet)
-  Designer.stage.percentElapsed = (Designer.stage.timeline.keys.length ? Math.round(100 * Designer.stage.version/Designer.stage.timeline.keys.length) : 100)
-  $('#DesignerTimeline').attr('max', Designer.stage.timeline.keys.length).val(Designer.stage.version)
-  $('#DesignerTimelinePosition').text(Designer.stage.version + '/' + Designer.stage.timeline.keys.length)
+  Designer.stage.percentElapsed = (Designer.stage.timeline.length() ? Math.round(100 * Designer.stage.version/Designer.stage.timeline.length()) : 100)
+  $('#DesignerTimeline').attr('max', Designer.stage.timeline.length()).val(Designer.stage.version)
+  $('#DesignerTimelinePosition').text(Designer.stage.version + '/' + Designer.stage.timeline.length())
 }
 
 Designer.stage.clearOnTap = function (event) {
