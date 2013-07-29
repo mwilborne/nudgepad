@@ -1,6 +1,5 @@
 var ParseName = require('./ParseName.js'),
     RandomString = require('./RandomString.js'),
-    Email = require('./email.js'),
     Marking = require('markings'),
     Space = require('space')
 
@@ -55,7 +54,7 @@ var UpdateEmail = function (app) {
                       'Thanks,' + '\n' +
                       'Ben & Breck\n'
 
-        Email.send(email, 'nudgepad@' + app.domain, app.domain, message)
+        app.email(email, 'nudgepad@' + app.domain, app.domain, message)
 
       }
 

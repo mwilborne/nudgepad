@@ -1,7 +1,6 @@
 var exec = require('child_process').exec,
     fs = require('fs'),
-    Space = require('space'),
-    Email = require('./email.js')
+    Space = require('space')
 
 
 var Survey = function (app) {
@@ -44,7 +43,7 @@ var Survey = function (app) {
       // if one exists.
       var email = app.getOwner()
       if (email) {
-        Email.send(email, 'surveys@' + app.domain, app.domain + ': New Message', space.toString())
+        app.email(email, 'surveys@' + app.domain, app.domain + ': New Message', space.toString())
         console.log('Emailing survey submission to %s', email)
       }
 

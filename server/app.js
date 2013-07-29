@@ -26,7 +26,7 @@ var fs = require('fs'),
     Space = require('space'),
     Marking = require('markings'),
     Page = require('scraps'),
-    Email = require('./email.js')
+    nodemailer = require("nodemailer")
 
 var app = express()
 app.pathPrefix = '/nudgepad.'
@@ -135,6 +135,50 @@ app.hashString = function (string) {
   return crypto.createHash('sha256').update(string).digest("hex")
 }
 
+app.email = function (to, from, subject, message, htmlMessage, callback) {
+  
+  // We use the sendmail binary to send mail.
+  // In the future we can add the option to use a 3rd party service or smtp service.
+  var transport = nodemailer.createTransport("sendmail")
+  
+  /*
+  var smtpTransport = nodemailer.createTransport("SMTP", {
+      host: "localhost", // hostname
+      port: 25
+  })
+  */
+  var mailOptions = {
+    from: from, // sender address
+    to: to, // list of receivers
+    subject: subject, // Subject line
+    text: message // plaintext body
+  //  html: "<b>Hello world ✔</b>" // html body
+  }
+  
+  if (htmlMessage)
+    mailOptions.htmlMessage = htmlMessage
+
+  // send mail with defined transport object
+  transport.sendMail(mailOptions, function(error, response){
+    
+    if (error)
+      console.log('sendmail error: %s', error)
+    
+    // If not callback return true
+    if (!callback)
+      return true
+    
+    if (error)
+      return callback(error)
+    else
+      return callback(null)
+    // if you don't want to use this transport object anymore, uncomment following line
+    //smtpTransport.close() // shut down the connection pool, no more messages
+  })
+  
+  
+}
+
 require('./checkId.js')(app)
 
 //********************** INITIALIZE THE SERVER OBJECT ******************************
@@ -225,7 +269,7 @@ app.post(app.pathPrefix + 'email', app.checkId, function (req, res, next) {
   var message = req.body.message
   var from = 'nudgepad@' + app.domain
   
-  Email.send(to, from, subject, message, null, function (error) {
+  app.email(to, from, subject, message, null, function (error) {
     if (error)
       res.send(error, 500)
     else

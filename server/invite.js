@@ -1,7 +1,6 @@
 var ParseName = require('./ParseName.js'),
     RandomString = require('./RandomString.js'),
     _ = require('underscore'),
-    Email = require('./email.js'),
     Marking = require('markings'),
     Space = require('space')
 
@@ -20,7 +19,7 @@ var Invite = function (app) {
 
       app.Project.set('team ' + email, new Space(maker))
 
-      Email.send(
+      app.email(
         email,
         'nudgepad@' + app.domain,
         'Your login link to ' + app.domain,

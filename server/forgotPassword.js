@@ -1,5 +1,3 @@
-var Email = require('./email.js')
-
 var ForgotPassword = function (app) {
   
   
@@ -12,7 +10,7 @@ var ForgotPassword = function (app) {
     if (!maker)
       return res.redirect('/nudgepad/public/error.html?error=EmailNotFound')
 
-    Email.send(
+    app.email(
       email,
       'forgotpassword@' + app.domain,
       'Login to ' + app.domain,
