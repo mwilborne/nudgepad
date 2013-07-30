@@ -2,6 +2,9 @@
  * @special Singleton
  */
 var Explorer = {}
+Explorer.paths = {}
+Explorer.paths.project = '/nudgepad/projects/' + document.location.host  + '/'
+Explorer.paths.private = Explorer.paths.project + 'private/'
 
 /**
  * Create file ONLY if it does not exist
@@ -43,6 +46,17 @@ Explorer.edit = function (path) {
           Flasher.success(path + ' saved')
       })
     })
+  })
+}
+
+Explorer.exists = function (path, callback) {
+  var req = {}
+  req.path = path
+  $.post( '/nudgepad.explorer.exists', req, function (data) {
+    if (data.match(/ does NOT exist/))
+      callback(false)
+    else
+      callback(true)
   })
 }
 
@@ -112,3 +126,34 @@ Explorer.set = function (path, content, callback) {
   })
 }
 
+Explorer.test = function () {
+  
+  Test.add('explorer path', function () {
+    var path = '/nudgepad/projects/' + document.location.host  + '/'
+    Test.equal(path, Explorer.paths.project)
+  })
+  
+  Test.add('explorer get', function () {
+    
+    var path = 'index.html'
+    Explorer.get(path, function (data) {
+      Test.ok(!!data.match('html'))
+    })
+    
+    var path = 'nonExist234.html'
+    Explorer.exists(path, function (exists) {
+      Test.equal(false, exists)
+    })
+    
+    var path = 'index.html'
+    Explorer.exists(path, function (exists) {
+      Test.equal(true, exists)
+    })
+    
+    
+    
+  })
+
+  Test.start()
+  
+}

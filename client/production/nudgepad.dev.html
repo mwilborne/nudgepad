@@ -110,7 +110,7 @@
     <script type="text/javascript" src="/nudgepad/tools/designer/realtime.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/files/files.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/files/dragAndDrop.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/github/tool.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/github/github.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/home/home.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/move/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/server/tool.js"></script>
@@ -152,8 +152,15 @@
 </div>
 
 
-<div id="PreviewBoxDimmer" class="Dimmer PreviewBox" onclick="PreviewBox.close()"></div>
-<div id="PreviewBoxContainer" class="PreviewBox" onclick="PreviewBox.close()"></div>
+<template id="PreviewBoxTemplate" style="display: none;">
+  
+<div id="PreviewBox">
+  <div id="PreviewBoxContainer"></div>
+</div>
+
+</template>
+
+
 <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
 
 <div id="TextPromptContainer" class="TextPrompt">
@@ -432,7 +439,7 @@ stickyNote
   <div id="DesignerComponentsList"></div>
 </div>
 <div id="DesignerShortcuts" style="display: none;">
-<div id="DesignerShortcutsTableContainer">
+<div id="PreviewBoxWhiteBox">
 
 <h3>Page</h3>
 <table class="DesignerShortcutTable">
@@ -540,6 +547,9 @@ stickyNote
 		  -->
 		  <a class="ToolRightButton" onclick="GitHub.cloneRepo()">
 		  	Clone
+		  </a>
+		  <a class="ToolRightButton" onclick="GitHub.deployKey()">
+		  	Deploy Key
 		  </a>
 		<div class="clear"></div>
 		</div>

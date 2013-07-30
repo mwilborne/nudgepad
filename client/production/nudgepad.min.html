@@ -40,8 +40,15 @@
 </div>
 
 
-<div id="PreviewBoxDimmer" class="Dimmer PreviewBox" onclick="PreviewBox.close()"></div>
-<div id="PreviewBoxContainer" class="PreviewBox" onclick="PreviewBox.close()"></div>
+<template id="PreviewBoxTemplate" style="display: none;">
+  
+<div id="PreviewBox">
+  <div id="PreviewBoxContainer"></div>
+</div>
+
+</template>
+
+
 <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
 
 <div id="TextPromptContainer" class="TextPrompt">
@@ -320,7 +327,7 @@ stickyNote
   <div id="DesignerComponentsList"></div>
 </div>
 <div id="DesignerShortcuts" style="display: none;">
-<div id="DesignerShortcutsTableContainer">
+<div id="PreviewBoxWhiteBox">
 
 <h3>Page</h3>
 <table class="DesignerShortcutTable">
@@ -351,10 +358,10 @@ stickyNote
 <tr><td class="DesignerShortcutCode">left</td><td>Move left 1 pixel</td></tr>
 <tr><td class="DesignerShortcutCode">down</td><td>Move down 1 pixel</td></tr>
 <tr><td class="DesignerShortcutCode">right</td><td>Move right 1 pixel</td></tr>
-<tr><td class="DesignerShortcutCode">up</td><td>Move up 10 pixels</td></tr>
-<tr><td class="DesignerShortcutCode">left</td><td>Move left 10 pixels</td></tr>
-<tr><td class="DesignerShortcutCode">down</td><td>Move down 10 pixels</td></tr>
-<tr><td class="DesignerShortcutCode">right</td><td>Move right 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+up</td><td>Move up 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+left</td><td>Move left 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+down</td><td>Move down 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+right</td><td>Move right 10 pixels</td></tr>
 </table>
 
 </div>
@@ -428,6 +435,9 @@ stickyNote
 		  -->
 		  <a class="ToolRightButton" onclick="GitHub.cloneRepo()">
 		  	Clone
+		  </a>
+		  <a class="ToolRightButton" onclick="GitHub.deployKey()">
+		  	Deploy Key
 		  </a>
 		<div class="clear"></div>
 		</div>

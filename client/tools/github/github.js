@@ -42,6 +42,20 @@ GitHub.commit = function () {
   $('#GitHubCommitMessage').val('')
 }
 
+GitHub.deployKey = function () {
+  
+  Explorer.exists('private/deploy.key', function (exists) {
+    if (exists)
+      Explorer.get('private/deploy.key', function (data) {
+        var box = $('<pre id="PreviewBoxWhiteBox" style="text-align: left;">' + data + '</pre>')
+        PreviewBox.open(box)
+      })
+    else
+      GitHub.generateKey()
+  })
+
+}
+
 GitHub.exec = function (command, callback) {
   var endpoint = 'nudgepad.exec'
   var output = $('#GitHubStatus')
@@ -57,8 +71,8 @@ GitHub.exec = function (command, callback) {
 }
 
 GitHub.generateKey = function () {
-  var filename = '/nudgepad/projects/' + document.location.host  + '/private/github.key'
-  GitHub.exec('ssh-keygen -t rsa -N "" -f ' + filename, function () {
+  var path = Explorer.paths.private + 'deploy.key'
+  GitHub.exec('ssh-keygen -t rsa -N "" -f ' + path, function () {
     Flasher.success('Git SSH key created')
     GitHub.status()
   })

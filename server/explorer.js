@@ -94,6 +94,16 @@ var Explorer = function (app) {
       res.send(contents)
     })
   })
+
+  app.post(app.pathPrefix + 'explorer.exists', app.checkId, function(req, res, next) {
+    var path = req.body.path.trim().replace(/ /g, '/')
+    fs.exists(app.paths.project + path, function (exists) {
+      if (exists)
+        res.send(path + ' exists')
+      else
+        res.send(path + ' does NOT exist')
+    })
+  })
   
   /**
    * Get a file API.
