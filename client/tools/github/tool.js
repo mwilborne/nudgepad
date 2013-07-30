@@ -3,20 +3,6 @@ GitHub.set('color', 'rgba(171, 193, 199, 1)')
 GitHub.set('description', 'Sync your project with GitHub.')
 GitHub.set('beta', 'true')
 
-GitHub.exec = function (command, callback) {
-  var endpoint = 'nudgepad.exec'
-  var output = $('#GitHubStatus')
-  output.html('')
-  $.post(endpoint, {command : command}, function (result) {
-    output.append(result + '\n')
-    if (callback)
-      callback()
-  }).error(function (error, message) {
-    output.append('ERROR\n')
-    output.append(error.responseText + '\n')
-  })
-}
-
 GitHub.add = function () {
   var message = $('#GitHubFilepath').val()
   GitHub.exec('git add ' + message, function () {
@@ -54,6 +40,28 @@ GitHub.commit = function () {
     Flasher.success('Commit Received')
   })
   $('#GitHubCommitMessage').val('')
+}
+
+GitHub.exec = function (command, callback) {
+  var endpoint = 'nudgepad.exec'
+  var output = $('#GitHubStatus')
+  output.html('')
+  $.post(endpoint, {command : command}, function (result) {
+    output.append(result + '\n')
+    if (callback)
+      callback()
+  }).error(function (error, message) {
+    output.append('ERROR\n')
+    output.append(error.responseText + '\n')
+  })
+}
+
+GitHub.generateKey = function () {
+  var filename = '/nudgepad/projects/' + document.location.host  + '/private/github.key'
+  GitHub.exec('ssh-keygen -t rsa -N "" -f ' + filename, function () {
+    Flasher.success('Git SSH key created')
+    GitHub.status()
+  })
 }
 
 GitHub.init = function () {
