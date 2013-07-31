@@ -50,12 +50,12 @@ NudgePad requires node v0.8.*. NudgePad does NOT currently work reliably with no
     /nudgepad/nudgepad/system/nudgepad.sh start
     # Go to http://localhost
 
-### Create "npd" shortcut. Optional.
+### Create "np" shortcut. Optional.
 
-    echo "alias npd='/nudgepad/nudgepad/system/nudgepad.sh'" >> ~/.bash_profile
-    # The next line is to allow you to run npd as sudo if you need to for some things.
+    echo "alias np='/nudgepad/nudgepad/system/nudgepad.sh'" >> ~/.bash_profile
+    # The next line is to allow you to run np as sudo if you need to for some things.
     echo "alias sudo='sudo '" >> ~/.bash_profile
-    # Reload your bash_profile to get the npd command
+    # Reload your bash_profile to get the np command
     source ~/.bash_profile
 
 Installing on Nix
@@ -134,12 +134,12 @@ NudgePad requires node v0.8.*. NudgePad does NOT currently work reliably with no
     /nudgepad/nudgepad/system/nudgepad.sh start
     # Go to http://localhost
 
-### Create "npd" shortcut. Optional.
+### Create "np" shortcut. Optional.
 
-    echo "alias npd='/nudgepad/nudgepad/system/nudgepad.sh'" >> ~/.bash_profile
-    # The next line is to allow you to run npd as sudo if you need to for some things.
+    echo "alias np='/nudgepad/nudgepad/system/nudgepad.sh'" >> ~/.bash_profile
+    # The next line is to allow you to run np as sudo if you need to for some things.
     echo "alias sudo='sudo '" >> ~/.bash_profile
-    # Reload your bash_profile to get the npd command
+    # Reload your bash_profile to get the np command
     source ~/.bash_profile
 
 
@@ -163,7 +163,7 @@ Uninstalling
 
 Stop NudgePad
 
-    npd stop
+    np stop
 
 Delete /nudgepad folder (WARNING: This deletes all your Project data)
 
