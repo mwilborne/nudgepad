@@ -31,7 +31,7 @@ startProject () {
     then
       # create app.log.txt if it does not exist for mon
       touch $projectsPath/$domain/private/app.log.txt
-      mon -d -l $projectsPath/$domain/private/app.log.txt -p $projectsPath/$domain/private/projectPid.txt -m $projectsPath/$domain/private/monPid.txt "node app.js $domain $PORT"
+      sudo -u $macUser mon -d -l $projectsPath/$domain/private/app.log.txt -p $projectsPath/$domain/private/projectPid.txt -m $projectsPath/$domain/private/monPid.txt "node app.js $domain $PORT"
     else
       # todo: fix this so mon isnt launching 2 processes.
 #      sudo -u $domain touch $projectsPath/$domain/private/app.log.txt

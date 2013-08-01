@@ -47,7 +47,8 @@ source deleteProject.sh
 source waitUntilServing.sh
 source createOwnerFile.sh
 source createProject.sh
-source macUser.sh
+
+macUser=`whoami`
 
 case "$1" in
 
@@ -262,10 +263,6 @@ case "$1" in
 
 'running')
   echo $runningProjects
-;;
-
-'r')
-  echo $macUser
 ;;
 
 'start')
