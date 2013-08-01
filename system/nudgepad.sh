@@ -48,7 +48,13 @@ source waitUntilServing.sh
 source createOwnerFile.sh
 source createProject.sh
 
-macUser=`whoami`
+if [ -f $tempPath/macUser.sh ]
+  then
+    source $tempPath/macUser.sh
+  else
+    macUser=`whoami`
+    echo "macUser=$macUser" > $tempPath/macUser.sh
+fi
 
 case "$1" in
 
