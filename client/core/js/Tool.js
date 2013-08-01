@@ -10,6 +10,8 @@ function Tool(name) {
 
 Tool.tools = []
 
+Tool.opened = {}
+
 Tool.openTool = null
 
 Tool.prototype = new Space()
@@ -50,6 +52,9 @@ Tool.prototype.open = function () {
     return Tool.openTool.close(this.get('name'))
   
   // On open event
+  if (!Tool.opened[this.get('name')])
+    this.trigger('once')
+  Tool.opened[this.get('name')] = true
   this.trigger('open')
   
   // We could probably remove this.

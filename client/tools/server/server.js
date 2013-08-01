@@ -83,9 +83,9 @@ $(document).on('ready', function () {
   $('#ServerConsoleInput').on('enterkey', Server.consoleSend)
 })
 
-
-Server.on('close', function () {
-  Socket.off('stream', Server.stream)
+Server.on('once', function () {
+  Socket.on('stream', Server.stream)
+  console.log('once')
 })
 
 Server.on('open', function () {
@@ -93,5 +93,4 @@ Server.on('open', function () {
   if (!Server.get('log'))
     Server.refresh()
   
-  Socket.on('stream', Server.stream)
 })
