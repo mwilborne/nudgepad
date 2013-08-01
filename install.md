@@ -151,11 +151,7 @@ Occasionally you'll need to update your environment's PATH variable to make
 sure that the node_modules/.bin folder is included. For example, you may need
 to add this to your .bash_profile or .bashrc:
 
-    PATH=$PATH:/nudgepad/node_modules/.bin
-
-Or on Ubuntu:
-
-    PATH=$PATH:/nudgepad/node_modules/.bin
+    export PATH="$PATH:/nudgepad/node_modules/.bin"
 
 
 Uninstalling
