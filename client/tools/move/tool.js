@@ -49,7 +49,14 @@ Move.cloneProject = function () {
         'value': 'true',
         'type': 'hidden'
     }))
-    .append($('<input>', {
+    
+    
+    // todo:
+    // If server is the same, copy it by dir and sharecode
+    // this is a lot faster than downloading and posting
+    
+    
+    newForm.append($('<input>', {
         'name': 'clone',
         'value': data,
         'type': 'hidden'
