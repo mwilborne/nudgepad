@@ -17,6 +17,7 @@
     "superagent": "*",
     "imagemagick": "*",
     "underscore": "*",
+    "component" : "*",
     "cookie": "*",
     "mkdirp" : "*",
     "moment": "*",
