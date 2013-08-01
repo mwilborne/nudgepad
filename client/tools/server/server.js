@@ -85,7 +85,6 @@ $(document).on('ready', function () {
 
 Server.on('once', function () {
   Socket.on('stream', Server.stream)
-  console.log('once')
 })
 
 Server.on('open', function () {
