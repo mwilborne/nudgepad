@@ -305,6 +305,19 @@ stickyNote
  draft true
 </space>
 
+
+<space class="DesignerComponentSet" path="mockup jquery">
+thumb
+ title jQuery
+ content jQuery
+ style
+  background-color #f4ed04
+  box-shadow 0px 1px 3px rgba(0,0,0,.6)
+jquery
+ tag script
+ src //ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
+</space>
+
 <div id="DesignerMenu">
 	<div onclick="window.open(Designer.stage.activePage + '.html?' + new Date().getTime(),'published')">Visit</div>
   <div onclick="Designer.menu.blank()">New</div>
@@ -536,6 +549,10 @@ stickyNote
 		  Server Info
 		</div>
 		<pre id="ServerStatusArea" readonly="readonly"></pre>
+		<div class="ToolSectionLabel">
+		  Stream
+		</div>
+		<pre id="ServerStream" readonly="readonly"></pre>
 	</div>
 </div>
 
