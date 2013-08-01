@@ -14,11 +14,12 @@ var Console = function (app) {
     exec(req.body.command, {cwd : app.paths.project},
       function (error, stdout, stderr) {
         res.set('Content-Type', 'text/plain')
+        var result = ''
         if (stderr)
-          return res.send('stderr: ' + stderr)
+          result += 'stderr: ' + stderr + '\n'
         if (error)
-          return res.send('error: ' + error)
-        return res.send(stdout + '')
+          result += 'error: ' + error + '\n'
+        res.send(result + stdout + '')
     })
 
   })
