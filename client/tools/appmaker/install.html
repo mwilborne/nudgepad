@@ -1,5 +1,5 @@
-<button id="install">
-  Install this awesome app on your homescreen!
+<button id="install" style="background-color: rgba(0, 180, 215, 1); color: white; font-family: Helvetica; font-weight: 100; border: 0px; font-size: 28px; width: 100%; padding: 10px;">
+  Install App
 </button>
  
 <script>
@@ -7,7 +7,7 @@
   function install(ev) {
     ev.preventDefault();
     // define the manifest URL
-    var manifest_url = "http://my.webapp.com/manifest.webapp";
+    var manifest_url = "http://" + document.location.host +"/manifest.webapp";
     // install the app
     var myapp = navigator.mozApps.install(manifest_url);
     myapp.onsuccess = function(data) {
