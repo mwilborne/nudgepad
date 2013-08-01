@@ -63,13 +63,35 @@ Server.refresh = function () {
   
 }
 
+Server.stream = function (message) {
+  var clean = message.replace(/\</g, '&lt;') + '\n'
+  $('#ServerStream').append(clean)
+}
+
+Server.test = function () {
+  Test.add('stream', function () {
+    $.get('/nudgepad.stream', {m : 'hi world'}, function () {
+      Test.equal('hi world', $('#ServerStream').text())
+    })
+    
+  })
+
+  Test.start()
+}
+
 $(document).on('ready', function () {
   $('#ServerConsoleInput').on('enterkey', Server.consoleSend)
+})
+
+
+Server.on('close', function () {
+  Socket.off('stream', Server.stream)
 })
 
 Server.on('open', function () {
   
   if (!Server.get('log'))
     Server.refresh()
-    
+  
+  Socket.on('stream', Server.stream)
 })
