@@ -25,7 +25,7 @@ RegisterForm.open = function () {
     var email = $('#RegisterFormEmail').val()
 
     if (!ValidateEmail(email))
-      return Flasher.error('Invalid Email')
+      return Alerts.error('Invalid Email')
     // todo, send back to nudgepad.com
     mixpanel.track('I added my email')
     $.post('/nudgepad.updateEmail', {email : email, sendWelcomeEmail: 'true'}, function () {

@@ -59,9 +59,6 @@ function folderStats (path, callback) {
 
 var Explorer = function (app) {
   
-  
-  
-  
   /**
    * Get a file API.
    * path
@@ -84,27 +81,7 @@ var Explorer = function (app) {
     })
   })
 
-  /**
-   * Get a file API.
-   * path
-   */
-  app.post(app.pathPrefix + 'explorer.get', app.checkId, function(req, res, next) {
-    var path = req.body.path.trim().replace(/ /g, '/')
-    fs.readFile(app.paths.project + path, 'utf8', function (err, contents) {
-      res.send(contents)
-    })
-  })
 
-  app.post(app.pathPrefix + 'explorer.exists', app.checkId, function(req, res, next) {
-    var path = req.body.path.trim().replace(/ /g, '/')
-    fs.exists(app.paths.project + path, function (exists) {
-      if (exists)
-        res.send(path + ' exists')
-      else
-        res.send(path + ' does NOT exist')
-    })
-  })
-  
   /**
    * Get a file API.
    * path
@@ -118,48 +95,6 @@ var Explorer = function (app) {
         fs.unlink(output)
       })
     })
-  })
-
-  /**
-   * Remove a file API.
-   * path
-   */
-  app.post(app.pathPrefix + 'explorer.remove', app.checkId, function(req, res, next) {
-    var path = req.body.path.replace(/ /g, '/')
-    fs.unlink(app.paths.project + path, function (err) {
-      if (err) return res.send(err)
-      res.send('')
-    })
-
-  })
-
-  /**
-   * Rename a file API.
-   * path
-   */
-  app.post(app.pathPrefix + 'explorer.rename', app.checkId, function(req, res, next) {
-    var oldPath = req.body.oldPath.replace(/ /g, '/')
-    var newPath = req.body.newPath.replace(/ /g, '/')
-    fs.rename(app.paths.project + oldPath, app.paths.project + newPath, function (err) {
-      if (err) return res.send(err)
-      res.send('')
-    })
-
-  })
-
-
-  /**
-   * Save a file API.
-   * path
-   * content
-   */
-  app.post(app.pathPrefix + 'explorer.save', app.checkId, function(req, res, next) {
-    var path = req.body.path.replace(/ /g, '/')
-    fs.writeFile(app.paths.project + path, req.body.content, 'utf8', function (err) {
-      if (err) return res.send(err)
-      res.send('')
-    })
-
   })
   
   /**
@@ -178,32 +113,6 @@ var Explorer = function (app) {
         res.send('')
       })
     })
-  })
-  
-  /**
-   * path
-   */
-  app.post(app.pathPrefix + 'explorer.mkdir', app.checkId, function(req, res, next) {
-    var path = req.body.path.replace(/ /g, '/')
-    fs.mkdir(app.paths.project + path, function (err) {
-      if (err) return res.send(err)
-      res.send('')
-    })
-
-  })
-  
-  /**
-   * path
-   */
-  app.post(app.pathPrefix + 'explorer.rmdir', app.checkId, function(req, res, next) {
-    
-    var path = req.body.path.replace(/ /g, '/')
-    // todo: remove and .s
-    path = app.paths.project + path
-    exec('rm -rf ' + path, function () {
-      res.send('')
-    })
-
   })
   
   // Receive any uploads

@@ -33,12 +33,12 @@ Files.drop.sendFile = function (path, file) {
   xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
           // Handle response.
-          Flasher.success(xhr.responseText)
+          Alerts.success(xhr.responseText)
 //          alert(xhr.responseText) // handle response.
           Files.refresh()
       }
       else if (xhr.status == 500) {
-        Flasher.error(xhr.responseText)
+        Alerts.error(xhr.responseText)
       }
   }
   var filename = file.name.replace(/ /g, '-')

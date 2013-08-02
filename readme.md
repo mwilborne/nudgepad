@@ -296,19 +296,13 @@ Open an app
 Launcher.open('Designer')
 ```
 
-#### Explorer
+#### fs
 
 A simple and dumb text editor.
 
 ```
-// Pop the editor
-Explorer.edit('foobar.html')
-// Create a file
-Explorer.create('foobar.html', callback)
 // Rename a file
-Explorer.rename('foobar.html', 'foobar2.html', callback)
-// Delete a file
-Explorer.remove('foobar.html', callback)
+fs.rename('foobar.html', 'foobar2.html', callback)
 
 ```
 
@@ -320,13 +314,13 @@ Like the browser's built in prompt method, but gives the user a bigger textarea 
 TextPrompt.open('Some textarea like thing', 'Default value', callback)
 ```
 
-#### Flasher
+#### Alerts
 
 Growl like notifications
 
 ```
-Flasher.success('Your action finished')
-Flasher.error('Something went wrong')
+Alerts.success('Your action finished')
+Alerts.error('Something went wrong')
 ```
 
 #### mixpanel

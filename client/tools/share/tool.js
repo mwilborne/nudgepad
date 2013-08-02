@@ -6,7 +6,7 @@ Share.set('beta', true)
 Share.on('open', function () {
 
   Share.update()
-  Explorer.get('private/sharecode.txt', function (data) {
+  fs.readFile('private/sharecode.txt', function (data) {
     if (data)
       Share.code = data
     else
@@ -27,7 +27,7 @@ Share.install = function () {
     console.log(data)
     Share.update()
     if (!data)
-      Flasher.success('Share Code Created')
+      Alerts.success('Share Code Created')
     else
       console.log(data)
   })

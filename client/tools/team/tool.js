@@ -11,7 +11,7 @@ Team.invite = function () {
   var val = $('#TeamEmail').val()
   var message = 'Invites Sent'
   $.post('/nudgepad.invite', {emails : val}, function (result) {
-    Flasher.success(message)
+    Alerts.success(message)
     Team.refresh()
     mixpanel.track('I invited people')
   })
@@ -33,7 +33,7 @@ Team.updateEmail = function () {
     return true
   
   if (!Team.validateEmail(email))
-    return Flasher.error('Invalid Email')
+    return Alerts.error('Invalid Email')
   
   $.post('/nudgepad.updateEmail', {email : email}, function () {
     nudgepad.warnBeforeReload = false

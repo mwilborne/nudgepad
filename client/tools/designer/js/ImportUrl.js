@@ -4,7 +4,7 @@ Designer.importUrl = function (url) {
     var space = $.htmlToScraps(data)
     space = Designer.relativeToAbsolute(space.toString(), url)
     Designer.menu.create(null, space.toString())
-    Flasher.success('Imported ' + url)
+    Alerts.success('Imported ' + url)
   })
 }
 

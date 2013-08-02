@@ -58,10 +58,11 @@
     <script type="text/javascript" src="/nudgepad/core/js/Tool.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Project.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Nudgepad.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/Alerts.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Blinker.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/EmailSender.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Explorer.js"></script>
-    <script type="text/javascript" src="/nudgepad/core/js/Flasher.js"></script>
+    <script type="text/javascript" src="/nudgepad/core/js/fs.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Launcher.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Popup.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/PreviewBox.js"></script>
@@ -133,9 +134,9 @@
 <div id="ConnectionStatus">Connecting to server...</div>
 <div id="JavascriptError"></div>
 <div id="LoadingScreen">Loading Nudgepad...</div>
-<div id="Flasher">Published</div>
+<div id="Alerts">Published</div>
 <div id="Temp"></div>
-<div id="FlasherError"></div>
+<div id="AlertsError"></div>
 <div id="RegisterFormModal">
 	<div id="RegisterContainer">
 		<div id="RegisterContent">
@@ -222,11 +223,7 @@
   		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
 		  	Back
 		  </div>
-			<div id="BlogAdvancedToggle" class="ToolSquareButton" onclick="$('#BlogAdvanced').toggle()">
-				<img src="nudgepad/public/images/bulb.png">
-			</div>
-			<textarea id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
-		  <div id="BlogNewPostButton" onclick="Blog.createPost()">
+		  <div id="BlogNewPostButton" onclick="Blog.resetForm(); $('#BlogComposeColumn').show();">
 			  New Post
 			</div>
 		<div class="clear"></div>
@@ -241,11 +238,20 @@
 	  </div>
 	  <div id="BlogComposeColumn">
 		  <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.updatePermalink()"></input>
-	  	<textarea id="BlogContent" placeholder="Blog your post here..." tabindex="2"></textarea>
-		  <div id="BlogPublishButton" onclick="Blog.savePost()">Publish</div>
+	  	<textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
+		  <div id="BlogPublishButton" onclick="Blog.publishPost()">Publish</div>
+		  <div id="BlogPublishButton" onclick="Blog.savePost()">Save</div>
 	    <div id="BlogDeleteButton" onclick="Blog.deletePost()">Delete</div>
 	    <div class="clear"></div>
-	    <div id="BlogPermalink" onclick="window.open($(this).attr('value'), 'published')"></div>
+	    <div>
+	      <span id="BlogAdvancedToggle" onclick="$('#BlogAdvanced').toggle()">
+  				Edit Post Details
+  			</span>
+  			<span id="BlogPermalink" onclick="window.open($(this).attr('value'), 'published')"></span>
+	    </div>
+	    
+			
+			<textarea id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
 	  </div>
   </div>
 </div>

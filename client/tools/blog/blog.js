@@ -1,25 +1,29 @@
+/*
+var Space = require('space'),
+    moment = require('moment'),
+    html_beautify = require('html_beautify'),
+    Tool = require('tool),
+    Project = require('Project'),
+    fs = require('fs),
+    Alerts = require('Alerts'),
+    Explorer = require('Explorer'),
+    Test = require('Test')
+*/
+
 var Blog = new Tool('Blog')
 Blog.set('color', 'rgba(224, 54, 52, 1)')
 Blog.set('description', 'Add a blog to your project.')
 Blog.set('beta', 'true')
 Blog.activePost = null
 
-Blog.createPost = function () {
-  $('#BlogContent,#BlogTitle').val('')
-  $('#BlogAdvanced').val('timestamp ' + new Date().getTime() + '\ntemplate blog')
-  $('#BlogPermalink').attr('value', '')
-  $('#BlogTitle').focus()
-  Blog.activePost = null
-}
-
 Blog.deletePost = function () {
   Blog.activePost = null
   var name = Blog.permalink($('#BlogPermalink').attr('value'))
   if (!name)
-    return Flasher.error('No post to delete')
+    return Alerts.error('No post to delete')
   
   if (!Project.get('posts ' + name))
-    return Flasher.error('Post does not exist')
+    return Alerts.error('Post does not exist')
 
   Project.delete('posts ' + name)
 }
@@ -68,7 +72,7 @@ Blog.getList = function () {
 
 Blog.install = function () {
   if (!Project.get('posts'))
-    Explorer.mkdir('private posts')
+    fs.mkdir('private/posts')
 }
 
 /**
@@ -83,20 +87,38 @@ Blog.permalink = function (string) {
   return string.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '-')
 }
 
+/**
+ * requires moment and html_beautify
+ */
 Blog.pressPost = function (postString, pageString) {
   var post = new Space(postString)
-  var html = new Page(pageString).toHtml(function () {
+  var htmlString = new Page(pageString).toHtml(function () {
     this.div.content = this.div.content.replace('Blog Post Content', post.get('content'))
     if (this.get('content_format') === 'markdown')
       this.div.content = marked(this.div.content)
     return this.div.toHtml()
   })
-  html = html.replace(/Blog Post Title/g, post.get('title'))
+  htmlString = htmlString.replace(/Blog Post Title/g, post.get('title'))
   var timestamp = parseFloat(post.get('timestamp'))
   var date = moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
-  html = html.replace(/Blog Post Date/g, date)
-  html = html_beautify(html)
-  return html
+  htmlString = htmlString.replace(/Blog Post Date/g, date)
+  htmlString = html_beautify(htmlString)
+  return htmlString
+}
+
+Blog.publishPost = function (nameString, postString) {
+  // Open post in new tab
+  var post = new Space(postString)
+  var permalink = Blog.permalink(nameString)
+  var templateString = post.get('template')
+  var view = Project.get('pages ' + templateString)
+  if (!view)
+    view = new Space($('#BlogTheme').text())
+  
+  var pressedHtml = Blog.pressPost(post.toString(), view.toString())
+  Explorer.set(permalink + '.html', pressedHtml, function () {
+    window.open(name + '.html', 'published')
+  })
 }
 
 // Temporary routine for migration
@@ -112,7 +134,7 @@ Blog.publishAll = function () {
         view = new Space($('#BlogTheme').text())
       var pressedHtml = Blog.pressPost(post.toString(), view.toString())
       Explorer.set(permalink + '.html', pressedHtml, function () {
-        Flasher.success('published ' + permalink)
+        Alerts.success('published ' + permalink)
       })
     })
   })
@@ -141,7 +163,15 @@ Blog.refresh = function () {
   if (Blog.activePost)
     Blog.editPost(Blog.activePost)
   else
-    Blog.createPost()
+    Blog.resetForm()
+}
+
+Blog.resetForm = function () {
+  $('#BlogContent,#BlogTitle').val('')
+  $('#BlogAdvanced').val('timestamp ' + new Date().getTime() + '\ntemplate blogPostTemplate')
+  $('#BlogPermalink').attr('value', '')
+  $('#BlogTitle').focus()
+  Blog.activePost = null
 }
 
 Blog.savePost = function () {
@@ -149,7 +179,7 @@ Blog.savePost = function () {
   var name = Blog.permalink($('#BlogPermalink').attr('value'))
   
   if (!name)
-    return Flasher.error('Title cannot be blank')
+    return Alerts.error('Title cannot be blank')
 
   mixpanel.track('I saved a blog post')
   var post = Project.get('posts ' + name)
@@ -173,23 +203,13 @@ Blog.savePost = function () {
   
   Blog.activePost = name
   
-  // Open post in new tab
-  var permalink = Blog.permalink(name)
-  var template = post.get('template')
-  var view = Project.get('pages ' + template)
-  if (!view)
-    view = new Space($('#BlogTheme').text())
   
-  var pressedHtml = Blog.pressPost(post.toString(), view.toString())
-  Explorer.set(permalink + '.html', pressedHtml, function () {
-    window.open(name + '.html', 'published')
-  })
 
 }
 
 Blog.updatePermalink = function () {
   var permalink = Blog.permalink($('#BlogTitle').val())
-  $('#BlogPermalink').text('http://' + document.location.host + '/' + permalink).attr('value', permalink)
+  $('#BlogPermalink').text('http://' + document.location.host + '/' + permalink + '.html').attr('value', permalink)
 }
 
 

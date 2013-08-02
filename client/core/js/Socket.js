@@ -15,7 +15,7 @@ $(document).on('ready', function (){
     Project.append(key, new Space(space.get('value')))
     Project.trigger('incoming-append', key, new Space(space.get('value')))
     ProjectReceiving = false
-    Flasher.activity('File ' + Space.pathBranch(key) + ' appended', 1000)
+    Alerts.activity('File ' + Space.pathBranch(key) + ' appended', 1000)
   })
   
   Socket.on('project.create', function (space) {
@@ -26,7 +26,7 @@ $(document).on('ready', function (){
     ProjectReceiving = true
     Project.create(key, new Space(space.get('value')))
     ProjectReceiving = false
-    Flasher.activity('New file ' + key + ' received', 1000)
+    Alerts.activity('New file ' + key + ' received', 1000)
   })
   
   Socket.on('project.delete', function (key) {
@@ -35,7 +35,7 @@ $(document).on('ready', function (){
     ProjectReceiving = true
     Project.delete(key)
     ProjectReceiving = false
-    Flasher.activity('File ' + key + ' deleted', 1000)
+    Alerts.activity('File ' + key + ' deleted', 1000)
   })
   
   Socket.on('project.set', function (space) {
@@ -46,7 +46,7 @@ $(document).on('ready', function (){
     ProjectReceiving = true
     Project.set(key, new Space(space.get('value')))
     ProjectReceiving = false
-    Flasher.activity('File ' + key + ' updated', 1000)
+    Alerts.activity('File ' + key + ' updated', 1000)
   })
   
   Socket.on('project.rename', function (space) {
@@ -58,14 +58,14 @@ $(document).on('ready', function (){
     ProjectReceiving = true
     Project.rename(oldName, newName)
     ProjectReceiving = false
-    Flasher.activity('File ' + oldName + ' renamed to ' + newName, 1000)
+    Alerts.activity('File ' + oldName + ' renamed to ' + newName, 1000)
   })
   
   Socket.on('screens.create', function (space) {
     
     space = new Space(space)
     Screens.set(space.get('id'), space)
-    Flasher.activity(space.get('name') + ' opened a new screen', 1000)
+    Alerts.activity(space.get('name') + ' opened a new screen', 1000)
   })
   
   Socket.on('screens.delete', function (id) {
@@ -73,7 +73,7 @@ $(document).on('ready', function (){
     var space = Screens.get(id)
     if (!space)
       return true
-    Flasher.activity(space.get('name') + ' closed a screen', 1000)
+    Alerts.activity(space.get('name') + ' closed a screen', 1000)
     Screens.delete(id)
   })
   

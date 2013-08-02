@@ -53,7 +53,7 @@ html {
   clear: both;
 }
 
-#nudgepadError, #JavascriptError, #FlasherError  {
+#nudgepadError, #JavascriptError, #AlertsError  {
   left: 0;
   top: 0;
   width: 100%;
@@ -75,7 +75,7 @@ html {
   font-size: 12px;
 }
 
-#FlasherError {
+#AlertsError {
   z-index: 2000;
 }
 
@@ -106,7 +106,7 @@ html {
   z-index: 2000;
 }
 
-#Flasher {
+#Alerts {
   background: #11a4ed;
   color: white;
   top: -2;

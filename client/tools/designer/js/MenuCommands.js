@@ -35,7 +35,7 @@ Designer.menu.create = function (name, template) {
   
   // page already exists
   if (Project.get('pages ' + name))
-    return Flasher.error('A page named ' + name + ' already exists.')
+    return Alerts.error('A page named ' + name + ' already exists.')
   
   var page = new Space(template)
   var timeline = new Space()
@@ -71,7 +71,7 @@ Designer.menu.delete = function (name) {
   Project.delete('pages ' + name)
   Project.delete('timelines ' + name)
   
-  Flasher.success('Deleted ' + name, 1000)
+  Alerts.success('Deleted ' + name, 1000)
   mixpanel.track('I deleted a page')
   return ''
 }
@@ -97,7 +97,7 @@ Designer.menu.duplicate = function (source, destination, skipPrompt) {
   }
   
   if (!Project.get('pages').get(source))
-    return Flasher.error('Page ' + source + ' not found')
+    return Alerts.error('Page ' + source + ' not found')
   
   mixpanel.track('I duplicated a page')
   
@@ -156,11 +156,11 @@ Designer.menu.rename = function (newName) {
   var oldName = Designer.stage.activePage
   
   if (!newName.length)
-    return Flasher.error('Name cannot be blank')
+    return Alerts.error('Name cannot be blank')
   
   // page already exists
   if (Project.get('pages ' + newName))
-    return Flasher.error('A page named ' + newName + ' already exists.')  
+    return Alerts.error('A page named ' + newName + ' already exists.')  
 
   Project.rename('pages ' + oldName, 'pages ' + newName)
   Project.rename('timelines ' + oldName, 'timelines ' + newName)

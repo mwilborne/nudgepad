@@ -292,7 +292,7 @@ Designer.stage.open = function (name) {
   
   var page = Project.get('pages ' + name)
   if (!page)
-    return Flasher.error('Page ' + name + ' not found')
+    return Alerts.error('Page ' + name + ' not found')
 
   Designer.stage.selection.clear()
   
@@ -379,7 +379,7 @@ Designer.stage.openTimeline = function (name) {
   // Do we need to do this?
   var request = $.ajax({
     type: "POST",
-    url: '/nudgepad.explorer.get',
+    url: '/nudgepad.fs.readFile',
     data : {path : 'private timelines ' + name},
     async: false,
   })
@@ -402,7 +402,7 @@ Designer.stage.openTimeline = function (name) {
     
 
     Project.create('timelines ' + name, timeline  )
-    Flasher.success('Timeline created')
+    Alerts.success('Timeline created')
     
     
   })
@@ -448,7 +448,7 @@ Designer.stage.toggleDevice = function () {
   Designer.stage.currentView = Designer.stage.views.next(Designer.stage.currentView)
   Designer.stage.views.get(Designer.stage.currentView)()
   $('#DesignerStageBody').width()
-  Flasher.success(Designer.stage.currentView + ' view')
+  Alerts.success(Designer.stage.currentView + ' view')
   store.set('DesignerView', Designer.stage.currentView)
 }
 

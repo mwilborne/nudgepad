@@ -38,7 +38,7 @@ Files.newFolder = function () {
     return false
     
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  Explorer.mkdir(path + newName, Files.refresh)
+  fs.mkdir((path + newName).replace(/ /g, '/'), Files.refresh)
 }
 
 Files.renderExplorer = function () {
@@ -133,15 +133,15 @@ $(document).on('click', '.FilesExplorerRename', function () {
   if (!newName)
     return false
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  Explorer.rename($(this).parent().attr('path'), path + newName, Files.refresh)
+  fs.rename($(this).parent().attr('path'), path + newName, Files.refresh)
 })
 
 $(document).on('click', '.FilesExplorerRemove', function (event) {
   var name = $(this).parent().attr('value')
   if (!event.metaKey && !confirm('Are you sure you want to delete ' + name + '?'))
     return false
-  Explorer.remove($(this).parent().attr('path'), function () {
-    Flasher.success(name + ' deleted')
+  fs.unlink($(this).parent().attr('path').replace(/ /g, '/'), function () {
+    Alerts.success(name + ' deleted')
     Files.refresh()
   })
 })
@@ -150,8 +150,9 @@ $(document).on('click', '.FilesExplorerRemoveFolder', function () {
   var name = $(this).parent().attr('value')
   if (!event.metaKey && !confirm('Are you sure you want to delete ' + name + '?'))
     return false
-  Explorer.rmdir($(this).parent().attr('path'), function () {
-    Flasher.success(name + ' deleted')
+  var path = $(this).parent().attr('path').replace(/ /g, '/')
+  fs.rmdir(path, function () {
+    Alerts.success(name + ' deleted')
     Files.refresh()
   })
 })

@@ -7,7 +7,7 @@ Move.set('beta', 'true')
 Move.import = function () {
   TextPrompt.open('Import a Project to this Move', '', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
-      Flasher.success('Imported files.')
+      Alerts.success('Imported files.')
     })
   })
 }

@@ -332,6 +332,7 @@ if (app.development) {
 require('./project.js')(app)
 require('./backup.js')(app)
 require('./explorer.js')(app)
+require('./fs.js')(app)
 require('./restart.js')(app)
 // We use this to communicate with proxy.js so it knows what
 // domain this process serves

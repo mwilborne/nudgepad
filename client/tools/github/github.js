@@ -6,7 +6,7 @@ GitHub.set('beta', 'true')
 GitHub.add = function () {
   var message = $('#GitHubFilepath').val()
   GitHub.exec('git add ' + message, function () {
-    Flasher.success('Added')
+    Alerts.success('Added')
     GitHub.status()
   })
   $('#GitHubFilepath').val('')
@@ -21,7 +21,7 @@ GitHub.addOrigin = function () {
   if (!origin)
     return false
   GitHub.exec('git remote add origin ' + origin, function () {
-    Flasher.success('Origin Updated')
+    Alerts.success('Origin Updated')
   })
 }
 
@@ -30,23 +30,23 @@ GitHub.cloneRepo = function () {
   if (!origin)
     return false
   GitHub.exec('git clone ' + origin + ' temp; mv temp/* .; mv temp/.git .; rm -rf temp', function () {
-    Flasher.success('Cloned')
+    Alerts.success('Cloned')
   })
 }
 
 GitHub.commit = function () {
   var message = $('#GitHubCommitMessage').val()
   GitHub.exec('git commit -am "' + message + '"', function () {
-    Flasher.success('Commit Received')
+    Alerts.success('Commit Received')
   })
   $('#GitHubCommitMessage').val('')
 }
 
 GitHub.deployKey = function () {
   
-  Explorer.exists('private/deploy.key', function (exists) {
+  fs.exists('private/deploy.key', function (exists) {
     if (exists)
-      Explorer.get('private/deploy.key', function (data) {
+      fs.readFile('private/deploy.key', function (data) {
         var box = $('<pre id="PreviewBoxWhiteBox" style="text-align: left;">' + data + '</pre>')
         PreviewBox.open(box)
       })
@@ -73,14 +73,14 @@ GitHub.exec = function (command, callback) {
 GitHub.generateKey = function () {
   var path = Explorer.paths.private + 'deploy.key'
   GitHub.exec('ssh-keygen -t rsa -N "" -f ' + path, function () {
-    Flasher.success('Git SSH key created')
+    Alerts.success('Git SSH key created')
     GitHub.status()
   })
 }
 
 GitHub.init = function () {
   GitHub.exec('git init', function () {
-    Flasher.success('Git init OK')
+    Alerts.success('Git init OK')
     GitHub.status()
   })
 }
@@ -98,7 +98,7 @@ GitHub.setOrigin = function () {
   if (!origin)
     return false
   GitHub.exec('git remote set-url origin ' + origin, function () {
-    Flasher.success('Origin Updated')
+    Alerts.success('Origin Updated')
   })
 }
 

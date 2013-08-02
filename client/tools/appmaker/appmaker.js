@@ -40,7 +40,7 @@ AppMaker.install = function () {
     Explorer.create('manifest.webapp', response.toString(), function (data) {
       console.log(data)
       if (!data)
-        Flasher.success('Manifest Created')
+        Alerts.success('Manifest Created')
       else
         console.log(data)
     })
@@ -54,7 +54,7 @@ AppMaker.install = function () {
     Explorer.create('install.html', response.toString(), function (data) {
       console.log(data)
       if (!data)
-        Flasher.success('Install File Created')
+        Alerts.success('Install File Created')
       else
         console.log(data)
     })

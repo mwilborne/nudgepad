@@ -12,7 +12,7 @@ Designer.importFiles = function () {
       if (Project.get('pages ' + name))
         return true
       // If it does not exist, import it!
-      Explorer.get(filename, function (data) {
+      fs.readFile(filename, function (data) {
         var space = $.htmlToScraps(data)
         Designer.menu.create(name, space.toString())
         
