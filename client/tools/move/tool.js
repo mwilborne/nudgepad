@@ -21,12 +21,11 @@ Move.cloneProject = function () {
   var domain = $('#MoveDomain').val()
   var server = $('#MoveServer').val()
   
-  $.get('/nudgepad.export', {}, function (data) {
-    
+  $.get('/nudgepad.export?t=' + new Date().getTime(), {}, function (data) {
     
     var newForm = $('<form>', {
         'action': 'http://' + server + '/create',
-//        'target': '_blank',
+   //     'target': '_blank',
         'method' : 'post'
     })
     .append($('<input>', {
@@ -55,12 +54,9 @@ Move.cloneProject = function () {
     // If server is the same, copy it by dir and sharecode
     // this is a lot faster than downloading and posting
     
-    
-    newForm.append($('<input>', {
-        'name': 'clone',
-        'value': data,
-        'type': 'hidden'
-    }))
+    var cloneData = $('<input name="clone" type="hidden">')
+    cloneData.val(data)
+    newForm.append(cloneData)
     newForm.submit()
     
   })

@@ -151,11 +151,11 @@ app.post('/create', app.checkId, app.generateDomain, app.validateDomain, app.isD
   else
     tool = ''
   
-  console.log('creating project: %s', domain)
   
   // Save clone to file before calling command line
   // Todo: cleanup
   if (clone) {
+    console.log('creating project from clone: %s', domain)
     var clonePath = tempPath + domain + '.space'
     fs.writeFile(clonePath, clone, 'utf8', function (err) {
       
@@ -174,10 +174,16 @@ app.post('/create', app.checkId, app.generateDomain, app.validateDomain, app.isD
       
     })
   } else {
-    if (dir)
+    
+    
+    if (dir) {
       dir = ' ' + dir
-    else
+      console.log('creating project %s from dir %s', domain, dir)
+    }
+    else {
       dir = ''
+      console.log('creating project %s from blank', domain)
+    }
     if (sharecode)
       sharecode = ' ' + sharecode
     else

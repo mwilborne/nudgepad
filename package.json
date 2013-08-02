@@ -1,6 +1,6 @@
 {
   "name": "nudgepad",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Make websites, apps and more in your browser.",
   "repository": "git://github.com/nudgepad/nudgepad",
   "main": "nudgepad.js",
@@ -8,7 +8,7 @@
      "test": "make test"
    },
   "dependencies": {
-    "space": ">=0.2.2",
+    "space": ">=0.2.5",
     "scraps": ">=0.3.2",
     "markings" : ">=0.0.3",
     "speedcoach": ">=0.1.1",

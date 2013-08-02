@@ -7,6 +7,7 @@ createFromTemplate ()
   if [[ "$template" == *.space ]]
     then
       echo Creating from space file 1>&2
+      createFromBlank $domain
       space $template $projectsPath/$domain
     else
       echo Creating from dir 1>&2
@@ -25,6 +26,19 @@ createFromTemplate ()
           exit 1
       fi
   fi
+}
+
+createFromBlank ()
+{
+  domain=$1
+
+  # echo NO source provided. Creating blank project from blank.
+  cp -R blank $projectsPath/$domain
+  mkdir $projectsPath/$domain/private/
+  mkdir $projectsPath/$domain/private/team
+  # Create this here for mon so we dont have to create it later.
+  # theres probably a way to get mon to make it itself if it does not exist
+  touch $projectsPath/$domain/private/app.log.txt
 }
 
 createProject ()
@@ -54,14 +68,7 @@ createProject ()
     then
       createFromTemplate $domain $template $shareCode
     else
-      # echo NO source provided. Creating blank project from blank.
-      cp -R blank $projectsPath/$domain
-      mkdir $projectsPath/$domain/private/
-      mkdir $projectsPath/$domain/private/team
-      # Create this here for mon so we dont have to create it later.
-      # theres probably a way to get mon to make it itself if it does not exist
-      touch $projectsPath/$domain/private/app.log.txt
-      
+      createFromBlank $domain
   fi
   
   speedcoach "$domain created"
