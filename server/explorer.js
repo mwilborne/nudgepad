@@ -81,13 +81,8 @@ var Explorer = function (app) {
     })
   })
 
-
-  /**
-   * Get a file API.
-   * path
-   */
-  app.post(app.pathPrefix + 'explorer.getFolder', app.checkId, function(req, res, next) {
-    var path = app.paths['private'] + req.body.path.trim().replace(/ /g, '/')
+  app.post(app.pathPrefix + 'explorer.folderToSpace', app.checkId, function(req, res, next) {
+    var path = app.paths.project + req.body.path.trim().replace(/ /g, '/')
     var output = app.paths['private'] + 'temp.space'
     exec('space ' + path + ' ' + output, function () {
       res.set('Content-Type', 'text/plain')

@@ -139,7 +139,7 @@ Designer.menu.publish = function (name) {
   if (Designer.menu.prettyPrint)
     html = html_beautify(html)
   
-  Explorer.set(name + '.html', html)
+  fs.writeFile(name + '.html', html)
 }
 
 /**

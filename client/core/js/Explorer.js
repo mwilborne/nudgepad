@@ -49,10 +49,10 @@ Explorer.edit = function (path) {
   })
 }
 
-Explorer.getFolder = function (path, callback) {
+Explorer.folderToSpace = function (path, callback) {
   var req = {}
   req.path = path
-  $.post( '/nudgepad.explorer.getFolder', req, function (data) {
+  $.post( '/nudgepad.explorer.folderToSpace', req, function (data) {
     if (callback)
       callback(data)
   })

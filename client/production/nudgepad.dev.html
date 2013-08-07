@@ -75,7 +75,6 @@
     <script type="text/javascript" src="/nudgepad/tools/appmaker/appmaker.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/appmaker/Shortcuts.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/blog/blog.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/blog/events.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/Designer.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/js/Autokey.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/js/Bar.js"></script>
@@ -239,19 +238,21 @@
 	  <div id="BlogComposeColumn">
 		  <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.updatePermalink()"></input>
 	  	<textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
-		  <div id="BlogPublishButton" onclick="Blog.publishPost()">Publish</div>
+	  	<img style="padding-top: 20px;" src="/nudgepad/tools/blog/settings.png" onclick="$('#BlogAdvanced').toggle()">
 		  <div id="BlogPublishButton" onclick="Blog.savePost()">Save</div>
-	    <div id="BlogDeleteButton" onclick="Blog.deletePost()">Delete</div>
+	    <div id="BlogDeleteButton" onclick="Blog.deletePostPrompt()">Delete</div>
 	    <div class="clear"></div>
+	    
+	    <textarea style="margin-top: 20px;" id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
+	    
+	    
 	    <div>
-	      <span id="BlogAdvancedToggle" onclick="$('#BlogAdvanced').toggle()">
-  				Edit Post Details
-  			</span>
-  			<span id="BlogPermalink" onclick="window.open($(this).attr('value'), 'published')"></span>
+	      <input id="BlogPublishURL" placeholder="url">
+  	    <div id="BlogPublishButton" onclick="Blog.publishPost()">Publish</div>
 	    </div>
 	    
 			
-			<textarea id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
+			
 	  </div>
   </div>
 </div>

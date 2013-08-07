@@ -15,7 +15,8 @@ fs.mkdir = function (path, callback) {
   var req = {}
   req.path = path
   $.post( '/nudgepad.fs.mkdir', req, function (data) {
-    callback()
+    if (callback)
+      callback()
   })
 }
 

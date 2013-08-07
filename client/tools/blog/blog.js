@@ -3,11 +3,12 @@ var Space = require('space'),
     moment = require('moment'),
     html_beautify = require('html_beautify'),
     Tool = require('tool),
-    Project = require('Project'),
     fs = require('fs),
     Alerts = require('Alerts'),
+    Project = require('Project'), // required for pages
     Explorer = require('Explorer'),
-    Test = require('Test')
+    Test = require('Test'),
+    $ = require('jQuery')
 */
 
 var Blog = new Tool('Blog')
@@ -15,64 +16,51 @@ Blog.set('color', 'rgba(224, 54, 52, 1)')
 Blog.set('description', 'Add a blog to your project.')
 Blog.set('beta', 'true')
 Blog.activePost = null
+Blog.set('posts', '')
 
-Blog.deletePost = function () {
+Blog.deletePostPrompt = function () {
   Blog.activePost = null
   var name = Blog.permalink($('#BlogPermalink').attr('value'))
   if (!name)
     return Alerts.error('No post to delete')
   
-  if (!Project.get('posts ' + name))
-    return Alerts.error('Post does not exist')
-
-  Project.delete('posts ' + name)
+  fs.unlink('private/posts/' + name + '.space')
 }
 
 Blog.editPost = function (name) {
   Blog.activePost = name
-  var post = Project.get('posts ' + name)
+  var post = Blog.get('posts ' + name)
   $('#BlogContent').val(post.get('content'))
   $('#BlogTitle').val(post.get('title'))
   var postSettings = new Space(post.toString())
   postSettings.delete('title')
   postSettings.delete('content')
   $('#BlogAdvanced').val(postSettings.toString())
-  // http://{{document.location.host}}/<a id="permalink" target="_blog"></a>
   $('#BlogPermalink').text('http://' + document.location.host + '/' + name).attr('value', name)
-  
-  
   $('#BlogPosts div').css('color', '#777')
   // todo: improve this
   $('#BlogPosts div').each(function () {
     if ($(this).attr('value') == Blog.activePost)
       $(this).css('color', '#333')  
   })
-  
   $('#BlogContent').focus()
-  
 }
 
-Blog.getList = function () {
-  Explorer.getFolder('posts', function (data) {
+Blog.downloadPosts = function () {
+  Explorer.folderToSpace('private/posts', function (data) {
     var posts = new Space(data)
-    var list = new Space()
-    list.set('list', new Space())
-    posts.each(function (filename, post) {
-      post = new Space(post.toString())
-      var permalink = Blog.permalink(post.get('title'))
-      var link = new Space()
-      link.set('tag', 'a')
-      link.set('href', permalink + '.html')
-      link.set('content', post.get('title'))
-      list.set('list scraps ' + permalink, link)
+    posts.each(function (filename, value) {
+      console.log(filename)
+      Blog.set('posts ' + filename, new Space(value))
+      
     })
-    console.log(list.toString())
+    Blog.renderList(Blog.get('posts').toString())
   })
 }
 
 Blog.install = function () {
-  if (!Project.get('posts'))
-    fs.mkdir('private/posts')
+  // don't do this if it exists?
+  fs.mkdir('private/posts')
 }
 
 /**
@@ -116,14 +104,14 @@ Blog.publishPost = function (nameString, postString) {
     view = new Space($('#BlogTheme').text())
   
   var pressedHtml = Blog.pressPost(post.toString(), view.toString())
-  Explorer.set(permalink + '.html', pressedHtml, function () {
+  fs.writeFile(permalink + '.html', pressedHtml, function () {
     window.open(name + '.html', 'published')
   })
 }
 
 // Temporary routine for migration
 Blog.publishAll = function () {
-  Explorer.getFolder('posts', function (data) {
+  Explorer.folderToSpace('private/posts', function (data) {
     var posts = new Space(data)
     posts.each(function (filename, post) {
       post = new Space(post.toString())
@@ -133,37 +121,28 @@ Blog.publishAll = function () {
       if (!view)
         view = new Space($('#BlogTheme').text())
       var pressedHtml = Blog.pressPost(post.toString(), view.toString())
-      Explorer.set(permalink + '.html', pressedHtml, function () {
+      fs.writeFile(permalink + '.html', pressedHtml, function () {
         Alerts.success('published ' + permalink)
       })
     })
   })
 }
 
-Blog.refresh = function () {
+Blog.renderList = function (postsString) {
   $('#BlogPosts').html('')
-  if (!Project.get('posts'))
-    return true
-  _.each(Project.get('posts').keys, function (name) {
-    var value = Project.get('posts').get(name)
-    var div = $('<div >' + value.get('title') + '</div>')
-      .css({
-      'color' : '#777',
-      'margin-bottom' : '9px',
-      'font-size' : '13px'
-      })
-      .on('click', function () {
-        Blog.editPost($(this).attr('value'))
-      })
-      .attr('value', name)
-      .attr('title', name)
-    $('#BlogPosts').append(div)
+  var posts = new Space(postsString)
+  var list = new Space()
+  list.set('list', new Space())
+  posts.each(function (filename, post) {
+    post = new Space(post.toString())
+    var permalink = Blog.permalink(post.get('title'))
+    var link = $('<a>' + post.get('title') + '</a>')
+    link.attr('value', filename)
+    $('#BlogPosts').append(link)
+    link.on('click', function () {
+      Blog.editPost($(this).attr('value')) 
+    })
   })
-  // Open the last edited post if there is one
-  if (Blog.activePost)
-    Blog.editPost(Blog.activePost)
-  else
-    Blog.resetForm()
 }
 
 Blog.resetForm = function () {
@@ -174,6 +153,7 @@ Blog.resetForm = function () {
   Blog.activePost = null
 }
 
+// Save it to private/posts/post-name.space
 Blog.savePost = function () {
 
   var name = Blog.permalink($('#BlogPermalink').attr('value'))
@@ -182,34 +162,38 @@ Blog.savePost = function () {
     return Alerts.error('Title cannot be blank')
 
   mixpanel.track('I saved a blog post')
-  var post = Project.get('posts ' + name)
-  if (!post)
-    post = new Space()
+  var post = new Space()
 
   post.set('content', $('#BlogContent').val())
   post.set('title', $('#BlogTitle').val())
   post.patch($('#BlogAdvanced').val())
   
-  if (Project.get('posts ' + name))
-    Project.set('posts ' + name, post)
-  else
-    Project.create('posts ' + name, post)
-  
-  // If they are editing a post and the name has changed,
-  // make sure to delete old post
-  // Todo: change this! Just make permalink editable.
-  if (Blog.activePost && Blog.activePost !== name)
-    Project.delete('posts ' + Blog.activePost)
+  fs.writeFile('private/posts/' + name + '.space', post.toString(), function () {
+    Alerts.success('Post saved')
+  })
   
   Blog.activePost = name
   
-  
-
 }
 
 Blog.updatePermalink = function () {
   var permalink = Blog.permalink($('#BlogTitle').val())
   $('#BlogPermalink').text('http://' + document.location.host + '/' + permalink + '.html').attr('value', permalink)
 }
+
+Blog.on('close', function () {
+
+})
+
+Blog.on('once', function () {
+  Blog.downloadPosts()
+})
+
+Blog.on('open', function () {
+  
+  Blog.install()
+  if (Blog.get('posts'))
+    Blog.renderList(Blog.get('posts'))
+})
 
 
