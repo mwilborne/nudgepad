@@ -23,7 +23,7 @@ Share.install = function () {
   
   Share.code = random
   
-  Explorer.create('private/sharecode.txt', random, function (data) {
+  fs.create('private/sharecode.txt', random, function (data) {
     console.log(data)
     Share.update()
     if (!data)

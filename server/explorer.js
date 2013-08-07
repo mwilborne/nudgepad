@@ -92,24 +92,6 @@ var Explorer = function (app) {
     })
   })
   
-  /**
-   * Create a file ONLY if it does not already exist
-   * path
-   * content
-   */
-  app.post(app.pathPrefix + 'explorer.create', app.checkId, function(req, res, next) {
-    var path = app.paths.project + req.body.path.replace(/ /g, '/')
-    fs.exists(path, function (exists) {
-      if (exists)
-        return res.send(path + ' already exists')
-      fs.writeFile(path, req.body.content || '', 'utf8', function (err) {
-        if (err)
-          return res.send(err)
-        res.send('')
-      })
-    })
-  })
-  
   // Receive any uploads
   app.post(app.pathPrefix + 'explorer.upload', app.checkId, function(req, res, next) {
     var filename = req.body.filename

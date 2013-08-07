@@ -1,5 +1,15 @@
 var fs = {}
 
+// Create file ONLY if it does not exist
+fs.create = function (path, content, callback) {
+  var req = {}
+  req.path = path
+  req.content = content || ''
+  $.post('/nudgepad.fs.create', req, function (data) {
+    callback(data)
+  })
+}
+
 fs.exists = function (path, callback) {
   var req = {}
   req.path = path

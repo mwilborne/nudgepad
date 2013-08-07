@@ -37,7 +37,7 @@ AppMaker.install = function () {
     type: "get",
     dataType : 'text'
   }).done(function (response, textStatus, jqXHR){
-    Explorer.create('manifest.webapp', response.toString(), function (data) {
+    fs.create('manifest.webapp', response.toString(), function (data) {
       console.log(data)
       if (!data)
         Alerts.success('Manifest Created')
@@ -51,7 +51,7 @@ AppMaker.install = function () {
     type: "get",
     dataType : 'text'
   }).done(function (response, textStatus, jqXHR){
-    Explorer.create('install.html', response.toString(), function (data) {
+    fs.create('install.html', response.toString(), function (data) {
       console.log(data)
       if (!data)
         Alerts.success('Install File Created')

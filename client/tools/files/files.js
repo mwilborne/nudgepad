@@ -29,7 +29,7 @@ Files.newFile = function () {
     return false
     
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  Explorer.create(path + newName, '', Files.refresh)
+  fs.create(path + newName, '', Files.refresh)
 }
 
 Files.newFolder = function () {

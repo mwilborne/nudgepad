@@ -7,6 +7,21 @@ var fs = require('fs'),
 
 module.exports =  function  (app) {
   
+  /**
+   * Create a file ONLY if it does not already exist
+   */
+  app.post(app.pathPrefix + 'fs.create', app.checkId, function(req, res, next) {
+    var path = app.paths.project + req.body.path.replace(/ /g, '/')
+    fs.exists(path, function (exists) {
+      if (exists)
+        return res.send(path + ' already exists')
+      fs.writeFile(path, req.body.content || '', 'utf8', function (err) {
+        if (err)
+          return res.send(err)
+        res.send('')
+      })
+    })
+  })
   
   app.post(app.pathPrefix + 'fs.exists', app.checkId, function(req, res, next) {
     var path = req.body.path.trim().replace(/ /g, '/')
