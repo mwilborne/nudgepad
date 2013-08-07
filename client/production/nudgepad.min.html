@@ -110,11 +110,7 @@
   		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
 		  	Back
 		  </div>
-			<div id="BlogAdvancedToggle" class="ToolSquareButton" onclick="$('#BlogAdvanced').toggle()">
-				<img src="nudgepad/public/images/bulb.png">
-			</div>
-			<textarea id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
-		  <div id="BlogNewPostButton" onclick="Blog.createPost()">
+		  <div id="BlogNewPostButton" onclick="Blog.resetForm(); $('#BlogComposeColumn').show();">
 			  New Post
 			</div>
 		<div class="clear"></div>
@@ -129,11 +125,22 @@
 	  </div>
 	  <div id="BlogComposeColumn">
 		  <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.updatePermalink()"></input>
-	  	<textarea id="BlogContent" placeholder="Blog your post here..." tabindex="2"></textarea>
-		  <div id="BlogPublishButton" onclick="Blog.savePost()">Publish</div>
-	    <div id="BlogDeleteButton" onclick="Blog.deletePost()">Delete</div>
+	  	<textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
+	  	<img style="padding-top: 20px;" src="/nudgepad/tools/blog/settings.png" onclick="$('#BlogAdvanced').toggle()">
+		  <div id="BlogPublishButton" onclick="Blog.savePost()">Save</div>
+	    <div id="BlogDeleteButton" onclick="Blog.deletePostPrompt()">Delete</div>
 	    <div class="clear"></div>
-	    <div id="BlogPermalink" onclick="window.open($(this).attr('value'), 'published')"></div>
+	    
+	    <textarea style="margin-top: 20px;" id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
+	    
+	    
+	    <div>
+	      <input id="BlogPublishURL" placeholder="url">
+  	    <div id="BlogPublishButton" onclick="Blog.publishPost()">Publish</div>
+	    </div>
+	    
+			
+			
 	  </div>
   </div>
 </div>

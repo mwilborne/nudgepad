@@ -596,6 +596,7 @@ body {
 #BlogComposeColumn {
   float: left;
   width: 75%;
+  display: none;
 }
 
 #BlogPostContent {
@@ -624,17 +625,29 @@ body {
   margin-top: 40px;
 }
 
-#BlogPermalink {
-  left : 0px;
-  top : 629px;
-  font-size : 13px;
-  height : 1px;
-  line-height : 30px;
+#BlogPublishURL {
+  width : 80%;
+  text-indent : 10px;
+  padding : 0px;
+  height : 50px ;
+  line-height : 20px;
+  font-size : 20px;
+  border : 0px;
+  float: left;
+}
+
+#BlogPublishButton {
+  background-color: #1a86d6;
+  height: 40px;
+  width: 20%;
+  color: #fff;
+  font-size : 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  float: right;
+  text-align: center;
   cursor : pointer;
-  color : #3D86D1;
-  width : 1px;
-  text-overflow : ellipsis;
-  white-space: nowrap;
+  line-height: 40px;
 }
 
 #BlogContent {
@@ -647,24 +660,18 @@ body {
 }
 
 #BlogAdvancedToggle {
-  float: right;
-  margin-left: 10px;
-  position: relative;
+  font-size : 13px;
+  cursor : pointer;
 }
 
 #BlogAdvanced {
   display : none;
-  right : 0px;
-  top : 40px;
-  width : 260px;
+  width : 100%;
+  height: 200px;
   font-size : 16px;
-  background-color: #444;
-  z-index: 4;
-  color: #ccc;
   resize : none;
   border : none;
   padding : 20px 10px;
-  position : absolute;
 }
 
 #BlogDeleteButton {
@@ -674,20 +681,6 @@ body {
   color: #fff;
   font-size : 15px;
   margin-top: 10px;
-  float: right;
-  text-align: center;
-  cursor : pointer;
-  line-height: 40px;
-}
-
-#BlogPublishButton {
-  background-color: #1a86d6;
-  height: 40px;
-  width: 100px;
-  color: #fff;
-  font-size : 15px;
-  margin-top: 10px;
-  margin-left: 10px;
   float: right;
   text-align: center;
   cursor : pointer;
@@ -714,6 +707,8 @@ body {
 #BlogNewPostButton:active { 
   background-color: #427a14;
 }
+
+
 
 #DesignerDimensions {
   display: none;
