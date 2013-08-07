@@ -32,14 +32,9 @@ Explorer.downloadTimelines = function () {
  * @param {string} File you want to edit
  */
 Explorer.edit = function (path) {
-  var req = {}
-  req.path = path
-  $.post( '/nudgepad.fs.readFile', req, function (data) {
+  fs.readFile( path, function (data) {
     TextPrompt.open('Editing ' + path, data, function (val) {
-      var req = {}
-      req.path = path
-      req.content = val + ''
-      $.post('/nudgepad.explorer.save', req, function (err) {
+      fs.writeFile(path, val.toString(), function (err) {
         if (err)
           console.log(err)
         else
