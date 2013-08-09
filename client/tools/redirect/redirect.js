@@ -12,6 +12,6 @@ Redirect.on('open', function () {
 Redirect.save = function () {
   var value = $('#RedirectCode').val()
   fs.writeFile('private/redirects.space', value, function (err) {
-    Alerts.success('Saved. Please restart.')
+    Alerts.success('Saved. Please restart >')
   })
 }
