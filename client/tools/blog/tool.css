@@ -1,9 +1,9 @@
-#BlogPostColumn {
+#BlogListColumn {
   float: left;
   width: 25%;
 }
 
-#BlogComposeColumn {
+#BlogEditorColumn {
   float: left;
   width: 75%;
   display: none;
@@ -35,15 +35,30 @@
   margin-top: 40px;
 }
 
+#BlogSaveButton {
+  background-color: #1a86d6;
+  height: 40px;
+  width: 20%;
+  color: #fff;
+  font-size : 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  float: right;
+  text-align: center;
+  cursor : pointer;
+  line-height: 40px;
+}
+
 #BlogPublishURL {
   width : 80%;
   text-indent : 10px;
   padding : 0px;
-  height : 50px ;
-  line-height : 20px;
-  font-size : 20px;
+  height : 40px ;
+  line-height : 15px;
+  font-size : 15px;
   border : 0px;
   float: left;
+  margin-top: 10px;
 }
 
 #BlogPublishButton {
@@ -53,8 +68,7 @@
   color: #fff;
   font-size : 15px;
   margin-top: 10px;
-  margin-left: 10px;
-  float: right;
+  float: left;
   text-align: center;
   cursor : pointer;
   line-height: 40px;

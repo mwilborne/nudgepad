@@ -83,6 +83,7 @@ module.exports =  function  (app) {
   
   app.post(app.pathPrefix + 'fs.writeFile', app.checkId, function(req, res, next) {
     var path = req.body.path.replace(/ /g, '/')
+    // todo: make sure path exists. if not, create it.
     fs.writeFile(app.paths.project + path, req.body.content, 'utf8', function (err) {
       if (err) return res.send(err)
       res.send('')

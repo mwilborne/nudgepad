@@ -224,33 +224,29 @@
   		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
 		  	Back
 		  </div>
-		  <div id="BlogNewPostButton" onclick="Blog.resetForm(); $('#BlogComposeColumn').show();">
+		  <div id="BlogNewPostButton" onclick="Blog.create();">
 			  New Post
 			</div>
 		<div class="clear"></div>
 		</div>
 	</div>
   <div class="ToolContainer">
-		<div id="BlogPostColumn">
+		<div id="BlogListColumn">
 			<div id="BlogPostContent">
 	  	  <div id="BlogPostTitle">Old Posts</div>
 	      <div id="BlogPosts"></div>
 	    </div>
 	  </div>
-	  <div id="BlogComposeColumn">
-		  <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.updatePermalink()"></input>
+	  <div id="BlogEditorColumn">
+		  <input id="BlogTitle" placeholder="Title" tabindex="1"></input>
 	  	<textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
-	  	<img style="padding-top: 20px;" src="/nudgepad/tools/blog/settings.png" onclick="$('#BlogAdvanced').toggle()">
-		  <div id="BlogPublishButton" onclick="Blog.savePost()">Save</div>
-	    <div id="BlogDeleteButton" onclick="Blog.deletePostPrompt()">Delete</div>
+		  <div id="BlogSaveButton" onclick="Blog.active.save()">Save</div>
+	    <div id="BlogDeleteButton" onclick="Blog.active.delete()">Delete</div>
 	    <div class="clear"></div>
-	    
-	    <textarea style="margin-top: 20px;" id="BlogAdvanced" placeholder="Advanced" tabindex="3"></textarea>
-	    
 	    
 	    <div>
 	      <input id="BlogPublishURL" placeholder="url">
-  	    <div id="BlogPublishButton" onclick="Blog.publishPost()">Publish</div>
+  	    <div id="BlogPublishButton" onclick="Blog.active.publish()">Publish</div>
 	    </div>
 	    
 			
@@ -258,7 +254,7 @@
 	  </div>
   </div>
 </div>
-<space id="BlogTheme" style="display: none;">
+<space id="BlogDefaultTemplate" style="display: none;">
 head
  scraps
   title

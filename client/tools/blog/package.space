@@ -1,4 +1,4 @@
 name Blog
-html tool.html defaultTheme.html
+html tool.html defaultTemplate.html
 js blog.js
 css tool.css
