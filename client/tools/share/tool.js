@@ -1,5 +1,5 @@
 var Share = new Tool('Share')
-Share.set('color', 'rgba(231, 189, 44, 1)')
+Share.set('color', 'rgba(171, 193, 199, 1)')
 Share.set('description', 'Share your project for others to remix.')
 Share.set('beta', true)
 

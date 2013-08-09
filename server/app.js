@@ -382,7 +382,7 @@ require('./proxy.js')(app)
 require('./import.js')(app)
 
 
-/*********** Eval any custom code ***********/
+/*********** Eval any custom packages or code that depends on userland (so eventually redirects, etc) ***********/
 var loadPackages = function () {
   if (!fs.existsSync(app.paths.packages))
     return false
@@ -405,6 +405,17 @@ var loadPackages = function () {
   }
 }
 loadPackages()
+
+try {
+  require('./redirects.js')(app)
+} catch (e) {
+  if (e instanceof SyntaxError) {
+    console.log('Syntax error in ' + files[j] + ': ' + e.message)
+    console.log('Includes skipped')
+  } else {
+    console.log('Error in ' + files[j] + ': ' + e.message)
+  }
+}
 
 /*********** ! ***********/
 app.use('/', function (req, res, next) {

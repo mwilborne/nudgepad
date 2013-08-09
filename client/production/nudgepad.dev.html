@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/nudgepad/tools/github/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/home/home.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/move/tool.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/redirect/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/server/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/share/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/sketch/tool.css" type="text/css"/>
@@ -113,6 +114,7 @@
     <script type="text/javascript" src="/nudgepad/tools/github/github.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/home/home.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/move/tool.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/redirect/redirect.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/server/server.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/share/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/sketch/sketch.js"></script>
@@ -638,6 +640,35 @@ jquery
 	  <div class="ToolPrimaryButton" onclick="Move.cloneProject()">
 		  Copy
 		</div>
+		
+	</div>
+</div>
+<div class="Tool" id="Redirect">
+	<div class="ToolNav">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		  
+		  <a class="ToolRightButton" onclick="$.get('/nudgepad.restart')" title="Restart Server">
+		  	Restart
+		  </a>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="ToolContainer">
+    
+    
+		<div class="ToolInputLabel">
+	  	Your Redirects
+	  </div>
+
+    <textarea id="RedirectCode"></textarea>
+    
+    <div class="ToolPrimaryButton" onclick="Redirect.save()">
+		  Save
+		</div>
+    
 		
 	</div>
 </div>
