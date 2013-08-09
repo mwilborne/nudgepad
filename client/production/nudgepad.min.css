@@ -2076,6 +2076,12 @@ License: MIT
   font-weight: 400;
 }
 
+#RedirectCode {
+  width: 400px;
+  height: 300px;
+  font-family: monospace;
+}
+
 
 #ServerLogHolder {
   border: none;
