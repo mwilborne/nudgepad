@@ -62,11 +62,11 @@ _.each(tools, function (toolName) {
   var toolDir = toolsPath + toolName + '/'
   
   
-  // Ignore if no make.space file
-  if (!fs.existsSync(toolDir + 'make.space', 'utf8'))
+  // Ignore if no package.space file
+  if (!fs.existsSync(toolDir + 'package.space', 'utf8'))
     return true
     
-  var settings = new Space(fs.readFileSync(toolDir + 'make.space', 'utf8'))
+  var settings = new Space(fs.readFileSync(toolDir + 'package.space', 'utf8'))
 
   var files = settings.get('js').split(/ /g)
   _.each(files, function (filename) {

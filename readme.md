@@ -161,7 +161,7 @@ tool.js var Draw = new Tool('Draw')
  Draw.set('color', 'blue')
 tool.css 
 tool.html 
-make.space html tool.html
+package.space html tool.html
  js tool.js
  css tool.css
 ```
