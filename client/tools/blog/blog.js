@@ -46,7 +46,7 @@ Blog.active.publish = function () {
   var id = Blog.active.id
   var post = Blog.get('posts ' + id)
   var path = 'private/posts/' + id + '.space'
-  var permalink = Blog.permalink(post.get('title')) + '.html'
+  var permalink = $('#BlogPermalink')
   var templateName = $('#BlogTemplate').val()
   var html
   if (Project.get('pages ' + templateName))
@@ -82,7 +82,7 @@ Blog.create = function () {
 Blog.permalink = function (string) {
   if (!string)
     return ''
-  return string.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '-')
+  return string.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '-') + '.html'
 }
 
 /**
