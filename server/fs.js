@@ -86,7 +86,7 @@ module.exports =  function  (app) {
     // todo: make sure path exists. if not, create it.
     fs.writeFile(app.paths.project + path, req.body.content, 'utf8', function (err) {
       if (err) return res.send(err)
-      res.send('')
+      res.send('okay')
     })
 
   })

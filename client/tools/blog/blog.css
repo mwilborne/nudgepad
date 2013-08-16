@@ -98,6 +98,10 @@
   padding : 20px 10px;
 }
 
+.BlogActivePost {
+  font-weight: bold;
+}
+
 #BlogDeleteButton {
   background-color: #555;
   height: 40px;

@@ -30,6 +30,7 @@ Blog.active.delete = function () {
   var id =  Blog.active.id
   Blog.active.close()
   var post = Blog.get('posts ' + id).trash()
+  Blog.trigger('posts')
 }
 
 Blog.active.open = function (id) {
@@ -38,6 +39,9 @@ Blog.active.open = function (id) {
   $('#BlogTitle').val(post.get('title'))
   $('#BlogContent').val(post.get('content'))
   $('#BlogEditorColumn').show()
+  Blog.active.updatePermalink()
+  $('.BlogActivePost').removeClass('BlogActivePost')
+  $('#post-' + id).addClass('BlogActivePost')
   $('#BlogTitle').focus()
   document.execCommand('selectAll',false,null)
 }
@@ -46,16 +50,16 @@ Blog.active.publish = function () {
   var id = Blog.active.id
   var post = Blog.get('posts ' + id)
   var path = 'private/posts/' + id + '.space'
-  var permalink = $('#BlogPermalink')
+  var permalink = $('#BlogPermalink').val()
   var templateName = $('#BlogTemplate').val()
   var html
   if (Project.get('pages ' + templateName))
     html = Project.get('pages ' + templateName)
   else
-    html = $('#BlogDefaultTemplate')
+    html = $('#BlogDefaultTemplate').text()
   var pressedHtml = Blog.press(post.toString(), html.toString())
   fs.writeFile(permalink, pressedHtml, function () {
-    window.open(permalink, 'published')
+    window.open(permalink + '?' + new Date().getTime(), 'published')
   })
 }
 
@@ -65,6 +69,12 @@ Blog.active.save = function () {
   post.set('title', $('#BlogTitle').val())
   post.set('content', $('#BlogContent').val())
   post.save()
+  Blog.trigger('posts')
+}
+
+Blog.active.updatePermalink = function () {
+  var title = $('#BlogTitle').val()
+  $('#BlogPermalink').val(Blog.permalink(title))
 }
 
 Blog.create = function () {
@@ -76,6 +86,7 @@ Blog.create = function () {
   post.set('title', 'Untitled')
   post.save()
   Blog.set('posts ' + id, post)
+  Blog.trigger('posts')
   Blog.active.open(id)
 }
 
@@ -104,6 +115,34 @@ Blog.press = function (postString, pageString) {
   return htmlString
 }
 
+Blog.downloadPosts = function () {
+  Explorer.folderToSpace('private/posts', function (data) {
+    var space = new Space(data)
+    space.each(function (key, value) {
+      var id = key.replace(/\.space/, '')
+      Blog.set('posts ' + id, new Blog.Post(value))
+    })
+    Blog.trigger('posts')
+  })
+}
+
+Blog.listPosts = function () {
+  var posts = Blog.get('posts')
+  $('#BlogPosts').html('')
+  posts.each(function (key, value) {
+    var link = $('<div></div>')
+    link.html(value.get('title'))
+    link.on('click', function () {
+      Blog.active.open(value.get('id'))
+    })
+    link.attr('id', 'post-' + value.get('id'))
+    $('#BlogPosts').append(link)
+  })
+}
+
+Blog.on('open', Blog.downloadPosts)
+Blog.on('posts', Blog.listPosts)
+
 Blog.Post = function (space) {
   this.clear()
   if (space)
@@ -125,6 +164,7 @@ Blog.Post.prototype.trash = function () {
   fs.unlink(path, function () {
     Alerts.success('Deleted')
   })
+  Blog.delete('posts ' + this.get('id'))
 }
 
 

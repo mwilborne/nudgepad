@@ -13,12 +13,12 @@
   <div class="ToolContainer">
 		<div id="BlogListColumn">
 			<div id="BlogPostContent">
-	  	  <div id="BlogPostTitle">Old Posts</div>
+	  	  <div id="BlogPostTitle">Posts</div>
 	      <div id="BlogPosts"></div>
 	    </div>
 	  </div>
 	  <div id="BlogEditorColumn">
-		  <input id="BlogTitle" placeholder="Title" tabindex="1"></input>
+		  <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.active.updatePermalink()"></input>
 	  	<textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
 		  <div id="BlogSaveButton" onclick="Blog.active.save()">Save</div>
 	    <div id="BlogDeleteButton" onclick="Blog.active.delete()">Delete</div>
@@ -26,7 +26,7 @@
 	    
 	    <div>
 	      <input id="BlogPermalink" placeholder="url">
-  	    <div id="BlogPublishButton" onclick="Blog.active.publish()">Publish</div>
+  	    <div id="BlogPublishButton" onclick="Blog.active.save();Blog.active.publish()">Publish</div>
 	    </div>
 	    
 			
