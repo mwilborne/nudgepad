@@ -24,3 +24,11 @@ v 0.3
 - make publish NOT open a tab w/o browser controls
 - add more % of screen for writing
 - add autosave
+
+
+v 0.4
+-----
+- provide better linking with files tool for deleing published pages
+- provide better linking with designer tool to allow easy editing of templates
+- provide easier ways to add markdown/etc
+- provide a preview button
