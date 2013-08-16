@@ -85,7 +85,7 @@ Blog.create = function () {
   post.set('id', id)
   post.set('title', 'Untitled')
   post.save()
-  Blog.set('posts ' + id, post)
+  Blog.set('posts ' + id, post, 0)
   Blog.trigger('posts')
   Blog.active.open(id)
 }
@@ -118,6 +118,9 @@ Blog.press = function (postString, pageString) {
 Blog.downloadPosts = function () {
   Explorer.folderToSpace('private/posts', function (data) {
     var space = new Space(data)
+    space.keys = space.keys.sort(function (a, b) {
+      return b > a
+    })
     space.each(function (key, value) {
       var id = key.replace(/\.space/, '')
       Blog.set('posts ' + id, new Blog.Post(value))
