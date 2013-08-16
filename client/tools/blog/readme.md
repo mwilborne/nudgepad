@@ -21,6 +21,6 @@ v 0.2
 v 0.3
 -----
 - Update publish url/publish button to use flexbox css
-
+- make publish NOT open a tab w/o browser controls
 - add more % of screen for writing
 - add autosave
