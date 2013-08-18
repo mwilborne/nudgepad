@@ -154,6 +154,21 @@ to add this to your .bash_profile or .bashrc:
     export PATH="$PATH:/nudgepad/node_modules/.bin"
 
 
+Installing Clojure Compiler
+---------------------------
+
+NudgePad uses Google's Clojure Compiler to package the client app.
+
+To install:
+
+    sudo apt-get install unzip
+    mkdir /nudgepad/compiler
+    cd /nudgepad/compiler
+    wget http://closure-compiler.googlecode.com/files/compiler-latest.zip
+    unzip compiler-latest.zip 
+    
+
+
 Uninstalling
 ------------
 

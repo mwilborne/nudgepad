@@ -1,7 +1,7 @@
 all:
 	node build.js prod
 	cp production/nudgepad.min.js production/nudgepad.temp.js
-	java -jar ~/compiler.jar --js=production/nudgepad.temp.js --js_output_file=production/nudgepad.min.js --language_in=ECMASCRIPT5
+	java -jar /nudgepad/compiler/compiler.jar --js=production/nudgepad.temp.js --js_output_file=production/nudgepad.min.js --language_in=ECMASCRIPT5
 	rm production/nudgepad.temp.js
 
 # Before you start developing, untrack generated files
