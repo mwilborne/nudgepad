@@ -6,10 +6,7 @@ Files.set('description', 'View and edit the files of your project.')
 // Files.on('change', 'path', Files.RenderExplorer())
 
 Files.on('open', function () {
-  
-  $('#FilesDownload').attr('href', '/nudgepad.backup/' + document.location.host + '.zip')
-  Files.refresh()  
-    
+  Files.refresh()
 })
 
 Files.on('set', function (key) {
