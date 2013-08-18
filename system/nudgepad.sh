@@ -355,6 +355,9 @@ echo "*** Nudgepad Commands ***"
 echo "nudgepad start - Start proxy and panel"
 echo "nudgepad create domain email@domain.com template.space - Creates a new project"
 echo "nudgepad stop - Stop all"
+echo "nudgepad running - List active sites"
+echo "nudgepad pids - List all pids"
+echo "nudgepad traffic - Watch incoming traffic"
 ;;
 esac
 
