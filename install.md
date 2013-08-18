@@ -6,8 +6,10 @@ Installing on a Mac
 
 ### Create NudgePad folder
 
+    who=`whoami`
+    whoGroup=staff
     sudo mkdir /nudgepad
-    sudo chown $whoami:staff /nudgepad
+    sudo chown $who:$whoGroup /nudgepad
 
 ### Install mon
 
@@ -38,12 +40,11 @@ NudgePad requires node v0.8.*. NudgePad does NOT currently work reliably with no
 ### Install NudgePad
 
     cd /nudgepad/nudgepad
-    npm install
-    # need to install modules globally so different sites can use em
-    # npm is weird. need to clean this up.
-    sudo npm install -g
+    sudo npm install
+    sudo chown -R $who:$whoGroup node_modules
     # move node_modules to parent dir
     mv /nudgepad/nudgepad/node_modules /nudgepad/
+    sudo npm install -g
 
 ### Start NudgePad
 
@@ -121,13 +122,12 @@ NudgePad requires node v0.8.*. NudgePad does NOT currently work reliably with no
 
 ### Install NudgePad
 
-    cd nudgepad
-    npm install
-    # need to install modules globally so different sites can use em
-    # npm is weird. need to clean this up.
-    sudo npm install -g
+    cd /nudgepad/nudgepad
+    sudo npm install
+    sudo chown -R ubuntu:ubuntu node_modules
     # move node_modules to parent dir
     mv /nudgepad/nudgepad/node_modules /nudgepad/
+    sudo npm install -g
 
 ### Start NudgePad
 
