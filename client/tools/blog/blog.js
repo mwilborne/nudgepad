@@ -19,37 +19,40 @@ Blog.set('posts', new Space())
 
 Blog.active = {}
 
-Blog.active.id = null
+Blog.active.filename = null
 
 Blog.active.close = function () {
-  Blog.active.id = null
+  Blog.active.filename = null
   $('#BlogEditorColumn').hide()
 }
 
 Blog.active.delete = function () {
-  var id =  Blog.active.id
+  var filename =  Blog.active.filename
   Blog.active.close()
-  var post = Blog.get('posts ' + id).trash()
+  var post = Blog.get('posts ' + filename).trash()
   Blog.trigger('posts')
 }
 
-Blog.active.open = function (id) {
-  Blog.active.id = id
-  var post = Blog.get('posts ' + id)
+Blog.active.open = function (filename) {
+  Blog.active.filename = filename
+  var post = Blog.get('posts ' + filename)
   $('#BlogTitle').val(post.get('title'))
   $('#BlogContent').val(post.get('content'))
   $('#BlogEditorColumn').show()
   Blog.active.updatePermalink()
   $('.BlogActivePost').removeClass('BlogActivePost')
-  $('#post-' + id).addClass('BlogActivePost')
+  $('#BlogPosts div').each(function (){
+    if ($(this).attr('filename') === filename)
+      $(this).addClass('BlogActivePost')
+  })
   $('#BlogTitle').focus()
   document.execCommand('selectAll',false,null)
 }
 
 Blog.active.publish = function () {
-  var id = Blog.active.id
-  var post = Blog.get('posts ' + id)
-  var path = 'private/posts/' + id + '.space'
+  var filename = Blog.active.filename
+  var post = Blog.get('posts ' + filename)
+  var path = 'private/posts/' + filename
   var permalink = $('#BlogPermalink').val()
   var templateName = $('#BlogTemplate').val()
   var html
@@ -64,8 +67,8 @@ Blog.active.publish = function () {
 }
 
 Blog.active.save = function () {
-  var id =  Blog.active.id
-  var post = Blog.get('posts ' + id)
+  var filename =  Blog.active.filename
+  var post = Blog.get('posts ' + filename)
   post.set('title', $('#BlogTitle').val())
   post.set('content', $('#BlogContent').val())
   post.save()
@@ -80,14 +83,15 @@ Blog.active.updatePermalink = function () {
 Blog.create = function () {
   // todo: remove this line, make writeFile mkdirs that it needs to
   fs.mkdir('private/posts')
-  var id = new Date().getTime()
-  var post = new Blog.Post()
-  post.set('id', id)
+  var timestamp = new Date().getTime()
+  var filename = timestamp + '.space'
+  var post = new Blog.Post(filename)
+  post.set('timestamp', timestamp)
   post.set('title', 'Untitled')
   post.save()
-  Blog.set('posts ' + id, post, 0)
+  Blog.set('posts ' + filename, post, 0)
   Blog.trigger('posts')
-  Blog.active.open(id)
+  Blog.active.open(filename)
 }
 
 Blog.permalink = function (string) {
@@ -121,9 +125,8 @@ Blog.downloadPosts = function () {
     space.keys = space.keys.sort(function (a, b) {
       return b > a
     })
-    space.each(function (key, value) {
-      var id = key.replace(/\.space/, '')
-      Blog.set('posts ' + id, new Blog.Post(value))
+    space.each(function (filename, value) {
+      Blog.set('posts ' + filename, new Blog.Post(filename, value))
     })
     Blog.trigger('posts')
   })
@@ -132,13 +135,13 @@ Blog.downloadPosts = function () {
 Blog.listPosts = function () {
   var posts = Blog.get('posts')
   $('#BlogPosts').html('')
-  posts.each(function (key, value) {
+  posts.each(function (filename, value) {
     var link = $('<div></div>')
     link.html(value.get('title'))
     link.on('click', function () {
-      Blog.active.open(value.get('id'))
+      Blog.active.open(filename)
     })
-    link.attr('id', 'post-' + value.get('id'))
+    link.attr('filename', filename)
     $('#BlogPosts').append(link)
   })
 }
@@ -146,28 +149,29 @@ Blog.listPosts = function () {
 Blog.on('open', Blog.downloadPosts)
 Blog.on('posts', Blog.listPosts)
 
-Blog.Post = function (space) {
+Blog.Post = function (filename, patch) {
   this.clear()
-  if (space)
-    this.patch(space)
+  this._filename = filename
+  if (patch)
+    this.patch(patch)
   return this
 }
 
 Blog.Post.prototype = new Space()
 
 Blog.Post.prototype.save = function () {
-  var path = 'private/posts/' + this.get('id') + '.space'
+  var path = 'private/posts/' + this._filename
   fs.writeFile(path, this.toString(), function () {
     Alerts.success('Saved')
   })
 }
 
 Blog.Post.prototype.trash = function () {
-  var path = 'private/posts/' + this.get('id') + '.space'
+  var path = 'private/posts/' + this._filename
   fs.unlink(path, function () {
     Alerts.success('Deleted')
   })
-  Blog.delete('posts ' + this.get('id'))
+  Blog.delete('posts ' + this._filename)
 }
 
 

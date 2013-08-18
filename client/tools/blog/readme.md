@@ -3,14 +3,15 @@ Blog
 
 A tool for creating blog posts in your project.
 
-v 0.1
------
+v 0.1 - done
+------------
 - get posts list working
 - make post list come in chronological order
-- make delete open the next post
+- make id filename instead
 
 v 0.2
 -----
+- make delete open the next post
 - add publishing with custom templates
 - add advanced back in
 - add unit tests
