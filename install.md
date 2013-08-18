@@ -162,6 +162,7 @@ NudgePad uses Google's Clojure Compiler to package the client app.
 To install:
 
     sudo apt-get install unzip
+    sudo apt-get install java7-jdk 
     mkdir /nudgepad/compiler
     cd /nudgepad/compiler
     wget http://closure-compiler.googlecode.com/files/compiler-latest.zip
