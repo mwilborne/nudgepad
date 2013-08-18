@@ -82,7 +82,7 @@ Files.renderExplorer = function () {
       row += '<td class="FilesHiddenAction FilesExplorerRename">Rename</td>'
       row += '<td class="FilesHiddenAction FilesExplorerRemove">Delete</td>'
       row += '<td>' + (file.get('size')) + '</td>'
-      row += '<td>' + moment(file.get('mtime')).fromNow() + '</td>'
+      row += '<td>' + moment(parseFloat(file.get('mtime'))).fromNow() + '</td>'
     } else {
       row += ' class="FilesExplorerFolder" value="' + filename + '" path="' + path + filename + '">'
       row += '<td class="FilesExplorerFolderName">' + filename + '</td>'
