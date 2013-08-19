@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/nudgepad/tools/appmaker/fire.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/blog/blog.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/designer/tool.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/designer/css/designer.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/shortcutTable.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/spectrum.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/styleEditor.css" type="text/css"/>
@@ -340,7 +340,7 @@ body
   </div>
   
   <div id="DesignerTabs"></div>
-  
+  <div id="DesignerPublishButton" onclick="Designer.stage.publish()">Publish</div>
 </div>
 <space id="DesignerBlankPage" style="display: none;">
 head
@@ -456,7 +456,6 @@ jquery
 </space>
 
 <div id="DesignerMenu">
-	<div onclick="window.open(Designer.stage.activePage + '.html?' + new Date().getTime(),'published')">Visit</div>
   <div onclick="Designer.menu.blank()">New</div>
   <div onclick="Designer.menu.duplicate()">Duplicate</div>
   <div onclick="Designer.menu.renamePrompt()">Rename</div>

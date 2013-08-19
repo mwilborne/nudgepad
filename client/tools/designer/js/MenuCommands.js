@@ -1,4 +1,4 @@
-Designer.menu.autopublish = true
+Designer.menu.autopublish = false
 
 Designer.menu.blank = function () {
 
@@ -52,7 +52,6 @@ Designer.menu.create = function (name, template) {
   
   Designer.stage.open(name)
   mixpanel.track("I created a new webpage")
-  Designer.menu.publish(name)
   return name
 }
 
@@ -126,9 +125,8 @@ Designer.menu.nextName = function (prefix) {
 
 Designer.menu.prettyPrint = true
 
-Designer.menu.publish = function (name) {
-  var page = Project.get('pages ' + name).toString()
-  var html = new Page(page).toHtml(function () {
+Designer.menu.publish = function (url, pageString, callback) {
+  var html = new Page(pageString).toHtml(function () {
     // File draft scrap
     if (this.get('draft') === 'true')
       return ''
@@ -139,7 +137,7 @@ Designer.menu.publish = function (name) {
   if (Designer.menu.prettyPrint)
     html = html_beautify(html)
   
-  fs.writeFile(name + '.html', html)
+  fs.writeFile(url, html, callback)
 }
 
 /**

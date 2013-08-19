@@ -7,7 +7,7 @@ Designer.shortcuts = {}
 Designer.shortcuts['ctrl+a'] = Designer.stage.selectAll
 Designer.shortcuts['meta+a'] = Designer.stage.selectAll
 
-Designer.shortcuts['meta+p'] = function () { window.open(Designer.stage.activePage + '.html?' + new Date().getTime(), 'published') }
+Designer.shortcuts['meta+p'] = Designer.stage.publish
 
 
 Designer.deleteShortcut = function () { Designer.stage.selection.delete(); Designer.stage.commit() }

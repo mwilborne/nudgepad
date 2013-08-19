@@ -61,7 +61,7 @@ Designer.stage.commit = function () {
   
   // Todo: move this out of here
   if (Designer.menu.autopublish)
-    Designer.menu.publish(Designer.stage.activePage)
+    Designer.menu.publish(Designer.stage.activePage + '.html', Designer.page.toString())
   
   return diff
 }
@@ -303,7 +303,6 @@ Designer.stage.open = function (name) {
   store.set('activePage', Designer.stage.activePage)
   Screen.set('page', Designer.stage.activePage)
   
-
   Designer.edge = page
   Designer.page = new Page(page.toString())
   Designer.stage.version = Designer.stage.timeline.length()
@@ -314,6 +313,12 @@ Designer.stage.open = function (name) {
   Designer.trigger('page')
   return ''
   
+}
+
+Designer.stage.publish = function () {
+  Designer.menu.publish(Designer.stage.activePage + '.html', Designer.edge.toString(), function () {
+    window.open(Designer.stage.activePage + '.html?' + new Date().getTime(),'published')
+  })
 }
 
 Designer.stage.redo = function () {
