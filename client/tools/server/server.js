@@ -2,7 +2,6 @@ var Server = new Tool('Server')
 Server.set('color', 'rgba(36, 65, 112, 1)')
 Server.set('path', '')
 Server.set('description', 'Manage your project\'s web server.')
-Server.set('beta', 'true')
 
 Server.consoleSend = function () {
   

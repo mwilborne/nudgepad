@@ -2,7 +2,6 @@ var Move = new Tool('Move')
 Move.set('color', 'rgba(36, 65, 112, 1)')
 Move.set('path', '')
 Move.set('description', 'Move or copy your project to a new domain.')
-Move.set('beta', 'true')
 
 Move.import = function () {
   TextPrompt.open('Import a Project to this Move', '', function (val) {

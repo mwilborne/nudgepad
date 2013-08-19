@@ -1,5 +1,4 @@
 var Home = new Tool('Home')
-store.set('homeShowAll', 'true')
 
 Home.renderMenu = function () {
   $('#HomeColumn').html('')

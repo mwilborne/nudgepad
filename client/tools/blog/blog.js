@@ -14,7 +14,6 @@ var Space = require('space'),
 var Blog = new Tool('Blog')
 Blog.set('color', 'rgba(224, 54, 52, 1)')
 Blog.set('description', 'Add a blog to your project.')
-Blog.set('beta', 'true')
 Blog.set('posts', new Space())
 
 Blog.active = {}
