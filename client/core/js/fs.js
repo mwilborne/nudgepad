@@ -59,4 +59,10 @@ fs.writeFile = function (path, content, callback) {
   $.post('/nudgepad.fs.writeFile', req, callback)
 }
 
-
+fs.writeFileBase64 = function (path, content, callback) {
+  var req = {}
+  req.path = path
+  req.content = content
+  req.encoding = 'base64'
+  $.post('/nudgepad.fs.writeFile', req, callback)
+}
