@@ -173,7 +173,13 @@ Scrap.prototype.render = function (index) {
     // temporay fix. need to handle styles property
     if (tag === 'style' && this.get('content')) {
       
-      var css = cssToSpace(this.get('content'))
+      var css
+      try {
+        css = cssToSpace(this.get('content'))
+      } catch (err) {
+        Alerts.error('Warning: Failed to parse CSS in this page')
+        css = new Space()
+      }
       var bodyProperties = [
         'background',
         'background-color',
