@@ -869,6 +869,7 @@ body {
   z-index: 502;
   min-width: 630px;
   font-family: 'Titillium Web';
+  font-weight: 300;
   text-align: left;
 }
 
@@ -893,13 +894,40 @@ body {
 }
 
 #DesignerTabs {
-  float: right;
+  position: absolute;
+  right: 100px;
+  top: 0;
   max-width: 600px;
   overflow: hidden;
   font-size: 14px;
   height: 50px;
   line-height: 50px;
   color: #777;
+}
+
+#DesignerPublishButton {
+  position: absolute;
+  right: 20px;
+  top: 10;
+  max-width: 600px;
+  overflow: hidden;
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+  background-color: #1a86d6;
+}
+
+#DesignerPublishButton:hover {
+  background-color: #3575b5;
+}
+
+#DesignerPublishButton:active {
+  background-color: #2c659e;
 }
 
 #DesignerMenu {
@@ -1026,6 +1054,7 @@ body {
   z-index: 501;
   display: none;
   text-align: left;
+  font-weight: 300;
 }
 
 #DesignerComponentsList {
