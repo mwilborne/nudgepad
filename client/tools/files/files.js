@@ -1,5 +1,4 @@
 var Files = new Tool('Files')
-Files.set('color', 'rgba(36, 65, 112, 1)')
 Files.set('path', '')
 Files.set('description', 'View and edit the files of your project.')
 

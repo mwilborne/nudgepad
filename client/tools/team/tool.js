@@ -1,5 +1,4 @@
 var Team = new Tool('Team')
-Team.set('color', 'rgba(231, 189, 44, 1)')
 Team.set('description', 'Invite people to work on your project.')
 
 Team.on('open', function () {

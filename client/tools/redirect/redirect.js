@@ -1,5 +1,4 @@
 var Redirect = new Tool('Redirect')
-Redirect.set('color', 'rgba(224, 54, 52, 1)')
 Redirect.set('description', 'Manage URL redirects for your project.')
 
 Redirect.on('open', function () {

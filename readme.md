@@ -158,7 +158,6 @@ like this:
 ```
 tool.js var Draw = new Tool('Draw')
  Draw.set('description', 'Draw and edit illustrations for your project.')
- Draw.set('color', 'blue')
 tool.css 
 tool.html 
 package.space html tool.html
@@ -231,8 +230,6 @@ var Draw = new Tool('Draw')
 Your tool should have a few standard properties including:
 
 ```
-// The background color of your Tool's button on the Home screen
-Draw.set('color', 'blue')
 // The description of your Tool on the Home screen
 Draw.set('description', 'Draw something')
 ```

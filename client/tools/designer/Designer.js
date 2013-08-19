@@ -1,5 +1,4 @@
 var Designer = new Tool('Designer')
-Designer.set('color', 'rgba(26, 134, 214, 1)')
 Designer.set('description', 'Design pages for your project.')
 
 // What spot the maker is on the timeline for the current page
