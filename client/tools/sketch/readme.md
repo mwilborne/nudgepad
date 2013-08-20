@@ -7,15 +7,21 @@ v0.1 - Done
 - Downlaod to png
 
 
-v0.2
-----
+v0.2 - done
+-----------
 - Save as png in project easily
-- Artistic stroke
+
 
 
 v0.3
 ----
+- clear button?
+- full width
+- crop
+- open pngs
 - undo/redo
+- Artistic stroke
+- fix ios bugs
 - Real time coediting
 
 v0.4
