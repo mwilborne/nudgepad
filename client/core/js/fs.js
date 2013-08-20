@@ -59,6 +59,20 @@ fs.writeFile = function (path, content, callback) {
   $.post('/nudgepad.fs.writeFile', req, callback)
 }
 
+fs.writeFileAndOpen = function (path, content, callback) {
+  var form = $('<form target="published" method="post" action="nudgepad.fs.writeFile"></form>')
+  var input = $('<input name="path">')
+  input.val(path)
+  var input2 = $('<input name="content">')
+  input2.val(content)
+  var input3 = $('<input name="redirect">')
+  input3.val(path + '?' + new Date().getTime())
+  form.append(input)
+  form.append(input2)
+  form.append(input3)
+  form.submit()
+}
+
 fs.writeFileBase64 = function (path, content, callback) {
   var req = {}
   req.path = path

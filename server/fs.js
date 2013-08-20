@@ -88,7 +88,10 @@ module.exports =  function  (app) {
     if (req.body.encoding === 'base64')
       encoding = 'base64'
     fs.writeFile(app.paths.project + path, req.body.content, encoding, function (err) {
-      if (err) return res.send(err)
+      if (err)
+        return res.send(err)
+      if (req.body.redirect)
+        return res.redirect(req.body.redirect)
       res.send('okay')
     })
 

@@ -137,7 +137,7 @@ Designer.menu.publish = function (url, pageString, callback) {
   if (Designer.menu.prettyPrint)
     html = html_beautify(html)
   
-  fs.writeFile(url, html, callback)
+  fs.writeFileAndOpen(url, html, callback)
 }
 
 /**

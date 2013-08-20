@@ -85,9 +85,7 @@ Blog.active.publish = function () {
   else
     html = $('#BlogDefaultTemplate').text()
   var pressedHtml = Blog.press(post.toString(), html.toString())
-  fs.writeFile(permalink, pressedHtml, function () {
-    window.open(permalink + '?' + new Date().getTime(), 'published')
-  })
+  fs.writeFileAndOpen(permalink, pressedHtml)
 }
 
 Blog.active.save = function () {

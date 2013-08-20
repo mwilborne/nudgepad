@@ -316,9 +316,7 @@ Designer.stage.open = function (name) {
 }
 
 Designer.stage.publish = function () {
-  Designer.menu.publish(Designer.stage.activePage + '.html', Designer.edge.toString(), function () {
-    window.open(Designer.stage.activePage + '.html?' + new Date().getTime(),'published')
-  })
+  Designer.menu.publish(Designer.stage.activePage + '.html', Designer.edge.toString())
 }
 
 Designer.stage.redo = function () {
