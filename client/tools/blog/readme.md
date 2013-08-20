@@ -32,3 +32,4 @@ v 0.4
 - provide better linking with designer tool to allow easy editing of templates?
 - provide easier ways to add markdown/etc?
 - provide a preview button?
+- allow drag and drop of posts?
