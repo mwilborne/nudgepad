@@ -41,17 +41,21 @@ Blog.active.delete = function () {
   Blog.trigger('posts')
 }
 
+Blog.active.highlight = function (filename) {
+  $('.BlogActivePost').removeClass('BlogActivePost')
+  $('#BlogPosts div').each(function (){
+    if ($(this).attr('filename') === filename)
+      $(this).addClass('BlogActivePost')
+  })
+}
+
 Blog.active.open = function (filename) {
   Blog.active.filename = filename
   var post = Blog.get('posts ' + filename)
   $('#BlogTitle').val(post.get('title'))
   $('#BlogContent').val(post.get('content'))
   $('#BlogEditorColumn').show()
-  $('.BlogActivePost').removeClass('BlogActivePost')
-  $('#BlogPosts div').each(function (){
-    if ($(this).attr('filename') === filename)
-      $(this).addClass('BlogActivePost')
-  })
+  Blog.active.highlight(filename)
   $('#BlogTitle').focus()
   document.execCommand('selectAll',false,null)
 }
@@ -93,6 +97,10 @@ Blog.active.save = function () {
   post.set('content', $('#BlogContent').val())
   post.save()
   Blog.trigger('posts')
+}
+
+Blog.active.updateTitle = function () {
+  $('.BlogActivePost').text($('#BlogTitle').val())
 }
 
 Blog.create = function () {
@@ -159,6 +167,7 @@ Blog.listPosts = function () {
     link.attr('filename', filename)
     $('#BlogPosts').append(link)
   })
+  Blog.active.highlight(Blog.active.filename)
 }
 
 Blog.on('open', Blog.downloadPosts)
