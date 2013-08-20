@@ -11,6 +11,9 @@ v 0.1 - done
 
 v 0.2
 -----
+- make layout responsive
+
+
 - make delete open the next post
 - add publishing with custom templates
 - add advanced back in
