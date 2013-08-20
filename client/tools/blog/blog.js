@@ -20,6 +20,15 @@ Blog.active = {}
 
 Blog.active.filename = null
 
+Blog.active.advanced = function () {
+  var post = Blog.get('posts ' + Blog.active.filename)
+  TextPrompt.open('Advanced', post.toString(), function (value) {
+    post.patch(value)
+    post.save()
+    Blog.active.open(Blog.active.filename)
+  })
+}
+
 Blog.active.close = function () {
   Blog.active.filename = null
   $('#BlogEditorColumn').hide()
@@ -38,7 +47,6 @@ Blog.active.open = function (filename) {
   $('#BlogTitle').val(post.get('title'))
   $('#BlogContent').val(post.get('content'))
   $('#BlogEditorColumn').show()
-  Blog.active.updatePermalink()
   $('.BlogActivePost').removeClass('BlogActivePost')
   $('#BlogPosts div').each(function (){
     if ($(this).attr('filename') === filename)
@@ -52,7 +60,20 @@ Blog.active.publish = function () {
   var filename = Blog.active.filename
   var post = Blog.get('posts ' + filename)
   var path = 'private/posts/' + filename
-  var permalink = $('#BlogPermalink').val()
+  
+  // Autogenerate a permalink
+  // todo: cover exceptions like if file already exists
+  if (!post.get('permalink')) {
+    var title = $('#BlogTitle').val()
+    var permalink = Blog.permalink(title)
+    post.set('permalink', permalink)
+  }
+  else {
+    var permalink = post.get('permalink')
+  }
+  // todo: if the title has changed since last publish, may want
+  // to ask user if they'd like to update the permalink
+  
   var templateName = $('#BlogTemplate').val()
   var html
   if (Project.get('pages ' + templateName))
@@ -72,11 +93,6 @@ Blog.active.save = function () {
   post.set('content', $('#BlogContent').val())
   post.save()
   Blog.trigger('posts')
-}
-
-Blog.active.updatePermalink = function () {
-  var title = $('#BlogTitle').val()
-  $('#BlogPermalink').val(Blog.permalink(title))
 }
 
 Blog.create = function () {
