@@ -1,4 +1,5 @@
 #!/bin/bash
+source setUsername.sh
 domain=$1
 serverUser=$2
 projectsPath=/nudgepad/projects
