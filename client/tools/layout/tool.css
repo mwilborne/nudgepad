@@ -22,7 +22,7 @@
   float: left;
 }
 
-.LayoutCell {
+#LayoutStage .LayoutCell {
   outline: 1px solid blue;
 }
 

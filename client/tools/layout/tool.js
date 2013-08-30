@@ -4,7 +4,7 @@ Layout.set('beta', true)
 
 Layout.on('open', function () {
   var template = $('.LayoutCell').clone()
-  $(document).on('click', '.splitHorizontal', function () {
+  $('#LayoutStage').on('click', '.splitHorizontal', function () {
     var clone = template.clone()
     clone.css('height', '50%')
     $(this).parent().parent().append(clone)
@@ -13,7 +13,7 @@ Layout.on('open', function () {
     $(this).parent().parent().append(clone2)
     $(this).parent().remove()
   })
-  $(document).on('click', '.splitVertical', function () {
+  $('#LayoutStage').on('click', '.splitVertical', function () {
     var clone = template.clone()
     clone.css('width', '50%')
     $(this).parent().parent().append(clone)
@@ -22,7 +22,7 @@ Layout.on('open', function () {
     $(this).parent().parent().append(clone2)
     $(this).parent().remove()
   })
-  $(document).on('click', '.layoutText', function () {
+  $('#LayoutStage').on('click', '.layoutText', function () {
     var cell = $(this).parent().parent()
     cell
       .attr('contenteditable', true)
