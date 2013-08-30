@@ -1,3 +1,4 @@
+# Create folders to install NudgePad
 if [ ! -d "$dataPath" ]
   then
     sudo mkdir $dataPath

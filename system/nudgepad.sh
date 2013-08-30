@@ -12,6 +12,7 @@ source paths.sh
 source isMac.sh
 source fixPermissions.sh
 source createFolders.sh
+source setUsername.sh
 
 # Set default ports and then load $tempPath/settings.sh to override those
 source config.sh

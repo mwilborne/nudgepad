@@ -11,7 +11,7 @@ Domain.validate = function (domain, relaxed) {
   if (!domain.match(Domain.tld) && !relaxed)
     return 'Domain must end with ' + Domain.tld
 
-  if (domain.length > 32)
+  if (domain.length > 128)
     return 'Domain too long'
   
   return false

@@ -82,7 +82,7 @@ createProject ()
       # todo: how can we do this without sudo? sudo cause a 400ms delay
       sudo $systemPath/createUser.sh $domain $USER
     else
-      # Change owner in case this script as called as root
+      # On Mac Change owner in case this script as called as root
       sudo chown -R $macUser:staff $projectsPath/$domain
   fi
   

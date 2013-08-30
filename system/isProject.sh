@@ -1,3 +1,4 @@
+# Todo: update to check if a 31 char username with that project exists.
 isProject ()
 {
   domain=$1

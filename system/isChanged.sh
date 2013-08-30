@@ -1,7 +1,8 @@
 isChanged ()
 {
   cd $projectsPath/$1
-  if sudo -u $1 git status | grep -q "nothing to commit"
+  setUsername $1
+  if sudo -u $username git status | grep -q "nothing to commit"
      then
        return 1
      else

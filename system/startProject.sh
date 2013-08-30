@@ -36,7 +36,8 @@ startProject () {
       # todo: fix this so mon isnt launching 2 processes.
 #      sudo -u $domain touch $projectsPath/$domain/private/app.log.txt
       # todo: how can we start this without sudo? sudo cause a 400ms delay
-      sudo -u $domain mon -d -l $projectsPath/$domain/private/app.log.txt -p $projectsPath/$domain/private/projectPid.txt -m $projectsPath/$domain/private/monPid.txt "node app.js $domain $PORT"
+      setUsername $domain
+      sudo -u $username mon -d -l $projectsPath/$domain/private/app.log.txt -p $projectsPath/$domain/private/projectPid.txt -m $projectsPath/$domain/private/monPid.txt "node app.js $domain $PORT"
   fi
   return 0
 }
