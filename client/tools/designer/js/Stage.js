@@ -6,7 +6,7 @@
  */
 Designer.stage.version = 0 // how many steps in we are
 Designer.stage.percentElapsed = 100
-Designer.stage.currentView = store.get('DesignerView') || 'mobile'
+Designer.stage.currentView = store.get('DesignerView') || 'tablet'
 
 /**
  * Open the previous page
