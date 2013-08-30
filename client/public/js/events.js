@@ -152,6 +152,8 @@ Events.tap.onMouseUp = function (event) {
   // Create a new point to mousedown event.
   // Sacrifice a tiny bit of memory for a lot less characters.
   var md = Events.tap.mousedown
+  if (!md)
+    return true
   
   // Speed test
   if ((event.timeStamp - md.timeStamp) > Events.tap.mouseTime)
@@ -173,7 +175,7 @@ Events.tap.onMouseUp = function (event) {
   if (Events.tap.onPass)
     Events.tap.onPass(event)
   
-  $(event.target).trigger('tap')
+  $(event.target).trigger('tap', md, event)
   
 }
 
@@ -209,7 +211,7 @@ Events.tap.onTouchEnd = function (event) {
   
   // Cumulative distance test
   
-  $(event.target).trigger('tap')
+  $(event.target).trigger('tap', md, event)
   
 }
 
@@ -296,7 +298,7 @@ Events.hold.fireMouse = function () {
   if (xDistance + yDistance > Events.hold.maxMouseDistance)
     return true
 
-  $(Events.hold.target).trigger('hold')
+  $(Events.hold.target).trigger('hold', md)
 }
 
 // We store a reference to the touchstart event
@@ -335,7 +337,7 @@ Events.hold.fireTouch = function () {
   if ( xDistance + yDistance > Events.hold.maxTouchDistance )
     return true
   
-  $(Events.hold.target).trigger('hold')
+  $(Events.hold.target).trigger('hold', Events.hold.touchstart)
 }
 
 

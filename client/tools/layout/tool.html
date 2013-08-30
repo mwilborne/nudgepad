@@ -1,0 +1,51 @@
+<div class="Tool" id="Layout">
+	<div class="ToolNav" style="position: fixed; z-index: 1000;">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		  <a class="ToolRightButton" onclick="Layout.publish()">
+		  	Publish
+		  </a>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="ToolContainer">
+    <div id="LayoutStage">
+      <div class="LayoutCell">
+        <div class="LayoutCellControls">
+          <span class="layoutText">A</span> <span class="splitHorizontal">=</span> <span class="splitVertical">||</span>
+        </div>
+      </div>
+    </div>
+	</div>
+</div>
+
+<template style="display: none;" id="LayoutTemplate">
+<!doctype html>
+<html>
+  <head>
+  <title id="title">Untitled</title>
+  <style id="style">
+  body {
+  font-family: Helvetica;
+  font-weight: 200;
+  font-size: 100px;
+  }
+  .LayoutCell {
+    position: relative;
+    color: grey;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 0.75em;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    float: left;
+  }
+  </style>
+  </head>
+  <body>BODY</body>
+</html>
+</template>

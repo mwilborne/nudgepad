@@ -141,6 +141,7 @@
   font-family: 'Titillium Web';
   font-weight: 300;
   text-align: left;
+  font-size: 16px;
 }
 
 .DesignerBarTab {
@@ -325,6 +326,7 @@
   display: none;
   text-align: left;
   font-weight: 300;
+  font-size: 16px;
 }
 
 #DesignerComponentsList {
