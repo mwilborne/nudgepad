@@ -85,7 +85,7 @@ Blog.active.publish = function () {
   else
     html = $('#BlogDefaultTemplate').text()
   var pressedHtml = Blog.press(post.toString(), html.toString())
-  fs.writeFileAndOpen(permalink, pressedHtml)
+  expressfs.writeFileAndOpen(permalink, pressedHtml, 'published')
 }
 
 Blog.active.save = function () {
@@ -103,7 +103,7 @@ Blog.active.updateTitle = function () {
 
 Blog.create = function () {
   // todo: remove this line, make writeFile mkdirs that it needs to
-  fs.mkdir('private/posts')
+  expressfs.mkdir('private/posts')
   var timestamp = new Date().getTime()
   var filename = timestamp + '.space'
   var post = new Blog.Post(filename)
@@ -183,14 +183,14 @@ Blog.Post.prototype = new Space()
 
 Blog.Post.prototype.save = function () {
   var path = 'private/posts/' + this._filename
-  fs.writeFile(path, this.toString(), function () {
+  expressfs.writeFile(path, this.toString(), function () {
     Alerts.success('Saved')
   })
 }
 
 Blog.Post.prototype.trash = function () {
   var path = 'private/posts/' + this._filename
-  fs.unlink(path, function () {
+  expressfs.unlink(path, function () {
     Alerts.success('Deleted')
   })
   Blog.delete('posts ' + this._filename)

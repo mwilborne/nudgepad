@@ -22,6 +22,9 @@ space:
 	cp ~/space/space.js public/js/space.js
 	cp ~/space/space.min.js public/js/space.min.js
 
+expressfs:
+	cp ~/expressfs/expressfs.browser.js /nudgepad/nudgepad/client/public/js/expressfs.browser.js
+
 events:
 	cp ~/events/events.js public/js/events.js
 	cp ~/events/events.min.js public/js/events.min.js

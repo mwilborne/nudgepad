@@ -25,7 +25,7 @@ Files.newFile = function () {
     return false
     
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  fs.create(path + newName, '', Files.refresh)
+  expressfs.create((path + newName).replace(/ /g, '/'), '', Files.refresh)
 }
 
 Files.newFolder = function () {
@@ -34,7 +34,7 @@ Files.newFolder = function () {
     return false
     
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  fs.mkdir((path + newName).replace(/ /g, '/'), Files.refresh)
+  expressfs.mkdir((path + newName).replace(/ /g, '/'), Files.refresh)
 }
 
 Files.renderExplorer = function () {
@@ -115,7 +115,7 @@ Files.refresh = function () {
 }
 
 $(document).on('click', '.FilesExplorerEdit', function () {
-  var filepath = $(this).parent().attr('path')
+  var filepath = $(this).parent().attr('path').replace(/ /g, '/')
   Explorer.edit(filepath)
 })
 
@@ -129,14 +129,14 @@ $(document).on('click', '.FilesExplorerRename', function () {
   if (!newName)
     return false
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  fs.rename($(this).parent().attr('path'), path + newName, Files.refresh)
+  expressfs.rename($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'), Files.refresh)
 })
 
 $(document).on('click', '.FilesExplorerRemove', function (event) {
   var name = $(this).parent().attr('value')
   if (!event.metaKey && !confirm('Are you sure you want to delete ' + name + '?'))
     return false
-  fs.unlink($(this).parent().attr('path').replace(/ /g, '/'), function () {
+  expressfs.unlink($(this).parent().attr('path').replace(/ /g, '/'), function () {
     Alerts.success(name + ' deleted')
     Files.refresh()
   })
@@ -147,7 +147,7 @@ $(document).on('click', '.FilesExplorerRemoveFolder', function () {
   if (!event.metaKey && !confirm('Are you sure you want to delete ' + name + '?'))
     return false
   var path = $(this).parent().attr('path').replace(/ /g, '/')
-  fs.rmdir(path, function () {
+  expressfs.rmdir(path, function () {
     Alerts.success(name + ' deleted')
     Files.refresh()
   })

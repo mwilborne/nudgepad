@@ -5,7 +5,7 @@ Share.set('beta', true)
 Share.on('open', function () {
 
   Share.update()
-  fs.readFile('private/sharecode.txt', function (data) {
+  expressfs.readFile('private/sharecode.txt', function (data) {
     if (data)
       Share.code = data
     else
@@ -22,7 +22,7 @@ Share.install = function () {
   
   Share.code = random
   
-  fs.create('private/sharecode.txt', random, function (data) {
+  expressfs.create('private/sharecode.txt', random, function (data) {
     console.log(data)
     Share.update()
     if (!data)

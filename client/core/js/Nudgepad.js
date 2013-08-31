@@ -2,6 +2,10 @@
 if (!window.console)
  window.console = {log: function() {}}
 
+// Configure expressFS
+expressfs.prefix = '/nudgepad.'
+expressfs.rootPath = '/nudgepad/projects/' + location.hostname + '/'
+
 /**
  * The Editor. The main nudgepad namespace.
  *

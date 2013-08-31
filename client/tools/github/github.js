@@ -42,9 +42,9 @@ GitHub.commit = function () {
 
 GitHub.deployKey = function () {
   
-  fs.exists('private/deploy.key', function (exists) {
+  expressfs.exists('private/deploy.key', function (exists) {
     if (exists)
-      fs.readFile('private/deploy.key', function (data) {
+      expressfs.readFile('private/deploy.key', function (data) {
         var box = $('<pre id="PreviewBoxWhiteBox" style="text-align: left;">' + data + '</pre>')
         PreviewBox.open(box)
       })

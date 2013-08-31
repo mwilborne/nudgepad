@@ -20,9 +20,9 @@ Explorer.downloadTimelines = function () {
  * @param {string} File you want to edit
  */
 Explorer.edit = function (path) {
-  fs.readFile( path, function (data) {
+  expressfs.readFile( path, function (data) {
     TextPrompt.open('Editing ' + path, data, function (val) {
-      fs.writeFile(path, val.toString(), function (err) {
+      expressfs.writeFile(path, val.toString(), function (err) {
         if (err)
           console.log(err)
         else

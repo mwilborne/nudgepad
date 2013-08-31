@@ -18,7 +18,7 @@ Sketch.save = function () {
   var data = $('#SketchCanvas')[0].toDataURL('png')
    // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABSQAAALjCAYAAAALJQv/AAAgAElEQ…AAAQIECEQFHJLRYcQiQIAAAQIECBAgQIAAAQIECBAg8CgwAUPuAqlLvAYAAAAASUVORK5CYII=
   data = data.replace('data:image/png;base64,', '')
-  fs.writeFileBase64(name, data, function () {
+  expressfs.writeFileBase64(name, data, function () {
     Alerts.success('Saved')
   })
 }

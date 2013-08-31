@@ -332,7 +332,12 @@ if (app.development) {
 require('./project.js')(app)
 require('./backup.js')(app)
 require('./explorer.js')(app)
-require('./fs.js')(app)
+
+app.post(/nudgepad\.expressfs.*/, app.checkId, function (req, res, next) {
+  next()
+})
+
+require('./expressfs.server.js')(app, {prefix : '/nudgepad.'})
 require('./restart.js')(app)
 // We use this to communicate with proxy.js so it knows what
 // domain this process serves

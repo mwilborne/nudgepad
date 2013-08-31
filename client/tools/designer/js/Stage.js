@@ -379,38 +379,25 @@ Designer.stage.openTimeline = function (name) {
     return true
   }
   
-  // Do we need to do this?
-  var request = $.ajax({
-    type: "POST",
-    url: '/nudgepad.fs.readFile',
-    data : {path : 'private timelines ' + name},
-    async: false,
-  })
-  
-  request.done(function (msg) {
-    Project._set('timelines ' + name, new Space(msg))
-  })
-  
-  request.fail(function () {
-    
-    var edge = Project.get('pages ' + name)
-    var timeline = new Space()
-    // If no timeline, but yes edge, make the edge the first commit
-    if (edge && !edge.isEmpty()) {
-      
-      var commit = new Space()
-      commit.set('author', Cookie.email)
-      commit.set('values', new Space(edge.toString()))
-    }
-    
+  // todo: read file sync methods and such.
+  expressfs.readFile('private/timelines/' + name, function (data) {
+    if (data)
+      Project._set('timelines ' + name, new Space(data))
+    else {
+      var edge = Project.get('pages ' + name)
+      var timeline = new Space()
+      // If no timeline, but yes edge, make the edge the first commit
+      if (edge && !edge.isEmpty()) {
 
-    Project.create('timelines ' + name, timeline  )
-    Alerts.success('Timeline created')
-    
-    
+        var commit = new Space()
+        commit.set('author', Cookie.email)
+        commit.set('values', new Space(edge.toString()))
+      }
+      Project.create('timelines ' + name, timeline  )
+      Alerts.success('Timeline created')
+    }
+    Designer.stage.timeline = Project.get('timelines ' + name)
   })
-  
-  Designer.stage.timeline = Project.get('timelines ' + name)
   
 }
 

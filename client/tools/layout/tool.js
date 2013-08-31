@@ -42,7 +42,7 @@ Layout.publish = function () {
   var filename = prompt('Enter a filename', 'layout.html')
   if (!filename)
     return false
-  fs.writeFileAndOpen(filename, html)
+  expressfs.writeFileAndOpen(filename, html, 'published')
 }
 
 Layout.splitVertical = function () {
