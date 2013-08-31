@@ -16,18 +16,18 @@ v 0.2 - done
 - add advanced back in
 - make active post update better
 
-v 0.3
------
-- add unit tests
+v 0.3 - done
+------------
 - make publish NOT open a tab w/o browser controls. make it open a normal tab
 - add more % of screen for writing
-- add autosave
-- eliminate all ways of losing unsaved changes
-- add undo for delete post
 
 
 v 0.4
 -----
+- eliminate all ways of losing unsaved changes
+- add undo for delete post
+- add autosave
+- add unit tests
 - provide better linking with files tool for deleting published pages?
 - provide better linking with designer tool to allow easy editing of templates?
 - provide easier ways to add markdown/etc?

@@ -1,6 +1,6 @@
 #BlogListColumn {
   float: left;
-  max-width: 300px;
+  width: 200px;
   box-sizing: border-box;
   padding: 20px;
 }
