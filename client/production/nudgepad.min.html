@@ -245,35 +245,16 @@ body
  tag body
  scraps
 </space>
-<space class="DesignerComponentSet" path="mockup block">
-thumb
- title Gray Block
- content Block
- style
-  background-color #7a8289
-block
- style
-  background-color #7a8289
-  height 180px
-  width 220px
-  position absolute
-  font-family Helvetica
-  font-weight 200
-  font-size 15px
-  color #333
-  top 0
-  left 0
-</space>
-
 <space class="DesignerComponentSet" path="mockup h1">
 thumb
  title Header
- content Header
+ content H1
  style
   background-color white
+  font-size 24px
 header
  style
-  font-size 52px
+  font-size 64px
   color #222
   position absolute
   font-family Helvetica
@@ -286,13 +267,39 @@ header
  content Header
 </space>
 
+<space class="DesignerComponentSet" path="mockup h2">
+thumb
+ title Header
+ content H2
+ style
+  background-color white
+  font-size 18px
+header
+ style
+  font-size 36px
+  color #222
+  position absolute
+  font-family Helvetica
+  font-weight 200
+  top 0
+  left 0
+  margin 0
+  padding 0
+ tag h2
+ content Header
+</space>
+
 <space class="DesignerComponentSet" path="mockup paragraph">
 thumb
  title Paragraph
- content Paragraph
+ content Lorem ipsum dolor sit amet, consectetur adipisicing elit
  style
   background-color white
-header
+  font-size 8px
+  line-height 8px
+  padding-top 12px
+  box-sizing border-box
+paragraph
  style
   color #222
   position absolute
@@ -302,17 +309,96 @@ header
   left 0
   margin 0
   padding 0
+  width 50%
  tag p
- content Lorem ipsum foobar ipsum foobar ipsum foobar ipsum foobar.
+ content Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</space>
+
+<space class="DesignerComponentSet" path="mockup input">
+thumb
+ title Input
+ scraps
+  div
+   tag span
+   style
+    border 1px solid gray
+    padding 6px
+    color grey
+    box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
+    font-size 14px
+    background white
+   content Input
+input
+ tag input
+ style
+  position absolute
+  top 0
+  left 0
+  box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
+  font-size 16px
+  border 1px solid rgba(0,0,0,.2)
+  height 40px
+</space>
+
+<space class="DesignerComponentSet" path="mockup button">
+thumb
+ title Button
+ scraps
+  div
+   tag span
+   style
+    padding 6px
+    color white
+    box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
+    font-size 14px
+    background-color #1a86d6
+   content Button
+button
+ tag button
+ content Submit
+ style
+  position absolute
+  top 0
+  left 0
+  font-size 16px
+  height 40px
+  line-height 32px
+  padding-left 20px
+  padding-right 20px
+  border-radius 4px
+  border 0
+  color white
+  cursor pointer
+  background-color #1a86d6
+</space>
+
+<space class="DesignerComponentSet" path="mockup image">
+thumb
+ title Image
+ style
+  background-image url(/nudgepad/tools/designer/images/beach.jpg)
+  background-size contain
+image
+ tag img
+ src /nudgepad/tools/designer/images/beach.jpg
+ style
+  position absolute
+  top 0
+  left 0
 </space>
 
 <space class="DesignerComponentSet" path="mockup sticky">
 thumb
  title Sticky Note
- content Sticky
+ content Sticky Note
  style
   background-color #f4ed04
   box-shadow 0px 1px 3px rgba(0,0,0,.6)
+  font-family Courier
+  font-size 12px
+  line-height 12px
+  padding-top 20px
+  box-sizing border-box
 stickyNote
  style
   background-color #f4ed04
@@ -545,6 +631,8 @@ jquery
   body {
   font-family: Helvetica;
   font-weight: 200;
+  padding: 0;
+  margin: 0;
   font-size: 100px;
   }
   .LayoutCell {
