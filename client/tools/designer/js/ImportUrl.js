@@ -1,5 +1,11 @@
 Designer.importUrl = function (url, callback) {
-  $.post('/nudgepad.proxy', { url : url}, function (data) {
+  $.ajax({
+      url: '/nudgepad.proxy',
+      type: "POST",
+      timeout: 10000,
+      data: { url : url},
+    })
+  .done(function (data) {
     var name = url.replace(/^https?\:\/\//, '')
     var space = $.htmlToScraps(data)
     space = Designer.relativeToAbsolute(space.toString(), url)
@@ -7,7 +13,12 @@ Designer.importUrl = function (url, callback) {
     Alerts.success('Imported ' + url)
     if (callback)
       callback()
-  })
+    })
+  .fail(function (err) {
+      if (callback)
+        callback(err)
+    })
+    
 }
 
 Designer.importUrlPrompt = function () {
