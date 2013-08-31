@@ -3,7 +3,7 @@ function Space(properties) {
   this.keys = []
   this.values = {}
   this.events = {}
-  this._load(properties)
+  this._parse(properties)
   return this
 }
 
@@ -101,7 +101,7 @@ Space.prototype.clear = function (space) {
   this._clear()
   this.trigger('clear')
   if (space)
-    this._load(space)
+    this._parse(space)
   this.trigger('change')
   return this
 }
@@ -307,7 +307,7 @@ Space.prototype.getByInt = function (index) {
 Space.prototype.getByString = function (xpath) {
   
   if (!xpath)
-    return null
+    return undefined
   if (!xpath.match(/ /))
     return this.values[xpath]
   var parts = xpath.split(/ /g)
@@ -315,9 +315,13 @@ Space.prototype.getByString = function (xpath) {
   
   // Not set
   if (!(current in this.values))
-    return null
+    return undefined
   
-  return this.values[current].get(parts.join(' '))
+  if (this.values[current] instanceof Space)
+    return this.values[current].get(parts.join(' '))
+  
+  else
+    return undefined
 }
 
 /**
@@ -352,6 +356,101 @@ Space.prototype.getBySpace = function (space) {
   return result 
 }
 
+Space.prototype.getTokens = function (debug) {
+  
+  var string = this.toString()
+  var mode = 'K'
+  var tokens = ''
+  var escapeLength = 1
+  var escaping = 0
+  for (var i = 0; i < string.length - 1; i++) {
+    var character = string.substr(i, 1)
+    if (debug)
+      console.log('map: %s; mode: %s; char: %s', tokens, mode, character)
+
+    if (escaping > 0) {
+    // skip over the escaped spaces
+      tokens += 'E'
+      escaping--
+      continue
+    }
+    
+    if (character !== ' ' && character !== '\n') {
+      if (mode === 'N')
+        mode = 'K'
+      tokens += mode
+      continue
+    }
+    
+    if (character === ' ') {
+      
+      if (mode === 'V') {
+        tokens += mode
+        continue
+      }
+      
+      else if (mode === 'K') {
+        tokens += 'S'
+        mode = 'V'
+        continue        
+      }
+      
+      // KEY hunt mode
+      else {
+        escapeLength++
+        tokens += 'N'
+        continue
+      }
+      
+    }
+    
+    //  else its a newline
+    
+    if (mode === 'K') {
+      mode = 'N'
+      escapeLength = 1
+      tokens += 'N'
+      continue
+    }
+    
+    else if (mode === 'V') {
+      
+      // if is escaped
+      if (string.substr(i + 1, escapeLength) === Space.strRepeat(' ', escapeLength)) {
+        tokens += 'V'
+        escaping = escapeLength
+        continue
+      }
+      
+      // else not escaped
+      mode = 'N'
+      escapeLength = 1
+      tokens += 'N'
+      continue
+      
+      
+    }
+  
+  }
+  
+  return tokens
+  
+}
+
+Space.prototype.getTokensConcise = function () {
+  // http://stackoverflow.com/questions/7780794/javascript-regex-remove-duplicate-characters
+  return this.getTokens().replace(/[^\w\s]|(.)(?=\1)/gi, "")
+}
+
+Space.prototype.keyCount = function () {
+  var count = this.length()
+  this.each(function (key, value) {
+    if (value instanceof Space)
+      count += value.keyCount()
+  })
+  return count
+}
+
 /**
  * @return int
  */
@@ -359,11 +458,48 @@ Space.prototype.length = function () {
   return this.keys.length
 }
 
-Space.prototype._load = function (properties) {
+/**
+ * Return the next name in the Space, given a name.
+ * @param {string}
+ * @return {string}
+ */
+Space.prototype.next = function (name) {
+  var index = this.keys.indexOf(name) + 1
+  if (this.keys[index])
+    return this.keys[index]
+  return this.keys[0]
+}
+
+Space.prototype.off = function (eventName, fn) {
+  if (!this.events[eventName])
+    return true
+  for (var i in this.events[eventName]) {
+    if (this.events[eventName][i] === fn)
+      this.events[eventName].splice(i, 1)
+  }
+}
+
+Space.prototype.objectCount = function () {
+  var count = 0
+  this.each(function (key, value) {
+    if (value instanceof Space)
+      count += 1 + value.objectCount()
+  })
+  return count
+}
+
+Space.prototype.on = function (eventName, fn) {
+  
+  if (!this.events[eventName])
+    this.events[eventName] = []
+  this.events[eventName].push(fn)
+}
+
+Space.prototype._parse = function (properties) {
   
   // Load from string
   if (typeof properties === 'string')
-    return this.loadFromString(properties)
+    return this._parseFromString(properties)
   
   // Load from Space object
   if (properties instanceof Space) {
@@ -374,8 +510,6 @@ Space.prototype._load = function (properties) {
     }
     return this
   }
-  
-  
   
   // Load from object
   for (var key in properties) {
@@ -395,7 +529,7 @@ Space.prototype._load = function (properties) {
  * @param {string}
  * @return {Space}
  */
-Space.prototype.loadFromString = function (string) {
+Space.prototype._parseFromString = function (string) {
   
   // Space always start on a key. Eliminate whitespace at beginning of string
   string = string.replace(/^[\n ]*/, '')
@@ -429,34 +563,6 @@ Space.prototype.loadFromString = function (string) {
       this._set(matches[1], space.substr(matches[1].length + 1).replace(/^\n /, '').replace(/\n /g, '\n') )
   }
   return this
-}
-
-/**
- * Return the next name in the Space, given a name.
- * @param {string}
- * @return {string}
- */
-Space.prototype.next = function (name) {
-  var index = this.keys.indexOf(name) + 1
-  if (this.keys[index])
-    return this.keys[index]
-  return this.keys[0]
-}
-
-Space.prototype.off = function (eventName, fn) {
-  if (!this.events[eventName])
-    return true
-  for (var i in this.events[eventName]) {
-    if (this.events[eventName][i] === fn)
-      this.events[eventName].splice(i, 1)
-  }
-}
-
-Space.prototype.on = function (eventName, fn) {
-  
-  if (!this.events[eventName])
-    this.events[eventName] = []
-  this.events[eventName].push(fn)
 }
 
 /**
@@ -552,6 +658,16 @@ Space.prototype.patchOrder = function (space) {
   this.trigger('patchOrder', space)
   this.trigger('change')
   return this
+}
+
+Space.prototype.pop = function () {
+  if (!this.keys.length)
+    return null
+  var key = this.keys.pop()
+  var result = new Space()
+  result.set(key, this.get(key))
+  this._delete(key)
+  return result
 }
 
 /**
