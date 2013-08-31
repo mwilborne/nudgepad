@@ -379,6 +379,8 @@ Designer.stage.openTimeline = function (name) {
     return true
   }
   
+  Designer.stage.timeline = new Space()
+  
   // todo: read file sync methods and such.
   expressfs.readFile('private/timelines/' + name, function (data) {
     if (data)

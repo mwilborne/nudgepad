@@ -30,6 +30,27 @@ Layout.on('open', function () {
     $(this).parent().remove()
     cell.focus()
   })
+  $('#LayoutStage').on('slidestart', '.LayoutCell', function () {
+    $(this).css('background', 'red')
+    return false
+  })
+  $('#LayoutStage').on('slideend', '.LayoutCell', function (event, mouseup) {
+    
+    var x1 = Events.slide.mousedown.x
+    var y1 = Events.slide.mousedown.y
+    var x2 = mouseup.x
+    var y2 = mouseup.y
+    
+    var matches = $('.LayoutCell').getElementsByLine(x1, y1, x2, y2)
+    matches.forEach(function (match) {
+      // dont merge parent elements
+      if ($(match).find('.LayoutCell').length)
+        return true
+      $(match).css('background', 'blue')
+    })
+    return false
+  })
+  
 })
 
 Layout.publish = function () {
