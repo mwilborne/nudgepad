@@ -18,6 +18,9 @@ track:
 	git update-index --no-assume-unchanged production/nudgepad.min.css
 	git update-index --no-assume-unchanged production/nudgepad.min.js
 
+ace:
+	cp -R ~/ace-builds/src-noconflict public/js/ace
+
 space:
 	cp ~/space/space.js public/js/space.js
 	cp ~/space/space.min.js public/js/space.min.js

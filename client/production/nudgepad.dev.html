@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/userSelectFix.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/ace/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/appmaker/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/appmaker/fire.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
@@ -31,6 +32,7 @@
 
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="/nudgepad/public/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/nudgepad/public/js/AppendScript.js"></script>
     <script type="text/javascript" src="/nudgepad/public/js/jquery.dimensions.js"></script>
     <script type="text/javascript" src="/nudgepad/public/js/jquery-ui-1.10.3.custom.min.js"></script>
     <script type="text/javascript" src="/nudgepad/public/js/Lasso.js"></script>
@@ -74,6 +76,7 @@
     <script type="text/javascript" src="/nudgepad/core/js/Socket.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Test.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/TextPrompt.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/ace/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/appmaker/qrcode.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/appmaker/appmaker.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/appmaker/Shortcuts.js"></script>
@@ -178,6 +181,18 @@
     <div class="TextPrompt SaveButton" id="TextPromptSaveButton">Save</div>
     <div class="TextPrompt CancelButton" id="TextPromptCancelButton">Cancel</div>
   </div>
+</div>
+<div class="Tool" id="Ace">
+	<div class="ToolNav" style="position: fixed; z-index: 1000;">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		<div class="clear"></div>
+		</div>
+	</div>
+    <div id="AceEditor">Hello world
+    </div>
 </div>
 <div class="Tool" id="AppMaker">
 	<div class="ToolNav">
