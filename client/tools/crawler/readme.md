@@ -11,6 +11,7 @@ v 0.1 - Done
 v 0.2
 -----
 
+- Save index.html page
 - Download CSS
 - Download IMGS
 - Download JS

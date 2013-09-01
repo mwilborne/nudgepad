@@ -23,8 +23,7 @@ Crawler.download = function () {
     console.log('Downloaded: %s', url)
     var link = document.createElement("a")
     link.href = url
-    var filename = link.pathname.replace(/\//g, '')
-    var hostname = link.hostname
+    link.hostname
     
     var space = $.htmlToScraps(data)
     
@@ -54,7 +53,7 @@ Crawler.download = function () {
       childLink.href = href
       
       // ignore offsite links
-      if (childLink.hostname !== hostname)
+      if (childLink.hostname !== link.hostname)
         return true
       
       // ignore already fetched links
@@ -65,8 +64,11 @@ Crawler.download = function () {
       console.log('Added to queue: %s', value.get('href'))
     })
     
+    var filename = link.pathname.replace(/\//g, '')
+    if ( filename === '' )
+      filename = 'index.html'
     expressfs.writeFile(filename, data, function () {
-      console.log('Saved: %s', url)
+      console.log('Saved: %s', filename)
       Alerts.success('Downloaded ' + url)
       Crawler.download()
     })
