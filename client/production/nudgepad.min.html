@@ -208,6 +208,34 @@ body
      content Blog Post Content
 </space>
 
+<div class="Tool" id="Crawler">
+	<div class="ToolNav">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		  
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="ToolContainer">
+    
+    
+		<div class="ToolInputLabel">
+	  	Crawl Command
+	  </div>
+
+<textarea id="CrawlCode">
+http://nytimes.com 1
+</textarea>
+    
+    <div class="ToolPrimaryButton" onclick="Crawler.start()">
+		  Start
+		</div>
+    
+		
+	</div>
+</div>
 <div id="DesignerBar" style="display: none;">
 
   <div title="menu" id="DesignerBarMenuButton"></div>
