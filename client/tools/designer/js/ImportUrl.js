@@ -32,3 +32,20 @@ Designer.importUrlPrompt = function () {
   Designer.importUrl(url)
   
 }
+
+
+/*
+var fetch = function () {
+  var url = s.shift()
+  if (!url)
+    return false
+  url = url.toString().trim()
+  console.log('fetching %s', url)
+  Designer.importUrl('http://' + url, fetch)
+}
+var s
+$.get('/top.txt', function (d) {
+  s = new Space(d)
+  fetch()
+})
+*/
