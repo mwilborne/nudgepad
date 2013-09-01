@@ -8,7 +8,7 @@ Designer.importUrl = function (url, callback) {
   .done(function (data) {
     var name = url.replace(/^https?\:\/\//, '')
     var space = $.htmlToScraps(data)
-    space = Designer.relativeToAbsolute(space.toString(), url)
+    space = RelativeToAbsolute(space.toString(), url)
     Designer.menu.create(name, space.toString())
     Alerts.success('Imported ' + url)
     if (callback)

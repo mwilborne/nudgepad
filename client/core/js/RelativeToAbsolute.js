@@ -1,4 +1,4 @@
-Designer.relativeToAbsolute = function (string, url) {
+var RelativeToAbsolute = function (string, url) {
   
   url = url.replace(/\/$/, '') + '/'
   var scraps = new Space(string)
@@ -8,7 +8,7 @@ Designer.relativeToAbsolute = function (string, url) {
     if (scrap.get('src') && !scrap.get('src').match(/^https?\:/i))
       scrap.set('src', url + scrap.get('src'))
     if (scrap.get('scraps'))
-      scrap.set('scraps', Designer.relativeToAbsolute(scrap.get('scraps'), url))
+      scrap.set('scraps', RelativeToAbsolute(scrap.get('scraps'), url))
   })
   
   return scraps

@@ -12,13 +12,15 @@
     
     
 		<div class="ToolInputLabel">
-	  	Your Redirects
+	  	Crawl Command
 	  </div>
 
-    <textarea id="RedirectCode" placeholder="/current /new.html"></textarea>
+<textarea id="CrawlCode">
+http://nytimes.com 1
+</textarea>
     
-    <div class="ToolPrimaryButton" onclick="Redirect.save()">
-		  Save
+    <div class="ToolPrimaryButton" onclick="Crawler.start()">
+		  Start
 		</div>
     
 		
