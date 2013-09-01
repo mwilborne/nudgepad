@@ -19,7 +19,8 @@ Crawler.download = function () {
       data: { url : url},
     })
   .done(function (data) {
-  
+    Crawler.fetched.set(url, true)
+    console.log('Downloaded: %s', url)
     var link = document.createElement("a")
     link.href = url
     var filename = link.pathname.replace(/\//g, '')
@@ -29,24 +30,43 @@ Crawler.download = function () {
     
     if (!space)
       return Crawler.download()
-    
-    space = RelativeToAbsolute(space.toString(), url)
+  
     // add links to next
     space.find('tag', 'a').each(function (key, value) {
+      
+      // ignore links if depth exceeded
       if (!depth)
         return true
-      // If depth, add to queue
+
       var href = value.get('href')
-      // but only if its part of the domain being crawled
-      var link2 = document.createElement("a")
-      link2.href = href
-      if (link2.hostname !== hostname)
+      
+      // ignore mailto links
+      if (href.match(/^mailto\:/))
         return true
+      
+      // make relative links absolute
+      // this is buggy but good enough for now.
+      // todo: make it work really relative
+      if (!href.match(/^https?\:\/\//))
+        href = link.protocol + '//' + link.hostname  + '/' + href
+      
+      var childLink = document.createElement("a")
+      childLink.href = href
+      
+      // ignore offsite links
+      if (childLink.hostname !== hostname)
+        return true
+      
+      // ignore already fetched links
+      if (Crawler.fetched.get(href))
+        return true
+        
       Crawler.urls.set(href, depth - 1)
-      console.log(value.get('href'))
+      console.log('Added to queue: %s', value.get('href'))
     })
     
     expressfs.writeFile(filename, data, function () {
+      console.log('Saved: %s', url)
       Alerts.success('Downloaded ' + url)
       Crawler.download()
     })
@@ -62,5 +82,6 @@ Crawler.start = function () {
   Crawler.urls = new Space($('#CrawlCode').val())
   Crawler.max = 100
   Crawler.current = 0
+  Crawler.fetched = new Space()
   Crawler.download()
 }
