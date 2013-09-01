@@ -142,6 +142,10 @@ case "$1" in
   done
 ;;
 
+'devWatch')
+  node /nudgepad/nudgepad/client/devWatch.js
+;;
+
 'fixPermissions')
   fixPermissions
 ;;

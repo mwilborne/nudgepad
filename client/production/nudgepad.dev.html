@@ -82,6 +82,7 @@
     <script type="text/javascript" src="/nudgepad/tools/appmaker/Shortcuts.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/backup/backup.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/blog/blog.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/crawler/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/Designer.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/js/Autokey.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/js/Bar.js"></script>
@@ -331,6 +332,32 @@ body
      content Blog Post Content
 </space>
 
+<div class="Tool" id="Crawler">
+	<div class="ToolNav">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		  
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="ToolContainer">
+    
+    
+		<div class="ToolInputLabel">
+	  	Your Redirects
+	  </div>
+
+    <textarea id="RedirectCode" placeholder="/current /new.html"></textarea>
+    
+    <div class="ToolPrimaryButton" onclick="Redirect.save()">
+		  Save
+		</div>
+    
+		
+	</div>
+</div>
 <div id="DesignerBar" style="display: none;">
 
   <div title="menu" id="DesignerBarMenuButton"></div>
