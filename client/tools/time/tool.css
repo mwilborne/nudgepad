@@ -1,0 +1,19 @@
+#TimeElapsed {
+  background: transparent;
+  border: 0;
+  font-size: 64px;
+}
+
+#TimeControls {
+  font-size: 36px;
+  color: #888;
+}
+
+#TimeControls i:hover {
+  color: #555;
+  cursor: pointer;
+}
+
+#TimeControls i:active {
+  color: #000;
+}

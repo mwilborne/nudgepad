@@ -6,6 +6,21 @@ module.exports = function (app, options) {
   options = options || {}
   var prefix = options.prefix || '/'
   
+  app.post(prefix + 'expressfs.appendFile', function(req, res, next) {
+    var path = req.body.path
+    var encoding = 'utf8'
+    if (req.body.encoding)
+      encoding = req.body.encoding
+    fs.appendFile(path, req.body.content, encoding, function (err) {
+      if (err)
+        return res.send(err)
+      if (req.body.redirect)
+        return res.redirect(req.body.redirect)
+      res.send('')
+    })
+  
+  })
+  
   /**
    * Create a file ONLY if it does not already exist
    */

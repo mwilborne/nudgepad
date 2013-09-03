@@ -2,6 +2,16 @@ var expressfs = {}
 expressfs.prefix = '/'
 expressfs.rootPath = ''
 
+expressfs.appendFile = function (path, content, callback) {
+  var req = {}
+  req.path = expressfs.rootPath + path
+  req.content = content
+  $.post(expressfs.prefix + 'expressfs.appendFile', req, function (err) {
+    if (callback)
+      callback()
+  })
+}
+
 // Create file ONLY if it does not exist
 expressfs.create = function (path, content, callback) {
   var req = {}

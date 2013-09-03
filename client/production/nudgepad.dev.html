@@ -4,6 +4,7 @@
     <title>Loading Nudgepad...</title>
     <link rel="stylesheet" href="/nudgepad/core/css/buttons.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/core.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/font-awesome.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/previewBox.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/registerForm.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
@@ -29,6 +30,7 @@
     <link rel="stylesheet" href="/nudgepad/tools/share/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/sketch/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/team/tool.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/time/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/webmaker/tool.css" type="text/css"/>
 
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
@@ -132,6 +134,7 @@
     <script type="text/javascript" src="/nudgepad/tools/sketch/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/support/support.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/team/tool.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/time/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/webmaker/make-api.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/webmaker/tool.js"></script>
 
@@ -1008,6 +1011,35 @@ jquery
 	  </div>
 	</div>
 </div>
+<div class="Tool" id="Time">
+	<div class="ToolNav">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="ToolContainer">
+    <input value="00:00:00" id="TimeElapsed">
+    <div id="TimeControls">
+      <i class="icon-play" title="Play" onclick="Time.start()"></i>
+      <i class="icon-pause" title="Pause" onclick="Time.pause()"></i>
+      <i class="icon-backward" title="Clear" onclick="$('#TimeElapsed').val('00:00:00')"></i>
+    </div>
+    <select id="TimeTask">
+      <option>Planning</option>
+      <option>Design</option>
+      <option>Development</option>
+      <option>Writing</option>
+    </select>
+    <input placeholder="Notes" id="TimeNotes">
+    <button onclick="Time.save()">Save</button>
+    <button>Clear</button>
+    <div id="TimeTimesheet" style="white-space: pre"></div>
+	</div>
+</div>
+
 <div class="Tool" id="WebMaker">
 	<div class="ToolNav">
 		<div class="ToolNavContainer">
