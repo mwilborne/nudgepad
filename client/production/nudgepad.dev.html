@@ -121,6 +121,7 @@
     <script type="text/javascript" src="/nudgepad/tools/files/dragAndDrop.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/github/github.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/home/home.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/irc/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/layout/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/layout/getElementsByLine.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/move/tool.js"></script>
@@ -750,6 +751,17 @@ jquery
 		
 	  <div class="clear"></div>
   </div>
+</div>
+<div class="Tool" id="Irc" style="height: 100%;">
+	<div class="ToolNav">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		<div class="clear"></div>
+		</div>
+	</div>
+	<iframe id="IrcChat" width="100%" height="600px"></iframe>
 </div>
 <div class="Tool" id="Layout">
 	<div class="ToolNav" style="position: fixed; z-index: 1000;">
