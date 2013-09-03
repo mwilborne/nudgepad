@@ -23,6 +23,7 @@
     "moment": "*",
     "nodemailer": "*",
     "request": "*",
+    "http-get" : "*",
     "wrench": "*",
     "async": "*",
     "mime" : "*",

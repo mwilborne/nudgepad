@@ -17,6 +17,7 @@ nudgepad.isTesting = false
 window.name = 'nudgepad'
 var Query = ParseQueryString()
 var Cookie = parseCookie(document.cookie)
+nudgepad.projectPath = '/nudgepad/projects/' + location.hostname + '/'
 
 /**
  * Requests the data from the server and loads the editor.
