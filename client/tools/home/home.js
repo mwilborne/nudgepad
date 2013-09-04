@@ -1,7 +1,7 @@
 var Home = new Tool('Home')
 
 Home.renderMenu = function () {
-  $('#HomeContainer').html('')
+  $('#OpenTool #HomeContainer').html('')
   var tools = _.without(Tool.tools, 'Home', 'Designer', 'Files', 'Blog', 'Team')
   tools.unshift('Designer', 'Files', 'Team', 'Blog')
   var colors =
@@ -35,7 +35,7 @@ Home.renderMenu = function () {
   if (((i + 1)  % 3 ) !== 0)
     str += '</div>'
   var maxHeight = 0
-  $('#HomeContainer').append(str)
+  $('#OpenTool #HomeContainer').append(str)
   $('.jumbotron').each(function () {
     if ($(this).height() > maxHeight)
       maxHeight = $(this).height()

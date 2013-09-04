@@ -54,8 +54,37 @@ Layout.on('ready', function () {
   
 })
 
+Layout.template = '<!doctype html>\
+<html>\
+  <head>\
+  <title id="title">Untitled</title>\
+  <style id="style">\
+  #LayoutPage {\
+  font-family: Helvetica;\
+  font-weight: 200;\
+  padding: 0;\
+  margin: 0;\
+  font-size: 100px;\
+  }\
+  .LayoutCell {\
+    position: relative;\
+    color: grey;\
+    width: 100%;\
+    height: 100%;\
+    text-align: center;\
+    font-size: 0.75em;\
+    margin: 0;\
+    padding: 0;\
+    box-sizing: border-box;\
+    float: left;\
+  }\
+  </style>\
+  </head>\
+  <body id="LayoutPage">BODY</body>\
+</html>'
+
 Layout.publish = function () {
-  var template = $('#LayoutTemplate').html()
+  var template = Layout.template
   var html = $('#LayoutStage').clone()
   html.find('.LayoutCellControls').remove()
   html.find('.LayoutCell').removeAttr('contenteditable')
