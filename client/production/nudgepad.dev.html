@@ -817,7 +817,7 @@ jquery
       <div class="navbar navbar-default navbar-static-top">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="/" target="published">Visit Site</a>
+            <a id="HomeDomain" class="navbar-brand" href="/" target="published">Visit Site</a>
           </div>
         </div>
       </div>
@@ -944,7 +944,6 @@ jquery
             <ul class="nav navbar-nav navbar-right">
               <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
               <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
-              <li><a class="cursor" onclick="Server.console()">Console</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -956,7 +955,18 @@ jquery
         <div class="container">
           <h1>Server</h1>
           <p>Every NudgePad project is a powerful server process.</p>
+          <pre id="ServerConsoleOutput" class="pre-scrollable"></pre>
         </div>
+      </div>
+      
+      <div class="container">
+        <div class="input-group">
+          <input type="text" class="form-control" id="ServerConsole" placeholder="Console">
+          <span class="input-group-btn">
+            <button id="ServerConsoleSend" class="btn btn-primary" onclick="Server.consoleSend()" type="button">Bash</button>
+            <button class="btn btn-default" onclick="Server.consoleSend(true)" type="button">Node</button>
+          </span>
+        </div><!-- /input-group -->
       </div>
       
 
@@ -1074,7 +1084,7 @@ jquery
     <h2>NudgePad Support</h2>
     <p>Thanks for being an early tester of NudgePad!</p>
     <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
-    <a class="btn btn-lg btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
+    <a class="btn btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
   	  
   
   </div> <!-- /container -->

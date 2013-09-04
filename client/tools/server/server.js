@@ -3,49 +3,27 @@ Server.set('path', '')
 Server.set('description', 'Manage your project\'s web server.')
 Server.set('icon', 'terminal')
 
-Server.consoleSend = function () {
+Server.consoleSend = function (toNode) {
   
-  var input = $('#ServerConsoleInput')
-  var checkbox = $('#ServerConsoleCheckbox')
-  var output = $('#TextPromptTextarea')
-  
+  var input = $('#ServerConsole')
+  var output = $('#ServerConsoleOutput')
   var command = input.val()
   var endpoint = 'nudgepad.exec'
-  if (checkbox.is(':checked'))
+  if (toNode)
     endpoint = 'nudgepad.console'
   
   $.post(endpoint, {command : command}, function (result) {
-    output.val(output.val() + ('>' + command.replace(/\n/g, '> \n') + '\n') + result + '\n')
+    output.text(output.text() + ('>' + command.replace(/\n/g, '> \n') + '\n') + result + '\n')
     output.scrollTop($(output)[0].scrollHeight + '')
     input.val('')
     input.focus()
   }).error(function (error, message) {
     mixpanel.track('I used the console and got an error')
-    output.val(output.val() + '>' + command.replace(/\n/g, '> \n') + '\n' + 'ERROR\n' + error.responseText + '\n')
+    output.text(output.text() + '>' + command.replace(/\n/g, '> \n') + '\n' + 'ERROR\n' + error.responseText + '\n')
     output.scrollTop($('#ServerConsole')[0].scrollHeight + '')
     input.val('')
     input.focus()
   })
-}
-
-/**
- * Prompt the maker for input. Pops a modal.
- */
-Server.console = function () {
-  mixpanel.track('I opened the console')
-  var console = $('#ServerConsoleContainer')
-  
-  TextPrompt.open('', '', function () {
-    Server.consoleSend()
-    return false
-  })
-  TextPrompt.onclose = function () {
-    console.appendTo('body')
-    console.hide()
-  }
-  console.appendTo('#TextPromptButtonHolder')
-  console.show()
-  $('#ServerConsoleInput').focus()
 }
 
 Server.refresh = function () {
@@ -86,9 +64,11 @@ Server.on('once', function () {
   Socket.on('stream', Server.stream)
 })
 
-Server.on('open', function () {
+Server.on('ready', function () {
   
   if (!Server.get('log'))
     Server.refresh()
-  
+  $('#ServerConsole').on('enterkey', function () {
+    $('#ServerConsoleSend').trigger('click')
+  })
 })

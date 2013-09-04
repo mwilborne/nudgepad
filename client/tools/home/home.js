@@ -51,6 +51,7 @@ Home.toButton = function (name, description, color, icon) {
 }
 
 Home.on('ready', function () {
+  $('#HomeDomain').text(document.location.hostname)
   Home.renderMenu()
 })
 
