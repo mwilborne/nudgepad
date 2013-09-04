@@ -13,8 +13,13 @@
       cursor: pointer;
     }
     </style>
+    <link rel="stylesheet" href="/nudgepad/core/css/clear.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/connectionStatus.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/dimmer.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/font-awesome.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/loadingScreen.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/previewBox.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/registerForm.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/template.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/ace/tool.css" type="text/css"/>
@@ -145,7 +150,30 @@
   </head>
   <!-- We inline styles so for Designing tools that import CSS, they wont affect the body #221-->
   <body style="margin: 0; line-height: 1; position: relative; width: 100%; height: 100%; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-left: 0; padding-top: 0;">
+<div id="ConnectionStatus">Connecting to server...</div>
 <div id="Alerts" style="left: 30%; right: 30%; position: fixed; top: 0px; display: none; z-index: 10000; text-align: center;" onclick="Alerts.clear()"></div>
+<div id="LoadingScreen">Loading Nudgepad...</div>
+<template id="PreviewBoxTemplate" style="display: none;">
+  
+<div id="PreviewBox">
+  <div id="PreviewBoxContainer"></div>
+</div>
+
+</template>
+<div id="RegisterFormModal">
+	<div id="RegisterContainer">
+		<div id="RegisterContent">
+			<div id="RegisterFormMessage">Your project is now live at</div>
+			<a id="RegisterFormDomain" target="published"></a>
+			<div class="clear"></div>
+			<div id="RegisterFormInstructions">If you want to edit your project beyond this session, please type your email address below.</div>
+			<input id="RegisterFormEmail" type="email" placeholder="Email"></input>  
+			<div id="RegisterFormButton">Submit</div>
+			<div class="clear"></div>
+			<div id="RegisterFormSkip" onclick="$('#RegisterFormModal').remove()">Skip this step</div>
+		</div>
+	</div>
+</div>
 <template id="TextPrompt">
 
   <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
@@ -205,14 +233,17 @@
       </div>
 
 
-      <div class="container">
+      <div class="jumbotron">
+        
+        <div class="container">
 
         <!-- Main component for a primary marketing message or call to action -->
-          <h2>Backup</h2>
+          <h1>Backup</h1>
           <p>Download your project as a Zip file.</p>
           
           <a target="_blank" type="button" id="BackupDownload" class="btn btn-lg btn-primary">Download</a>
 
+        </div>
       </div> <!-- /container -->
 
 </template>
@@ -743,8 +774,8 @@ jquery
     <div id="FilesFilesContent" class="FilesContent">
   	  <ol class="breadcrumb" id="FilesExplorerPath"></ol>
   	  
-  	  <button type="button" class="btn btn-xs btn-default" onclick="Files.newFile()">New File</button>
-  	  <button type="button" class="btn btn-xs btn-default" onclick="Files.newFolder()">New Folder</button>
+  	  <button type="button" class="btn btn-xs btn-success" onclick="Files.newFile()">New File</button>
+  	  <button type="button" class="btn btn-xs btn-success" onclick="Files.newFolder()">New Folder</button>
   	  <br>
   	  <br>
 		  <div id="FilesExplorerHolder"></div>

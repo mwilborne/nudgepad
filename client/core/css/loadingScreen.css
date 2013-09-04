@@ -1,0 +1,13 @@
+#LoadingScreen {
+  position: fixed;  
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 20%;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  background-color: white;
+  z-index: 2000;
+}

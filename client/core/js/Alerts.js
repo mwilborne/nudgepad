@@ -8,12 +8,14 @@ Alerts.clear = function () {
 
 Alerts.error = function (message) {
   $('#Alerts').html('<div class="alert alert-danger">' + message + '</div>').show()
+  Popup.open('#Alerts')
   return false
 }
 
 Alerts.success = function (message, time) {
   clearTimeout(Alerts.timeout)
-  $('#Alerts').html('<div class="alert alert-success">' + message + '</div>').show()
+  $('#Alerts').html('<div class="alert nudgepadPopup alert-success">' + message + '</div>').show()
+  Popup.open('#Alerts')
 }
 
 Alerts.activity = Alerts.success
