@@ -1,16 +1,30 @@
-<div class="Tool" id="Support">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  <p>Thanks for being an early tester of NudgePad!</p>
-	  <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
-	  <p>Email support: support@nudgepad.com</p>
-	  <p>You can also add Breck to your project (breck@nudgepad.com), and we can provide hands on help getting your project built</p>
-	</div>
-</div>
+<template class="Tool" id="Support">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <!-- Main component for a primary marketing message or call to action -->
+    <h2>NudgePad Support</h2>
+    <p>Thanks for being an early tester of NudgePad!</p>
+    <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
+    <a class="btn btn-lg btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
+  	  
+  
+  </div> <!-- /container -->
+
+</template>
+

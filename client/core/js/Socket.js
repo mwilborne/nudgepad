@@ -105,6 +105,7 @@ $(document).on('ready', function (){
   })
   
   Socket.on('disconnect', function (message) {
+    Alerts.error('Disconnected...')
     $('#ConnectionStatus').html('Disconnected from server. Attempting to reconnect...').show()
   })
   

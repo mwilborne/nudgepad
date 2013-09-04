@@ -4,7 +4,7 @@ Files.set('description', 'View and edit the files of your project.')
 
 // Files.on('change', 'path', Files.RenderExplorer())
 
-Files.on('open', function () {
+Files.on('ready', function () {
   Files.refresh()
 })
 
@@ -94,16 +94,19 @@ Files.renderExplorer = function () {
     explorer += row
   })
   explorer += '</table>'
-  var breadcrumb = '<span onclick="Files.set(\'path\', \'\')">' + document.location.host + '</span>'
+  var breadcrumb = '<li><a onclick="Files.set(\'path\', \'\')">' + document.location.host + '</a></li>'
   if (path) {
     var parent = ''
     path.split(/ /g).forEach(function (v, i) {
-      breadcrumb += ' <span onclick="Files.set(\'path\', \'' + parent + v + '\')">' + v + '</span>'
+      breadcrumb += '<li><a class="cursor" onclick="Files.set(\'path\', \'' + parent + v + '\')">' + v + '</a></li>'
       parent += v + ' '
     })
     
   }
   $('#FilesExplorerPath').html(breadcrumb)
+//  $('#FilesExplorerPath').find('li').last().addClass('active')
+  
+  
   $('#FilesExplorerHolder').html(explorer)
 }
 

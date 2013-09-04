@@ -27,7 +27,7 @@ Tool.prototype.close = function (name) {
   this._open = false
   Tool.openTool = null
   
-  $('.Tool').hide()
+  $('#OpenTool').html('')
   
   if (name)
     window[name].open()
@@ -57,9 +57,8 @@ Tool.prototype.open = function () {
   Tool.opened[this.get('name')] = true
   this.trigger('open')
   
-  // We could probably remove this.
-  $('.Tool#' + this.get('name')).show()
-  
+  $('#OpenTool').html($('.Tool#' + this.get('name')).html())
+  $(window).scrollTop(0)
   
   Tool.openTool = this
   this._open = true

@@ -3,7 +3,7 @@ Sketch.set('description', 'Sketch pictures for your project.')
 
 // http://intridea.github.io/sketch.js/
 
-Sketch.on('open', function () {
+Sketch.on('ready', function () {
   $('#SketchCanvas')
     .attr('width', $(window).width())
     .attr('height', $(window).height())

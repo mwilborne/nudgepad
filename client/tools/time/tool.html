@@ -1,3 +1,39 @@
+<template class="Tool" id="Time">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <h1><input value="00:00:00" id="TimeElapsed"></h1>
+      
+      <button type="button" onclick="Time.start()" class="btn btn-lg btn-primary"><i class="icon-play"></i> Start</button>
+      <button type="button" onclick="Time.pause()" class="btn btn-lg btn-default"><i class="icon-pause"></i> Pause</button>
+      <button type="button" onclick="$('#TimeElapsed').val('00:00:00')" class="btn btn-lg btn-default"><i class="icon-backward"></i> Clear</button>
+      
+
+    </div>
+  
+  </div> <!-- /container -->
+
+</template>
+
+
+<!--
 <div class="Tool" id="Time">
 	<div class="ToolNav">
 		<div class="ToolNavContainer">
@@ -26,4 +62,5 @@
     <div id="TimeTimesheet" style="white-space: pre"></div>
 	</div>
 </div>
+-->
 

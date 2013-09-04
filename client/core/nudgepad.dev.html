@@ -2,9 +2,21 @@
 <html style="padding-top: 0;">
   <head>
     <title>Loading Nudgepad...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+    <link href="/nudgepad/public/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+    .navbar-static-top {
+      margin-bottom: 19px;
+    }
+    .navbar-brand, .cursor {
+      cursor: pointer;
+    }
+    </style>
 CSSINCLUDES
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
 JSINCLUDES
+    <script src="/nudgepad/public/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     nudgepad.development = true
     $(document).ready(nudgepad.main)
@@ -13,7 +25,8 @@ JSINCLUDES
     </script>
   </head>
   <!-- We inline styles so for Designing tools that import CSS, they wont affect the body #221-->
-  <body style="margin: 0; line-height: 1; overflow: hidden; position: relative; width: 100%; height: 100%; font-family: 'Titillium Web'; padding-left: 0; padding-top: 0;">
+  <body style="margin: 0; line-height: 1; position: relative; width: 100%; height: 100%; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-left: 0; padding-top: 0;">
 HTMLCOMPONENTS
+  <div id="OpenTool"></div>
   </body>
 </html>

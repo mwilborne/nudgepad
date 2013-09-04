@@ -104,4 +104,4 @@ GitHub.status = function () {
   GitHub.exec('git status')
 }
 
-GitHub.on('open', GitHub.status)
+GitHub.on('ready', GitHub.status)

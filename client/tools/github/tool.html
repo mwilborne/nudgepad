@@ -1,56 +1,67 @@
-<div class="Tool" id="GitHub">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" onclick="GitHub.pull()">
-		  	Pull
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.push()">
-		  	Push
-		  </a>
-		  <!--
-		  <a class="ToolRightButton" onclick="GitHub.addAll()">
-		  	Add All
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.init()">
-		  	Init
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.setOrigin()">
-		  	Update Origin
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.addOrigin()">
-		  	Add Origin
-		  </a>
-		  -->
-		  <a class="ToolRightButton" onclick="GitHub.cloneRepo()">
-		  	Clone
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.deployKey()">
-		  	Deploy Key
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-		<div class="ToolSectionLabel">
-		  Status
-		</div>
-		<div id="GitHubStatus"></div>
-		<div class="ToolSectionLabel">
-		  Add Files to be Tracked
-		</div>
-		<input id="GitHubFilepath" class="ToolInput" placeholder="Filepath"></input>
-	  <div class="ToolPrimaryButton" onclick="GitHub.add()">
-		  Add
-		</div>
-		<div class="ToolSectionLabel">
-		  Commit
-		</div>
-		<input id="GitHubCommitMessage" class="ToolInput" placeholder="Commit Message"></input>
-	  <div class="ToolPrimaryButton" onclick="GitHub.commit()">
-		  Commit
-		</div>
-	</div>
-</div>
+<template class="Tool" id="GitHub">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="GitHub.push()">Push</a></li>
+          <li><a class="cursor" onclick="GitHub.pull()">Pull</a></li>
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="cursor" onclick="GitHub.cloneRepo()">Clone</a></li>
+              <li><a class="cursor" onclick="GitHub.init()">Init</a></li>
+              <li><a class="cursor" onclick="GitHub.addAll()">Add All</a></li>
+              <li><a class="cursor" onclick="GitHub.setOrigin()">Set Origin</a></li>
+              <li><a class="cursor" onclick="GitHub.addOrigin()">Add Origin</a></li>
+              <li><a class="cursor" onclick="GitHub.deployKey()">Deploy Key</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+    
+    <h3>Status</h3>
+    <p id="GitHubStatus"></p>
+
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="GitHubFilepath">Add Files</label>
+        <input class="form-control" id="GitHubFilepath" placeholder="Filepaths">
+      </div>
+      
+      <button onclick="GitHub.add()" class="btn btn-primary">Add</button>
+    </form>
+    
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="GitHubCommitMessage">Commit Changes</label>
+        <input class="form-control" id="GitHubCommitMessage" placeholder="Message">
+      </div>
+      
+      <button onclick="GitHub.commit()" class="btn btn-primary">Commit</button>
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+

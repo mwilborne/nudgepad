@@ -1,11 +1,18 @@
-<div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
+<template id="TextPrompt">
 
-<div id="TextPromptContainer" class="TextPrompt">
-  <div id="TextPromptHolder">
-    <textarea class="TextPrompt" id="TextPromptTextarea"></textarea>
-  </div>
-  <div id="TextPromptButtonHolder">
-    <div class="TextPrompt SaveButton" id="TextPromptSaveButton">Save</div>
-    <div class="TextPrompt CancelButton" id="TextPromptCancelButton">Cancel</div>
-  </div>
-</div>
+  <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
+  
+  
+  <form role="form" class="TextPrompt" id="TextPromptForm" style="text-align: right;">
+    
+    <div class="form-group">
+      <textarea class="form-control" rows="20" id="TextPromptTextarea"></textarea>
+    </div>
+    
+    <button type="button" class="btn btn-default" id="TextPromptCancelButton" onclick="TextPrompt.close()">Cancel</button>
+    <button type="button" class="btn btn-primary" id="TextPromptSaveButton" onclick="TextPrompt.save()" style="margin-right: 10px;">Save</button>
+    <br>
+    <div>&nbsp;</div>
+  </form>
+  
+</template>

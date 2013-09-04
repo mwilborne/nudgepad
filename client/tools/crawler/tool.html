@@ -1,27 +1,33 @@
-<div class="Tool" id="Crawler">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    
-    
-		<div class="ToolInputLabel">
-	  	Crawl Command
-	  </div>
+<template class="Tool" id="Crawler">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+        </div>
+      </div>
 
-<textarea id="CrawlCode" placeholder="http://nytimes.com 1">
-</textarea>
-    
-    <div class="ToolPrimaryButton" onclick="Crawler.start()">
-		  Start
-		</div>
-    
-		
-	</div>
-</div>
+
+      <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+        <h3>Download an existing website into your project.</h3>
+        
+        <div class="form-group">
+          <textarea id="CrawlCode" class="form-control" rows="3" placeholder="http://nytimes.com 1"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <button type="button" onclick="Crawler.start()" class="btn btn-lg btn-primary">Start</button>
+        </div>
+
+      </div> <!-- /container -->
+
+</template>

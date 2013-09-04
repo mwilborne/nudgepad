@@ -1,7 +1,7 @@
 var Team = new Tool('Team')
 Team.set('description', 'Invite people to work on your project.')
 
-Team.on('open', function () {
+Team.on('ready', function () {
   $('#TeamMyEmail').text(Cookie.email)
   Team.refresh()
 })
@@ -20,7 +20,7 @@ Team.refresh = function () {
   $('#TeamCurrent').html('')
   $.get('/nudgepad.project.team', function (data) {
     new Space(data).each(function (key, value) {
-      $('#TeamCurrent').append(key + '<br>')
+      $('#TeamCurrent').append('<li><i class="icon-li icon-user"></i>' + key + '</li>')
     })
   })
 }

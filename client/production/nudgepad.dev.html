@@ -2,19 +2,22 @@
 <html style="padding-top: 0;">
   <head>
     <title>Loading Nudgepad...</title>
-    <link rel="stylesheet" href="/nudgepad/core/css/buttons.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/core/css/core.css" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+    <link href="/nudgepad/public/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+    .navbar-static-top {
+      margin-bottom: 19px;
+    }
+    .navbar-brand, .cursor {
+      cursor: pointer;
+    }
+    </style>
+    <link rel="stylesheet" href="/nudgepad/core/css/dimmer.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/font-awesome.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/core/css/previewBox.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/core/css/registerForm.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/core/css/tool.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/core/css/userSelectFix.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/ace/tool.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/appmaker/tool.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/appmaker/fire.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/blog/blog.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/crawler/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/designer.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/shortcutTable.css" type="text/css"/>
@@ -24,14 +27,12 @@
     <link rel="stylesheet" href="/nudgepad/tools/github/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/home/home.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/layout/tool.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/move/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/redirect/redirect.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/server/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/share/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/sketch/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/team/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/time/tool.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/webmaker/tool.css" type="text/css"/>
 
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="/nudgepad/public/js/jquery-1.10.2.min.js"></script>
@@ -81,11 +82,9 @@
     <script type="text/javascript" src="/nudgepad/core/js/Test.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/TextPrompt.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/ace/tool.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/appmaker/qrcode.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/appmaker/appmaker.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/appmaker/Shortcuts.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/backup/backup.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/blog/blog.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/copy/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/crawler/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/Designer.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/designer/js/Autokey.js"></script>
@@ -126,7 +125,6 @@
     <script type="text/javascript" src="/nudgepad/tools/irc/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/layout/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/layout/getElementsByLine.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/move/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/redirect/redirect.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/server/server.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/share/tool.js"></script>
@@ -135,9 +133,8 @@
     <script type="text/javascript" src="/nudgepad/tools/support/support.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/team/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/time/tool.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/webmaker/make-api.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/webmaker/tool.js"></script>
 
+    <script src="/nudgepad/public/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     nudgepad.development = true
     $(document).ready(nudgepad.main)
@@ -146,150 +143,138 @@
     </script>
   </head>
   <!-- We inline styles so for Designing tools that import CSS, they wont affect the body #221-->
-  <body style="margin: 0; line-height: 1; overflow: hidden; position: relative; width: 100%; height: 100%; font-family: 'Titillium Web'; padding-left: 0; padding-top: 0;">
-<div id="ConnectionStatus">Connecting to server...</div>
-<div id="JavascriptError"></div>
-<div id="LoadingScreen">Loading Nudgepad...</div>
-<div id="Alerts">Published</div>
-<div id="Temp"></div>
-<div id="AlertsError"></div>
-<div id="RegisterFormModal">
-	<div id="RegisterContainer">
-		<div id="RegisterContent">
-			<div id="RegisterFormMessage">Your project is now live at</div>
-			<a id="RegisterFormDomain" target="published"></a>
-			<div class="clear"></div>
-			<div id="RegisterFormInstructions">If you want to edit your project beyond this session, please type your email address below.</div>
-			<input id="RegisterFormEmail" type="email" placeholder="Email"></input>  
-			<div id="RegisterFormButton">Submit</div>
-			<div class="clear"></div>
-			<div id="RegisterFormSkip" onclick="$('#RegisterFormModal').remove()">Skip this step</div>
-		</div>
-	</div>
-</div>
+  <body style="margin: 0; line-height: 1; position: relative; width: 100%; height: 100%; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-left: 0; padding-top: 0;">
+<div id="Alerts" style="left: 30%; right: 30%; position: fixed; top: 0px; display: none; z-index: 10000; text-align: center;" onclick="Alerts.clear()"></div>
+<template id="TextPrompt">
 
-
-<template id="PreviewBoxTemplate" style="display: none;">
+  <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
   
-<div id="PreviewBox">
-  <div id="PreviewBoxContainer"></div>
-</div>
+  
+  <form role="form" class="TextPrompt" id="TextPromptForm" style="text-align: right;">
+    
+    <div class="form-group">
+      <textarea class="form-control" rows="20" id="TextPromptTextarea"></textarea>
+    </div>
+    
+    <button type="button" class="btn btn-default" id="TextPromptCancelButton" onclick="TextPrompt.close()">Cancel</button>
+    <button type="button" class="btn btn-primary" id="TextPromptSaveButton" onclick="TextPrompt.save()" style="margin-right: 10px;">Save</button>
+    <br>
+    <div>&nbsp;</div>
+  </form>
+  
+</template>
+<template class="Tool" id="Ace">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <div id="AceEditor">Hello world</div>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Backup">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+
+        <!-- Main component for a primary marketing message or call to action -->
+          <h2>Backup</h2>
+          <p>Download your project as a Zip file.</p>
+          
+          <a target="_blank" type="button" id="BackupDownload" class="btn btn-lg btn-primary">Download</a>
+
+      </div> <!-- /container -->
 
 </template>
 
 
-<div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
-
-<div id="TextPromptContainer" class="TextPrompt">
-  <div id="TextPromptHolder">
-    <textarea class="TextPrompt" id="TextPromptTextarea"></textarea>
-  </div>
-  <div id="TextPromptButtonHolder">
-    <div class="TextPrompt SaveButton" id="TextPromptSaveButton">Save</div>
-    <div class="TextPrompt CancelButton" id="TextPromptCancelButton">Cancel</div>
-  </div>
-</div>
-<div class="Tool" id="Ace">
-	<div class="ToolNav" style="position: fixed; z-index: 1000;">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		<div class="clear"></div>
-		</div>
-	</div>
-    <div id="AceEditor">Hello world
-    </div>
-</div>
-<div class="Tool" id="AppMaker">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		
-		  <!--
-		  <div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  
-		  <div class="DraggableThumb" value="FireHeader">
-		    Header
-		  </div>
-		  <div class="DraggableThumb" value="FireButton">
-		    Button
-		  </div>
-		  
-		  <a class="ToolRightButton" onclick="Explorer.edit('manifest.webapp');">
-		  	Edit Manifest
-		  </a>
-		  
-		  		  <a class="ToolRightButton" id="AppMakerManifestUrlLink" onclick="AppMaker.selectText('AppMakerManifestUrlLink')">http://</a>
-		  -->
-		  
-		  <a class="ToolRightButton" onclick="AppMaker.qrCode()">
-		  	Install on Phone
-		  </a>
-		  
-		  
-
-		<div class="clear"></div>
-		</div>
-	</div>
-	<div>
-	</div>
-  <div class="ToolContainer AppMakerContainer">
-	  <div id="AppMakerFrame">
-	    <div id="AppMakerStage">
-	    </div>
-	  </div>
-	</div>
-</div>
-
-<div class="DraggableElement fire-header" style="display: none;" id="FireHeader">Header</div>
-<div class="DraggableElement fire-button" style="display: none;" id="FireButton">Button</div>
-<div class="Tool" id="Backup">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a id="BackupDownload" href="" target="blank" class="ToolRightButton" title="Download Project as Zip File">
-		  	Download Zip
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  
-	</div>
-</div>
-<div class="Tool" id="Blog">
-  <div class="ToolNav">
-    <div class="ToolNavContainer">
-      <div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-        Back
+<template class="Tool" id="Blog">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
       </div>
-      <div id="BlogNewPostButton" onclick="Blog.create();">
-        New Post
-      </div>
-    <div class="clear"></div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="cursor" onclick="Blog.create();">New Post</a></li>
+
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="BlogPosts">
+              
+            </ul>
+          </li>
+          
+        </ul>
+      </div><!--/.nav-collapse -->
+      
     </div>
   </div>
   
-  <div id="BlogListColumn">
-    <div id="BlogPostTitle">Posts</div>
-    <div id="BlogPosts"></div>
-  </div>
   
-  <div id="BlogEditorColumn">
-    <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.active.updateTitle()"/>
-    <textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
-    <div id="BlogPublishButton" onclick="Blog.active.save();Blog.active.publish()">Publish</div>
-    <div id="BlogSaveButton" onclick="Blog.active.save()">Save</div>
-    <div id="BlogAdvancedButton" onclick="Blog.active.advanced()">Advanced</div>
-    <div id="BlogDeleteButton" onclick="Blog.active.delete()">Delete</div>
-    <div class="clear"></div>
-  </div>
-  
-</div>
+  <div class="container">
+
+    <form role="form" id="BlogForm">
+      
+      <div class="form-group">
+        <label for="BlogTitle">Title</label>
+        <input class="form-control disableable" id="BlogTitle" placeholder="Post Title" disabled>
+      </div>
+      
+      <div class="form-group">
+        <label for="BlogContent">Content</label>
+        <textarea class="form-control disableable" rows="20" id="BlogContent" placeholder="Write your post here..." disabled></textarea>
+      </div>
+      
+      <button type="button" class="btn btn-primary disableable" onclick="Blog.active.save()" disabled>Save</button>
+      <button type="button" class="btn btn-success disableable" onclick="Blog.active.save();Blog.active.publish()" disabled>Publish</button>
+      <button type="button" class="btn btn-info disableable" onclick="Blog.active.advanced()" disabled>Advanced</button>
+      <button type="button" class="btn btn-warning disableable" onclick="Blog.active.delete()" disabled>Delete</button>
+      
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+
 <space id="BlogDefaultTemplate" style="display: none;">
 head
  tag head
@@ -337,33 +322,91 @@ body
      content Blog Post Content
 </space>
 
-<div class="Tool" id="Crawler">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    
-    
-		<div class="ToolInputLabel">
-	  	Crawl Command
-	  </div>
+<template class="Tool" id="Copy">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/nudgepad.export" target="_blank" title="Download Project as a Space File">Export</a></li>
+              <li><a class="cursor" onclick="Files.import()" title="Import a Space File">Import</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
 
-<textarea id="CrawlCode" placeholder="http://nytimes.com 1">
-</textarea>
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="CopyDomain">New Domain</label>
+        <input class="form-control" id="CopyDomain" placeholder="Domain">
+      </div>
+      
+      <div class="form-group">
+        <label for="CopyServer">New Server</label>
+        <input class="form-control" id="CopyServer" placeholder="Server">
+      </div>
+      
+      <button onclick="Copy.cloneProject()" class="btn btn-primary">Copy</button>
+    </form>
     
-    <div class="ToolPrimaryButton" onclick="Crawler.start()">
-		  Start
-		</div>
-    
-		
-	</div>
-</div>
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Crawler">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+        <h3>Download an existing website into your project.</h3>
+        
+        <div class="form-group">
+          <textarea id="CrawlCode" class="form-control" rows="3" placeholder="http://nytimes.com 1"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <button type="button" onclick="Crawler.start()" class="btn btn-lg btn-primary">Start</button>
+        </div>
+
+      </div> <!-- /container -->
+
+</template>
 <div id="DesignerBar" style="display: none;">
 
   <div title="menu" id="DesignerBarMenuButton"></div>
@@ -663,122 +706,175 @@ jquery
 <div id="DesignerDimensions"></div>
 
 
-<div class="Tool" id="Files">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" onclick="Files.refresh()">
-		  	Refresh
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  <div id="FilesFilesContent" class="FilesContent">
-	    <div id="FilesHeader">
-  	    <div id="FilesExplorerPath"></div>
-  	    <div id="FilesNew">
-    	  	<a onclick="Files.newFile()">New File</a> &nbsp; &nbsp; &nbsp;
-      		<a onclick="Files.newFolder()">New Folder</a>
-    		</div>
-  		</div>
+<template class="Tool" id="Files">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <div id="FilesFilesContent" class="FilesContent">
+  	  <ol class="breadcrumb" id="FilesExplorerPath"></ol>
+  	  
+  	  <button type="button" class="btn btn-xs btn-default" onclick="Files.newFile()">New File</button>
+  	  <button type="button" class="btn btn-xs btn-default" onclick="Files.newFolder()">New Folder</button>
+  	  <br>
+  	  <br>
 		  <div id="FilesExplorerHolder"></div>
 		</div>
-	</div>
-</div>
-<div class="Tool" id="GitHub">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" onclick="GitHub.pull()">
-		  	Pull
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.push()">
-		  	Push
-		  </a>
-		  <!--
-		  <a class="ToolRightButton" onclick="GitHub.addAll()">
-		  	Add All
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.init()">
-		  	Init
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.setOrigin()">
-		  	Update Origin
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.addOrigin()">
-		  	Add Origin
-		  </a>
-		  -->
-		  <a class="ToolRightButton" onclick="GitHub.cloneRepo()">
-		  	Clone
-		  </a>
-		  <a class="ToolRightButton" onclick="GitHub.deployKey()">
-		  	Deploy Key
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-		<div class="ToolSectionLabel">
-		  Status
-		</div>
-		<div id="GitHubStatus"></div>
-		<div class="ToolSectionLabel">
-		  Add Files to be Tracked
-		</div>
-		<input id="GitHubFilepath" class="ToolInput" placeholder="Filepath"></input>
-	  <div class="ToolPrimaryButton" onclick="GitHub.add()">
-		  Add
-		</div>
-		<div class="ToolSectionLabel">
-		  Commit
-		</div>
-		<input id="GitHubCommitMessage" class="ToolInput" placeholder="Commit Message"></input>
-	  <div class="ToolPrimaryButton" onclick="GitHub.commit()">
-		  Commit
-		</div>
-	</div>
-</div>
-<div class="Tool" id="Home">
-  <div class="ToolContainer">
-    
-	  <div id="HomeColumn">
-	    
-		  
-		</div>
-		
-	  <div class="clear"></div>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="GitHub">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="GitHub.push()">Push</a></li>
+          <li><a class="cursor" onclick="GitHub.pull()">Pull</a></li>
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="cursor" onclick="GitHub.cloneRepo()">Clone</a></li>
+              <li><a class="cursor" onclick="GitHub.init()">Init</a></li>
+              <li><a class="cursor" onclick="GitHub.addAll()">Add All</a></li>
+              <li><a class="cursor" onclick="GitHub.setOrigin()">Set Origin</a></li>
+              <li><a class="cursor" onclick="GitHub.addOrigin()">Add Origin</a></li>
+              <li><a class="cursor" onclick="GitHub.deployKey()">Deploy Key</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
   </div>
-</div>
-<div class="Tool" id="Irc" style="height: 100%;">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		<div class="clear"></div>
-		</div>
-	</div>
-	<iframe id="IrcChat" width="100%" height="600px"></iframe>
-</div>
-<div class="Tool" id="Layout">
-	<div class="ToolNav" style="position: fixed; z-index: 1000;">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" onclick="Layout.publish()">
-		  	Publish
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
+  
+  
+  <div class="container">
+    
+    <h3>Status</h3>
+    <p id="GitHubStatus"></p>
+
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="GitHubFilepath">Add Files</label>
+        <input class="form-control" id="GitHubFilepath" placeholder="Filepaths">
+      </div>
+      
+      <button onclick="GitHub.add()" class="btn btn-primary">Add</button>
+    </form>
+    
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="GitHubCommitMessage">Commit Changes</label>
+        <input class="form-control" id="GitHubCommitMessage" placeholder="Message">
+      </div>
+      
+      <button onclick="GitHub.commit()" class="btn btn-primary">Commit</button>
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+
+<template class="Tool" id="Home">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/" target="published">Visit Site</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container" id="HomeContainer">
+
+      </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Irc">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <iframe frameborder="0" id="IrcChat" width="100%" height="600px"></iframe>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Layout">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Layout.publish()">Publish</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
     <div id="LayoutStage">
       <div class="LayoutCell">
         <div class="LayoutCellControls">
@@ -786,8 +882,11 @@ jquery
         </div>
       </div>
     </div>
-	</div>
-</div>
+    
+  
+  </div> <!-- /container -->
+
+</template>
 
 <template style="display: none;" id="LayoutTemplate">
 <!doctype html>
@@ -819,198 +918,285 @@ jquery
   <body id="LayoutPage">BODY</body>
 </html>
 </template>
-<div class="Tool" id="Move">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-			<a href="/nudgepad.export" target="blank" class="ToolRightButton" title="Download Project as Space File">
-		  	Export
-		  </a>
-		  <a onclick="Files.import()" class="ToolRightButton" title="Import a Space File">
-		  	Import
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    
-    
-		<div class="ToolSectionLabel">
-		  Copy to new domain
-		</div>
-		<div class="ToolInputLabel">
-	  	New Domain
-	  </div>
-		<input id="MoveDomain" class="ToolInput" placeholder="" />
-		<div class="ToolInputLabel">
-	  	Server
-	  </div>
-		<input id="MoveServer" class="ToolInput" placeholder="" />
-	  <div class="ToolPrimaryButton" onclick="Move.cloneProject()">
-		  Copy
-		</div>
-		
-	</div>
-</div>
-<div class="Tool" id="Redirect">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  
-		  <a class="ToolRightButton" onclick="$.get('/nudgepad.restart')" title="Restart Server">
-		  	Restart
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    
-    
-		<div class="ToolInputLabel">
-	  	Your Redirects
-	  </div>
-
-    <textarea id="RedirectCode" placeholder="/current /new.html"></textarea>
-    
-    <div class="ToolPrimaryButton" onclick="Redirect.save()">
-		  Save
-		</div>
-    
-		
-	</div>
-</div>
-<div class="Tool" id="Server">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-			<a class="ToolRightButton" onclick="Server.console()" title="Run Shell Commands">
-		  	Console
-		  </a>
-		  <a class="ToolRightButton" onclick="$.get('/nudgepad.restart')" title="Restart Server">
-		  	Restart
-		  </a>
-		  <a class="ToolRightButton" onclick="Server.refresh()" title="Refresh Logs">
-		  	Refresh
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    <div class="ToolSectionLabel">
-		  Logs
-		</div>
-		<pre id="ServerLogHolder" readonly="readonly"></pre>
-		<div class="ToolSectionLabel">
-		  Server Info
-		</div>
-		<pre id="ServerStatusArea" readonly="readonly"></pre>
-		<div class="ToolSectionLabel">
-		  Stream
-		</div>
-		<pre id="ServerStream" readonly="readonly"></pre>
-	</div>
-</div>
-
-<div id="ServerConsoleContainer">
-  <input type="text" id="ServerConsoleInput">
-  <input type="checkbox" id="ServerConsoleCheckbox"/>
-  <label for="ServerConsoleCheckbox" id="ServerConsoleLabel">Eval in Node Process</label>
-</div>
+<template class="Tool" id="Redirect">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
 
 
-<div class="Tool" id="Share">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
+      <div class="container">
+
+          <h1>Redirects</h1>
+          <p>Redirects allow you to redirect an old url to a new one. This allows you to change your urls without leading to broken links or hurting your SEO.</p>
+          
+        
+         <div class="form-group">
+            <textarea id="RedirectCode" class="form-control" rows="6" placeholder="/current /new.html"></textarea>
+          </div>
+
+          <div class="form-group">
+            <button type="button" onclick="Redirect.save()" class="btn btn-lg btn-primary">Save</button>
+          </div>
+
+      </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Server">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+              <li><a class="cursor" onclick="Server.console()">Console</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1>Server</h1>
+          <p>Every NudgePad project is a powerful server process.</p>
+        </div>
+      </div>
+      
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-lg-4">
+            <h2>Logs</h2>
+            <pre id="ServerLogHolder" readonly="readonly"></pre>
+          </div>
+          <div class="col-lg-4">
+            <h2>Server Info</h2>
+            <pre id="ServerStatusArea" readonly="readonly"></pre>
+         </div>
+          <div class="col-lg-4">
+            <h2>Stream</h2>
+            <pre id="ServerStream" readonly="readonly"></pre>
+          </div>
+        </div>
+
+      </div> <!-- /container -->
+      
+      
+      
+    	<div id="ServerConsoleContainer" style="display: none;">
+        <input type="text" id="ServerConsoleInput">
+        <input type="checkbox" id="ServerConsoleCheckbox"/>
+        <label for="ServerConsoleCheckbox" id="ServerConsoleLabel">Eval in Node Process</label>
+      </div>
+
+</template>
+
+
+<template class="Tool" id="Share">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+
+    <h1>Share your Project</h1>
+    <p>Paste the code below into any page to allow other people to clone your project.</p>
     
+    <div class="form-group">
+      <textarea id="ShareCode" class="form-control" rows="6"></textarea>
+    </div>
     
-		<div class="ToolInputLabel">
-	  	Share Button
-	  </div>
-    
-    <textarea id="ShareCode"></textarea>
-		
-	</div>
-</div>
-<div class="Tool" id="Sketch">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" onclick="Sketch.save()">
-		  	Save
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
+  </div> <!-- /container -->
+
+</template>
+
+
+
+<template class="Tool" id="Sketch">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Sketch.save()">Save</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
     <canvas id="SketchCanvas"></canvas>
-	</div>
-</div>
+  
+  </div> <!-- /container -->
 
-<div class="Tool" id="Support">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  <p>Thanks for being an early tester of NudgePad!</p>
-	  <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
-	  <p>Email support: support@nudgepad.com</p>
-	  <p>You can also add Breck to your project (breck@nudgepad.com), and we can provide hands on help getting your project built</p>
-	</div>
-</div>
-<div class="Tool" id="Team">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" href="/nudgepad.logout" title="Logout">
-		  	Logout
-		  </a>
-		  <a class="ToolRightButton" id="TeamMyEmail" onclick="Team.updateEmail()" title="Update Your Email Address">
-		  	Email
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  <div class="ToolSectionLabel">
-		  Invite
-		</div>
-	  <div class="ToolInputLabel">
-	  	Invite people to work on this project.
-	  </div>
-	  <input type="email" class="ToolInput" id="TeamEmail" tabindex="2" placeholder="Add email(s) separated by spaces"></input>
-	  <div class="ToolPrimaryButton" onclick="Team.invite()">
-		  Invite
-		</div>
-		<div class="ToolSectionLabel">
-		  Team
-		</div>
-	  <div class="ToolInputLabel" id="TeamCurrent">
-	  	
-	  </div>
-	</div>
-</div>
+</template>
+<template class="Tool" id="Support">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <!-- Main component for a primary marketing message or call to action -->
+    <h2>NudgePad Support</h2>
+    <p>Thanks for being an early tester of NudgePad!</p>
+    <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
+    <a class="btn btn-lg btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
+  	  
+  
+  </div> <!-- /container -->
+
+</template>
+
+<template class="Tool" id="Team">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          <li class="dropdown">
+            <a id="TeamMyEmail" class="cursor dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/nudgepad.logout">Logout</a></li>
+              <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+        <h2>Team</h2>
+        <p>Invite people to work on your project.</p>
+        
+        <div class="input-group">
+          <input type="text" class="form-control" id="TeamEmail" placeholder="Add email(s) separated by spaces">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="Team.invite()" type="button">Invite</button>
+          </span>
+        </div><!-- /input-group -->
+          
+          <h3>Current Team</h3>
+          
+          <ul class="list-unstyled icons-ul" id="TeamCurrent"></ul>
+
+    </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Time">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <h1><input value="00:00:00" id="TimeElapsed"></h1>
+      
+      <button type="button" onclick="Time.start()" class="btn btn-lg btn-primary"><i class="icon-play"></i> Start</button>
+      <button type="button" onclick="Time.pause()" class="btn btn-lg btn-default"><i class="icon-pause"></i> Pause</button>
+      <button type="button" onclick="$('#TimeElapsed').val('00:00:00')" class="btn btn-lg btn-default"><i class="icon-backward"></i> Clear</button>
+      
+
+    </div>
+  
+  </div> <!-- /container -->
+
+</template>
+
+
+<!--
 <div class="Tool" id="Time">
 	<div class="ToolNav">
 		<div class="ToolNavContainer">
@@ -1039,23 +1225,9 @@ jquery
     <div id="TimeTimesheet" style="white-space: pre"></div>
 	</div>
 </div>
-
-<div class="Tool" id="WebMaker">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    <div id="Makes"></div>
-	</div>
-	<div id="MakeTemplate" class="MakeTemplate" style="display: none">
-	</div>
-</div>
+-->
 
 
+  <div id="OpenTool"></div>
   </body>
 </html>

@@ -1,25 +1,37 @@
-<div class="Tool" id="Files">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" onclick="Files.refresh()">
-		  	Refresh
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  <div id="FilesFilesContent" class="FilesContent">
-	    <div id="FilesHeader">
-  	    <div id="FilesExplorerPath"></div>
-  	    <div id="FilesNew">
-    	  	<a onclick="Files.newFile()">New File</a> &nbsp; &nbsp; &nbsp;
-      		<a onclick="Files.newFolder()">New Folder</a>
-    		</div>
-  		</div>
+<template class="Tool" id="Files">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <div id="FilesFilesContent" class="FilesContent">
+  	  <ol class="breadcrumb" id="FilesExplorerPath"></ol>
+  	  
+  	  <button type="button" class="btn btn-xs btn-default" onclick="Files.newFile()">New File</button>
+  	  <button type="button" class="btn btn-xs btn-default" onclick="Files.newFolder()">New Folder</button>
+  	  <br>
+  	  <br>
 		  <div id="FilesExplorerHolder"></div>
 		</div>
-	</div>
-</div>
+  
+  </div> <!-- /container -->
+
+</template>

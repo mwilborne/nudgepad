@@ -1,34 +1,50 @@
-<div class="Tool" id="Team">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a class="ToolRightButton" href="/nudgepad.logout" title="Logout">
-		  	Logout
-		  </a>
-		  <a class="ToolRightButton" id="TeamMyEmail" onclick="Team.updateEmail()" title="Update Your Email Address">
-		  	Email
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  <div class="ToolSectionLabel">
-		  Invite
-		</div>
-	  <div class="ToolInputLabel">
-	  	Invite people to work on this project.
-	  </div>
-	  <input type="email" class="ToolInput" id="TeamEmail" tabindex="2" placeholder="Add email(s) separated by spaces"></input>
-	  <div class="ToolPrimaryButton" onclick="Team.invite()">
-		  Invite
-		</div>
-		<div class="ToolSectionLabel">
-		  Team
-		</div>
-	  <div class="ToolInputLabel" id="TeamCurrent">
-	  	
-	  </div>
-	</div>
-</div>
+<template class="Tool" id="Team">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          <li class="dropdown">
+            <a id="TeamMyEmail" class="cursor dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/nudgepad.logout">Logout</a></li>
+              <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+        <h2>Team</h2>
+        <p>Invite people to work on your project.</p>
+        
+        <div class="input-group">
+          <input type="text" class="form-control" id="TeamEmail" placeholder="Add email(s) separated by spaces">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="Team.invite()" type="button">Invite</button>
+          </span>
+        </div><!-- /input-group -->
+          
+          <h3>Current Team</h3>
+          
+          <ul class="list-unstyled icons-ul" id="TeamCurrent"></ul>
+
+    </div> <!-- /container -->
+
+</template>

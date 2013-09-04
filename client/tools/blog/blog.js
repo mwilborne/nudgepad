@@ -31,7 +31,8 @@ Blog.active.advanced = function () {
 
 Blog.active.close = function () {
   Blog.active.filename = null
-  $('#BlogEditorColumn').hide()
+  $('.disableable').attr('disabled', true)
+  // disable
 }
 
 Blog.active.delete = function () {
@@ -41,21 +42,13 @@ Blog.active.delete = function () {
   Blog.trigger('posts')
 }
 
-Blog.active.highlight = function (filename) {
-  $('.BlogActivePost').removeClass('BlogActivePost')
-  $('#BlogPosts div').each(function (){
-    if ($(this).attr('filename') === filename)
-      $(this).addClass('BlogActivePost')
-  })
-}
-
 Blog.active.open = function (filename) {
   Blog.active.filename = filename
   var post = Blog.get('posts ' + filename)
   $('#BlogTitle').val(post.get('title'))
   $('#BlogContent').val(post.get('content'))
-  $('#BlogEditorColumn').show()
-  Blog.active.highlight(filename)
+  // enable
+  $('.disableable').removeAttr('disabled')
   $('#BlogTitle').focus()
   document.execCommand('selectAll',false,null)
 }
@@ -97,9 +90,6 @@ Blog.active.save = function () {
   Blog.trigger('posts')
 }
 
-Blog.active.updateTitle = function () {
-  $('.BlogActivePost').text($('#BlogTitle').val())
-}
 
 Blog.create = function () {
   // todo: remove this line, make writeFile mkdirs that it needs to
@@ -156,19 +146,13 @@ Blog.downloadPosts = function () {
 Blog.listPosts = function () {
   var posts = Blog.get('posts')
   $('#BlogPosts').html('')
+  
   posts.each(function (filename, value) {
-    var link = $('<div></div>')
-    link.html(value.get('title'))
-    link.on('click', function () {
-      Blog.active.open(filename)
-    })
-    link.attr('filename', filename)
-    $('#BlogPosts').append(link)
+    $('#BlogPosts').append('<li><a class="cursor" onclick="Blog.active.open(\'' + filename + '\')">' + value.get('title') + '</a></li>')
   })
-  Blog.active.highlight(Blog.active.filename)
 }
 
-Blog.on('open', Blog.downloadPosts)
+Blog.on('ready', Blog.downloadPosts)
 Blog.on('posts', Blog.listPosts)
 
 Blog.Post = function (filename, patch) {

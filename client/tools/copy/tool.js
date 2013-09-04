@@ -1,23 +1,23 @@
-var Move = new Tool('Move')
-Move.set('path', '')
-Move.set('description', 'Move or copy your project to a new domain.')
+var Copy = new Tool('Copy')
+Copy.set('path', '')
+Copy.set('description', 'Copy your project to a new domain or server.')
 
-Move.import = function () {
-  TextPrompt.open('Import a Project to this Move', '', function (val) {
+Copy.import = function () {
+  TextPrompt.open('Import a Project to this project', '', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
       Alerts.success('Imported files.')
     })
   })
 }
 
-Move.on('open', function () {
-  $('#MoveDomain').val('copyof' + document.location.host)
-  $('#MoveServer').val(Project.get('hostname'))
+Copy.on('ready', function () {
+  $('#CopyDomain').val('copyof' + document.location.host)
+  $('#CopyServer').val(Project.get('hostname'))
 })
 
-Move.cloneProject = function () {
-  var domain = $('#MoveDomain').val()
-  var server = $('#MoveServer').val()
+Copy.cloneProject = function () {
+  var domain = $('#CopyDomain').val()
+  var server = $('#CopyServer').val()
   
   $.get('/nudgepad.export?t=' + new Date().getTime(), {}, function (data) {
     

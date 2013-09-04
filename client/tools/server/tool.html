@@ -1,41 +1,63 @@
-<div class="Tool" id="Server">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-			<a class="ToolRightButton" onclick="Server.console()" title="Run Shell Commands">
-		  	Console
-		  </a>
-		  <a class="ToolRightButton" onclick="$.get('/nudgepad.restart')" title="Restart Server">
-		  	Restart
-		  </a>
-		  <a class="ToolRightButton" onclick="Server.refresh()" title="Refresh Logs">
-		  	Refresh
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    <div class="ToolSectionLabel">
-		  Logs
-		</div>
-		<pre id="ServerLogHolder" readonly="readonly"></pre>
-		<div class="ToolSectionLabel">
-		  Server Info
-		</div>
-		<pre id="ServerStatusArea" readonly="readonly"></pre>
-		<div class="ToolSectionLabel">
-		  Stream
-		</div>
-		<pre id="ServerStream" readonly="readonly"></pre>
-	</div>
-</div>
+<template class="Tool" id="Server">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+              <li><a class="cursor" onclick="Server.console()">Console</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
 
-<div id="ServerConsoleContainer">
-  <input type="text" id="ServerConsoleInput">
-  <input type="checkbox" id="ServerConsoleCheckbox"/>
-  <label for="ServerConsoleCheckbox" id="ServerConsoleLabel">Eval in Node Process</label>
-</div>
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1>Server</h1>
+          <p>Every NudgePad project is a powerful server process.</p>
+        </div>
+      </div>
+      
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-lg-4">
+            <h2>Logs</h2>
+            <pre id="ServerLogHolder" readonly="readonly"></pre>
+          </div>
+          <div class="col-lg-4">
+            <h2>Server Info</h2>
+            <pre id="ServerStatusArea" readonly="readonly"></pre>
+         </div>
+          <div class="col-lg-4">
+            <h2>Stream</h2>
+            <pre id="ServerStream" readonly="readonly"></pre>
+          </div>
+        </div>
+
+      </div> <!-- /container -->
+      
+      
+      
+    	<div id="ServerConsoleContainer" style="display: none;">
+        <input type="text" id="ServerConsoleInput">
+        <input type="checkbox" id="ServerConsoleCheckbox"/>
+        <label for="ServerConsoleCheckbox" id="ServerConsoleLabel">Eval in Node Process</label>
+      </div>
+
+</template>
 
 

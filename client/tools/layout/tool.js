@@ -2,7 +2,7 @@ var Layout = new Tool('Layout')
 Layout.set('description', 'Layout pages quickly.')
 Layout.set('beta', true)
 
-Layout.on('open', function () {
+Layout.on('ready', function () {
   var template = $('.LayoutCell').clone()
   $('#LayoutStage').on('click', '.splitHorizontal', function () {
     var clone = template.clone()

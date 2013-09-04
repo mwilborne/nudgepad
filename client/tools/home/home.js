@@ -1,9 +1,9 @@
 var Home = new Tool('Home')
 
 Home.renderMenu = function () {
-  $('#HomeColumn').html('')
-  var tools = _.without(Tool.tools, 'Home', 'Designer', 'Files', 'Blog', 'AppMaker', 'Team')
-  tools.unshift('Designer', 'Files', 'Team', 'Blog', 'AppMaker')
+  $('#HomeContainer').html('')
+  var tools = _.without(Tool.tools, 'Home', 'Designer', 'Files', 'Blog', 'Team')
+  tools.unshift('Designer', 'Files', 'Team', 'Blog')
   var colors =
   [
   'rgb(26,134,214)',
@@ -25,7 +25,7 @@ Home.renderMenu = function () {
   
   for (var i in tools) {
     var tool = window[tools[i]]
-    $('#HomeColumn').append(
+    $('#HomeContainer').append(
       Home.toButton(
         tool.get('name'),
         tool.get('description'),
@@ -50,11 +50,11 @@ return '<div class="HomeSquare" style="background-color : ' + color + '" onclick
 </div>'
 }
 
-Home.on('open', function () {
+Home.on('ready', function () {
   Home.renderMenu()
-  $('#Home').on('hold', Home.toggleAll)
+  $('#HomeContainer').on('hold', Home.toggleAll)
 })
 
 Home.on('close', function () {
-  $('#Home').off('hold', Home.toggleAll)
+  $('#HomeContainer').off('hold', Home.toggleAll)
 })

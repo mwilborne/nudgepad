@@ -1,16 +1,30 @@
-<div class="Tool" id="Backup">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  <a id="BackupDownload" href="" target="blank" class="ToolRightButton" title="Download Project as Zip File">
-		  	Download Zip
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-	  
-	</div>
-</div>
+<template class="Tool" id="Backup">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+
+        <!-- Main component for a primary marketing message or call to action -->
+          <h2>Backup</h2>
+          <p>Download your project as a Zip file.</p>
+          
+          <a target="_blank" type="button" id="BackupDownload" class="btn btn-lg btn-primary">Download</a>
+
+      </div> <!-- /container -->
+
+</template>
+
+
