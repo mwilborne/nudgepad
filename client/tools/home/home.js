@@ -21,34 +21,30 @@ Home.renderMenu = function () {
     })
   }
   
-  $('#HomeContainer').append('<div class="row">')
+  var str = '<div class="row">'
   for (var i in tools) {
     var tool = window[tools[i]]
-    if (i > 0 && (i % 3 === 0)) {
-      $('#HomeContainer').append('</div><div class="row">')
-      console.log(tool.get('name'))
-    }
-    $('#HomeContainer').append(
-      Home.toButton(
+    if (i > 0 && (i % 3 === 0))
+      str += '</div><div class="row">'
+    str += Home.toButton(
         tool.get('name'),
         tool.get('description'),
         colors[(i ? i % colors.length : 0)],
-        tool.get('icon') || 'picture'
-    ))
+        tool.get('icon') || 'picture')
   }
   if (((i + 1)  % 3 ) !== 0)
-    $('#HomeContainer').append('</div>')
+    str += '</div>'
   var maxHeight = 0
+  $('#HomeContainer').append(str)
   $('.jumbotron').each(function () {
     if ($(this).height() > maxHeight)
       maxHeight = $(this).height()
   }).height(maxHeight)
-  
 }
 
 Home.toButton = function (name, description, color, icon) {
   
-  return '<div class="col-md-4" style="padding: 0 12px;"><div class="jumbotron cursor HomeBtn" onclick="Launcher.open(\'' + name + '\')" style="text-align: center;color: white;background-color : ' + color + '">\
+  return '<div class="col-md-4"><div class="jumbotron cursor HomeBtn" onclick="Launcher.open(\'' + name + '\')" style="text-align: center;color: white;background-color : ' + color + '">\
       <h1><i class="icon-' + icon + '"></i></h1><h2>' + name + '</h2>\
       <p>' + description + '</p>\
   </div></div>'
