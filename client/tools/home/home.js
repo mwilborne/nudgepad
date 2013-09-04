@@ -17,8 +17,6 @@ Home.renderMenu = function () {
   if (!store.get('homeShowAll')) {
     tools = _.filter(tools, function (value, key) {
       var tool = window[value]
-      if (tool.get('beta'))
-        return false
       return true
     })
   }
@@ -35,7 +33,6 @@ Home.renderMenu = function () {
         tool.get('name'),
         tool.get('description'),
         colors[(i ? i % colors.length : 0)],
-        false,
         tool.get('icon') || 'picture'
     ))
   }
@@ -49,35 +46,15 @@ Home.renderMenu = function () {
   
 }
 
-Home.toggleAll = function () {
-  if (store.get('homeShowAll'))
-    store.remove('homeShowAll')
-  else
-    store.set('homeShowAll', 'true')
-  Home.renderMenu()
-}
-
-Home.toButton = function (name, description, color, beta, icon) {
+Home.toButton = function (name, description, color, icon) {
   
-  return '<div class="col-md-4" style="padding: 0 12px;"><div class="jumbotron cursor HomeBtn" onclick="Launcher.open(\'' + name + '\')">\
-    <div class="container" style="text-align: center;">\
+  return '<div class="col-md-4" style="padding: 0 12px;"><div class="jumbotron cursor HomeBtn" onclick="Launcher.open(\'' + name + '\')" style="text-align: center;color: white;background-color : ' + color + '">\
       <h1><i class="icon-' + icon + '"></i></h1><h2>' + name + '</h2>\
       <p>' + description + '</p>\
-    </div>\
   </div></div>'
-  
-  
-return '<div class="HomeSquare" style="background-color : ' + color + '" onclick="Launcher.open(\'' + name + '\')">\
-    <div class="HomeTopBlock">' + name + '</div>\
-    <div class="HomeSubBlock">' + description + '</div>\
-</div>'
 }
 
 Home.on('ready', function () {
   Home.renderMenu()
-  $('#HomeContainer').on('hold', Home.toggleAll)
 })
 
-Home.on('close', function () {
-  $('#HomeContainer').off('hold', Home.toggleAll)
-})
