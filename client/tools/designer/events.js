@@ -7,6 +7,7 @@ Designer.on('step', Designer.stage.updateTimeline)
 Designer.on('ready', function () {
   // We dont use the default tool convention
   $('#Designer').hide()
+  $('body').addClass('DontSelect')
 })
 
 Designer.on('open', function () {
@@ -80,6 +81,8 @@ Designer.on('open', function () {
 })
 
 Designer.on('close', function () {
+  
+  $('body').removeClass('DontSelect')
   
   $(document).off("slidestart", Designer.pen.draw)
   

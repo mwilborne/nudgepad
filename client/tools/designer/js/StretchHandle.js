@@ -31,8 +31,8 @@ Designer.StretchHandle.create = function (scrap, row, column, fixed) {
   div.css({
     "cursor" : cursor + "-resize",
     "position" : position,
-    "width" : '5px',
-    "height" : '5px',
+    "width" : '8px',
+    "height" : '8px',
     'border' : '1px solid rgba(0, 0, 0, .5)',
     'background-color' : 'rgba(255, 255, 255, 0.5)',
     "z-index" : "50"
@@ -63,10 +63,16 @@ Designer.StretchHandle.dimensions = {}
 Designer.StretchHandle.mousedown = function () {
   Designer.StretchHandle.dimensions = $(this).owner().dimensions()
   var scrap = $(this).owner().scrap()
-  Designer.StretchHandle.originalWidth = parseFloat(scrap.get('style width'))
-  Designer.StretchHandle.isWidthPercentage = scrap.get('style width').toString().match(/\%/)
-  Designer.StretchHandle.originalHeight = parseFloat(scrap.get('style height'))
-  Designer.StretchHandle.isHeightPercentage = scrap.get('style height').toString().match(/\%/)
+  var width = scrap.get('style width')
+  if (width) {
+    Designer.StretchHandle.originalWidth = parseFloat(width)
+    Designer.StretchHandle.isWidthPercentage = width.toString().match(/\%/) 
+  }
+  var height = height
+  if (height) {
+    Designer.StretchHandle.originalHeight = parseFloat(height)
+    Designer.StretchHandle.isHeightPercentage = height.toString().match(/\%/) 
+  }
   Designer.grid.create()
 }
 

@@ -1,5 +1,6 @@
 var GitHub = new Tool('GitHub')
 GitHub.set('description', 'Sync your project with GitHub.')
+GitHub.set('icon', 'github')
 
 GitHub.add = function () {
   var message = $('#GitHubFilepath').val()
@@ -104,4 +105,4 @@ GitHub.status = function () {
   GitHub.exec('git status')
 }
 
-GitHub.on('open', GitHub.status)
+GitHub.on('ready', GitHub.status)

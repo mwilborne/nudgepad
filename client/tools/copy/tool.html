@@ -1,0 +1,52 @@
+<template class="Tool" id="Copy">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/nudgepad.export" target="_blank" title="Download Project as a Space File">Export</a></li>
+              <li><a class="cursor" onclick="Files.import()" title="Import a Space File">Import</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="CopyDomain">New Domain</label>
+        <input class="form-control" id="CopyDomain" placeholder="Domain">
+      </div>
+      
+      <div class="form-group">
+        <label for="CopyServer">New Server</label>
+        <input class="form-control" id="CopyServer" placeholder="Server">
+      </div>
+      
+      <button onclick="Copy.cloneProject()" class="btn btn-primary">Copy</button>
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>

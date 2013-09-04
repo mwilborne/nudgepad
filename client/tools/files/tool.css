@@ -2,17 +2,6 @@
   cursor: pointer;
 }
 
-#FilesExplorerPath {
-  font-size : 15px;
-  color : #333;
-  text-align : left;
-  cursor: pointer;
-}
-
-#FilesExplorerPath span:hover {
-  color: #1a86d6;
-}
-
 .FilesExplorerHeader {
   font-size : 24px;
 }
@@ -50,7 +39,7 @@
 }
 
 .FilesHiddenAction, .FilesHiddenAction a {
-  color: #eee;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -85,36 +74,3 @@
   white-space: nowrap;
 }
 
-#FilesNew {
-  color: #555;
-  text-align: right;
-}
-
-#FilesNew a {
-  cursor: pointer;
-}
-
-#FilesNew a:hover {
-  text-decoration: underline;
-}
-
-#FilesHeader {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  
-  display: -webkit-flex;  /* NEW, Chrome 21+ */
-  display: flex;          /* NEW: Opera 12.1, Firefox 22+ */
-  -webkit-box-align: center; -moz-box-align: center; /* OLD… */
-  -ms-flex-align: center; /* You know the drill now… */
-  -webkit-align-items: center;
-  align-items: center;
-  
-  -webkit-box-pack: center; -moz-box-pack: center; 
-  -ms-flex-pack: center; 
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-
-#FilesHeader > div {
-  width: 50%;
-}

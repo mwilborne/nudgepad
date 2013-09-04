@@ -1,6 +1,7 @@
 var Crawler = new Tool('Crawler')
 Crawler.set('description', 'Crawl existing webpages.')
 Crawler.set('beta', true)
+Crawler.set('icon', 'cloud-download')
 
 Crawler.urls = new Space()
 
@@ -50,6 +51,11 @@ Crawler.download = function () {
       Crawler.download()
   })
   Crawler.current++
+  Crawler.progress(Crawler.current)
+}
+
+Crawler.done = function () {
+  Crawler.progress(100)
 }
 
 Crawler.downloadResource = function () {
@@ -57,7 +63,7 @@ Crawler.downloadResource = function () {
     return false
   var next = Crawler.resources.shift()
   if (!next)
-    return false
+    return Crawler.done()
   next = next.toString().split(/ /)[0]
   var link = document.createElement("a")
   link.href = next
@@ -65,6 +71,8 @@ Crawler.downloadResource = function () {
     console.log('Downloaded %s to %s', src, link.pathname)
     Crawler.downloadResource()
   })
+  Crawler.current++
+  Crawler.progress(Crawler.current)
 }
 
 Crawler.parseLinks = function (space, link, depth) {
@@ -126,10 +134,29 @@ Crawler.parseResources = function (space, link, tag, attr) {
 }
 
 Crawler.start = function () {
-  Crawler.urls = new Space($('#CrawlCode').val())
+  var url = $('#CrawlerDomain').val()
+  if (!url.match(/^http/))
+    url = 'http://' + url
+  Crawler.urls = new Space(url + ' 1')
   Crawler.max = 100
   Crawler.current = 0
   Crawler.resources = new Space()
   Crawler.fetched = new Space()
   Crawler.download()
+  
+  $('#CrawlerProgress').show()
 }
+
+Crawler.progress = function (i) {
+  $('#CrawlerProgress').find('.progress-bar')
+    .attr('aria-valuenow', i)
+    .css('width', i + '%')
+    .html('<span class="sr-only">' + i +'% Complete</span>')
+}
+
+Crawler.on('ready', function () {
+  $('#CrawlerDomain').on('enterkey', function () {
+    $('#CrawlerStart').trigger('click')
+  })
+})
+

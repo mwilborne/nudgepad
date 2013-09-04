@@ -2,35 +2,15 @@ var TextPrompt = {}
 
 TextPrompt.callback = function () {}
 
-TextPrompt.load = function () {
-  var textArea = $('#TextPromptTextarea')
-  var saveButton = $('#TextPromptSaveButton')
-  var cancelButton = $('#TextPromptCancelButton')
-  var dimmer = $('#TextPromptDimmer')
-  
-  dimmer.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
-    event.stopPropagation()
-  })
-  
-  textArea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
-    event.stopPropagation()
-  })
-  
-  dimmer.on('click', TextPrompt.close)
-  
-  cancelButton.on('click', TextPrompt.close)
-  
-  saveButton.on('click', function () {
-    // allow to save without closing
-    if (TextPrompt.callback(textArea.val()) === false)
-      return true
-    TextPrompt.close()
-  })
-  
+TextPrompt.save = function () {
+  // allow to save without closing
+  if (TextPrompt.callback($('#TextPromptTextarea').val()) === false)
+    return true
+  TextPrompt.close()
 }
 
 TextPrompt.close = function () {
-  $('.TextPrompt').hide()
+  $('.TextPrompt').remove()
   // temporary
   if (!TextPrompt.onclose)
     return null
@@ -41,9 +21,23 @@ TextPrompt.close = function () {
 
 TextPrompt.open = function (message, default_value, callback) {
   
+  $('body').append($('#TextPrompt').html())
+  
   TextPrompt.callback = callback
-  $('.TextPrompt').show()
+  
+  var textArea = $('#TextPromptTextarea')
+  var dimmer = $('#TextPromptDimmer')
+
+  dimmer.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
+    event.stopPropagation()
+  })
+  
+  textArea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
+    event.stopPropagation()
+  })
+  
+  dimmer.on('click', TextPrompt.close)
+  $('#TextPromptTextarea').css('height', Math.round($(window).height() * .8) + 'px')
   $('#TextPromptTextarea').val(default_value).focus()
 }
 
-$(document).on('ready', TextPrompt.load)

@@ -1,7 +1,7 @@
-Move
+Copy
 ====
 
-A tool for moving your project quickly.
+A tool for copying your project to a new domain or server.
 
 v 0.2
 -----

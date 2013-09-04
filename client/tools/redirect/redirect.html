@@ -1,29 +1,39 @@
-<div class="Tool" id="Redirect">
-	<div class="ToolNav">
-		<div class="ToolNavContainer">
-  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-		  	Back
-		  </div>
-		  
-		  <a class="ToolRightButton" onclick="$.get('/nudgepad.restart')" title="Restart Server">
-		  	Restart
-		  </a>
-		<div class="clear"></div>
-		</div>
-	</div>
-  <div class="ToolContainer">
-    
-    
-		<div class="ToolInputLabel">
-	  	Your Redirects
-	  </div>
+<template class="Tool" id="Redirect">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
 
-    <textarea id="RedirectCode" placeholder="/current /new.html"></textarea>
-    
-    <div class="ToolPrimaryButton" onclick="Redirect.save()">
-		  Save
-		</div>
-    
-		
-	</div>
-</div>
+
+      <div class="container">
+
+          <h1>Redirects</h1>
+          <p>Redirects allow you to redirect an old url to a new one. This allows you to change your urls without leading to broken links or hurting your SEO.</p>
+          
+        
+         <div class="form-group">
+            <textarea id="RedirectCode" class="form-control" rows="6" placeholder="/current /new.html"></textarea>
+          </div>
+
+          <div class="form-group">
+            <button type="button" onclick="Redirect.save()" class="btn btn-lg btn-primary">Save</button>
+          </div>
+
+      </div> <!-- /container -->
+
+</template>

@@ -1,29 +1,58 @@
-<div class="Tool" id="Blog">
-  <div class="ToolNav">
-    <div class="ToolNavContainer">
-      <div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
-        Back
+<template class="Tool" id="Blog">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
       </div>
-      <div id="BlogNewPostButton" onclick="Blog.create();">
-        New Post
-      </div>
-    <div class="clear"></div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="cursor" onclick="Blog.create();">New Post</a></li>
+
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="BlogPosts">
+              
+            </ul>
+          </li>
+          
+        </ul>
+      </div><!--/.nav-collapse -->
+      
     </div>
   </div>
   
-  <div id="BlogListColumn">
-    <div id="BlogPostTitle">Posts</div>
-    <div id="BlogPosts"></div>
-  </div>
   
-  <div id="BlogEditorColumn">
-    <input id="BlogTitle" placeholder="Title" tabindex="1" onkeyup="Blog.active.updateTitle()"/>
-    <textarea id="BlogContent" placeholder="Write your post here..." tabindex="2"></textarea>
-    <div id="BlogPublishButton" onclick="Blog.active.save();Blog.active.publish()">Publish</div>
-    <div id="BlogSaveButton" onclick="Blog.active.save()">Save</div>
-    <div id="BlogAdvancedButton" onclick="Blog.active.advanced()">Advanced</div>
-    <div id="BlogDeleteButton" onclick="Blog.active.delete()">Delete</div>
-    <div class="clear"></div>
-  </div>
-  
-</div>
+  <div class="container">
+
+    <form role="form" id="BlogForm">
+      
+      <div class="form-group">
+        <label for="BlogTitle">Title</label>
+        <input class="form-control disableable" id="BlogTitle" placeholder="Post Title" disabled>
+      </div>
+      
+      <div class="form-group">
+        <label for="BlogContent">Content</label>
+        <textarea class="form-control disableable" rows="20" id="BlogContent" placeholder="Write your post here..." disabled></textarea>
+      </div>
+      
+      <button type="button" class="btn btn-primary disableable" onclick="Blog.active.save()" disabled>Save</button>
+      <button type="button" class="btn btn-success disableable" onclick="Blog.active.save();Blog.active.publish()" disabled>Publish</button>
+      <button type="button" class="btn btn-info disableable" onclick="Blog.active.advanced()" disabled>Advanced</button>
+      <button type="button" class="btn btn-warning disableable" onclick="Blog.active.delete()" disabled>Delete</button>
+      
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+

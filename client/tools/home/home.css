@@ -1,27 +1,23 @@
-.HomeSquare {
-  cursor : pointer;
-  font-weight : 300;
-  margin-top: 20px;
-  color: #fff;
-  width: 31%;
-  min-width: 300px;
-  float: left;
-  margin-right: 20px;
+.HomeBtn:hover {
+  -webkit-box-shadow: inset 0 3px 35px rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 35px rgba(0, 0, 0, 0.125);
 }
 
-.HomeSquare.beta {
-  display: none;
+.HomeBtn:active {
+  opacity: 1;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.225);
 }
 
-.HomeTopBlock {
-  padding: 80px 20px;
-  font-size: 3.375em;
+.HomeBtn {
+  opacity: 1;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
 }
 
-.HomeSubBlock {
-  font-size: 0.875em;
-  background: rgba(0,0,0,.2);
-  padding: 20px;
-  font-weight: 400;
+.HomeContainer .row .col-m4 {
+  padding-left: 0;
 }
-

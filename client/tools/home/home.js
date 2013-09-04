@@ -1,9 +1,9 @@
 var Home = new Tool('Home')
 
 Home.renderMenu = function () {
-  $('#HomeColumn').html('')
-  var tools = _.without(Tool.tools, 'Home', 'Designer', 'Files', 'Blog', 'AppMaker', 'Team')
-  tools.unshift('Designer', 'Files', 'Team', 'Blog', 'AppMaker')
+  $('#OpenTool #HomeContainer').html('')
+  var tools = _.without(Tool.tools, 'Home', 'Designer', 'Files', 'Blog', 'Team')
+  tools.unshift('Designer', 'Files', 'Team', 'Blog')
   var colors =
   [
   'rgb(26,134,214)',
@@ -17,44 +17,41 @@ Home.renderMenu = function () {
   if (!store.get('homeShowAll')) {
     tools = _.filter(tools, function (value, key) {
       var tool = window[value]
-      if (tool.get('beta'))
-        return false
       return true
     })
   }
   
+  var str = '<div class="row">'
   for (var i in tools) {
     var tool = window[tools[i]]
-    $('#HomeColumn').append(
-      Home.toButton(
+    if (i > 0 && (i % 3 === 0))
+      str += '</div><div class="row">'
+    str += Home.toButton(
         tool.get('name'),
         tool.get('description'),
         colors[(i ? i % colors.length : 0)],
-        tool.get('beta')
-    ))
+        tool.get('icon') || 'picture')
   }
+  if (((i + 1)  % 3 ) !== 0)
+    str += '</div>'
+  var maxHeight = 0
+  $('#OpenTool #HomeContainer').append(str)
+  $('.jumbotron').each(function () {
+    if ($(this).height() > maxHeight)
+      maxHeight = $(this).height()
+  }).height(maxHeight)
 }
 
-Home.toggleAll = function () {
-  if (store.get('homeShowAll'))
-    store.remove('homeShowAll')
-  else
-    store.set('homeShowAll', 'true')
+Home.toButton = function (name, description, color, icon) {
+  
+  return '<div class="col-md-4"><div class="jumbotron cursor HomeBtn" onclick="Launcher.open(\'' + name + '\')" style="text-align: center;color: white;background-color : ' + color + '">\
+      <h1><i class="icon-' + icon + '"></i></h1><h2>' + name + '</h2>\
+      <p>' + description + '</p>\
+  </div></div>'
+}
+
+Home.on('ready', function () {
+  $('#HomeDomain').text(document.location.hostname)
   Home.renderMenu()
-}
-
-Home.toButton = function (name, description, color, beta) {
-return '<div class="HomeSquare" style="background-color : ' + color + '" onclick="Launcher.open(\'' + name + '\')">\
-    <div class="HomeTopBlock">' + name + '</div>\
-    <div class="HomeSubBlock">' + description + '</div>\
-</div>'
-}
-
-Home.on('open', function () {
-  Home.renderMenu()
-  $('#Home').on('hold', Home.toggleAll)
 })
 
-Home.on('close', function () {
-  $('#Home').off('hold', Home.toggleAll)
-})
