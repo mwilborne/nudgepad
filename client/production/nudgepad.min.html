@@ -1,0 +1,1136 @@
+<!doctype>
+<html style="padding-top: 0;">
+  <head>
+    <title>Loading Nudgepad...</title>
+    <link rel="stylesheet" href="/nudgepad/production/nudgepad.min.css?version=CSSV" type="text/css"/>
+    <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="/nudgepad/production/nudgepad.min.js?version=JSV"></script>
+    <script type="text/javascript">
+    $(document).ready(nudgepad.main)
+    </script>
+    <script text="text/javascript">
+    var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-32553663-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();
+    </script>
+    <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+    typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+    b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+    mixpanel.init("cddd496663c58cf984f006dba0ec67bc");</script><!-- end Mixpanel -->
+  </head>
+  <!-- We inline styles so for Designing tools that import CSS, they wont affect the body #221-->
+  <body style="margin: 0; line-height: 1; overflow: hidden; position: relative; width: 100%; height: 100%;  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-left: 0; padding-top: 0;">
+<div id="ConnectionStatus">Connecting to server...</div>
+<div id="Alerts" style="left: 30%; right: 30%; position: fixed; top: 0px; display: none; z-index: 10000; text-align: center;" onclick="Alerts.clear()"></div>
+<div id="LoadingScreen">Loading Nudgepad...</div>
+<template id="PreviewBoxTemplate" style="display: none;">
+  
+<div id="PreviewBox">
+  <div id="PreviewBoxContainer"></div>
+</div>
+
+</template>
+<div id="RegisterFormModal">
+	<div id="RegisterContainer">
+		<div id="RegisterContent">
+			<div id="RegisterFormMessage">Your project is now live at</div>
+			<a id="RegisterFormDomain" target="published"></a>
+			<div class="clear"></div>
+			<div id="RegisterFormInstructions">If you want to edit your project beyond this session, please type your email address below.</div>
+			<input id="RegisterFormEmail" type="email" placeholder="Email"></input>  
+			<div id="RegisterFormButton">Submit</div>
+			<div class="clear"></div>
+			<div id="RegisterFormSkip" onclick="$('#RegisterFormModal').remove()">Skip this step</div>
+		</div>
+	</div>
+</div>
+<template id="TextPrompt">
+
+  <div class="Dimmer TextPrompt" id="TextPromptDimmer"></div>
+  
+  
+  <form role="form" class="TextPrompt" id="TextPromptForm" style="text-align: right;">
+    
+    <div class="form-group">
+      <textarea class="form-control" rows="20" id="TextPromptTextarea"></textarea>
+    </div>
+    
+    <button type="button" class="btn btn-default" id="TextPromptCancelButton" onclick="TextPrompt.close()">Cancel</button>
+    <button type="button" class="btn btn-primary" id="TextPromptSaveButton" onclick="TextPrompt.save()" style="margin-right: 10px;">Save</button>
+    <br>
+    <div>&nbsp;</div>
+  </form>
+  
+</template>
+<template class="Tool" id="Ace">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <div id="AceEditor">Hello world</div>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Backup">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="jumbotron">
+        
+        <div class="container">
+
+        <!-- Main component for a primary marketing message or call to action -->
+          <h1>Backup</h1>
+          <p>Download your project as a Zip file.</p>
+          
+          <a target="_blank" type="button" id="BackupDownload" class="btn btn-lg btn-primary">Download</a>
+
+        </div>
+      </div> <!-- /container -->
+
+</template>
+
+
+<template class="Tool" id="Blog">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="cursor" onclick="Blog.create();">New Post</a></li>
+
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="BlogPosts">
+              
+            </ul>
+          </li>
+          
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+
+    <form role="form" id="BlogForm">
+      
+      <div class="form-group">
+        <label for="BlogTitle">Title</label>
+        <input class="form-control disableable" id="BlogTitle" placeholder="Post Title" disabled>
+      </div>
+      
+      <div class="form-group">
+        <label for="BlogContent">Content</label>
+        <textarea class="form-control disableable" rows="20" id="BlogContent" placeholder="Write your post here..." disabled></textarea>
+      </div>
+      
+      <button type="button" class="btn btn-primary disableable" onclick="Blog.active.save()" disabled>Save</button>
+      <button type="button" class="btn btn-success disableable" onclick="Blog.active.save();Blog.active.publish()" disabled>Publish</button>
+      <button type="button" class="btn btn-info disableable" onclick="Blog.active.advanced()" disabled>Advanced</button>
+      <button type="button" class="btn btn-warning disableable" onclick="Blog.active.delete()" disabled>Delete</button>
+      
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+
+<space id="BlogDefaultTemplate" style="display: none;">
+head
+ tag head
+ scraps
+  title
+   tag title
+   content Blog Post Title
+  stylesheet
+   tag link
+   rel stylesheet
+   href project.css
+body
+ tag body
+ scraps
+  container
+   style
+    width 90%
+    max-width 800px
+    height 100%
+    margin 0 auto
+   scraps
+    block1
+     style
+      height auto
+      font-family Open Sans
+      width auto
+      font-size 48px
+      font-weight normal
+      color #333
+      text-decoration none
+      font-style normal
+      padding 10px
+     content Blog Post Title
+    block14
+     style
+      height auto
+      font-family Open Sans
+      width auto
+      font-size 18px
+      font-weight normal
+      color #333
+      text-decoration none
+      font-style normal
+      padding 10px
+     content Blog Post Content
+</space>
+
+<template class="Tool" id="Copy">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/nudgepad.export" target="_blank" title="Download Project as a Space File">Export</a></li>
+              <li><a class="cursor" onclick="Files.import()" title="Import a Space File">Import</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="CopyDomain">New Domain</label>
+        <input class="form-control" id="CopyDomain" placeholder="Domain">
+      </div>
+      
+      <div class="form-group">
+        <label for="CopyServer">New Server</label>
+        <input class="form-control" id="CopyServer" placeholder="Server">
+      </div>
+      
+      <button onclick="Copy.cloneProject()" class="btn btn-primary">Copy</button>
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Crawler">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+        <h3>Download an existing website into your project.</h3>
+        
+        <div class="input-group">
+          <input type="text" class="form-control" id="CrawlerDomain" placeholder="nytimes.com" />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" id="CrawlerStart" onclick="Crawler.start()" type="button">Start</button>
+          </span>
+        </div><!-- /input-group -->
+        
+        <br><br><br>
+        
+        <div class="progress" id="CrawlerProgress" style="display: none;">
+          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span class="sr-only">0% Complete</span>
+          </div>
+        </div>
+        
+        
+      </div> <!-- /container -->
+      
+
+</template>
+<div id="DesignerBar" style="display: none;">
+
+  <div title="menu" id="DesignerBarMenuButton"></div>
+
+  <div title="Drop components onto your page" id="DesignerComponentsTab" class="DesignerBarTab"><img src="/nudgepad/tools/designer/images/categories/sticky.png"></div>
+
+  <div title="Drop images onto your page" id="DesignerImageTab" class="DesignerBarTab"><img src="/nudgepad/tools/designer/images/categories/image.png"></div>
+  
+  <div id="DesignerDeviceSwitcher" onclick="Designer.stage.toggleDevice()">Device</div>
+  
+  <div id="DesignerTimelineHolder">
+    <span class="DesignerTimeline" id="DesignerTimelinePosition" ondblclick="Designer.menu.clearTimelinePrompt()"></span>
+    <input class="DesignerTimeline" id="DesignerTimeline" type="range" min="0" max="100" step="1" onclick="Designer.stage.goto($(this).val())" value="100">
+    <script type="text/javascript">
+      $('#DesignerTimeline').on('slide', function () {
+        Designer.stage.goto($(this).val())
+    })</script>
+    
+  </div>
+  
+  <div id="DesignerTabs"></div>
+  <div id="DesignerPublishButton" onclick="Designer.stage.publish()">Publish</div>
+</div>
+<space id="DesignerBlankPage" style="display: none;">
+head
+ tag head
+ scraps
+  title
+   tag title
+   content Untitled
+  style
+   tag style
+   content body {font-family: Helvetica; font-weight: 200;}
+body
+ tag body
+ scraps
+</space>
+<space class="DesignerComponentSet" path="mockup h1">
+thumb
+ title Header
+ content H1
+ style
+  background-color white
+  font-size 24px
+header
+ style
+  font-size 64px
+  color #222
+  position absolute
+  font-family Helvetica
+  font-weight 200
+  top 0
+  left 0
+  margin 0
+  padding 0
+ tag h1
+ content Header
+</space>
+
+<space class="DesignerComponentSet" path="mockup h2">
+thumb
+ title Header
+ content H2
+ style
+  background-color white
+  font-size 18px
+header
+ style
+  font-size 36px
+  color #222
+  position absolute
+  font-family Helvetica
+  font-weight 200
+  top 0
+  left 0
+  margin 0
+  padding 0
+ tag h2
+ content Header
+</space>
+
+<space class="DesignerComponentSet" path="mockup paragraph">
+thumb
+ title Paragraph
+ content Lorem ipsum dolor sit amet, consectetur adipisicing elit
+ style
+  background-color white
+  font-size 8px
+  line-height 8px
+  padding-top 12px
+  box-sizing border-box
+paragraph
+ style
+  color #222
+  position absolute
+  font-family Helvetica
+  font-weight 200
+  top 0
+  left 0
+  margin 0
+  padding 0
+  width 50%
+ tag p
+ content Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</space>
+
+<space class="DesignerComponentSet" path="mockup input">
+thumb
+ title Input
+ scraps
+  div
+   tag span
+   style
+    border 1px solid gray
+    padding 6px
+    color grey
+    box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
+    font-size 14px
+    background white
+   content Input
+input
+ tag input
+ style
+  position absolute
+  top 0
+  left 0
+  box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
+  font-size 16px
+  border 1px solid rgba(0,0,0,.2)
+  height 40px
+</space>
+
+<space class="DesignerComponentSet" path="mockup button">
+thumb
+ title Button
+ scraps
+  div
+   tag span
+   style
+    padding 6px
+    color white
+    box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
+    font-size 14px
+    background-color #1a86d6
+   content Button
+button
+ tag button
+ content Submit
+ style
+  position absolute
+  top 0
+  left 0
+  font-size 16px
+  height 40px
+  line-height 32px
+  padding-left 20px
+  padding-right 20px
+  border-radius 4px
+  border 0
+  color white
+  cursor pointer
+  background-color #1a86d6
+</space>
+
+<space class="DesignerComponentSet" path="mockup image">
+thumb
+ title Image
+ style
+  background-image url(/nudgepad/tools/designer/images/beach.jpg)
+  background-size contain
+image
+ tag img
+ src /nudgepad/tools/designer/images/beach.jpg
+ style
+  position absolute
+  top 0
+  left 0
+</space>
+
+<space class="DesignerComponentSet" path="mockup sticky">
+thumb
+ title Sticky Note
+ content Sticky Note
+ style
+  background-color #f4ed04
+  box-shadow 0px 1px 3px rgba(0,0,0,.6)
+  font-family Courier
+  font-size 12px
+  line-height 12px
+  padding-top 20px
+  box-sizing border-box
+stickyNote
+ style
+  background-color #f4ed04
+  position absolute
+  color #222
+  top 0
+  left 0
+  height auto
+  font-family Courier
+  width 120px
+  font-size 14px
+  line-height 120%
+  padding 10px
+  box-shadow 0px 1px 3px rgba(0,0,0,.6)
+ content I am a sticky note. I do not show up on your live site.
+ draft true
+</space>
+
+
+<space class="DesignerComponentSet" path="mockup jquery">
+thumb
+ title jQuery
+ content jQuery
+ style
+  background-color #f4ed04
+  box-shadow 0px 1px 3px rgba(0,0,0,.6)
+jquery
+ tag script
+ src //ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
+jqueryNote
+ style
+  background-color #f4ed04
+  position absolute
+  color #222
+  top 0
+  left 0
+  height auto
+  font-family Courier
+  width 120px
+  font-size 14px
+  line-height 120%
+  padding 10px
+  box-shadow 0px 1px 3px rgba(0,0,0,.6)
+ content I am jQuery. I am a hidden tag. I won't be visible on your live site.
+ draft true
+</space>
+
+<div id="DesignerMenu">
+  <div onclick="Designer.menu.blank()">New</div>
+  <div onclick="Designer.menu.duplicate()">Duplicate</div>
+  <div onclick="Designer.menu.renamePrompt()">Rename</div>
+  <div onclick="Designer.menu.delete()">Delete</div>
+  <div onclick="Designer.importUrlPrompt()">Import URL</div>
+  <div onclick="Designer.importFiles()">Import Files</div>
+  <div onclick="Launcher.open('Home')">Home</div>
+</div>
+
+<div id="DesignerImagesRibbon" class="DesignerRibbon">
+  
+	<div id="DesignerUploadButton"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;"></iframe></div>
+	
+  <div id="DesignerImagesList"></div>
+  
+</div>
+
+<div id="DesignerComponentsRibbon" class="DesignerRibbon">
+  <div id="DesignerComponentsList"></div>
+</div>
+<div id="DesignerShortcuts" style="display: none;">
+<div id="PreviewBoxWhiteBox">
+
+<h3>Page</h3>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">command+n</td><td>New Page</td></tr>
+<tr><td class="DesignerShortcutCode">ctrl+p</td><td>Publish Page</td></tr>
+<tr><td class="DesignerShortcutCode">command+backspace</td><td>Delete Page</td></tr>
+<tr><td class="DesignerShortcutCode">alt+left</td><td>Previous Page</td></tr>
+<tr><td class="DesignerShortcutCode">alt+right</td><td>Next Page</td></tr>
+</table>
+
+<h4>History</h4>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">command+z</td><td>Undo</td></tr>
+<tr><td class="DesignerShortcutCode">command+y</td><td>Redo</td></tr>
+</table>
+
+<h4>Selection</h4>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">command+d</td><td>Duplicate</td></tr>
+<tr><td class="DesignerShortcutCode">command+a</td><td>Select All</td></tr>
+<tr><td class="DesignerShortcutCode">delete</td><td>Delete</td></tr>
+<tr><td class="DesignerShortcutCode">command+u</td><td>Edit Source</td></tr>
+</table>
+
+<h4>Moving Selection</h4>
+<table class="DesignerShortcutTable">
+<tr><td class="DesignerShortcutCode">up</td><td>Move up 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">left</td><td>Move left 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">down</td><td>Move down 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">right</td><td>Move right 1 pixel</td></tr>
+<tr><td class="DesignerShortcutCode">shift+up</td><td>Move up 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+left</td><td>Move left 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+down</td><td>Move down 10 pixels</td></tr>
+<tr><td class="DesignerShortcutCode">shift+right</td><td>Move right 10 pixels</td></tr>
+</table>
+
+</div>
+
+</div>
+<div class="Tool" id="Designer">
+</div>
+  
+<div id="DesignerStage" style="display: none; box-sizing: content-box; -webkit-box-sizing: content-box;">
+  <div id="DesignerStageHead"></div>
+  <div id="DesignerStageBody"></div>
+  <div id="DesignerStageBottomPadding"></div>
+  <style type="text/css" id="DesignerRemoteSelections"></style>
+</div>
+
+<textarea id="DesignerCodePanel"></textarea>
+
+<div id="DesignerDimensions"></div>
+
+
+<template class="Tool" id="Files">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <div id="FilesFilesContent" class="FilesContent">
+  	  <ol class="breadcrumb" id="FilesExplorerPath"></ol>
+  	  
+  	  <button type="button" class="btn btn-xs btn-success" onclick="Files.newFile()">New File</button>
+  	  <button type="button" class="btn btn-xs btn-success" onclick="Files.newFolder()">New Folder</button>
+  	  <br>
+  	  <br>
+		  <div id="FilesExplorerHolder"></div>
+		</div>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="GitHub">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="GitHub.push()">Push</a></li>
+          <li><a class="cursor" onclick="GitHub.pull()">Pull</a></li>
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              
+              <li><a class="cursor" onclick="GitHub.cloneRepo()">Clone</a></li>
+              <li><a class="cursor" onclick="GitHub.init()">Init</a></li>
+              <li><a class="cursor" onclick="GitHub.addAll()">Add All</a></li>
+              <li><a class="cursor" onclick="GitHub.setOrigin()">Set Origin</a></li>
+              <li><a class="cursor" onclick="GitHub.addOrigin()">Add Origin</a></li>
+              <li><a class="cursor" onclick="GitHub.deployKey()">Deploy Key</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+    
+    <h3>Status</h3>
+    <p id="GitHubStatus"></p>
+
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="GitHubFilepath">Add Files</label>
+        <input class="form-control" id="GitHubFilepath" placeholder="Filepaths">
+      </div>
+      
+      <button onclick="GitHub.add()" class="btn btn-primary">Add</button>
+    </form>
+    
+    <form role="form">
+      
+      <div class="form-group">
+        <label for="GitHubCommitMessage">Commit Changes</label>
+        <input class="form-control" id="GitHubCommitMessage" placeholder="Message">
+      </div>
+      
+      <button onclick="GitHub.commit()" class="btn btn-primary">Commit</button>
+    </form>
+    
+  </div> <!-- /container -->
+
+</template>
+
+<template class="Tool" id="Home">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a id="HomeDomain" class="navbar-brand" href="/" target="published">Visit Site</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container" id="HomeContainer">
+
+      </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Irc">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <iframe frameborder="0" id="IrcChat" width="100%" height="600px"></iframe>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Layout">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Layout.publish()">Publish</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <div id="LayoutStage">
+      <div class="LayoutCell">
+        <div class="LayoutCellControls">
+          <span class="layoutText">A</span> <span class="splitHorizontal">=</span> <span class="splitVertical">||</span>
+        </div>
+      </div>
+    </div>
+    
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Redirect">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+
+      <div class="container">
+
+          <h1>Redirects</h1>
+          <p>Redirects allow you to redirect an old url to a new one. This allows you to change your urls without leading to broken links or hurting your SEO.</p>
+          
+        
+         <div class="form-group">
+            <textarea id="RedirectCode" class="form-control" rows="6" placeholder="/current /new.html"></textarea>
+          </div>
+
+          <div class="form-group">
+            <button type="button" onclick="Redirect.save()" class="btn btn-lg btn-primary">Save</button>
+          </div>
+
+      </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Server">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1>Server</h1>
+          <p>Every NudgePad project is a powerful server process.</p>
+          <pre id="ServerConsoleOutput" class="pre-scrollable"></pre>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="input-group">
+          <input type="text" class="form-control" id="ServerConsole" placeholder="Console">
+          <span class="input-group-btn">
+            <button id="ServerConsoleSend" class="btn btn-primary" onclick="Server.consoleSend()" type="button">Bash</button>
+            <button class="btn btn-default" onclick="Server.consoleSend(true)" type="button">Node</button>
+          </span>
+        </div><!-- /input-group -->
+      </div>
+      
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-lg-4">
+            <h2>Logs</h2>
+            <pre id="ServerLogHolder" readonly="readonly"></pre>
+          </div>
+          <div class="col-lg-4">
+            <h2>Server Info</h2>
+            <pre id="ServerStatusArea" readonly="readonly"></pre>
+         </div>
+          <div class="col-lg-4">
+            <h2>Stream</h2>
+            <pre id="ServerStream" readonly="readonly"></pre>
+          </div>
+        </div>
+
+      </div> <!-- /container -->
+      
+      
+      
+    	<div id="ServerConsoleContainer" style="display: none;">
+        <input type="text" id="ServerConsoleInput">
+        <input type="checkbox" id="ServerConsoleCheckbox"/>
+        <label for="ServerConsoleCheckbox" id="ServerConsoleLabel">Eval in Node Process</label>
+      </div>
+
+</template>
+
+
+<template class="Tool" id="Share">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+
+    <h1>Share your Project</h1>
+    <p>Paste the code below into any page to allow other people to clone your project.</p>
+    
+    <div class="form-group">
+      <textarea id="ShareCode" class="form-control" rows="6"></textarea>
+    </div>
+    
+  </div> <!-- /container -->
+
+</template>
+
+
+
+<template class="Tool" id="Sketch">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="cursor" onclick="Sketch.save()">Save</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <canvas id="SketchCanvas"></canvas>
+  
+  </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Support">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <!-- Main component for a primary marketing message or call to action -->
+    <h2>NudgePad Support</h2>
+    <p>Thanks for being an early tester of NudgePad!</p>
+    <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
+    <a class="btn btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
+  	  
+  
+  </div> <!-- /container -->
+
+</template>
+
+<template class="Tool" id="Team">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          <li class="dropdown">
+            <a id="TeamMyEmail" class="cursor dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/nudgepad.logout">Logout</a></li>
+              <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+        <h2>Team</h2>
+        <p>Invite people to work on your project.</p>
+        
+        <div class="input-group">
+          <input type="text" class="form-control" id="TeamEmail" placeholder="Add email(s) separated by spaces">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="Team.invite()" type="button">Invite</button>
+          </span>
+        </div><!-- /input-group -->
+          
+          <h3>Current Team</h3>
+          
+          <ul class="list-unstyled icons-ul" id="TeamCurrent"></ul>
+
+    </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Time">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <h1><input value="00:00:00" id="TimeElapsed"></h1>
+      
+      <button type="button" onclick="Time.start()" class="btn btn-lg btn-primary"><i class="icon-play"></i> Start</button>
+      <button type="button" onclick="Time.pause()" class="btn btn-lg btn-default"><i class="icon-pause"></i> Pause</button>
+      <button type="button" onclick="$('#TimeElapsed').val('00:00:00')" class="btn btn-lg btn-default"><i class="icon-backward"></i> Clear</button>
+      
+
+    </div>
+  
+  </div> <!-- /container -->
+
+</template>
+
+
+<!--
+<div class="Tool" id="Time">
+	<div class="ToolNav">
+		<div class="ToolNavContainer">
+  		<div class="ToolSquareButton ToolBackButton" onclick="Launcher.open('Home')">
+		  	Back
+		  </div>
+		<div class="clear"></div>
+		</div>
+	</div>
+  <div class="ToolContainer">
+    <input value="00:00:00" id="TimeElapsed">
+    <div id="TimeControls">
+      <i class="icon-play" title="Play" onclick="Time.start()"></i>
+      <i class="icon-pause" title="Pause" onclick="Time.pause()"></i>
+      <i class="icon-backward" title="Clear" onclick="$('#TimeElapsed').val('00:00:00')"></i>
+    </div>
+    <select id="TimeTask">
+      <option>Planning</option>
+      <option>Design</option>
+      <option>Development</option>
+      <option>Writing</option>
+    </select>
+    <input placeholder="Notes" id="TimeNotes">
+    <button onclick="Time.save()">Save</button>
+    <button>Clear</button>
+    <div id="TimeTimesheet" style="white-space: pre"></div>
+	</div>
+</div>
+-->
+
+
+  </body>
+</html>
