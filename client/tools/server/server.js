@@ -2,6 +2,7 @@ var Server = new Tool('Server')
 Server.set('path', '')
 Server.set('description', 'Manage your project\'s web server.')
 Server.set('icon', 'terminal')
+Server.set('beta', true)
 
 Server.consoleSend = function (toNode) {
   

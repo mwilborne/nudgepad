@@ -1,6 +1,7 @@
 var Redirect = new Tool('Redirect')
 Redirect.set('description', 'Manage URL redirects for your project.')
 Redirect.set('icon', 'random')
+Redirect.set('beta', true)
 
 Redirect.on('open', function () {
   expressfs.readFile('private/redirects.space', function (data) {

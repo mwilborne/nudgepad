@@ -14,12 +14,13 @@ Home.renderMenu = function () {
   'rgb(71,41,54)'
   ]
   
-  if (!store.get('homeShowAll')) {
-    tools = _.filter(tools, function (value, key) {
-      var tool = window[value]
-      return true
-    })
-  }
+  
+  var tools = _.filter(tools, function (value, key) {
+    var tool = window[value]
+    if (tool.get('beta'))
+      return false
+    return true
+  })
   
   var str = '<div class="row">'
   for (var i in tools) {

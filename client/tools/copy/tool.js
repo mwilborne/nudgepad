@@ -2,6 +2,7 @@ var Copy = new Tool('Copy')
 Copy.set('path', '')
 Copy.set('description', 'Copy your project to a new domain or server.')
 Copy.set('icon', 'copy')
+Copy.set('beta', true)
 
 Copy.import = function () {
   TextPrompt.open('Import a Project to this project', '', function (val) {
