@@ -397,15 +397,24 @@ body
       <!-- Main component for a primary marketing message or call to action -->
         <h3>Download an existing website into your project.</h3>
         
-        <div class="form-group">
-          <textarea id="CrawlCode" class="form-control" rows="3" placeholder="http://nytimes.com 1"></textarea>
+        <div class="input-group">
+          <input type="text" class="form-control" id="CrawlerDomain" placeholder="nytimes.com" />
+          <span class="input-group-btn">
+            <button class="btn btn-primary" id="CrawlerStart" onclick="Crawler.start()" type="button">Start</button>
+          </span>
+        </div><!-- /input-group -->
+        
+        <br><br><br>
+        
+        <div class="progress" id="CrawlerProgress" style="display: none;">
+          <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+            <span class="sr-only">0% Complete</span>
+          </div>
         </div>
         
-        <div class="form-group">
-          <button type="button" onclick="Crawler.start()" class="btn btn-lg btn-primary">Start</button>
-        </div>
-
+        
       </div> <!-- /container -->
+      
 
 </template>
 <div id="DesignerBar" style="display: none;">
