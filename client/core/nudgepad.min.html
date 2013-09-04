@@ -2,9 +2,21 @@
 <html style="padding-top: 0;">
   <head>
     <title>Loading Nudgepad...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+    <link href="/nudgepad/public/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+    .navbar-static-top {
+      margin-bottom: 19px;
+    }
+    .navbar-brand, .cursor {
+      cursor: pointer;
+    }
+    </style>
     <link rel="stylesheet" href="/nudgepad/production/nudgepad.min.css?version=CSSV" type="text/css"/>
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="/nudgepad/production/nudgepad.min.js?version=JSV"></script>
+    <script src="/nudgepad/public/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     $(document).ready(nudgepad.main)
     </script>
@@ -17,7 +29,8 @@
     mixpanel.init("cddd496663c58cf984f006dba0ec67bc");</script><!-- end Mixpanel -->
   </head>
   <!-- We inline styles so for Designing tools that import CSS, they wont affect the body #221-->
-  <body style="margin: 0; line-height: 1; overflow: hidden; position: relative; width: 100%; height: 100%;  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-left: 0; padding-top: 0;">
+  <body style="margin: 0; line-height: 1; position: relative; width: 100%; height: 100%; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; padding-left: 0; padding-top: 0;">
 HTMLCOMPONENTS
+  <div id="OpenTool"></div>
   </body>
 </html>
