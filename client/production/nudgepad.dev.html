@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/crawler/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/designer.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/designer/css/dontSelect.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/shortcutTable.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/spectrum.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/designer/css/styleEditor.css" type="text/css"/>
@@ -668,6 +669,22 @@ thumb
 jquery
  tag script
  src //ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
+jqueryNote
+ style
+  background-color #f4ed04
+  position absolute
+  color #222
+  top 0
+  left 0
+  height auto
+  font-family Courier
+  width 120px
+  font-size 14px
+  line-height 120%
+  padding 10px
+  box-shadow 0px 1px 3px rgba(0,0,0,.6)
+ content I am jQuery. I am a hidden tag. I won't be visible on your live site.
+ draft true
 </space>
 
 <div id="DesignerMenu">
@@ -735,7 +752,7 @@ jquery
 <div class="Tool" id="Designer">
 </div>
   
-<div id="DesignerStage" style="display: none;">
+<div id="DesignerStage" style="display: none; box-sizing: content-box; -webkit-box-sizing: content-box;">
   <div id="DesignerStageHead"></div>
   <div id="DesignerStageBody"></div>
   <div id="DesignerStageBottomPadding"></div>
