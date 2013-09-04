@@ -1,5 +1,6 @@
 var Team = new Tool('Team')
 Team.set('description', 'Invite people to work on your project.')
+Team.set('icon', 'user')
 
 Team.on('ready', function () {
   $('#TeamMyEmail').text(Cookie.email)

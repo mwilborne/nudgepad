@@ -1,5 +1,6 @@
 var GitHub = new Tool('GitHub')
 GitHub.set('description', 'Sync your project with GitHub.')
+GitHub.set('icon', 'github')
 
 GitHub.add = function () {
   var message = $('#GitHubFilepath').val()

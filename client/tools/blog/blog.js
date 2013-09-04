@@ -15,6 +15,7 @@ var Blog = new Tool('Blog')
 
 Blog.set('description', 'Add a blog to your project.')
 Blog.set('posts', new Space())
+Blog.set('icon', 'font')
 
 Blog.active = {}
 

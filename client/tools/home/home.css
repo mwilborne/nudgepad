@@ -1,27 +1,32 @@
-.HomeSquare {
-  cursor : pointer;
-  font-weight : 300;
-  margin-top: 20px;
-  color: #fff;
-  width: 31%;
-  min-width: 300px;
-  float: left;
-  margin-right: 20px;
+.HomeBtn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
 
-.HomeSquare.beta {
-  display: none;
+.HomeBtn:hover,
+.HomeBtn:focus {
+  color: #333333;
+  text-decoration: none;
 }
 
-.HomeTopBlock {
-  padding: 80px 20px;
-  font-size: 3.375em;
+.HomeBtn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 
-.HomeSubBlock {
-  font-size: 0.875em;
-  background: rgba(0,0,0,.2);
-  padding: 20px;
-  font-weight: 400;
+.HomeBtn {
+  color: #333333;
+  border-color: #cccccc;
+}
+
+.HomeBtn:hover,
+.HomeBtn:focus,
+.HomeBtn:active {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
 }
 

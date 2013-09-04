@@ -1,6 +1,7 @@
 var Share = new Tool('Share')
 Share.set('description', 'Share your project for others to remix.')
 Share.set('beta', true)
+Share.set('icon', 'share')
 
 Share.on('ready', function () {
 

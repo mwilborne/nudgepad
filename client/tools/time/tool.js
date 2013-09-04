@@ -4,6 +4,7 @@ Time.timesheet = new Space()
 Time.timesheetFile = 'private/time/' + Cookie.email + '.space'
 Time.interval = null
 Time.set('beta', true)
+Time.set('icon', 'time')
 
 Time.on('once', function () {
   expressfs.mkdir('private/time')

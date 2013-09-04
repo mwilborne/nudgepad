@@ -23,16 +23,30 @@ Home.renderMenu = function () {
     })
   }
   
+  $('#HomeContainer').append('<div class="row">')
   for (var i in tools) {
     var tool = window[tools[i]]
+    if (i > 0 && (i % 3 === 0)) {
+      $('#HomeContainer').append('</div><div class="row">')
+      console.log(tool.get('name'))
+    }
     $('#HomeContainer').append(
       Home.toButton(
         tool.get('name'),
         tool.get('description'),
         colors[(i ? i % colors.length : 0)],
-        tool.get('beta')
+        false,
+        tool.get('icon') || 'picture'
     ))
   }
+  if (((i + 1)  % 3 ) !== 0)
+    $('#HomeContainer').append('</div>')
+  var maxHeight = 0
+  $('.jumbotron').each(function () {
+    if ($(this).height() > maxHeight)
+      maxHeight = $(this).height()
+  }).height(maxHeight)
+  
 }
 
 Home.toggleAll = function () {
@@ -43,7 +57,16 @@ Home.toggleAll = function () {
   Home.renderMenu()
 }
 
-Home.toButton = function (name, description, color, beta) {
+Home.toButton = function (name, description, color, beta, icon) {
+  
+  return '<div class="col-md-4" style="padding: 0 12px;"><div class="jumbotron cursor HomeBtn" onclick="Launcher.open(\'' + name + '\')">\
+    <div class="container" style="text-align: center;">\
+      <h1><i class="icon-' + icon + '"></i></h1><h2>' + name + '</h2>\
+      <p>' + description + '</p>\
+    </div>\
+  </div></div>'
+  
+  
 return '<div class="HomeSquare" style="background-color : ' + color + '" onclick="Launcher.open(\'' + name + '\')">\
     <div class="HomeTopBlock">' + name + '</div>\
     <div class="HomeSubBlock">' + description + '</div>\

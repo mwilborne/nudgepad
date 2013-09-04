@@ -1,5 +1,6 @@
 var Designer = new Tool('Designer')
 Designer.set('description', 'Design pages for your project.')
+Designer.set('icon', 'picture')
 
 // What spot the maker is on the timeline for the current page
 Designer.page = new Page()

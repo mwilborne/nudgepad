@@ -1,6 +1,7 @@
 var Files = new Tool('Files')
 Files.set('path', '')
 Files.set('description', 'View and edit the files of your project.')
+Files.set('icon', 'file-alt')
 
 // Files.on('change', 'path', Files.RenderExplorer())
 
@@ -94,7 +95,7 @@ Files.renderExplorer = function () {
     explorer += row
   })
   explorer += '</table>'
-  var breadcrumb = '<li><a onclick="Files.set(\'path\', \'\')">' + document.location.host + '</a></li>'
+  var breadcrumb = '<li><a class="cursor" onclick="Files.set(\'path\', \'\')">' + document.location.host + '</a></li>'
   if (path) {
     var parent = ''
     path.split(/ /g).forEach(function (v, i) {
