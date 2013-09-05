@@ -5,7 +5,8 @@ Templates.set('icon', 'picture')
 Templates.import = function () {
   var url = $('.item.active').attr('data-url')
   $.post('/nudgepad.proxyZip', {url : url}, function (data) {
-    Alerts.success('Imported ' + url)  
+    Alerts.success('Imported ' + url)
+    ImportHtmlFiles()
   })
   
 }

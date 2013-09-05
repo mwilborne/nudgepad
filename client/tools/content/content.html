@@ -11,18 +11,34 @@
         </button>
         <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
       </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="cursor" onclick="Content.create();">New Page</a></li>
+
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="ContentPages">
+              
+            </ul>
+          </li>
+          
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+      
+      
     </div>
   </div>
   
   
   <div class="container">
   
-    <!-- Main component for a primary marketing message or call to action -->
-    <h2>NudgePad Support</h2>
-    <p>Thanks for being an early tester of NudgePad!</p>
-    <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
-    <a class="btn btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
-  	  
+    <div id="ContentStage">
+    
+    </div>
   
   </div> <!-- /container -->
 

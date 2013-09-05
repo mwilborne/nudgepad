@@ -49,7 +49,9 @@ Home.toButton = function (name, description, color, icon) {
 }
 
 Home.on('ready', function () {
-  $('#HomeDomain').text(document.location.hostname)
+  $('#HomeDomain')
+    .text(document.location.hostname)
+    .tooltip({container: 'body', delay: { show: 500, hide: 100 }})
   Home.renderMenu()
   
   $(window).on('resize', Home.heights)

@@ -1,4 +1,4 @@
-Designer.importFiles = function () {
+var ImportHtmlFiles = function () {
   // idea where we can import uploaded files
   
   $.get('/nudgepad.explorer.list', {}, function (data) {
@@ -8,14 +8,12 @@ Designer.importFiles = function () {
       if (!filename.match(/\.html$/))
         return true
       var name = filename.replace('.html', '')
-      // If page already exists, skip it
-      if (Project.get('pages ' + name))
-        return true
       // If it does not exist, import it!
       expressfs.readFile(filename, function (data) {
         var space = $.htmlToScraps(data)
-        Designer.menu.create(name, space.toString())
-        
+        expressfs.writeFile('private/pages/' + name + '.space', space.toString(), function () {
+          console.log('Imported ' + name)
+        })
       })
       
     })

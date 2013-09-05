@@ -1715,12 +1715,6 @@ template {
   user-select: auto;
 }
 
-
-/** The scrap that is being snapped to*/
-.GridSnapOrigin {
-  outline: 1px solid #5555ff;
-}
-
 .DesignerEditHandle {
   height: 16px;
   position: absolute;
