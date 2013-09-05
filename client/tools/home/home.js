@@ -2,8 +2,7 @@ var Home = new Tool('Home')
 
 Home.renderMenu = function () {
   $('#OpenTool #HomeContainer').html('')
-  var tools = _.without(Tool.tools, 'Home', 'Designer', 'Files', 'Blog', 'Team')
-  tools.unshift('Designer', 'Files', 'Team', 'Blog')
+  var tools = ['Templates', 'Content', 'Files', 'Team']
   var colors =
   [
   'rgb(26,134,214)',
@@ -13,14 +12,6 @@ Home.renderMenu = function () {
   'rgb(224,54,52)',
   'rgb(71,41,54)'
   ]
-  
-  
-  var tools = _.filter(tools, function (value, key) {
-    var tool = window[value]
-    if (tool.get('beta'))
-      return false
-    return true
-  })
   
   var str = '<div class="row">'
   for (var i in tools) {
