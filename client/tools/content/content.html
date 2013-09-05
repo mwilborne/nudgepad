@@ -9,22 +9,25 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-      
-      
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a class="cursor" onclick="Content.create();">New Page</a></li>
-
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i> </a>
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Open <b class="caret"></b></a>
             <ul class="dropdown-menu" id="ContentPages">
               
             </ul>
           </li>
           
+          <li><a class="cursor" onclick="Content.create();">New Page</a></li>
+        </ul>
+        
+      </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -36,9 +39,7 @@
   
   <div class="container">
   
-    <div id="ContentStage">
-    
-    </div>
+    <iframe id="ContentStage"></iframe>
   
   </div> <!-- /container -->
 

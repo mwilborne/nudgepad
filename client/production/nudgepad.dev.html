@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/ace/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/tools/content/content.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/crawler/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/files/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/github/tool.css" type="text/css"/>
@@ -88,6 +89,7 @@
     <script type="text/javascript" src="/nudgepad/tools/backup/backup.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/blog/blog.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/content/content.js"></script>
+    <script type="text/javascript" src="/nudgepad/tools/content/editor.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/copy/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/crawler/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/files/files.js"></script>
@@ -227,7 +229,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       
       <div class="navbar-collapse collapse">
@@ -332,22 +334,25 @@ body
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-      
-      
-      <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
-          <li><a class="cursor" onclick="Content.create();">New Page</a></li>
-
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i> </a>
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Open <b class="caret"></b></a>
             <ul class="dropdown-menu" id="ContentPages">
               
             </ul>
           </li>
           
+          <li><a class="cursor" onclick="Content.create();">New Page</a></li>
+        </ul>
+        
+      </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -359,9 +364,7 @@ body
   
   <div class="container">
   
-    <div id="ContentStage">
-    
-    </div>
+    <iframe id="ContentStage"></iframe>
   
   </div> <!-- /container -->
 
@@ -472,11 +475,14 @@ body
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        <ul class="nav navbar-nav">
+          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+        </ul>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -577,7 +583,18 @@ body
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        
+        <ul class="nav navbar-nav">
+          <li>
+            
+            <a id="HomeDomain" class="cursor" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
+            
+          </li>
+        </ul>
+        
+        
+        
       </div>
       
       <div class="navbar-collapse collapse">
@@ -604,12 +621,11 @@ body
               <li><a class="cursor" onclick="Launcher.open('Layout')">Layout</a></li>
               <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
               <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Support')">Support</a></li>
               <li><a class="cursor" onclick="Launcher.open('Time')">Time</a></li>
             </ul>
           </li>
-          
-          <li><a class="cursor" onclick="Launcher.open('Support')">Support</a></li>
-          
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -732,12 +748,17 @@ body
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+            <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+            
+            <ul class="nav navbar-nav">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+            </ul>
+            
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
-              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+              <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -887,7 +908,7 @@ body
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       
       <div class="navbar-collapse collapse">
@@ -900,6 +921,7 @@ body
               <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
             </ul>
           </li>
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -934,8 +956,18 @@ body
   <div class="navbar navbar-default navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+      
+      
     </div>
   </div>
   
@@ -943,9 +975,7 @@ body
   <div class="container">
     
     
-    <div style="text-align: right;">
-      <button type="button" class="btn btn-primary" onclick="Templates.import()"><i class="icon-download"></i> Use This Template</button>
-    </div>
+    <button type="button" class="btn btn-primary" onclick="Templates.import()"><i class="icon-download"></i> Use This Template</button>
     
     <br><br>
   
@@ -1015,7 +1045,7 @@ body
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
     </div>
   </div>

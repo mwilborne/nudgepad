@@ -1,2 +1,3 @@
 html content.html
-js content.js
+js content.js editor.js
+css content.css

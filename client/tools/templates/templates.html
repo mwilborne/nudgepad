@@ -4,8 +4,18 @@
   <div class="navbar navbar-default navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+      
+      
     </div>
   </div>
   
@@ -13,9 +23,7 @@
   <div class="container">
     
     
-    <div style="text-align: right;">
-      <button type="button" class="btn btn-primary" onclick="Templates.import()"><i class="icon-download"></i> Use This Template</button>
-    </div>
+    <button type="button" class="btn btn-primary" onclick="Templates.import()"><i class="icon-download"></i> Use This Template</button>
     
     <br><br>
   
