@@ -26,8 +26,14 @@ Home.renderMenu = function () {
   }
   if (((i + 1)  % 3 ) !== 0)
     str += '</div>'
-  var maxHeight = 0
+  
   $('#OpenTool #HomeContainer').append(str)
+  Home.heights()
+}
+
+Home.heights = function () {
+  var maxHeight = 0
+  $('.jumbotron').css('height', 'auto')
   $('.jumbotron').each(function () {
     if ($(this).height() > maxHeight)
       maxHeight = $(this).height()
@@ -45,5 +51,11 @@ Home.toButton = function (name, description, color, icon) {
 Home.on('ready', function () {
   $('#HomeDomain').text(document.location.hostname)
   Home.renderMenu()
+  
+  $(window).on('resize', Home.heights)
+})
+
+Home.on('close', function () {
+  $(window).off('resize', Home.heights)
 })
 
