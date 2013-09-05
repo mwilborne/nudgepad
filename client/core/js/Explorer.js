@@ -6,14 +6,6 @@ Explorer.paths = {}
 Explorer.paths.project = '/nudgepad/projects/' + document.location.host  + '/'
 Explorer.paths.private = Explorer.paths.project + 'private/'
 
-Explorer.downloadTimelines = function () {
-  $.get('/nudgepad.project.timelines', {}, function (data) {
-    var space = new Space(data)
-    if (Project.get('timelines'))
-      Project.get('timelines').patch(space)
-  })
-}
-
 /**
  * Edit a text file
  *

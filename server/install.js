@@ -18,10 +18,6 @@ function Install (app) {
   if (!fs.existsSync(app.paths.team))
     fs.mkdirSync(app.paths.team)
 
-  // Create timeliens folder
-  if (!fs.existsSync(app.paths.timelines))
-    fs.mkdirSync(app.paths.timelines)
-
   // Create pages folder
   if (!fs.existsSync(app.paths.pages))
     fs.mkdirSync(app.paths.pages)

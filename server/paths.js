@@ -11,8 +11,6 @@ function Paths (app, projectsPath, clientPath) {
   paths.packages = paths['private'] + 'packages/'
   // where to store pages
   paths.pages = paths['private'] + 'pages/'
-  // where to store timelines
-  paths.timelines = paths['private'] + 'timelines/'
   // where to store team
   paths.team = paths['private'] + 'team/'
   // where to store requests log

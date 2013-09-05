@@ -26,7 +26,6 @@ nudgepad.main = function () {
   
   $.get('/nudgepad.project', function (space) {
     Project._patch(new Space(space))
-    Project._patch('timelines', new Space())
     
     // We do this here because chrome is weird
     // Revert to a previously saved state
@@ -40,10 +39,6 @@ nudgepad.main = function () {
     Launcher.openToolFromQueryString()
     
     $('#LoadingScreen').hide()
-    
-    // fetch other timelines in background for now
-    // SLOW
-    Explorer.downloadTimelines()
     
     nudgepad.askToRegister()
     nudgepad.benchmarkCreationTime()

@@ -191,7 +191,6 @@ else
 
 app.Project.loadFolder('team')
 app.Project.loadFolder('pages')
-app.Project.loadFolder('timelines')
 
 speedcoach('spaces loaded into memory')
 
