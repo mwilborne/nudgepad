@@ -3,6 +3,7 @@ var http = require('http')
 var fs = require('fs')
 var mkdirp = require('mkdirp')
 var path = require('path')
+var exec = require('child_process').exec
 
 // Todo: Fix download method. Perhaps its time to upgrade our Node!
 
@@ -13,12 +14,22 @@ var download = function(url, dest, cb) {
     console.log('piping %s', url)
     response.pipe(file)
     file.on('finish', function() {
+      console.log('closing %s', url)
+      file.close()
+      cb()
+    })
+    file.on('end', function() {
+      console.log('closing %s', url)
       file.close()
       cb()
     })
     file.on('unpipe', function() {
+      console.log('unpiping %s', url)
       file.close()
       cb()
+    })
+    response.on('end', function() {
+      return cb()
     })
   }).on('error', function(e) {
     cb("Got error: " + e.message)
@@ -57,6 +68,23 @@ module.exports = function (app) {
     })
     
     
+  })
+  
+  // Import a zip file
+  app.post(app.pathPrefix + 'proxyZip', app.checkId, function (req, res, next) {
+    var url = req.body.url
+    download(url, app.paths.project + 'import.zip', function (error) {
+      if (error)
+        return res.send(error, 400)
+      else {
+        console.log('Unzipping import.zip')
+        exec('unzip -o import.zip', {cwd : app.paths.project}, function (error, stdout, stderr) {
+            console.log('Unzip results: %s %s %s', error, stdout, stderr)
+            fs.unlink(app.paths.project + 'import.zip')
+            res.send('Done')
+        })
+      }
+    })
   })
   
 }

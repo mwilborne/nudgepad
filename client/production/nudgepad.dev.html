@@ -924,10 +924,8 @@ jqueryNote
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Launcher.open('Backup')">Backup</a></li>
               <li><a class="cursor" onclick="Launcher.open('Copy')">Copy</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Files')">Files</a></li>
               <li><a class="cursor" onclick="Launcher.open('GitHub')">GitHub</a></li>
               <li><a class="cursor" onclick="Launcher.open('Redirect')">Redirect</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Server')">Server</a></li>
             </ul>
           </li>
           
@@ -1289,31 +1287,7 @@ jqueryNote
       </ol>
 
       <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-        
-        <div class="item active">
-          <img src="/nudgepad/public/images/obama.jpg" alt="">
-          <div class="carousel-caption">
-            <h3>Option 1</h3>
-            <p>A great looking template</p>
-          </div>
-        </div>
-        
-       <div class="item">
-          <img src="/nudgepad/public/images/obama.jpg" alt="">
-          <div class="carousel-caption">
-            <h3>Option 2</h3>
-            <p>A great looking template</p>
-          </div>
-        </div>
-        
-       <div class="item">
-          <img src="/nudgepad/public/images/obama.jpg" alt="">
-          <div class="carousel-caption">
-            <h3>Option 3</h3>
-            <p>A great looking template</p>
-          </div>
-        </div>  
+      <div id="TemplatesChoices" class="carousel-inner">
         
       </div>
 
@@ -1332,6 +1306,35 @@ jqueryNote
   
   </div> <!-- /container -->
 
+</template>
+
+<template id="TemplatesSlide">
+<div class="item" data-url="URL">
+  <img src="SCREENSHOT" alt="">
+  <div class="carousel-caption">
+    <h3>TITLE</h3>
+    <p>DESCRIPTION</p>
+  </div>
+</div>
+</template>
+
+
+<template id="TemplatesList">
+1
+ screenshot http://ljnl.localhost/nudgepad/tools/templates/samples/one/screenshot.png
+ title Landing Page
+ description Look at this nice template
+ url http://ljnl.localhost/nudgepad/tools/templates/samples/one/template.zip
+2
+ screenshot http://ljnl.localhost/nudgepad/tools/templates/samples/one/screenshot.png
+ title Signup Form
+ description Look at this nice template2
+ url http://ljnl.localhost/nudgepad/tools/templates/samples/two/template.zip
+3
+ screenshot http://ljnl.localhost/nudgepad/tools/templates/samples/one/screenshot.png
+ title Survey
+ description Look at this nice template2
+ url http://ljnl.localhost/nudgepad/tools/templates/samples/three/template.zip
 </template>
 
 <template class="Tool" id="Time">
