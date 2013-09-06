@@ -1,8 +1,6 @@
-(function () {
-var Editor = {}
-/** Start of file */
+Content.Editor = {}
 
-var filter = function () {
+Content.Editor.filter = function () {
   if (this.div.tag === 'script')
     return ''
   // Remove JS
@@ -13,7 +11,7 @@ var filter = function () {
   return this.div.toHtml()
 }
 
-Editor.open = function (filename) {
+Content.Editor.open = function (filename) {
   var page = Content.get('pages ' + filename)
   
   var html = ''
@@ -28,13 +26,13 @@ Editor.open = function (filename) {
     return false
   })
   
-  Editor.text = ''
+  Content.Editor.text = ''
   
   $('#ContentStage').contents().find('body').on('click', '*', function (event) {
     var text = $(this).text()
     if (!text.length)
       return true
-    Editor.text = text
+    Content.Editor.text = text
     $(this).attr('contenteditable', true)
     $(this).focus()
     $(this).on('blur', function () {
@@ -52,10 +50,3 @@ Editor.open = function (filename) {
 //  $('#ContentStage')[0].innerHTML = html
 }
 
-
-
-
-
-
-/** End of file */
-Content.Editor = Editor})()
