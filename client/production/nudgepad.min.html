@@ -140,7 +140,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       
       <div class="navbar-collapse collapse">
@@ -233,6 +233,53 @@ body
       padding 10px
      content Blog Post Content
 </space>
+
+<template class="Tool" id="Content">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i> </a>
+        
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Open <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="ContentPages">
+              
+            </ul>
+          </li>
+          
+          <li><a class="cursor" onclick="Content.create();">New Page</a></li>
+        </ul>
+        
+      </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+      
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+  
+    <iframe id="ContentStage"></iframe>
+  
+  </div> <!-- /container -->
+
+</template>
 
 <template class="Tool" id="Copy">
   
@@ -328,321 +375,6 @@ body
       
 
 </template>
-<div id="DesignerBar" style="display: none;">
-
-  <div title="menu" id="DesignerBarMenuButton"></div>
-
-  <div title="Drop components onto your page" id="DesignerComponentsTab" class="DesignerBarTab"><img src="/nudgepad/tools/designer/images/categories/sticky.png"></div>
-
-  <div title="Drop images onto your page" id="DesignerImageTab" class="DesignerBarTab"><img src="/nudgepad/tools/designer/images/categories/image.png"></div>
-  
-  <div id="DesignerDeviceSwitcher" onclick="Designer.stage.toggleDevice()">Device</div>
-  
-  <div id="DesignerTimelineHolder">
-    <span class="DesignerTimeline" id="DesignerTimelinePosition" ondblclick="Designer.menu.clearTimelinePrompt()"></span>
-    <input class="DesignerTimeline" id="DesignerTimeline" type="range" min="0" max="100" step="1" onclick="Designer.stage.goto($(this).val())" value="100">
-    <script type="text/javascript">
-      $('#DesignerTimeline').on('slide', function () {
-        Designer.stage.goto($(this).val())
-    })</script>
-    
-  </div>
-  
-  <div id="DesignerTabs"></div>
-  <div id="DesignerPublishButton" onclick="Designer.stage.publish()">Publish</div>
-</div>
-<space id="DesignerBlankPage" style="display: none;">
-head
- tag head
- scraps
-  title
-   tag title
-   content Untitled
-  style
-   tag style
-   content body {font-family: Helvetica; font-weight: 200;}
-body
- tag body
- scraps
-</space>
-<space class="DesignerComponentSet" path="mockup h1">
-thumb
- title Header
- content H1
- style
-  background-color white
-  font-size 24px
-header
- style
-  font-size 64px
-  color #222
-  position absolute
-  font-family Helvetica
-  font-weight 200
-  top 0
-  left 0
-  margin 0
-  padding 0
- tag h1
- content Header
-</space>
-
-<space class="DesignerComponentSet" path="mockup h2">
-thumb
- title Header
- content H2
- style
-  background-color white
-  font-size 18px
-header
- style
-  font-size 36px
-  color #222
-  position absolute
-  font-family Helvetica
-  font-weight 200
-  top 0
-  left 0
-  margin 0
-  padding 0
- tag h2
- content Header
-</space>
-
-<space class="DesignerComponentSet" path="mockup paragraph">
-thumb
- title Paragraph
- content Lorem ipsum dolor sit amet, consectetur adipisicing elit
- style
-  background-color white
-  font-size 8px
-  line-height 8px
-  padding-top 12px
-  box-sizing border-box
-paragraph
- style
-  color #222
-  position absolute
-  font-family Helvetica
-  font-weight 200
-  top 0
-  left 0
-  margin 0
-  padding 0
-  width 50%
- tag p
- content Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-</space>
-
-<space class="DesignerComponentSet" path="mockup input">
-thumb
- title Input
- scraps
-  div
-   tag span
-   style
-    border 1px solid gray
-    padding 6px
-    color grey
-    box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
-    font-size 14px
-    background white
-   content Input
-input
- tag input
- style
-  position absolute
-  top 0
-  left 0
-  box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
-  font-size 16px
-  border 1px solid rgba(0,0,0,.2)
-  height 40px
-</space>
-
-<space class="DesignerComponentSet" path="mockup button">
-thumb
- title Button
- scraps
-  div
-   tag span
-   style
-    padding 6px
-    color white
-    box-shadow inset 0px 1px 3px rgba(0,0,0,.6)
-    font-size 14px
-    background-color #1a86d6
-   content Button
-button
- tag button
- content Submit
- style
-  position absolute
-  top 0
-  left 0
-  font-size 16px
-  height 40px
-  line-height 32px
-  padding-left 20px
-  padding-right 20px
-  border-radius 4px
-  border 0
-  color white
-  cursor pointer
-  background-color #1a86d6
-</space>
-
-<space class="DesignerComponentSet" path="mockup image">
-thumb
- title Image
- style
-  background-image url(/nudgepad/tools/designer/images/beach.jpg)
-  background-size contain
-image
- tag img
- src /nudgepad/tools/designer/images/beach.jpg
- style
-  position absolute
-  top 0
-  left 0
-</space>
-
-<space class="DesignerComponentSet" path="mockup sticky">
-thumb
- title Sticky Note
- content Sticky Note
- style
-  background-color #f4ed04
-  box-shadow 0px 1px 3px rgba(0,0,0,.6)
-  font-family Courier
-  font-size 12px
-  line-height 12px
-  padding-top 20px
-  box-sizing border-box
-stickyNote
- style
-  background-color #f4ed04
-  position absolute
-  color #222
-  top 0
-  left 0
-  height auto
-  font-family Courier
-  width 120px
-  font-size 14px
-  line-height 120%
-  padding 10px
-  box-shadow 0px 1px 3px rgba(0,0,0,.6)
- content I am a sticky note. I do not show up on your live site.
- draft true
-</space>
-
-
-<space class="DesignerComponentSet" path="mockup jquery">
-thumb
- title jQuery
- content jQuery
- style
-  background-color #f4ed04
-  box-shadow 0px 1px 3px rgba(0,0,0,.6)
-jquery
- tag script
- src //ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js
-jqueryNote
- style
-  background-color #f4ed04
-  position absolute
-  color #222
-  top 0
-  left 0
-  height auto
-  font-family Courier
-  width 120px
-  font-size 14px
-  line-height 120%
-  padding 10px
-  box-shadow 0px 1px 3px rgba(0,0,0,.6)
- content I am jQuery. I am a hidden tag. I won't be visible on your live site.
- draft true
-</space>
-
-<div id="DesignerMenu">
-  <div onclick="Designer.menu.blank()">New</div>
-  <div onclick="Designer.menu.duplicate()">Duplicate</div>
-  <div onclick="Designer.menu.renamePrompt()">Rename</div>
-  <div onclick="Designer.menu.delete()">Delete</div>
-  <div onclick="Designer.importUrlPrompt()">Import URL</div>
-  <div onclick="Designer.importFiles()">Import Files</div>
-  <div onclick="Launcher.open('Home')">Home</div>
-</div>
-
-<div id="DesignerImagesRibbon" class="DesignerRibbon">
-  
-	<div id="DesignerUploadButton"><span>Upload</span><iframe src="/nudgepad.images.upload" allowtransparency="true" frameborder="0px" width="100%" height="100%" scrolling="no" style="position: absolute; bottom: 0px; left: 0px;"></iframe></div>
-	
-  <div id="DesignerImagesList"></div>
-  
-</div>
-
-<div id="DesignerComponentsRibbon" class="DesignerRibbon">
-  <div id="DesignerComponentsList"></div>
-</div>
-<div id="DesignerShortcuts" style="display: none;">
-<div id="PreviewBoxWhiteBox">
-
-<h3>Page</h3>
-<table class="DesignerShortcutTable">
-<tr><td class="DesignerShortcutCode">command+n</td><td>New Page</td></tr>
-<tr><td class="DesignerShortcutCode">ctrl+p</td><td>Publish Page</td></tr>
-<tr><td class="DesignerShortcutCode">command+backspace</td><td>Delete Page</td></tr>
-<tr><td class="DesignerShortcutCode">alt+left</td><td>Previous Page</td></tr>
-<tr><td class="DesignerShortcutCode">alt+right</td><td>Next Page</td></tr>
-</table>
-
-<h4>History</h4>
-<table class="DesignerShortcutTable">
-<tr><td class="DesignerShortcutCode">command+z</td><td>Undo</td></tr>
-<tr><td class="DesignerShortcutCode">command+y</td><td>Redo</td></tr>
-</table>
-
-<h4>Selection</h4>
-<table class="DesignerShortcutTable">
-<tr><td class="DesignerShortcutCode">command+d</td><td>Duplicate</td></tr>
-<tr><td class="DesignerShortcutCode">command+a</td><td>Select All</td></tr>
-<tr><td class="DesignerShortcutCode">delete</td><td>Delete</td></tr>
-<tr><td class="DesignerShortcutCode">command+u</td><td>Edit Source</td></tr>
-</table>
-
-<h4>Moving Selection</h4>
-<table class="DesignerShortcutTable">
-<tr><td class="DesignerShortcutCode">up</td><td>Move up 1 pixel</td></tr>
-<tr><td class="DesignerShortcutCode">left</td><td>Move left 1 pixel</td></tr>
-<tr><td class="DesignerShortcutCode">down</td><td>Move down 1 pixel</td></tr>
-<tr><td class="DesignerShortcutCode">right</td><td>Move right 1 pixel</td></tr>
-<tr><td class="DesignerShortcutCode">shift+up</td><td>Move up 10 pixels</td></tr>
-<tr><td class="DesignerShortcutCode">shift+left</td><td>Move left 10 pixels</td></tr>
-<tr><td class="DesignerShortcutCode">shift+down</td><td>Move down 10 pixels</td></tr>
-<tr><td class="DesignerShortcutCode">shift+right</td><td>Move right 10 pixels</td></tr>
-</table>
-
-</div>
-
-</div>
-<div class="Tool" id="Designer">
-</div>
-  
-<div id="DesignerStage" style="display: none; box-sizing: content-box; -webkit-box-sizing: content-box;">
-  <div id="DesignerStageHead"></div>
-  <div id="DesignerStageBody"></div>
-  <div id="DesignerStageBottomPadding"></div>
-  <style type="text/css" id="DesignerRemoteSelections"></style>
-</div>
-
-<textarea id="DesignerCodePanel"></textarea>
-
-<div id="DesignerDimensions"></div>
-
-
 <template class="Tool" id="Files">
   
   <!-- Static navbar -->
@@ -654,11 +386,14 @@ jqueryNote
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        <ul class="nav navbar-nav">
+          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+        </ul>
       </div>
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -759,7 +494,18 @@ jqueryNote
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a id="HomeDomain" class="navbar-brand" href="/" target="published">Visit Site</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        
+        <ul class="nav navbar-nav">
+          <li>
+            
+            <a id="HomeDomain" class="cursor" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
+            
+          </li>
+        </ul>
+        
+        
+        
       </div>
       
       <div class="navbar-collapse collapse">
@@ -776,14 +522,22 @@ jqueryNote
             </ul>
           </li>
           
-          
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Beta Tools <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Launcher.open('Ace')">Ace</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Content')">Content</a></li>
               <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Irc')">Irc</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Layout')">Layout</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Support')">Support</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Time')">Time</a></li>
             </ul>
           </li>
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -906,12 +660,17 @@ jqueryNote
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+            <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+            
+            <ul class="nav navbar-nav">
+              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+            </ul>
+            
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
-              <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
+              <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -1022,11 +781,7 @@ jqueryNote
   </div>
   
   
-  <div class="container">
-  
-    <canvas id="SketchCanvas"></canvas>
-  
-  </div> <!-- /container -->
+  <canvas id="SketchCanvas"></canvas>
 
 </template>
 <template class="Tool" id="Support">
@@ -1035,11 +790,6 @@ jqueryNote
   <div class="navbar navbar-default navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
       </div>
     </div>
@@ -1070,7 +820,7 @@ jqueryNote
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       
       <div class="navbar-collapse collapse">
@@ -1083,6 +833,7 @@ jqueryNote
               <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
             </ul>
           </li>
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -1111,6 +862,90 @@ jqueryNote
     </div> <!-- /container -->
 
 </template>
+<template class="Tool" id="Templates">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+      </div>
+      
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      
+      
+      
+    </div>
+  </div>
+  
+  
+  <div class="container">
+    
+    
+    <button type="button" class="btn btn-primary" onclick="Templates.import()"><i class="icon-download"></i> Use This Template</button>
+    
+    <br><br>
+  
+    <div id="carousel-example-generic" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div id="TemplatesChoices" class="carousel-inner">
+        
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="icon-prev"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="icon-next"></span>
+      </a>
+    </div>
+  
+  </div> <!-- /container -->
+
+</template>
+
+<template id="TemplatesSlide">
+<div class="item" data-url="URL">
+  <img src="SCREENSHOT" alt="">
+  <div class="carousel-caption">
+    <h3>TITLE</h3>
+    <p>DESCRIPTION</p>
+  </div>
+</div>
+</template>
+
+
+<template id="TemplatesList">
+1
+ screenshot /nudgepad/tools/templates/samples/one/screenshot.png
+ title Landing Page
+ description Look at this nice template
+ url http://ljnl.localhost/nudgepad/tools/templates/samples/one/template.zip
+2
+ screenshot /nudgepad/tools/templates/samples/two/screenshot.png
+ title Signup Form
+ description Look at this nice template2
+ url http://ljnl.localhost/nudgepad/tools/templates/samples/two/template.zip
+3
+ screenshot /nudgepad/tools/templates/samples/three/screenshot.png
+ title Survey
+ description Look at this nice template2
+ url http://ljnl.localhost/nudgepad/tools/templates/samples/three/template.zip
+</template>
+
 <template class="Tool" id="Time">
   
   <!-- Static navbar -->
@@ -1122,7 +957,7 @@ jqueryNote
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
     </div>
   </div>
