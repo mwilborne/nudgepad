@@ -92,7 +92,7 @@ $.fn.toSpace = function () {
       var id = $(this).attr('id') || $(this).get(0).tagName.toLowerCase()
       var num = 1
       var nextId = id
-      while (scraps.values[nextId]) {
+      while (scraps.get(nextId)) {
         num++
         nextId = id + num.toString()
       }

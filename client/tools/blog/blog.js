@@ -134,8 +134,8 @@ Blog.press = function (postString, pageString) {
 Blog.downloadPosts = function () {
   Explorer.folderToSpace('private/posts', function (data) {
     var space = new Space(data)
-    space.keys = space.keys.sort(function (a, b) {
-      return b > a
+    space.sort(function (a, b) {
+      return b[0] > a[0]
     })
     space.each(function (filename, value) {
       Blog.set('posts ' + filename, new Blog.Post(filename, value))

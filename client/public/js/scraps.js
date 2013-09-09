@@ -66,7 +66,7 @@ function Scrap (path, space) {
   var children = this.get('scraps')
   if (children instanceof Space) {
     children.each(function (id, scrap){
-      children._set(id, new Scrap(path + ' ' + id, scrap))
+      children.set(id, new Scrap(path + ' ' + id, scrap))
     })
   }
   
@@ -74,7 +74,7 @@ function Scrap (path, space) {
 }
 
 /**
- * Turns a style object like color red into css like div { color : red; }
+ * Turns a style object like color red into css like .scrap { color : red; }
  * Also evals any variables.
  *
  * @param {string} DOM selector. .class #id etc.
@@ -157,7 +157,7 @@ Scrap.prototype.setContent = function () {
   if (styles && styles instanceof Space) {
     var div = this.div
     styles.each(function (key, value) {
-      div.html(Scrap.styleToCss(key, value.values))
+      div.html(Scrap.styleToCss(key, value.toObject()))
     })
   }
   return this
@@ -170,7 +170,7 @@ Scrap.prototype.setContent = function () {
  */
 Scrap.prototype.setTag = function () {
   
-  tag = (this.values.tag ? this.values.tag : 'div')
+  tag = (this.get('tag') ? this.get('tag') : 'div')
   this.div = new Element(tag)
   
 }
@@ -220,11 +220,11 @@ Scrap.prototype.setHandlers = function () {
  * @return {string}
  */
 Scrap.prototype.setStyle = function () {
-  if (!this.values.style)
+  if (!this.get('style'))
     return null
-  if (!(this.values.style instanceof Space))
-    return this.div.attr('style', this.values.style)
-  this.div.attr('style', Scrap.styleToInline(this.values.style.values))
+  if (!(this.get('style') instanceof Space))
+    return this.div.attr('style', this.get('style'))
+  this.div.attr('style', Scrap.styleToInline(this.get('style').toObject()))
 }
 
 /**
@@ -271,7 +271,7 @@ Page.prototype = new Space()
  * @return {Page}
  */
 Page.prototype.clone = function () {
-  return new Page(this.values)
+  return new Page(this.toObject())
 }
 
 /**
@@ -281,7 +281,7 @@ Page.prototype.loadScraps = function () {
   // load all scraps
   var page = this
   this.each(function (id, value) {
-    page._set(id, new Scrap(id, value))
+    page.set(id, new Scrap(id, value))
   })
 }
 

@@ -1,8 +1,7 @@
 function Tool(name) {
-  this.keys = []
-  this.values = {}
+  this.clear()
   this.events = {}
-  this._set('name', name)
+  this.set('name', name)
   this._open = false
   Tool.tools.push(name)
   return this

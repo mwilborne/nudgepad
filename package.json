@@ -8,8 +8,8 @@
      "test": "make test"
    },
   "dependencies": {
-    "space": ">=0.2.5",
-    "scraps": ">=0.3.2",
+    "space": ">=0.3.3",
+    "scraps": ">=0.4.0",
     "markings" : ">=0.0.3",
     "speedcoach": ">=0.1.1",
     "socket.io": "*",

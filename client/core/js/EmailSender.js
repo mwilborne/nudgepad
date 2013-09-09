@@ -5,7 +5,7 @@ var EmailSender = function () {
     
     var space = new Space(val)
     
-    $.post('/nudgepad.email', space.keys, function (result) {
+    $.post('/nudgepad.email', space.toObject(), function (result) {
       Alerts.success(result)
     })
   })
