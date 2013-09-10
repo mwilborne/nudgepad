@@ -92,7 +92,8 @@ app.isDomainAvailable = function (req, res, next) {
     if (!exists)
       return next()
 //    res.set('Content-Type', 'text/plain')
-    res.redirect('?taken=true')
+    var errorPage = req.body.errorPage || ''
+    res.redirect(errorPage + '?taken=true')
 //    res.send('Domain already exists. Try another.', 400)
   })
 }
