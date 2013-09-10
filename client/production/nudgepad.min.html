@@ -147,6 +147,14 @@
         <ul class="nav navbar-nav navbar-right">
           
           <li><a class="cursor" onclick="Blog.create();">New Post</a></li>
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a onclick="Blog.getList()">Get HTML List</a></li>
+              <li><a onclick="Blog.publishAll()">Publish All</a></li>
+            </ul>
+          </li>
 
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
@@ -155,7 +163,10 @@
             </ul>
           </li>
           
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
         </ul>
+        
       </div><!--/.nav-collapse -->
       
     </div>
