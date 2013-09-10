@@ -72,12 +72,7 @@ Blog.active.publish = function () {
   // todo: if the title has changed since last publish, may want
   // to ask user if they'd like to update the permalink
   
-  var templateName = $('#BlogTemplate').val()
-  var html
-  if (Project.get('pages ' + templateName))
-    html = Project.get('pages ' + templateName)
-  else
-    html = $('#BlogDefaultTemplate').text()
+  var html = Blog.defaultTemplate
   var pressedHtml = Blog.press(post.toString(), html.toString())
   expressfs.writeFileAndOpen(permalink, pressedHtml, 'published')
 }
@@ -115,14 +110,9 @@ Blog.permalink = function (string) {
 /**
  * requires moment and html_beautify
  */
-Blog.press = function (postString, pageString) {
+Blog.press = function (postString, htmlString) {
   var post = new Space(postString)
-  var htmlString = new Page(pageString).toHtml(function () {
-    this.div.content = this.div.content.replace('Blog Post Content', post.get('content'))
-    if (this.get('content_format') === 'markdown')
-      this.div.content = marked(this.div.content)
-    return this.div.toHtml()
-  })
+  htmlString = htmlString.replace(/Blog Post Content/g, post.get('content').replace(/\n/g, '<br>'))
   htmlString = htmlString.replace(/Blog Post Title/g, post.get('title'))
   var timestamp = parseFloat(post.get('timestamp'))
   var date = moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
@@ -155,6 +145,12 @@ Blog.listPosts = function () {
 
 Blog.on('ready', Blog.downloadPosts)
 Blog.on('posts', Blog.listPosts)
+
+Blog.on('once', function () {
+  $.get('/nudgepad/tools/blog/bootstrap/index.html', function (data) {
+    Blog.defaultTemplate = data
+  })
+})
 
 Blog.Post = function (filename, patch) {
   this.clear()
