@@ -96,7 +96,6 @@
     <script type="text/javascript" src="/nudgepad/tools/files/dragAndDrop.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/github/github.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/home/home.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/irc/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/layout/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/layout/getElementsByLine.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/redirect/redirect.js"></script>
@@ -598,7 +597,6 @@
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Launcher.open('Backup')">Backup</a></li>
               <li><a class="cursor" onclick="Launcher.open('Copy')">Copy</a></li>
-              <li><a class="cursor" onclick="Launcher.open('GitHub')">GitHub</a></li>
               <li><a class="cursor" onclick="Launcher.open('Redirect')">Redirect</a></li>
             </ul>
           </li>
@@ -610,7 +608,7 @@
               <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
               <li><a class="cursor" onclick="Launcher.open('Content')">Content</a></li>
               <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Irc')">Irc</a></li>
+              <li><a class="cursor" onclick="Launcher.open('GitHub')">GitHub</a></li>
               <li><a class="cursor" onclick="Launcher.open('Layout')">Layout</a></li>
               <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
               <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
@@ -632,30 +630,6 @@
       <div class="container" id="HomeContainer">
 
       </div> <!-- /container -->
-
-</template>
-<template class="Tool" id="Irc">
-  
-  <!-- Static navbar -->
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="container">
-  
-    <iframe frameborder="0" id="IrcChat" width="100%" height="600px"></iframe>
-  
-  </div> <!-- /container -->
 
 </template>
 <template class="Tool" id="Layout">
