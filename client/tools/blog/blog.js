@@ -143,6 +143,31 @@ Blog.listPosts = function () {
   })
 }
 
+Blog.publishAll = function () {
+  Blog.get('posts').each(function (filename, value) {
+    var post = Blog.get('posts ' + filename)
+    var path = 'private/posts/' + filename
+    
+    // Autogenerate a permalink
+    // todo: cover exceptions like if file already exists
+    if (!post.get('permalink')) {
+      var title = post.get('title')
+      var permalink = Blog.permalink(title)
+      post.set('permalink', permalink)
+    }
+    else {
+      var permalink = post.get('permalink')
+    }
+    
+    
+    var html = Blog.defaultTemplate
+    var pressedHtml = Blog.press(post.toString(), html.toString())
+    expressfs.writeFile(permalink, pressedHtml, function () {
+      Alerts.success('Published ' + permalink)
+    })
+  })
+}
+
 Blog.on('ready', Blog.downloadPosts)
 Blog.on('posts', Blog.listPosts)
 
