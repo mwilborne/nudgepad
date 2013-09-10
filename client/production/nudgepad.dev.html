@@ -188,19 +188,29 @@
 <template class="Tool" id="Backup">
   
   <!-- Static navbar -->
-      <div class="navbar navbar-default navbar-static-top">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-          </div>
-        </div>
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
-
+      <div class="navbar-collapse collapse">
+        
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
+        </ul>
+        
+        
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  <!-- End navbar -->
 
       <div class="jumbotron">
         
@@ -345,12 +355,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
-      
       <div class="navbar-collapse collapse">
+        
         <ul class="nav navbar-nav navbar-right">
-          
           
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
@@ -359,11 +368,16 @@
               <li><a class="cursor" onclick="Files.import()" title="Import a Space File">Import</a></li>
             </ul>
           </li>
+          
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
         </ul>
+        
+        
       </div><!--/.nav-collapse -->
-      
     </div>
   </div>
+  <!-- End navbar -->
   
   
   <div class="container">
