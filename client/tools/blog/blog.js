@@ -24,6 +24,7 @@ Blog.active.filename = null
 Blog.active.advanced = function () {
   var post = Blog.get('posts ' + Blog.active.filename)
   TextPrompt.open('Advanced', post.toString(), function (value) {
+    post.clear()
     post.patch(value)
     post.save()
     Blog.active.open(Blog.active.filename)
@@ -186,7 +187,16 @@ Blog.Post.prototype = new Space()
 
 Blog.Post.prototype.press = function (htmlString) {
   var post = new Space(this.toString())
-  htmlString = htmlString.replace(/Blog Post Content/g, post.get('content').replace(/\n/g, '<br>'))
+  var format = post.get('format')
+  var content = post.get('content')
+  if (format === 'html')
+    content = content
+  // nl2br
+  else if (format === 'markdown')
+    content = marked(content)
+  else
+    content = content.replace(/\n/g, '<br>')
+  htmlString = htmlString.replace(/Blog Post Content/g, content)
   htmlString = htmlString.replace(/Blog Post Title/g, post.get('title'))
   var timestamp = parseFloat(post.get('timestamp'))
   var date = moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
