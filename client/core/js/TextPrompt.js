@@ -4,7 +4,7 @@ TextPrompt.callback = function () {}
 
 TextPrompt.save = function () {
   // allow to save without closing
-  if (TextPrompt.callback($('#TextPromptTextarea').val()) === false)
+  if (TextPrompt.callback && TextPrompt.callback($('#TextPromptTextarea').val()) === false)
     return true
   TextPrompt.close()
 }

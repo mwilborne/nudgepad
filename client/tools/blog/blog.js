@@ -65,6 +65,7 @@ Blog.active.publish = function () {
     var title = $('#BlogTitle').val()
     var permalink = Blog.permalink(title)
     post.set('permalink', permalink)
+    post.save()
   }
   else {
     var permalink = post.get('permalink')
@@ -134,6 +135,15 @@ Blog.downloadPosts = function () {
   })
 }
 
+Blog.getList = function () {
+  var html = '<ul>\n'
+  Blog.get('posts').each(function (filename, value) {
+    html += ' <li><a href="' + value.get('permalink') + '">' + value.get('title') + '</a></li>\n'
+  })
+  html += '</ul>'
+  TextPrompt.open('List', html)
+}
+
 Blog.listPosts = function () {
   var posts = Blog.get('posts')
   $('#BlogPosts').html('')
@@ -154,6 +164,7 @@ Blog.publishAll = function () {
       var title = post.get('title')
       var permalink = Blog.permalink(title)
       post.set('permalink', permalink)
+      post.save()
     }
     else {
       var permalink = post.get('permalink')
