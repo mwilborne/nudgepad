@@ -17,6 +17,15 @@ Copy.on('ready', function () {
   $('#CopyServer').val(Project.get('hostname'))
 })
 
+Copy.on('once', function () {
+  expressfs.readFile('private/sharecode.txt', function (data) {
+    if (data)
+      Copy.code = data
+    else
+      Copy.install()
+  })
+})
+
 Copy.cloneProject = function () {
   var domain = $('#CopyDomain').val()
   var server = $('#CopyServer').val()
@@ -61,4 +70,60 @@ Copy.cloneProject = function () {
     
   })
   
+}
+
+Copy.quickCopy = function () {
+  var domain = $('#CopyDomain').val()
+  var server = Project.get('hostname')
+  
+  var newForm = $('<form>', {
+      'action': 'http://' + server + '/create',
+ //     'target': '_blank',
+      'method' : 'post'
+  })
+  .append($('<input>', {
+      'name': 'domain',
+      'value': domain,
+      'type': 'hidden'
+  }))
+  .append($('<input>', {
+      'name': 'dir',
+      'value': '/nudgepad/projects/' + document.location.host,
+      'type': 'hidden'
+  }))
+  .append($('<input>', {
+      'name': 'timestamp',
+      'value': new Date().getTime(),
+      'type': 'hidden'
+  }))
+  .append($('<input>', {
+      'name': 'sharecode',
+      'value': Copy.code,
+      'type': 'hidden'
+  }))
+  .append($('<input>', {
+      'name': 'relaxed',
+      'value': 'true',
+      'type': 'hidden'
+  }))
+  newForm.submit()
+  
+}
+
+Copy.install = function () {
+  
+  var max = 9999999
+  var min = 1000000
+  
+  var random = Math.floor(Math.random() * (max - min + 1)) + min
+  
+  Copy.code = random
+  
+  expressfs.create('private/sharecode.txt', random, function (data) {
+    console.log(data)
+    if (!data)
+      Alerts.success('Share Code Created')
+    else
+      console.log(data)
+  })
 }

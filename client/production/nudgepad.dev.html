@@ -381,19 +381,33 @@
   
   
   <div class="container">
-
+    
 
       <div class="form-group">
         <label for="CopyDomain">New Domain</label>
-        <input class="form-control" id="CopyDomain" placeholder="Domain">
+        
+        <div class="input-group">
+          <input class="form-control" id="CopyDomain" placeholder="Domain">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="Copy.quickCopy()" type="button" title="Copy to this Server">Copy</button>
+          </span>
+        </div><!-- /input-group -->
+        
       </div>
       
       <div class="form-group">
         <label for="CopyServer">New Server</label>
-        <input class="form-control" id="CopyServer" placeholder="Server">
+        
+        <div class="input-group">
+          <input class="form-control" id="CopyServer" placeholder="Server">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="Copy.cloneProject()" type="button" title="Copy to New Server">Copy</button>
+          </span>
+        </div><!-- /input-group -->
+        
+        
       </div>
 
-      <button class="btn btn-primary" onclick="Copy.cloneProject()">Copy</button>
     
   </div> <!-- /container -->
 
