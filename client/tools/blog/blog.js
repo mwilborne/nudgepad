@@ -74,7 +74,7 @@ Blog.active.publish = function () {
   // to ask user if they'd like to update the permalink
   
   var html = Blog.defaultTemplate
-  var pressedHtml = Blog.press(post.toString(), html.toString())
+  var pressedHtml = post.press(html.toString())
   expressfs.writeFileAndOpen(permalink, pressedHtml, 'published')
 }
 
@@ -106,20 +106,6 @@ Blog.permalink = function (string) {
   if (!string)
     return ''
   return string.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '-') + '.html'
-}
-
-/**
- * requires moment and html_beautify
- */
-Blog.press = function (postString, htmlString) {
-  var post = new Space(postString)
-  htmlString = htmlString.replace(/Blog Post Content/g, post.get('content').replace(/\n/g, '<br>'))
-  htmlString = htmlString.replace(/Blog Post Title/g, post.get('title'))
-  var timestamp = parseFloat(post.get('timestamp'))
-  var date = moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
-  htmlString = htmlString.replace(/Blog Post Date/g, date)
-  htmlString = html_beautify(htmlString)
-  return htmlString
 }
 
 Blog.downloadPosts = function () {
@@ -172,7 +158,7 @@ Blog.publishAll = function () {
     
     
     var html = Blog.defaultTemplate
-    var pressedHtml = Blog.press(post.toString(), html.toString())
+    var pressedHtml = post.press(html.toString())
     expressfs.writeFile(permalink, pressedHtml, function () {
       Alerts.success('Published ' + permalink)
     })
@@ -197,6 +183,21 @@ Blog.Post = function (filename, patch) {
 }
 
 Blog.Post.prototype = new Space()
+
+Blog.Post.prototype.press = function (htmlString) {
+  var post = new Space(this.toString())
+  htmlString = htmlString.replace(/Blog Post Content/g, post.get('content').replace(/\n/g, '<br>'))
+  htmlString = htmlString.replace(/Blog Post Title/g, post.get('title'))
+  var timestamp = parseFloat(post.get('timestamp'))
+  var date = moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
+  htmlString = htmlString.replace(/Blog Post Date/g, date)
+  htmlString = html_beautify(htmlString, {
+    'indent-size' : 2,
+    'indent-char' : ' ',
+    'indent-inner-html' : true
+  })
+  return htmlString
+}
 
 Blog.Post.prototype.save = function () {
   var path = 'private/posts/' + this._filename

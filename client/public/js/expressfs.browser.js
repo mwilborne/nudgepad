@@ -90,7 +90,7 @@ expressfs.writeFileAndOpen = function (path, content, target, callback) {
   var form = $('<form target="' + target + '" method="post" action="' + expressfs.prefix + 'expressfs.writeFile' + '"></form>')
   var input = $('<input name="path">')
   input.val(expressfs.rootPath + path)
-  var input2 = $('<input name="content">')
+  var input2 = $('<textarea name="content"></textarea>')
   input2.val(content)
   var input3 = $('<input name="redirect">')
   input3.val(path + '?' + new Date().getTime())
