@@ -12,7 +12,9 @@ Stats.compute = function () {
     var rows = data.split(/\n/g)
     rows.forEach(function (value, key) {
       var row = value.split(/ /g)
-      var url = row[1]
+      if (!row[1])
+        return true
+      var url = row[1].substr(1) // strip the beginning /
       if (Stats.hits[url])
         Stats.hits[url].push(row[0])
       else
@@ -44,6 +46,13 @@ Stats.renderStats = function () {
   var str = '<div class="row">'
   
   var i = 0
+  
+  Stats.htmlPages = Stats.htmlPages.sort(function (a, b) {
+    var aHits = Stats.hits[a] ? Stats.hits[a].length : 0
+    var bHits = Stats.hits[b] ? Stats.hits[b].length : 0
+    return bHits > aHits
+  })
+  
   Stats.htmlPages.forEach(function (value, key) {
     if (i > 0 && (i % 3 === 0))
       str += '</div><div class="row">'
@@ -70,8 +79,8 @@ Stats.heights = function () {
 
 Stats.toButton = function (name) {
   var stat = ''
-  if (Stats.hits['/' + name])
-    stat = Stats.hits['/' + name].length  + ' Views. '
+  if (Stats.hits[name])
+    stat = Stats.hits[name].length  + ' Views. '
   else
     stat = '0 Views.'
   

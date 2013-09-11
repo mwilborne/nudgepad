@@ -138,7 +138,7 @@ $(document).on('click', '.FilesExplorerRename', function () {
 })
 
 $(document).on('click', '.FilesExplorerDuplicate', function () {
-  var newName = prompt('Duplicate this file', $(this).parent().attr('value') + '.copy')
+  var newName = prompt('Duplicate this file', $(this).parent().attr('value'))
   if (!newName)
     return false
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
