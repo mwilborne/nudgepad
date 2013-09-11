@@ -115,4 +115,9 @@ GitHub.status = function () {
   GitHub.exec('git status')
 }
 
+GitHub.setup = function () {
+  // http://pentestmonkey.net/blog/ssh-with-no-tty
+  GitHub.exec('ssh-keyscan -t rsa1,rsa,dsa github.com >> /home/' + document.location.hostname +  '/.ssh/known_hosts')
+}
+
 GitHub.on('ready', GitHub.status)
