@@ -21,6 +21,16 @@ module.exports = function (app, options) {
   
   })
   
+  app.post(prefix + 'expressfs.cp', function(req, res, next) {
+    
+    var source = req.body.source
+    var destination = req.body.destination
+    exec('cp -R ' + source + ' ' + destination, function () {
+      res.send('')
+    })
+  
+  })
+  
   /**
    * Create a file ONLY if it does not already exist
    */
@@ -54,6 +64,14 @@ module.exports = function (app, options) {
       res.send('')
     })
   
+  })
+  
+  app.post(prefix + 'expressfs.readdir', function(req, res, next) {
+    var path = req.body.path
+    fs.readdir(path, function (err, contents) {
+      if (err) return res.send(err, 400)
+      res.send(JSON.stringify(contents))
+    })
   })
   
   app.post(prefix + 'expressfs.readFile', function(req, res, next) {

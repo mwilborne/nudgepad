@@ -45,7 +45,7 @@ Files.renderExplorer = function () {
     files = files.get(Files.get('path'))
   
   var explorer = '<table id="FilesExplorer">'
-  explorer += '<tr class="FilesExplorerHeader"><td>Filename</td><td></td><td></td><td></td><td>Size</td><td>Age</td></tr>'
+  explorer += '<tr class="FilesExplorerHeader"><td>Filename</td><td></td><td></td><td></td><td></td><td>Size</td><td>Age</td></tr>'
   
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
   
@@ -80,6 +80,7 @@ Files.renderExplorer = function () {
       else
         row += '<td></td>'
       row += '<td class="FilesHiddenAction FilesExplorerRename">Rename</td>'
+      row += '<td class="FilesHiddenAction FilesExplorerDuplicate">Duplicate</td>'
       row += '<td class="FilesHiddenAction FilesExplorerRemove">Delete</td>'
       row += '<td>' + (file.get('size')) + '</td>'
       row += '<td>' + moment(parseFloat(file.get('mtime'))).fromNow() + '</td>'
@@ -134,6 +135,14 @@ $(document).on('click', '.FilesExplorerRename', function () {
     return false
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
   expressfs.rename($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'), Files.refresh)
+})
+
+$(document).on('click', '.FilesExplorerDuplicate', function () {
+  var newName = prompt('Duplicate this file', $(this).parent().attr('value') + '.copy')
+  if (!newName)
+    return false
+  var path = (Files.get('path') ? Files.get('path') + ' ' : '')
+  expressfs.cp($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'), Files.refresh)
 })
 
 $(document).on('click', '.FilesExplorerRemove', function (event) {

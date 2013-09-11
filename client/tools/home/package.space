@@ -1,5 +1,3 @@
-name Home
-description The NudgePad home screen. Launches tools.
 html home.html
 js home.js
 css home.css

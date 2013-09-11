@@ -27,6 +27,8 @@ space:
 
 expressfs:
 	cp ~/expressfs/expressfs.browser.js /nudgepad/nudgepad/client/public/js/expressfs.browser.js
+	# Todo: make expressfs an npm package
+	cp ~/expressfs/expressfs.server.js /nudgepad/nudgepad/server/expressfs.server.js
 
 events:
 	cp ~/events/events.js public/js/events.js

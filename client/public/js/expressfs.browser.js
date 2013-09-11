@@ -13,6 +13,14 @@ expressfs.appendFile = function (path, content, callback) {
 }
 
 // Create file ONLY if it does not exist
+expressfs.cp = function (source, destination, callback) {
+  var req = {}
+  req.source = expressfs.rootPath + source
+  req.destination = expressfs.rootPath + destination
+  $.post( expressfs.prefix + 'expressfs.cp', req, callback)
+}
+
+// Create file ONLY if it does not exist
 expressfs.create = function (path, content, callback) {
   var req = {}
   req.path = expressfs.rootPath + path
@@ -40,13 +48,23 @@ expressfs.mkdir = function (path, callback) {
   })
 }
 
+expressfs.readdir = function (path, callback) {
+  var req = {}
+  req.path = expressfs.rootPath + path
+  $.post( expressfs.prefix + 'expressfs.readdir', req)
+    .done(function (data) {
+      if (callback)
+        callback(JSON.parse(data))
+    })
+    .fail(callback)
+}
+
 expressfs.readFile = function (path, callback) {
   var req = {}
   req.path = expressfs.rootPath + path
-  $.post( expressfs.prefix + 'expressfs.readFile', req, function (data) {
-    if (callback)
-      callback(data)
-  })
+  $.post( expressfs.prefix + 'expressfs.readFile', req)
+    .done(callback)
+    .fail(callback)
 }
 
 expressfs.rename = function (oldPath, newPath, callback) {
