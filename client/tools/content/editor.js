@@ -16,7 +16,7 @@ Content.Editor.open = function (filename) {
   
   var html = ''
   page.each(function (id, scrap) {
-    html += '\n  ' + scrap.toHtml(filter)
+    html += '\n  ' + scrap.toHtml(Content.Editor.filter)
   })
 
   $('#ContentStage').contents().find('body').html(html)
@@ -36,7 +36,7 @@ Content.Editor.open = function (filename) {
     $(this).attr('contenteditable', true)
     $(this).focus()
     $(this).on('blur', function () {
-      var newPage = new Page(page.toString().replace(text, $(this).text()))
+      var newPage = new Scraps.Page(page.toString().replace(text, $(this).text()))
       expressfs.writeFile('private/pages/' + filename, newPage.toString())
       Content.set('pages ' + filename, newPage)
       expressfs.writeFile(filename.replace('.space', '.html'), newPage.toHtml())

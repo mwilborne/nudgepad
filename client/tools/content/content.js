@@ -11,7 +11,7 @@ Content.downloadPages = function () {
       return b[0] > a[0]
     })
     space.each(function (filename, value) {
-      Content.set('pages ' + filename, new Page(value))
+      Content.set('pages ' + filename, new Scraps.Page(value))
     })
     Content.trigger('pages')
   })
@@ -20,7 +20,6 @@ Content.downloadPages = function () {
 Content.listPages = function () {
   var pages = Content.get('pages')
   $('#ContentPages').html('')
-  
   
   pages.each(function (filename, value) {
     $('#ContentPages').append('<li><a class="cursor" onclick="Content.Editor.open(\'' + filename + '\')">' + filename + '</a></li>')
