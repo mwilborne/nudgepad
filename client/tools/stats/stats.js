@@ -38,19 +38,26 @@ Stats.downloadPages = function () {
 Stats.on('once', Stats.downloadPages)
 Stats.on('once', Stats.compute)
 
+Stats.sortByHits = function () {
+  Stats.htmlPages.sort(function (a, b) {
+    var aHits = (Stats.hits[a] ? Stats.hits[a].length : 0)
+    var bHits = (Stats.hits[b] ? Stats.hits[b].length : 0)
+    if (bHits > aHits)
+      return 1
+    if (bHits < aHits)
+      return -1
+    if (bHits == aHits)
+      return b > a
+  })
+}
+
 Stats.renderStats = function () {
-  
+  Stats.sortByHits()
   $('#OpenTool #StatsContainer').html('')
   
   var str = '<div class="row">'
   
   var i = 0
-  
-  Stats.htmlPages.sort(function (a, b) {
-    var aHits = Stats.hits[a] ? Stats.hits[a].length : 0
-    var bHits = Stats.hits[b] ? Stats.hits[b].length : 0
-    return bHits > aHits
-  })
   
   Stats.htmlPages.forEach(function (value, key) {
     if (i > 0 && (i % 3 === 0))
