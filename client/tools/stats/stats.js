@@ -14,6 +14,9 @@ Stats.compute = function () {
       var row = value.split(/ /g)
       if (!row[1])
         return true
+      // update index.html
+      if (row[1] === '/')
+        row[1] = '/index.html'
       var url = row[1].substr(1) // strip the beginning /
       if (Stats.hits[url])
         Stats.hits[url].push(row[0])
