@@ -3,6 +3,8 @@ GitHub.set('description', 'Sync your project with GitHub.')
 GitHub.set('icon', 'github')
 GitHub.set('beta', true)
 
+GitHub.gitignore = 'private/'
+
 GitHub.add = function () {
   var message = $('#GitHubFilepath').val()
   GitHub.exec('git add ' + message, function () {
@@ -26,7 +28,7 @@ GitHub.addOrigin = function () {
 }
 
 GitHub.cloneRepo = function () {
-  var origin = prompt('Enter clone URI')
+  var origin = prompt('Enter clone URI', 'https://github.com/')
   if (!origin)
     return false
   GitHub.exec('git clone ' + origin + ' temp; mv temp/* .; mv temp/.git .; rm -rf temp', function () {
@@ -44,9 +46,9 @@ GitHub.commit = function () {
 
 GitHub.deployKey = function () {
   
-  expressfs.exists('private/deploy.key', function (exists) {
+  expressfs.exists('private/deploy.key.pub', function (exists) {
     if (exists)
-      expressfs.readFile('private/deploy.key', function (data) {
+      expressfs.readFile('private/deploy.key.pub', function (data) {
         var box = $('<pre id="PreviewBoxWhiteBox" style="text-align: left;">' + data + '</pre>')
         PreviewBox.open(box)
       })
@@ -64,7 +66,7 @@ GitHub.exec = function (command, callback) {
     output.append(result + '\n')
     if (callback)
       callback()
-  }).error(function (error, message) {
+  }).fail(function (error, message) {
     output.append('ERROR\n')
     output.append(error.responseText + '\n')
   })
@@ -79,18 +81,25 @@ GitHub.generateKey = function () {
 }
 
 GitHub.init = function () {
-  GitHub.exec('git init', function () {
-    Alerts.success('Git init OK')
-    GitHub.status()
+  expressfs.writeFile('.gitignore', GitHub.gitignore, function () {
+    GitHub.exec('git init', function () {
+      Alerts.success('Git init OK')
+      GitHub.status()
+    })
   })
 }
 
 GitHub.pull = function () {
-  GitHub.exec('git pull')
+//  GitHub.exec('git pull')
+  var command = "ssh-agent bash -c 'ssh-add /nudgepad/projects/" + document.location.hostname + "/private/deploy.key; git pull'"
+  GitHub.exec(command)
 }
 
 GitHub.push = function () {
-  GitHub.exec('git push -u origin master')
+//  var command = 'git push -u origin master'
+  var command = "ssh-agent bash -c 'ssh-add /nudgepad/projects/" + document.location.hostname + "/private/deploy.key; git push -u origin master'"
+  console.log(command)
+  GitHub.exec(command)
 }
 
 GitHub.setOrigin = function () {
