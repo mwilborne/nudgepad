@@ -32,7 +32,6 @@ Stats.downloadPages = function () {
       if (value.match(/\.html$/))
         Stats.htmlPages.push(value)
     })
-    Stats.trigger('pages')
   })
 }
 
@@ -47,7 +46,7 @@ Stats.renderStats = function () {
   
   var i = 0
   
-  Stats.htmlPages = Stats.htmlPages.sort(function (a, b) {
+  Stats.htmlPages.sort(function (a, b) {
     var aHits = Stats.hits[a] ? Stats.hits[a].length : 0
     var bHits = Stats.hits[b] ? Stats.hits[b].length : 0
     return bHits > aHits
@@ -91,9 +90,7 @@ Stats.toButton = function (name) {
 }
 
 Stats.on('ready', function () {
-
   Stats.renderStats()
-  
   $(window).on('resize', Stats.heights)
 })
 
