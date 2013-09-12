@@ -34,7 +34,7 @@ Copy.cloneProject = function () {
     
     var newForm = $('<form>', {
         'action': 'http://' + server + '/create',
-   //     'target': '_blank',
+        'target': 'published',
         'method' : 'post'
     })
     .append($('<input>', {
@@ -78,7 +78,7 @@ Copy.quickCopy = function () {
   
   var newForm = $('<form>', {
       'action': 'http://' + server + '/create',
- //     'target': '_blank',
+      'target': '_blank',
       'method' : 'post'
   })
   .append($('<input>', {
