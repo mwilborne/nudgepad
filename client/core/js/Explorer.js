@@ -11,7 +11,7 @@ Explorer.paths.private = Explorer.paths.project + 'private/'
  *
  * @param {string} File you want to edit
  */
-Explorer.edit = function (path) {
+Explorer.edit = function (path, callback) {
   expressfs.readFile( path, function (data) {
     TextPrompt.open('Editing ' + path, data, function (val) {
       expressfs.writeFile(path, val.toString(), function (err) {
@@ -19,6 +19,8 @@ Explorer.edit = function (path) {
           console.log(err)
         else
           Alerts.success(path + ' saved')
+        if (callback)
+          callback()
       })
     })
   })

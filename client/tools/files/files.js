@@ -76,7 +76,7 @@ Files.renderExplorer = function () {
         row += '<td class="FilesExplorerEdit">' + filename + '</td>'
       
       if (!path.match(/^private/))
-        row += '<td class="FilesHiddenAction FilesExplorerVisit"><a target="published" href="/' + path.replace(/ /g, '/') + filename + '">Visit</a></td>'
+        row += '<td class="FilesHiddenAction FilesExplorerVisit"><a target="published" href="/' + path.replace(/ /g, '/') + filename + '?' + new Date().getTime() + '">Visit</a></td>'
       else
         row += '<td></td>'
       row += '<td class="FilesHiddenAction FilesExplorerRename">Rename</td>'
@@ -122,7 +122,7 @@ Files.refresh = function () {
 
 $(document).on('click', '.FilesExplorerEdit', function () {
   var filepath = $(this).parent().attr('path').replace(/ /g, '/')
-  Explorer.edit(filepath)
+  Explorer.edit(filepath, Files.renderExplorer)
 })
 
 $(document).on('click', '.FilesExplorerPreview', function () {
