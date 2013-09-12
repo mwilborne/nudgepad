@@ -110,6 +110,7 @@
     <script type="text/javascript" src="/nudgepad/tools/time/tool.js"></script>
 
     <script src="/nudgepad/public/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/nudgepad/public/js/ace/ace.js"></script>
     <script type="text/javascript">
     nudgepad.development = true
     $(document).ready(nudgepad.main)
@@ -152,6 +153,10 @@
     
     <div class="form-group">
       <textarea class="form-control" rows="20" id="TextPromptTextarea"></textarea>
+    </div>
+    
+    <div id="AcePromptHolder">
+      <div id="AcePrompt"></div>
     </div>
     
     <button type="button" class="btn btn-default" id="TextPromptCancelButton" onclick="TextPrompt.close()">Cancel</button>

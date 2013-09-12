@@ -5,7 +5,7 @@ Copy.set('icon', 'copy')
 Copy.set('beta', true)
 
 Copy.import = function () {
-  TextPrompt.open('Import a Project to this project', '', function (val) {
+  TextPrompt.open('Import a Project to this project', '', 'import.space', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
       Alerts.success('Imported files.')
     })

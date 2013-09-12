@@ -308,7 +308,7 @@ fs.rename('foobar.html', 'foobar2.html', callback)
 Like the browser's built in prompt method, but gives the user a bigger textarea for writing.
 
 ```
-TextPrompt.open('Some textarea like thing', 'Default value', callback)
+TextPrompt.open('Some textarea like thing', 'Default value', 'filename.html', callback)
 ```
 
 #### Alerts

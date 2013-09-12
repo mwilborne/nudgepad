@@ -1,7 +1,7 @@
 var EmailSender = function () {
   
   var message = new Space('to \nsubject \nmessage \n')
-  TextPrompt.open('Send an email', message.toString(), function (val) {
+  TextPrompt.open('Send an email', message.toString(), 'foobar.txt', function (val) {
     
     var space = new Space(val)
     

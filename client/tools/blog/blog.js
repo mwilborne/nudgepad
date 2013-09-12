@@ -23,7 +23,7 @@ Blog.active.filename = null
 
 Blog.active.advanced = function () {
   var post = Blog.get('posts ' + Blog.active.filename)
-  TextPrompt.open('Advanced', post.toString(), function (value) {
+  TextPrompt.open('Advanced', post.toString(), Blog.active.filename, function (value) {
     post.clear()
     post.patch(value)
     post.save()
@@ -128,7 +128,7 @@ Blog.getList = function () {
     html += ' <li><a href="' + value.get('permalink') + '">' + value.get('title') + '</a></li>\n'
   })
   html += '</ul>'
-  TextPrompt.open('List', html)
+  TextPrompt.open('List', html, 'list.html')
 }
 
 Blog.listPosts = function () {

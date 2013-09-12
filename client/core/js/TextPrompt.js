@@ -1,10 +1,17 @@
 var TextPrompt = {}
 
+TextPrompt.ace = true
+
 TextPrompt.callback = function () {}
 
 TextPrompt.save = function () {
   // allow to save without closing
-  if (TextPrompt.callback && TextPrompt.callback($('#TextPromptTextarea').val()) === false)
+  var value
+  if (TextPrompt.ace)
+    value = TextPrompt.editor.getValue()
+  else
+    value = $('#TextPromptTextarea').val()
+  if (TextPrompt.callback && TextPrompt.callback(value) === false)
     return true
   TextPrompt.close()
 }
@@ -19,25 +26,57 @@ TextPrompt.close = function () {
   TextPrompt.onclose = null
 }
 
-TextPrompt.open = function (message, default_value, callback) {
+TextPrompt.open = function (message, defaultValue, filename, callback) {
   
   $('body').append($('#TextPrompt').html())
   
   TextPrompt.callback = callback
   
-  var textArea = $('#TextPromptTextarea')
   var dimmer = $('#TextPromptDimmer')
 
   dimmer.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
     event.stopPropagation()
   })
   
-  textArea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
-    event.stopPropagation()
-  })
-  
   dimmer.on('click', TextPrompt.close)
-  $('#TextPromptTextarea').css('height', Math.round($(window).height() * .8) + 'px')
-  $('#TextPromptTextarea').val(default_value).focus()
+  var height = Math.round($(window).height() * .8)
+  
+  if (TextPrompt.ace) {
+    
+    $('#TextPromptTextarea').parent().hide()
+    
+    $('#AcePromptHolder').height(height)
+    
+//    $('#TextPromptTextarea')
+//      .replaceWith('<div id="TextPromptTextarea" style="position: absolute;top: 0;left: 0; height: ' + height + 'px;"></div>')
+//      .html(defaultValue)
+    
+    
+    var mode = filename.match(/\.([^\.]+)$/)[1]
+    if (mode === 'js')
+      mode = 'javascript'
+    
+    TextPrompt.editor = ace.edit("AcePrompt")
+    TextPrompt.editor.setTheme("ace/theme/monokai")
+    TextPrompt.editor.setShowPrintMargin(false)
+    TextPrompt.editor.getSession().setMode("ace/mode/" + mode)
+    TextPrompt.editor.setValue(defaultValue)
+    TextPrompt.editor.focus()
+  }
+  
+  else {
+    
+    var textArea = $('#TextPromptTextarea')
+    textArea.on('tap mousedown click slide slidestart slideend mouseup', function (event) {
+      event.stopPropagation()
+    })
+    
+    $('#TextPromptTextarea').css('height', height + 'px')
+    $('#TextPromptTextarea').val(defaultValue).focus()
+    
+  }
+  
+
+  
 }
 

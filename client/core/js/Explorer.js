@@ -13,7 +13,7 @@ Explorer.paths.nudgepad = Explorer.paths.project + 'nudgepad/'
  */
 Explorer.edit = function (path, callback) {
   expressfs.readFile( path, function (data) {
-    TextPrompt.open('Editing ' + path, data, function (val) {
+    TextPrompt.open('Editing ' + path, data, path, function (val) {
       expressfs.writeFile(path, val.toString(), function (err) {
         if (err)
           console.log(err)
