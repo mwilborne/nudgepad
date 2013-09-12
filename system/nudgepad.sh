@@ -190,7 +190,7 @@ case "$1" in
 'log')
   if [ -n "$2" ]
     then
-      sudo cat $projectsPath/$2/private/app.log.txt
+      sudo cat $projectsPath/$2/nudgepad/app.log.txt
     else
       # Proxy log
       sudo cat $logsPath/proxy.txt
@@ -198,7 +198,7 @@ case "$1" in
 ;;
 
 'logs')
-  sudo cat $projectsPath/$2/private/app.log.txt
+  sudo cat $projectsPath/$2/nudgepad/app.log.txt
 ;;
 
 # Mac only. Open a project in textmate
@@ -236,10 +236,10 @@ case "$1" in
   for domain in $runningProjects
   do
     echo $domain PID
-    cat $projectsPath/$domain/private/projectPid.txt
+    cat $projectsPath/$domain/nudgepad/projectPid.txt
     echo 
     echo $domain Mon PID
-    cat $projectsPath/$domain/private/monPid.txt
+    cat $projectsPath/$domain/nudgepad/monPid.txt
     echo 
   done
 ;;
@@ -313,7 +313,7 @@ case "$1" in
 'tail')
   if [ -n "$2" ]
     then
-      sudo tail -n 30 -f $projectsPath/$2/private/app.log.txt
+      sudo tail -n 30 -f $projectsPath/$2/nudgepad/app.log.txt
     else
       # Proxy log
       sudo tail -n 30 -f $logsPath/proxy.txt
@@ -327,7 +327,7 @@ case "$1" in
 'traffic')
   if [ -n "$2" ]
     then
-      sudo tail -n 30 -f $projectsPath/$2/private/requests.log.txt
+      sudo tail -n 30 -f $projectsPath/$2/nudgepad/requests.log.txt
     else
       # Proxy log
       echo No domain provided
@@ -344,7 +344,7 @@ case "$1" in
       then
         domain=$input
     fi
-    cat $projectsPath/$domain/private/app.log.txt
+    cat $projectsPath/$domain/nudgepad/app.log.txt
   done
 ;;
 

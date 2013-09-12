@@ -3,7 +3,7 @@ GitHub.set('description', 'Sync your project with GitHub.')
 GitHub.set('icon', 'github')
 GitHub.set('beta', true)
 
-GitHub.gitignore = 'private/'
+GitHub.gitignore = 'nudgepad/'
 
 GitHub.add = function () {
   var message = $('#GitHubFilepath').val()
@@ -46,9 +46,9 @@ GitHub.commit = function () {
 
 GitHub.deployKey = function () {
   
-  expressfs.exists('private/deploy.key.pub', function (exists) {
+  expressfs.exists('nudgepad/deploy.key.pub', function (exists) {
     if (exists)
-      expressfs.readFile('private/deploy.key.pub', function (data) {
+      expressfs.readFile('nudgepad/deploy.key.pub', function (data) {
         var box = $('<pre id="PreviewBoxWhiteBox" style="text-align: left;">' + data + '</pre>')
         PreviewBox.open(box)
       })
@@ -73,7 +73,7 @@ GitHub.exec = function (command, callback) {
 }
 
 GitHub.generateKey = function () {
-  var path = Explorer.paths.private + 'deploy.key'
+  var path = Explorer.paths.nudgepad + 'deploy.key'
   GitHub.exec('ssh-keygen -t rsa -N "" -f ' + path, function () {
     Alerts.success('Git SSH key created')
     GitHub.status()
@@ -91,13 +91,13 @@ GitHub.init = function () {
 
 GitHub.pull = function () {
 //  GitHub.exec('git pull')
-  var command = "ssh-agent bash -c 'ssh-add /nudgepad/projects/" + document.location.hostname + "/private/deploy.key; git pull'"
+  var command = "ssh-agent bash -c 'ssh-add /nudgepad/projects/" + document.location.hostname + "/nudgepad/deploy.key; git pull'"
   GitHub.exec(command)
 }
 
 GitHub.push = function () {
 //  var command = 'git push -u origin master'
-  var command = "ssh-agent bash -c 'ssh-add /nudgepad/projects/" + document.location.hostname + "/private/deploy.key; git push -u origin master'"
+  var command = "ssh-agent bash -c 'ssh-add /nudgepad/projects/" + document.location.hostname + "/nudgepad/deploy.key; git push -u origin master'"
   console.log(command)
   GitHub.exec(command)
 }

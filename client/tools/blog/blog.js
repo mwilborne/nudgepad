@@ -58,7 +58,7 @@ Blog.active.open = function (filename) {
 Blog.active.publish = function () {
   var filename = Blog.active.filename
   var post = Blog.get('posts ' + filename)
-  var path = 'private/posts/' + filename
+  var path = 'nudgepad/posts/' + filename
   
   // Autogenerate a permalink
   // todo: cover exceptions like if file already exists
@@ -91,7 +91,7 @@ Blog.active.save = function () {
 
 Blog.create = function () {
   // todo: remove this line, make writeFile mkdirs that it needs to
-  expressfs.mkdir('private/posts')
+  expressfs.mkdir('nudgepad/posts')
   var timestamp = new Date().getTime()
   var filename = timestamp + '.space'
   var post = new Blog.Post(filename)
@@ -110,7 +110,7 @@ Blog.permalink = function (string) {
 }
 
 Blog.downloadPosts = function () {
-  Explorer.folderToSpace('private/posts', function (data) {
+  Explorer.folderToSpace('nudgepad/posts', function (data) {
     var space = new Space(data)
     space.sort(function (a, b) {
       return b[0] > a[0]
@@ -143,7 +143,7 @@ Blog.listPosts = function () {
 Blog.publishAll = function () {
   Blog.get('posts').each(function (filename, value) {
     var post = Blog.get('posts ' + filename)
-    var path = 'private/posts/' + filename
+    var path = 'nudgepad/posts/' + filename
     
     // Autogenerate a permalink
     // todo: cover exceptions like if file already exists
@@ -210,14 +210,14 @@ Blog.Post.prototype.press = function (htmlString) {
 }
 
 Blog.Post.prototype.save = function () {
-  var path = 'private/posts/' + this._filename
+  var path = 'nudgepad/posts/' + this._filename
   expressfs.writeFile(path, this.toString(), function () {
     Alerts.success('Saved')
   })
 }
 
 Blog.Post.prototype.trash = function () {
-  var path = 'private/posts/' + this._filename
+  var path = 'nudgepad/posts/' + this._filename
   expressfs.unlink(path, function () {
     Alerts.success('Deleted')
   })

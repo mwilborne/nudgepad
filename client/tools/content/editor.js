@@ -37,7 +37,7 @@ Content.Editor.open = function (filename) {
     $(this).focus()
     $(this).on('blur', function () {
       var newPage = new Scraps.Page(page.toString().replace(text, $(this).text()))
-      expressfs.writeFile('private/pages/' + filename, newPage.toString())
+      expressfs.writeFile('nudgepad/pages/' + filename, newPage.toString())
       Content.set('pages ' + filename, newPage)
       expressfs.writeFile(filename.replace('.space', '.html'), newPage.toHtml())
       page = newPage

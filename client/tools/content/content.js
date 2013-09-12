@@ -5,7 +5,7 @@ Content.set('pages')
 
 
 Content.downloadPages = function () {
-  Explorer.folderToSpace('private/pages', function (data) {
+  Explorer.folderToSpace('nudgepad/pages', function (data) {
     var space = new Space(data)
     space.sort(function (a, b) {
       return b[0] > a[0]

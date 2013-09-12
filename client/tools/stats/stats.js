@@ -8,7 +8,7 @@ Stats.hits = {}
 // 127.0.0.1 /index.html GET 200 2 - "Wed, 11 Sep 2013 17:18:42 GMT" 127.0.0.1 "http://stats.localhost/nudgepad?tool=Stats" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.65 Safari/537.36"
 Stats.compute = function () {
   Stats.hits = {}
-  expressfs.readFile('private/requests.log.txt', function (data) {
+  expressfs.readFile('nudgepad/requests.log.txt', function (data) {
     var rows = data.split(/\n/g)
     rows.forEach(function (value, key) {
       var row = value.split(/ /g)

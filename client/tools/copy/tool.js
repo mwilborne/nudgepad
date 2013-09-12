@@ -18,7 +18,7 @@ Copy.on('ready', function () {
 })
 
 Copy.on('once', function () {
-  expressfs.readFile('private/sharecode.txt', function (data) {
+  expressfs.readFile('nudgepad/sharecode.txt', function (data) {
     if (data)
       Copy.code = data
     else
@@ -124,7 +124,7 @@ Copy.install = function () {
   
   Copy.code = random
   
-  expressfs.create('private/sharecode.txt', random, function (data) {
+  expressfs.create('nudgepad/sharecode.txt', random, function (data) {
     console.log(data)
     if (!data)
       Alerts.success('Share Code Created')

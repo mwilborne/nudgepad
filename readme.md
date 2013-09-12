@@ -80,7 +80,7 @@ yourprojectname.nudgepad.com/
 
 If you upload a file like "index.html" to this folder, then http://yourprojectname.nudgepad.com/index.html will be the homepage of your project.
 
-That folder called "private/" in your project directory, contains all the NudgePad specific data if you
+That folder called "nudgepad/" in your project directory, contains all the NudgePad specific data if you
 are using the NudgePad tools to build your project. However, you are free to completely ignore this folder and just use NudgePad as a simple web server.
 
 How to Build a Community Tool for NudgePad 1.0
@@ -548,7 +548,7 @@ The data for a project "foo.com" is stored in /nudgepad/projects/foo.com/ and is
 
 So a file /nudgepad/projects/foo.com/foo.html would be available at foo.com/foo.html
 
-There is also a private folder where all NudgePad conventions are stored and that looks like this:
+There is also a nudgepad folder where all NudgePad conventions are stored and that looks like this:
 
 - packages/ Contains Node.js packages to include onstart. Each package extends the app object. So your package should export one function which takes an express app object as a param and extends it.
 - pages/ Contains the pages for the project. Encoded in Space/Scraps

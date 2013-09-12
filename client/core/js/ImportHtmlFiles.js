@@ -11,7 +11,7 @@ var ImportHtmlFiles = function () {
       // If it does not exist, import it!
       expressfs.readFile(filename, function (data) {
         var space = $.htmlToScraps(data)
-        expressfs.writeFile('private/pages/' + name + '.space', space.toString(), function () {
+        expressfs.writeFile('nudgepad/pages/' + name + '.space', space.toString(), function () {
           console.log('Imported ' + name)
         })
       })

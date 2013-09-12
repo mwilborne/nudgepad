@@ -9,7 +9,7 @@ This can be very important for SEO.
 
 This client tool depends on 1 server side package called redirects.js.
 
-It works by reading and writing a space file to private/redirects.space
+It works by reading and writing a space file to nudgepad/redirects.space
 
 That file stores all the redirects in a simple manner:
 

@@ -6,7 +6,7 @@ Share.set('icon', 'share')
 Share.on('ready', function () {
 
   Share.update()
-  expressfs.readFile('private/sharecode.txt', function (data) {
+  expressfs.readFile('nudgepad/sharecode.txt', function (data) {
     if (data)
       Share.code = data
     else
@@ -23,7 +23,7 @@ Share.install = function () {
   
   Share.code = random
   
-  expressfs.create('private/sharecode.txt', random, function (data) {
+  expressfs.create('nudgepad/sharecode.txt', random, function (data) {
     console.log(data)
     Share.update()
     if (!data)
