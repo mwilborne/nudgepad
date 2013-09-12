@@ -28,14 +28,25 @@ RegisterForm.open = function () {
       return Alerts.error('Invalid Email')
     // todo, send back to nudgepad.com
     mixpanel.track('I added my email')
-    $.post('/nudgepad.updateEmail', {email : email, sendWelcomeEmail: 'true'}, function () {
-      nudgepad.warnBeforeReload = false
-      document.location = '/nudgepad'
+    
+    // todo: pass in the source domain ins
+    var sourceDomain = 'www.nudgepad.com'
+    $('body').append('<iframe id="iframe" src="http://' + sourceDomain + '/email.html?email=' + email + '"></iframe>')
+    
+    $('#iframe').ready(function(){
+      $.post('/nudgepad.updateEmail', {email : email, sendWelcomeEmail: 'true'}, function () {
+        nudgepad.warnBeforeReload = false
+        document.location = '/nudgepad'
+      })
     })
     
   })
 
   $('#RegisterFormEmail').focus()
+  
+}
+
+RegisterForm.setEmail = function () {
   
 }
 
