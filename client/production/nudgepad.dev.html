@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="/nudgepad/core/css/registerForm.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/template.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
-    <link rel="stylesheet" href="/nudgepad/tools/ace/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/content/content.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/crawler/tool.css" type="text/css"/>
@@ -85,7 +84,6 @@
     <script type="text/javascript" src="/nudgepad/core/js/Socket.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/Test.js"></script>
     <script type="text/javascript" src="/nudgepad/core/js/TextPrompt.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/ace/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/backup/backup.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/blog/blog.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/content/content.js"></script>
@@ -165,30 +163,6 @@
     <div>&nbsp;</div>
   </form>
   
-</template>
-<template class="Tool" id="Ace">
-  
-  <!-- Static navbar -->
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="container">
-  
-    <div id="AceEditor">Hello world</div>
-  
-  </div> <!-- /container -->
-
 </template>
 <template class="Tool" id="Backup">
   
@@ -615,7 +589,6 @@
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Beta Tools <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a class="cursor" onclick="Launcher.open('Ace')">Ace</a></li>
               <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
               <li><a class="cursor" onclick="Launcher.open('Content')">Content</a></li>
               <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
