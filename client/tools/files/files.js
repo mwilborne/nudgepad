@@ -88,6 +88,7 @@ Files.renderExplorer = function () {
       row += ' class="FilesExplorerFolder" value="' + filename + '" path="' + path + filename + '">'
       row += '<td class="FilesExplorerFolderName">' + filename + '</td>'
       row += '<td></td>'
+      row += '<td></td>'
       row += '<td class="FilesHiddenAction FilesExplorerRename">Rename</td>'
       row += '<td class="FilesHiddenAction FilesExplorerRemoveFolder">Delete</td>'
       row += '<td></td><td></td>'
