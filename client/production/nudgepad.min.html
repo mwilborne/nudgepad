@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="/nudgepad/public/images/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="/nudgepad/production/nudgepad.min.js?version=JSV"></script>
     <script src="/nudgepad/public/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/nudgepad/public/js/ace/ace.js"></script>
     <script type="text/javascript">
     $(document).ready(nudgepad.main)
     </script>
@@ -65,36 +66,16 @@
       <textarea class="form-control" rows="20" id="TextPromptTextarea"></textarea>
     </div>
     
+    <div id="AcePromptHolder">
+      <div id="AcePrompt"></div>
+    </div>
+    
     <button type="button" class="btn btn-default" id="TextPromptCancelButton" onclick="TextPrompt.close()">Cancel</button>
     <button type="button" class="btn btn-primary" id="TextPromptSaveButton" onclick="TextPrompt.save()" style="margin-right: 10px;">Save</button>
     <br>
     <div>&nbsp;</div>
   </form>
   
-</template>
-<template class="Tool" id="Ace">
-  
-  <!-- Static navbar -->
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="container">
-  
-    <div id="AceEditor">Hello world</div>
-  
-  </div> <!-- /container -->
-
 </template>
 <template class="Tool" id="Backup">
   
@@ -521,7 +502,6 @@
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Beta Tools <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a class="cursor" onclick="Launcher.open('Ace')">Ace</a></li>
               <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
               <li><a class="cursor" onclick="Launcher.open('Content')">Content</a></li>
               <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
