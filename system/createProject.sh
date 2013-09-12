@@ -12,13 +12,13 @@ createFromTemplate ()
     else
       echo Creating from dir 1>&2
       # Check shareCode
-      if [ ! -f $template/private/sharecode.txt ]
+      if [ ! -f $template/nudgepad/sharecode.txt ]
         then
           echo ERROR. No Share Code present.
           exit 1
       fi
       
-      if [[ "$shareCode" == `cat $template/private/sharecode.txt` ]]
+      if [[ "$shareCode" == `cat $template/nudgepad/sharecode.txt` ]]
         then
           cp -R $template $projectsPath/$domain
         else
@@ -34,11 +34,11 @@ createFromBlank ()
 
   # echo NO source provided. Creating blank project from blank.
   cp -R blank $projectsPath/$domain
-  mkdir $projectsPath/$domain/private/
-  mkdir $projectsPath/$domain/private/team
+  mkdir $projectsPath/$domain/nudgepad/
+  mkdir $projectsPath/$domain/nudgepad/team
   # Create this here for mon so we dont have to create it later.
   # theres probably a way to get mon to make it itself if it does not exist
-  touch $projectsPath/$domain/private/app.log.txt
+  touch $projectsPath/$domain/nudgepad/app.log.txt
 }
 
 createProject ()

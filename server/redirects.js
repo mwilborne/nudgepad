@@ -2,7 +2,7 @@ var fs = require('fs'),
     Space = require('space')
 
 module.exports = function (app) {
-  var path = app.paths['private'] + 'redirects.space'
+  var path = app.paths.nudgepad + 'redirects.space'
   if (!fs.existsSync(path))
     return true
   

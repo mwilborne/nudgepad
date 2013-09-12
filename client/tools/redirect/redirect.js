@@ -4,14 +4,14 @@ Redirect.set('icon', 'random')
 Redirect.set('beta', true)
 
 Redirect.on('open', function () {
-  expressfs.readFile('private/redirects.space', function (data) {
+  expressfs.readFile('nudgepad/redirects.space', function (data) {
     $('#RedirectCode').val(data)
   })
 })
 
 Redirect.save = function () {
   var value = $('#RedirectCode').val()
-  expressfs.writeFile('private/redirects.space', value, function (err) {
+  expressfs.writeFile('nudgepad/redirects.space', value, function (err) {
     Alerts.success('Saved. Please restart >')
   })
 }

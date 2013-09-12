@@ -5,7 +5,7 @@ var exec = require('child_process').exec,
 
 var Survey = function (app) {
   
-  app.paths.surveys = app.paths['private'] + 'surveys/'
+  app.paths.surveys = app.paths.nudgepad + 'surveys/'
   
   var isSurveysInstalled = fs.existsSync(app.paths.surveys)
   var installSurveys = function () {
@@ -17,7 +17,7 @@ var Survey = function (app) {
   
   app.get(app.pathPrefix + 'surveys', app.checkId, function (req, res, next) {
 
-    var output = app.paths['private'] + 'surveys.space'
+    var output = app.paths.nudgepad + 'surveys.space'
     exec('space ' + surveyPath + ' ' + output, function () {
       res.set('Content-Type', 'text/plain')
       res.sendfile(output, function () {

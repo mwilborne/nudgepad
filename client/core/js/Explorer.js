@@ -4,7 +4,7 @@
 var Explorer = {}
 Explorer.paths = {}
 Explorer.paths.project = '/nudgepad/projects/' + document.location.host  + '/'
-Explorer.paths.private = Explorer.paths.project + 'private/'
+Explorer.paths.nudgepad = Explorer.paths.project + 'nudgepad/'
 
 /**
  * Edit a text file

@@ -113,15 +113,15 @@ app.Project.loadFolder = function (folder) {
   // Create a Space for every folder
   app.Project.set(folder, new Space())
   // Grab all spaces in a folder
-  if (!fs.existsSync(app.paths['private'] + folder))
+  if (!fs.existsSync(app.paths.nudgepad + folder))
     return false
-  var files = fs.readdirSync(app.paths['private'] + folder)
+  var files = fs.readdirSync(app.paths.nudgepad + folder)
   for (var j in files) {
     // Dont read non space files
     if (!files[j].match(/\.space/))
       continue
     // Load every file into memory
-    var filePath = app.paths['private'] + folder + '/' + files[j]
+    var filePath = app.paths.nudgepad + folder + '/' + files[j]
     app.Project.set(folder + ' ' + files[j].replace(/\.space$/,''), new Marking(filePath).loadSync())
   }
 }
@@ -244,12 +244,6 @@ app.use(express.logger({
 
 /*********** STATIC FILES **************/
 app.use('/nudgepad/', express.static(clientPath.replace(/\/$/,''), { maxAge: 31557600000 }))
-
-
-/*********** public ***********/
-app.use('/private/', function (req, res) {
-  return res.send('Sorry, it\'s private here.', 400)
-})
 
 require('./login.js')(app)
 // Do this after /nudgepad/, so the login scripts get through fine.

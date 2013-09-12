@@ -7,8 +7,8 @@ var Exporter = function (app) {
   
   
   app.get(app.pathPrefix + 'export', app.checkId, function (req, res, next) {
-    var spaceFile = app.paths['private'] + app.domain + '.space'
-    var optionsFile = app.paths['private'] + '.options.space'
+    var spaceFile = app.paths.nudgepad + app.domain + '.space'
+    var optionsFile = app.paths.nudgepad + '.options.space'
     var options = new Space()
     options.set('ignore app.log.txt', '')
     options.set('ignore projectPid.txt', '')

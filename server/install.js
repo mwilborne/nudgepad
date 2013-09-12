@@ -11,8 +11,8 @@ function Install (app) {
   if (!fs.existsSync(app.paths.project))
     fs.mkdirSync(app.paths.project)
 
-  if (!fs.existsSync(app.paths['private']))
-    fs.mkdirSync(app.paths['private'])
+  if (!fs.existsSync(app.paths.nudgepad))
+    fs.mkdirSync(app.paths.nudgepad)
 
   // Create team folder
   if (!fs.existsSync(app.paths.team))

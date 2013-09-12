@@ -65,7 +65,7 @@ module.exports = function (app, httpServer) {
       
       var key = change.get('key')
       var value = new Space(change.get('value'))
-      var filepath = app.paths['private'] + key.replace(' ', '/') + '.space'
+      var filepath = app.paths.nudgepad + key.replace(' ', '/') + '.space'
       
       console.log('creating %s', file)
       var file = new Marking(filepath, value)
@@ -106,7 +106,7 @@ module.exports = function (app, httpServer) {
       var newName = change.get('newName')
       
       var file = app.Project.get(oldName)
-      var filepath = app.paths['private'] + newName.replace(' ', '/') + '.space'
+      var filepath = app.paths.nudgepad + newName.replace(' ', '/') + '.space'
       file.rename(filepath, function (error) {
         if (error) {
           console.log('Error: %s', error)
@@ -131,7 +131,7 @@ module.exports = function (app, httpServer) {
       var folder = app.Project.get(levels[0])
       var path = levels[0] + ' ' + levels[1]
       var file = app.Project.get(path)
-      var filepath = app.paths['private'] + levels[0] + '/' + levels[1] + '.space'
+      var filepath = app.paths.nudgepad + levels[0] + '/' + levels[1] + '.space'
       
   
       console.log('updating %s', path)

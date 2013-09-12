@@ -75,7 +75,7 @@ Files.renderExplorer = function () {
       else
         row += '<td class="FilesExplorerEdit">' + filename + '</td>'
       
-      if (!path.match(/^private/))
+      if (!path.match(/^nudgepad/))
         row += '<td class="FilesHiddenAction FilesExplorerVisit"><a target="published" href="/' + path.replace(/ /g, '/') + filename + '?' + new Date().getTime() + '">Visit</a></td>'
       else
         row += '<td></td>'
