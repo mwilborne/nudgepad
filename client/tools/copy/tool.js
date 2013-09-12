@@ -102,6 +102,11 @@ Copy.quickCopy = function () {
       'type': 'hidden'
   }))
   .append($('<input>', {
+      'name': 'email',
+      'value': Cookie.email,
+      'type': 'hidden'
+  }))
+  .append($('<input>', {
       'name': 'relaxed',
       'value': 'true',
       'type': 'hidden'
