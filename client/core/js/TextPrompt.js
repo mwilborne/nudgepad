@@ -62,6 +62,7 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
     TextPrompt.editor.getSession().setMode("ace/mode/" + mode)
     TextPrompt.editor.setValue(defaultValue)
     TextPrompt.editor.focus()
+    TextPrompt.editor.clearSelection()
   }
   
   else {
