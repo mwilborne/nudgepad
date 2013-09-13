@@ -32,23 +32,19 @@
 
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
         <div class="container">
-          <h1>Server</h1>
-          <p>Every NudgePad project is a powerful server process.</p>
+          <h1>Console</h1>
           <pre id="ServerConsoleOutput" class="pre-scrollable"></pre>
+          <div class="input-group">
+            <input type="text" class="form-control" id="ServerConsole" placeholder="Console">
+            <span class="input-group-btn">
+              <button id="ServerConsoleSend" class="btn btn-primary" onclick="Server.consoleSend()" type="button">Bash</button>
+              <button class="btn btn-default" onclick="Server.consoleSend(true)" type="button">Node</button>
+            </span>
+          </div><!-- /input-group -->
         </div>
-      </div>
       
-      <div class="container">
-        <div class="input-group">
-          <input type="text" class="form-control" id="ServerConsole" placeholder="Console">
-          <span class="input-group-btn">
-            <button id="ServerConsoleSend" class="btn btn-primary" onclick="Server.consoleSend()" type="button">Bash</button>
-            <button class="btn btn-default" onclick="Server.consoleSend(true)" type="button">Node</button>
-          </span>
-        </div><!-- /input-group -->
-      </div>
+      
       
 
       <div class="container">
