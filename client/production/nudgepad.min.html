@@ -77,6 +77,9 @@
   </form>
   
 </template>
+<template id="ToolHelp">
+  <li><a class="navbar-brand tool-help" data-toggle="tooltip" title="Help with this tool" data-placement="right"><i class="icon-question-sign"></i></a></li>
+</template>
 <template class="Tool" id="Backup">
   
   <!-- Static navbar -->
@@ -94,7 +97,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -135,17 +138,9 @@
       </div>
       
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
+        
+        <ul class="nav navbar-nav">
           <li><a class="cursor" onclick="Blog.create();">New Post</a></li>
-          
-          <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a onclick="Blog.getList()">Get HTML List</a></li>
-              <li><a onclick="Blog.publishAll()">Publish All</a></li>
-            </ul>
-          </li>
 
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
@@ -154,7 +149,19 @@
             </ul>
           </li>
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a onclick="Blog.getList()">Get HTML List</a></li>
+              <li><a onclick="Blog.publishAll()">Publish All</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -218,7 +225,7 @@
       
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -251,8 +258,7 @@
       </div>
       <div class="navbar-collapse collapse">
         
-        <ul class="nav navbar-nav navbar-right">
-          
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -260,8 +266,11 @@
               <li><a class="cursor" onclick="Files.import()" title="Import a Space File">Import</a></li>
             </ul>
           </li>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -315,8 +324,20 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+            <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
           </div>
+          
+          <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+              
+              <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+
+            </ul>
+
+
+          </div><!--/.nav-collapse -->
+          
         </div>
       </div>
 
@@ -367,7 +388,8 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
           
         </ul>
         
@@ -404,13 +426,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a class="cursor" onclick="GitHub.status()">Refresh</a></li>
-          
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -428,7 +449,15 @@
               <li><a class="cursor" onclick="GitHub.setup()">GitHub Setup</a></li>
             </ul>
           </li>
+          <li><a class="cursor" onclick="GitHub.status()">Refresh</a></li>
         </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
+        </ul>
+        
       </div><!--/.nav-collapse -->
       
     </div>
@@ -477,43 +506,34 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
-        <a class="navbar-brand" id="HomeDomain" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
+        
       </div>
       <div class="navbar-collapse collapse">
         
-        <!--
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-        </ul>
-        -->
-        
-        <ul class="nav navbar-nav navbar-right">
-          
           <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Development Tools<b class="caret"></b></a>
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">More Tools<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Launcher.open('Backup')">Backup</a></li>
               <li><a class="cursor" onclick="Launcher.open('Copy')">Copy</a></li>
               <li><a class="cursor" onclick="Launcher.open('GitHub')">GitHub</a></li>
               <li><a class="cursor" onclick="Launcher.open('Redirect')">Redirect</a></li>
+              <li role="presentation" class="divider"></li>
+              <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
             </ul>
           </li>
           
-          <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Beta Tools <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Content')">Content</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Layout')">Layout</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Support')">Support</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Time')">Time</a></li>
-            </ul>
+          <li>
+          <a  href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
           </li>
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
       </div><!--/.nav-collapse -->
@@ -576,11 +596,19 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+            <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
           </div>
           <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+            
+            <ul class="nav navbar-nav">
               <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+            </ul>
+            
+            
+            <ul class="nav navbar-nav navbar-right">
+              
+              <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+              
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -626,7 +654,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -638,23 +666,19 @@
 
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
         <div class="container">
-          <h1>Server</h1>
-          <p>Every NudgePad project is a powerful server process.</p>
+          <h1>Console</h1>
           <pre id="ServerConsoleOutput" class="pre-scrollable"></pre>
+          <div class="input-group">
+            <input type="text" class="form-control" id="ServerConsole" placeholder="Console">
+            <span class="input-group-btn">
+              <button id="ServerConsoleSend" class="btn btn-primary" onclick="Server.consoleSend()" type="button">Bash</button>
+              <button class="btn btn-default" onclick="Server.consoleSend(true)" type="button">Node</button>
+            </span>
+          </div><!-- /input-group -->
         </div>
-      </div>
       
-      <div class="container">
-        <div class="input-group">
-          <input type="text" class="form-control" id="ServerConsole" placeholder="Console">
-          <span class="input-group-btn">
-            <button id="ServerConsoleSend" class="btn btn-primary" onclick="Server.consoleSend()" type="button">Bash</button>
-            <button class="btn btn-default" onclick="Server.consoleSend(true)" type="button">Node</button>
-          </span>
-        </div><!-- /input-group -->
-      </div>
+      
       
 
       <div class="container">
@@ -704,7 +728,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -740,12 +764,20 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
           <li><a class="cursor" onclick="Sketch.save()">Save</a></li>
         </ul>
+        
+
+          <ul class="nav navbar-nav navbar-right">
+
+            <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+
+          </ul>
+
       </div><!--/.nav-collapse -->
     </div>
   </div>
@@ -775,7 +807,7 @@
         
         <ul class="nav navbar-nav navbar-right">
         
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
       </div><!--/.nav-collapse -->
@@ -791,31 +823,6 @@
       </div> <!-- /container -->
 
 </template>
-<template class="Tool" id="Support">
-  
-  <!-- Static navbar -->
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="container">
-  
-    <!-- Main component for a primary marketing message or call to action -->
-    <h2>NudgePad Support</h2>
-    <p>Thanks for being an early tester of NudgePad!</p>
-    <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
-    <a class="btn btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
-  	  
-  
-  </div> <!-- /container -->
-
-</template>
-
 <template class="Tool" id="Team">
   
   <!-- Static navbar -->
@@ -828,11 +835,11 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        
       </div>
-      
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a id="TeamMyEmail" class="cursor dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -840,7 +847,10 @@
               <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
             </ul>
           </li>
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -886,7 +896,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
