@@ -19,7 +19,6 @@ RegisterForm.open = function () {
     $(this).remove()
   })
   
-  
   $('#RegisterFormButton').on('click', function () {
     
     var email = $('#RegisterFormEmail').val()

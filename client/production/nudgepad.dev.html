@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/nudgepad/core/css/registerForm.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/template.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/core/css/textPrompt.css" type="text/css"/>
+    <link rel="stylesheet" href="/nudgepad/core/css/tool.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/backup/backup.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/content/content.css" type="text/css"/>
     <link rel="stylesheet" href="/nudgepad/tools/crawler/tool.css" type="text/css"/>
@@ -103,13 +104,13 @@
     <script type="text/javascript" src="/nudgepad/tools/sketch/sketch.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/sketch/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/stats/stats.js"></script>
-    <script type="text/javascript" src="/nudgepad/tools/support/support.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/team/tool.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/templates/templates.js"></script>
     <script type="text/javascript" src="/nudgepad/tools/time/tool.js"></script>
 
     <script src="/nudgepad/public/bootstrap/js/bootstrap.min.js"></script>
     <script src="/nudgepad/public/js/ace/ace.js"></script>
+    <script src="/nudgepad/production/toolInfo.js"></script>
     <script type="text/javascript">
     nudgepad.development = true
     $(document).ready(nudgepad.main)
@@ -165,6 +166,9 @@
   </form>
   
 </template>
+<template id="ToolHelp">
+  <li><a class="navbar-brand tool-help" data-toggle="tooltip" title="Help with this tool" data-placement="right"><i class="icon-question-sign"></i></a></li>
+</template>
 <template class="Tool" id="Backup">
   
   <!-- Static navbar -->
@@ -182,7 +186,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -246,7 +250,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -310,7 +314,7 @@
       
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -355,7 +359,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -415,8 +419,8 @@
           <div class="navbar-collapse collapse">
 
             <ul class="nav navbar-nav navbar-right">
-
-              <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+              
+              <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
 
             </ul>
 
@@ -473,7 +477,8 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
           
         </ul>
         
@@ -538,7 +543,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -611,7 +616,7 @@
           </li>
           
           <li>
-          <a id="HomeDomain" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
+          <a  href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right">Visit Site</a>
           </li>
         </ul>
         
@@ -691,7 +696,7 @@
             
             <ul class="nav navbar-nav navbar-right">
               
-              <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+              <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
               
             </ul>
           </div><!--/.nav-collapse -->
@@ -738,7 +743,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -812,7 +817,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         
@@ -858,7 +863,7 @@
 
           <ul class="nav navbar-nav navbar-right">
 
-            <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+            <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
 
           </ul>
 
@@ -891,7 +896,7 @@
         
         <ul class="nav navbar-nav navbar-right">
         
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
       </div><!--/.nav-collapse -->
@@ -907,31 +912,6 @@
       </div> <!-- /container -->
 
 </template>
-<template class="Tool" id="Support">
-  
-  <!-- Static navbar -->
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-      <div class="navbar-header">
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="container">
-  
-    <!-- Main component for a primary marketing message or call to action -->
-    <h2>NudgePad Support</h2>
-    <p>Thanks for being an early tester of NudgePad!</p>
-    <p>We are making NudgePad for you, and so if you need help or have suggestions, please don't hesitate to contact us!</p>
-    <a class="btn btn-primary" href="mailto:support@nudgepad.com" target="_blank">Email Support</a>
-  	  
-  
-  </div> <!-- /container -->
-
-</template>
-
 <template class="Tool" id="Team">
   
   <!-- Static navbar -->
@@ -959,7 +939,7 @@
         </ul>
         
         <ul class="nav navbar-nav navbar-right">
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
       
@@ -1005,7 +985,7 @@
         
         <ul class="nav navbar-nav navbar-right">
           
-          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          <li><a class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
         </ul>
         

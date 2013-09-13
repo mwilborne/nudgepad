@@ -55,7 +55,7 @@ _.each(htmlFiles, function (filename) {
 })
 
 /*** TOOLS ***/
-
+var toolInfo = new Space()
 var tools = _.without(fs.readdirSync(toolsPath), '.DS_Store')
 _.each(tools, function (toolName) {
   var toolDir = toolsPath + toolName + '/'
@@ -66,6 +66,7 @@ _.each(tools, function (toolName) {
     return true
     
   var settings = new Space(fs.readFileSync(toolDir + 'package.space', 'utf8'))
+  toolInfo.set(toolName, settings)
 
   var files = settings.get('js').split(/ /g)
   _.each(files, function (filename) {
@@ -126,6 +127,9 @@ _.each(tools, function (toolName) {
   
 
 })
+
+code.js += 'var ToolInfo = ' + toolInfo.toJavascript() + '\n'
+fs.writeFileSync(productionPath + 'toolInfo.js', 'var ToolInfo = ' + toolInfo.toJavascript() + '\n', 'utf8')
 
 // BUILD HTML FILES
 var buildHtml = function (destination, source) {
