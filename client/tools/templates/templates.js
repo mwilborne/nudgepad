@@ -1,6 +1,4 @@
 var Templates = new Tool('Templates')
-Templates.set('description', 'Start your project off with a Template.')
-Templates.set('icon', 'picture')
 
 Templates.import = function () {
   var url = $('.item.active').attr('data-url')

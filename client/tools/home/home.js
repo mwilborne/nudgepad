@@ -18,11 +18,13 @@ Home.renderMenu = function () {
     var tool = window[tools[i]]
     if (i > 0 && (i % 3 === 0))
       str += '</div><div class="row">'
+    var name = tool.get('name')
+    var info = ToolInfo.get(name.toLowerCase())
     str += Home.toButton(
-        tool.get('name'),
-        tool.get('description'),
+        name,
+        info.get('description'),
         colors[(i ? i % colors.length : 0)],
-        tool.get('icon') || 'picture')
+        info.get('icon') || 'picture')
   }
   if (((i + 1)  % 3 ) !== 0)
     str += '</div>'

@@ -3,3 +3,6 @@ html tool.html
 js github.js
 css tool.css
 author Breck Yunits
+email breck@nudgepad.com
+description Sync your project with GitHub.
+icon github

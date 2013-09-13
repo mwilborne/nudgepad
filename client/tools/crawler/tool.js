@@ -1,7 +1,4 @@
 var Crawler = new Tool('Crawler')
-Crawler.set('description', 'Crawl existing webpages.')
-Crawler.set('beta', true)
-Crawler.set('icon', 'cloud-download')
 
 Crawler.urls = new Space()
 

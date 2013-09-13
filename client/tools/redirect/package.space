@@ -2,3 +2,6 @@ html redirect.html
 js redirect.js
 css redirect.css
 author Breck Yunits
+email breck@nudgepad.com
+icon random
+description Manage URL redirects for your project.

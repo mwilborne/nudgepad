@@ -2,3 +2,6 @@ html tool.html
 js tool.js getElementsByLine.js
 css tool.css
 author Breck Yunits
+email breck@nudgepad.com
+description Layout pages quickly.
+icon th

@@ -1,7 +1,4 @@
 var Layout = new Tool('Layout')
-Layout.set('description', 'Layout pages quickly.')
-Layout.set('beta', true)
-Layout.set('icon', 'th')
 
 Layout.on('ready', function () {
   var template = $('.LayoutCell').clone()

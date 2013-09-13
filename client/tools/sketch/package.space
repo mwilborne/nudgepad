@@ -2,3 +2,6 @@ html tool.html
 js sketch.js tool.js
 css tool.css
 author Breck Yunits
+email breck@nudgepad.com
+icon pencil
+description Share your project for others to remix.

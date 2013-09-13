@@ -1,3 +1,6 @@
 html tool.html
 js tool.js
 author Breck Yunits
+email breck@nudgepad.com
+description Copy your project to a new domain or server.
+icon copy

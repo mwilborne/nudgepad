@@ -1,7 +1,4 @@
 var GitHub = new Tool('GitHub')
-GitHub.set('description', 'Sync your project with GitHub.')
-GitHub.set('icon', 'github')
-GitHub.set('beta', true)
 
 GitHub.gitignore = 'nudgepad/'
 

@@ -2,3 +2,6 @@ html tool.html
 js server.js
 css tool.css
 author Breck Yunits
+email breck@nudgepad.com
+icon terminal
+description Manage your project's web server.

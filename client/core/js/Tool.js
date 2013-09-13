@@ -59,14 +59,17 @@ Tool.prototype.open = function () {
   $('#OpenTool').html($('.Tool#' + this.get('name')).html())
   
   var toolHelp = $('#ToolHelp').html()
-//  $('.navbar-right').prepend(toolHelp)
+  $('.navbar-right').prepend(toolHelp)
   $('.navbar-right .tool-help').on('click', function () {
     var tool = Tool.openTool
     var name = tool.get('name')
     var info = ToolInfo.get(name.toLowerCase())
     var toolInfo = $('<div id="ToolInfoBox"></div>')
+    toolInfo.append('<p style="text-align: center; color: #888;"><i>About this Tool</i></p>')
     toolInfo.append('<h1>' + name + '</h1>')
-    toolInfo.append('<h3>By ' + info.get('author') + '</h3>')
+    toolInfo.append('<h3>' + info.get('description') + '</h3>')
+    toolInfo.append('<h4>By ' + info.get('author') + '</h4>')
+    toolInfo.append('<p>Email comments, feature requests and bug reports to <a target="_blank" href="mailto:' + info.get('email') + '">' + info.get('email') + '</a></p>')
     PreviewBox.open(toolInfo)
   })
   

@@ -1,6 +1,4 @@
 var Stats = new Tool('Stats')
-Stats.set('description', 'See page view stats.')
-Stats.set('icon', 'globe')
 
 Stats.htmlPages = []
 Stats.hits = {}

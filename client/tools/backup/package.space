@@ -3,3 +3,6 @@ html backup.html
 css backup.css
 version 0.1
 author Breck Yunits
+email breck@nudgepad.com
+description Backup your project.
+icon save

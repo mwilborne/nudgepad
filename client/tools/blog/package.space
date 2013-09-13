@@ -2,3 +2,6 @@ name Blog
 html blog.html
 js blog.js
 author Breck Yunits
+email breck@nudgepad.com
+description Add a blog to your project.
+icon file-text-alt

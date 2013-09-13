@@ -2,3 +2,6 @@ html tool.html
 js files.js dragAndDrop.js
 css tool.css
 author Breck Yunits
+email breck@nudgepad.com
+icon file-alt
+description View and edit the files of your project.

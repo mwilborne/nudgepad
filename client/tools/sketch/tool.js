@@ -1,6 +1,4 @@
 var Sketch = new Tool('Sketch')
-Sketch.set('description', 'Sketch pictures for your project.')
-Sketch.set('icon', 'pencil')
 
 // http://intridea.github.io/sketch.js/
 
