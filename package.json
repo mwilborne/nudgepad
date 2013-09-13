@@ -8,7 +8,7 @@
      "test": "make test"
    },
   "dependencies": {
-    "space": ">=0.3.3",
+    "space": ">=0.3.4",
     "scraps": ">=0.4.0",
     "markings" : ">=0.0.3",
     "speedcoach": ">=0.1.1",

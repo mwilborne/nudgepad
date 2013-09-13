@@ -1,7 +1,7 @@
-function Space(properties) {
+function Space(content) {
   this._tuples = []  
   this.events = {}
-  this._parse(properties)
+  this._load(content)
   return this
 }
 
@@ -101,7 +101,7 @@ Space.prototype.clear = function (space) {
   this._clear()
   this.trigger('clear')
   if (space)
-    this._parse(space)
+    this._load(space)
   this.trigger('change')
   return this
 }
@@ -530,6 +530,76 @@ Space.prototype.length = function () {
   return this.getKeys().length
 }
 
+Space.prototype._load = function (content) {
+  
+  // Load from string
+  if (typeof content === 'string')
+    return this._loadFromString(content)
+  
+  // Load from Space object
+  if (content instanceof Space) {
+    var me = this
+    content.each(function (key, value) {
+      me._setTuple(key, value)
+    })
+    return this
+  }
+  
+  // Load from object
+  for (var key in content) {
+    // In case hasOwnProperty has been overwritten we
+    // call the original
+    if (!Object.prototype.hasOwnProperty.call(content, key))
+      continue
+    var value = content[key]
+    if (typeof value === 'object')
+      this._setTuple(key, new Space(value))
+    else
+      this._setTuple(key, value)
+  }
+}
+
+/**
+ * Construct the Space from a string.
+ * @param {string}
+ * @return {Space}
+ */
+Space.prototype._loadFromString = function (string) {
+  
+  // Space always start on a key. Eliminate whitespace at beginning of string
+  string = string.replace(/^[\n ]*/, '')
+  
+  /** Eliminate Windows \r characters and newlines at end of string.*/
+  string = string.replace(/\n\r/g, '\n').replace(/\r\n/g, '\n')
+  
+  /** Eliminate newlines at end of string.*/
+  string = string.replace(/\n[\n ]*$/, '')
+  
+  /** Space doesn't have useless lines*/
+  string = string.replace(/\n\n+/, '\n')
+  
+  // Workaround for browsers without negative look ahead
+  /*
+  var spaces_without_delimiter = string.split(/\n([^ ])/),
+      spaces = [spaces_without_delimiter[0]]
+  
+  // Now we recombine spaces.
+  for (var i = 1; i < spaces_without_delimiter.length; i = i + 2) {
+    spaces.push(spaces_without_delimiter[i] + spaces_without_delimiter[i+1])
+  }
+  */
+  var spaces = string.split(/\n(?! )/g)
+  var matches
+  for (var i in spaces) {
+    var space = spaces[i]
+    if (matches = space.match(/^([^ ]+)(\n|$)/)) // Space
+      this._setTuple(matches[1], new Space(space.substr(matches[1].length).replace(/\n /g, '\n')))
+    else if (matches = space.match(/^([^ ]+) /)) // Leaf
+      this._setTuple(matches[1], space.substr(matches[1].length + 1).replace(/^\n /, '').replace(/\n /g, '\n') )
+  }
+  return this
+}
+
 /**
  * Return the next key in the Space, given a key.
  * @param {string}
@@ -564,76 +634,6 @@ Space.prototype.on = function (eventName, fn) {
   if (!this.events[eventName])
     this.events[eventName] = []
   this.events[eventName].push(fn)
-}
-
-Space.prototype._parse = function (properties) {
-  
-  // Load from string
-  if (typeof properties === 'string')
-    return this._parseFromString(properties)
-  
-  // Load from Space object
-  if (properties instanceof Space) {
-    var me = this
-    properties.each(function (key, value) {
-      me._setTuple(key, value)
-    })
-    return this
-  }
-  
-  // Load from object
-  for (var key in properties) {
-    // In case hasOwnProperty has been overwritten we
-    // call the original
-    if (!Object.prototype.hasOwnProperty.call(properties, key))
-      continue
-    var value = properties[key]
-    if (typeof value === 'object')
-      this._setTuple(key, new Space(value))
-    else
-      this._setTuple(key, value)
-  }
-}
-
-/**
- * Construct the Space from a string.
- * @param {string}
- * @return {Space}
- */
-Space.prototype._parseFromString = function (string) {
-  
-  // Space always start on a key. Eliminate whitespace at beginning of string
-  string = string.replace(/^[\n ]*/, '')
-  
-  /** Eliminate Windows \r characters and newlines at end of string.*/
-  string = string.replace(/\n\r/g, '\n').replace(/\r\n/g, '\n')
-  
-  /** Eliminate newlines at end of string.*/
-  string = string.replace(/\n[\n ]*$/, '')
-  
-  /** Space doesn't have useless lines*/
-  string = string.replace(/\n\n+/, '\n')
-  
-  // Workaround for browsers without negative look ahead
-  /*
-  var spaces_without_delimiter = string.split(/\n([^ ])/),
-      spaces = [spaces_without_delimiter[0]]
-  
-  // Now we recombine spaces.
-  for (var i = 1; i < spaces_without_delimiter.length; i = i + 2) {
-    spaces.push(spaces_without_delimiter[i] + spaces_without_delimiter[i+1])
-  }
-  */
-  var spaces = string.split(/\n(?! )/g)
-  var matches
-  for (var i in spaces) {
-    var space = spaces[i]
-    if (matches = space.match(/^([^ ]+)(\n|$)/)) // Space
-      this._setTuple(matches[1], new Space(space.substr(matches[1].length).replace(/\n /g, '\n')))
-    else if (matches = space.match(/^([^ ]+) /)) // Leaf
-      this._setTuple(matches[1], space.substr(matches[1].length + 1).replace(/^\n /, '').replace(/\n /g, '\n') )
-  }
-  return this
 }
 
 /**
@@ -756,6 +756,14 @@ Space.prototype.push = function (value) {
 Space.prototype._rename = function (oldName, newName) {
   var index = this.indexOf(oldName)
   this._setTuple(newName, this._getValueByKey(oldName), index, true)
+  return this
+}
+
+Space.prototype.reload = function (content) {
+  // todo, don't trigger patch if no change
+  this._tuples = []  
+  this._load(content)
+  this.trigger('reload')
   return this
 }
 
