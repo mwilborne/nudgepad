@@ -20,6 +20,6 @@ Sketch.save = function () {
    // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABSQAAALjCAYAAAALJQv/AAAgAElEQ…AAAQIECEQFHJLRYcQiQIAAAQIECBAgQIAAAQIECBAg8CgwAUPuAqlLvAYAAAAASUVORK5CYII=
   data = data.replace('data:image/png;base64,', '')
   expressfs.writeFileBase64(name, data, function () {
-    Alerts.success('Saved')
+    Alerts.success('Saved <a href="' + name + '?' + new Date().getTime() + '" target="published">' + name + '</a>')
   })
 }
