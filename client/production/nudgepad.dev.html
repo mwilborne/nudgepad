@@ -223,17 +223,9 @@
       </div>
       
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
+        
+        <ul class="nav navbar-nav">
           <li><a class="cursor" onclick="Blog.create();">New Post</a></li>
-          
-          <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a onclick="Blog.getList()">Get HTML List</a></li>
-              <li><a onclick="Blog.publishAll()">Publish All</a></li>
-            </ul>
-          </li>
 
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Posts <b class="caret"></b></a>
@@ -241,6 +233,18 @@
               
             </ul>
           </li>
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a onclick="Blog.getList()">Get HTML List</a></li>
+              <li><a onclick="Blog.publishAll()">Publish All</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
           
           <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
@@ -339,8 +343,7 @@
       </div>
       <div class="navbar-collapse collapse">
         
-        <ul class="nav navbar-nav navbar-right">
-          
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -348,6 +351,9 @@
               <li><a class="cursor" onclick="Files.import()" title="Import a Space File">Import</a></li>
             </ul>
           </li>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
           
           <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
           
@@ -403,8 +409,20 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+            <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
           </div>
+          
+          <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+
+              <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+
+            </ul>
+
+
+          </div><!--/.nav-collapse -->
+          
         </div>
       </div>
 
@@ -492,13 +510,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a class="cursor" onclick="GitHub.status()">Refresh</a></li>
-          
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -516,7 +533,15 @@
               <li><a class="cursor" onclick="GitHub.setup()">GitHub Setup</a></li>
             </ul>
           </li>
+          <li><a class="cursor" onclick="GitHub.status()">Refresh</a></li>
         </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+          
+        </ul>
+        
       </div><!--/.nav-collapse -->
       
     </div>
@@ -579,26 +604,17 @@
         <ul class="nav navbar-nav navbar-right">
           
           <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Development Tools<b class="caret"></b></a>
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">More Tools<b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Launcher.open('Backup')">Backup</a></li>
               <li><a class="cursor" onclick="Launcher.open('Copy')">Copy</a></li>
               <li><a class="cursor" onclick="Launcher.open('GitHub')">GitHub</a></li>
               <li><a class="cursor" onclick="Launcher.open('Redirect')">Redirect</a></li>
-            </ul>
-          </li>
-          
-          <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Beta Tools <b class="caret"></b></a>
-            <ul class="dropdown-menu">
+              <li role="presentation" class="divider"></li>
               <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Content')">Content</a></li>
               <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Layout')">Layout</a></li>
               <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
               <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Support')">Support</a></li>
-              <li><a class="cursor" onclick="Launcher.open('Time')">Time</a></li>
             </ul>
           </li>
           <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
@@ -664,11 +680,19 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+            <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
           </div>
           <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+            
+            <ul class="nav navbar-nav">
               <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+            </ul>
+            
+            
+            <ul class="nav navbar-nav navbar-right">
+              
+              <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
+              
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -828,10 +852,10 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')">Back</a>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
       </div>
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav">
           <li><a class="cursor" onclick="Sketch.save()">Save</a></li>
         </ul>
       </div><!--/.nav-collapse -->
@@ -916,11 +940,11 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        
       </div>
-      
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a id="TeamMyEmail" class="cursor dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -928,6 +952,9 @@
               <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
             </ul>
           </li>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
           <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->

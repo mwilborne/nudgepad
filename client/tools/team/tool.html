@@ -10,11 +10,11 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        
       </div>
-      
       <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          
+        
+        <ul class="nav navbar-nav">
           <li class="dropdown">
             <a id="TeamMyEmail" class="cursor dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -22,6 +22,9 @@
               <li><a class="cursor" onclick="Team.updateEmail()">Change Email</a></li>
             </ul>
           </li>
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
           <li><a id="HomeDomain" class="navbar-brand" href="/" target="published" data-toggle="tooltip" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>
         </ul>
       </div><!--/.nav-collapse -->
