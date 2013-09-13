@@ -60,6 +60,10 @@ Tool.prototype.open = function () {
   
   var toolHelp = $('#ToolHelp').html()
   $('.navbar-right').prepend(toolHelp)
+  
+  $('.navbar-right').append('<li><a class="navbar-brand" href="/?' + new Date().getTime() + '" target="published" data-toggle="tooltip" onclick="$(this).attr(\'href\', \'/?\' + new Date().getTime())" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>')
+  
+  
   $('.navbar-right .tool-help').on('click', function () {
     var tool = Tool.openTool
     var name = tool.get('name')
