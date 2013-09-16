@@ -4,6 +4,20 @@ if (typeof exports !== 'undefined')
 
 var Scraps = {}
 
+// Words that appear in both: title style
+Scraps.tags = {}
+Scraps.tagsArray = 'a abbr address area article aside audio b base bdi bdo blockquote body br button canvas caption cite code col colgroup command datalist dd del details dfn div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 head header hgroup hr html i iframe img input ins kbd keygen label legend li link map mark menu meta meter nav noscript object ol optgroup option output p param pre progress q rp rt ruby s samp script section select small source span strong sub summary sup table tbody td tfoot th thead tr track u ul var video wbr'.split(/ /g)
+Scraps.tagsArray.forEach(function (tag, i) {
+  Scraps.tags[tag] = true
+})
+Scraps.isTag = function (tag, value) {
+  if (Scraps.tags[tag])
+    return true
+  if (value instanceof Space && value.get('tag') === tag)
+    return true
+  return false
+}
+
 /**
  * Turns a style object like color red into css like .scrap { color : red; }
  * Also evals any variables.
@@ -47,274 +61,262 @@ Scraps.styleToInline = function (obj) {
 ;(function () {
   
   
-  
-  function Element (tag, attrs) {
-    this.tag = tag
-    this.attrs = attrs || {}
-    this.content = ''
-    return this
+
+function Element (tag, attrs) {
+  this.tag = tag
+  this.attrs = attrs || {}
+  this.content = ''
+  return this
+}
+
+Element.prototype.addClass = function (className) {
+  if (this.attrs['class'])
+    this.attrs['class'] += ' ' + className
+  else
+    this.attrs['class'] = className
+}
+
+Element.prototype.append = function (string) {
+  this.content += string
+}
+
+Element.prototype.attr = function (key, value) {
+  this.attrs[key] = value
+}
+
+Element.prototype.html = function (string) {
+  this.content += string
+}
+
+Element.prototype.toHtml = function () {
+  var string = '<' + this.tag
+
+  for (var i in this.attrs) {
+    if (!this.attrs.hasOwnProperty(i))
+      continue
+    string += ' ' + i + '="' + this.attrs[i] + '"' 
   }
 
-  Element.prototype.addClass = function (className) {
-    if (this.attrs['class'])
-      this.attrs['class'] += ' ' + className
+  if (this.tag === 'meta') {
+    string += ' content="' + this.content + '">'
+  }
+  else {
+    string += '>' + this.content
+
+    string += '</' + this.tag + '>'    
+  }
+
+  return string
+}
+
+/**
+ * Scrap constructor
+ * 
+ * @param {string}
+ * @param {Space}
+ */
+function Scrap (tag, space, content) {
+  this.tag = tag.replace(/(\.|\#).+$/)
+  this.clear()
+  this.reload(space)
+  if (content)
+    this.set('content', content)
+  // load content?
+  this.loadChildren()
+  return this
+}
+
+// Scrap extends Space.
+Scrap.prototype = new Space()
+
+/**
+ * @return {Scrap}
+ */
+Scrap.prototype.clone = function (id) {
+  return new Scrap(id, this)
+}
+
+Scrap.prototype.loadChildren = function () {
+  var parent = this
+  var i = -1
+  this.each(function (key, scrap){
+    i++
+    if (!Scraps.isTag(key, scrap))
+      return true
+    if (scrap instanceof Space)
+      parent.set(key, new Scrap(key, scrap), i)
     else
-      this.attrs['class'] = className
-  }
+      parent.set(key, new Scrap(key, '', scrap), i)
+  })
+}
 
-  Element.prototype.append = function (string) {
-    this.content += string
-  }
-
-  Element.prototype.attr = function (key, value) {
-    this.attrs[key] = value
-  }
-
-  Element.prototype.html = function (string) {
-    this.content += string
-  }
-
-  Element.prototype.toHtml = function () {
-    var string = '<' + this.tag
-
-    for (var i in this.attrs) {
-      if (!this.attrs.hasOwnProperty(i))
-        continue
-      string += ' ' + i + '="' + this.attrs[i] + '"' 
-    }
-
-    if (this.tag === 'meta') {
-      string += ' content="' + this.content + '">'
-    }
-    else {
-      string += '>' + this.content
-
-      string += '</' + this.tag + '>'    
-    }
-
-    return string
-  }
-
-  /**
-   * Scrap constructor
-   * 
-   * @param {string}
-   * @param {Space}
-   */
-  function Scrap (path, space) {
-    this.path = path
-    this.id = path.split(/ /g).pop() // Last part of path is id
-    this.clear()
-    if (!(space instanceof Space))
-      space = new Space(space)
-    this.patch(space)
-    // load content?
-    var children = this.get('scraps')
-    if (children instanceof Space) {
-      children.each(function (id, scrap){
-        children.set(id, new Scrap(path + ' ' + id, scrap))
-      })
-    }
-
-    return this
-  }
-
-  // Scrap extends Space.
-  Scrap.prototype = new Space()
-
-  /**
-   * @return {Scrap}
-   */
-  Scrap.prototype.clone = function (id) {
-    return new Scrap(id, this)
-  }
-
-  Scrap.prototype.selector = function () {
-    return '#' + this.path.replace(/ /g, ' #')
-  }
-
-  Scrap.prototype.setChildren = function (filter) {
-    // If recursive
-    var children = this.get('scraps')
-
-    if (!children)
-      return this
-
-    var parent = this
-    children.each(function (id, scrap) {
+Scrap.prototype.setChildren = function (filter) {
+  var parent = this
+  this.each(function (key, scrap) {
+    if (Scraps.isTag(key, scrap))
       parent.div.html(scrap.toHtml(filter))
-    })
-    return this
-  }
+  })
+  return this
+}
 
-  /**
-   * Set the innerHTML.
-   *
-   * @param {object} Context to evaluate any variables in.
-   */
-  Scrap.prototype.setContent = function () {
+/**
+ * Set the innerHTML.
+ *
+ * @param {object} Context to evaluate any variables in.
+ */
+Scrap.prototype.setContent = function () {
 
-    // If leaf node
-    if (this.get('content'))
-      this.div.html(this.get('content'))
+  // If leaf node
+  if (this.get('content'))
+    this.div.html(this.get('content'))
 
-    // If styles node
-    var styles = this.get('styles')
-    if (styles && styles instanceof Space) {
-      var div = this.div
-      styles.each(function (key, value) {
-        div.html(Scraps.styleToCss(key, value.toObject()))
-      })
-    }
-    return this
-  }
-
-  /**
-   * Creates this.div. Sets the tag and HTML attrs of the dom element.
-   *
-   * @param {object} Context to evaluate any variables in.
-   */
-  Scrap.prototype.setTag = function () {
-
-    tag = (this.get('tag') ? this.get('tag') : 'div')
-    this.div = new Element(tag)
-
-  }
-
-
-  Scrap.prototype.setProperties = function (name) {
-    this.each(function (property, value) {
-      // Skip certain properties
-      if (property.match(/^(scraps|content|tag|on.*|style)$/))
-        return true
-      this.setProperty(property)
+  // If styles node
+  var styles = this.get('styles')
+  if (styles && styles instanceof Space) {
+    var div = this.div
+    styles.each(function (key, value) {
+      div.html(Scraps.styleToCss(key, value.toObject()))
     })
   }
+  return this
+}
 
-  /**
-   * Set the standard HTML properties like value, title, et cetera.
-   *
-   * @param {string} Name of the property to set
-   * @param {object} Context to evaluate the variables in.
-   */
-  Scrap.prototype.setProperty = function (name) {
-    if (this.get(name))
-      this.div.attr(name, this.get(name))
-  }
+/**
+ * Return all javascript necessary for scraps operation
+ *
+ * todo: refacor this
+ *
+ * @return {string}
+ */
+Scrap.prototype.setHandlers = function () {
 
-  /**
-   * Return all javascript necessary for scraps operation
-   *
-   * todo: refacor this
-   *
-   * @return {string}
-   */
-  Scrap.prototype.setHandlers = function () {
+  this.each(function (event, value) {
+    // Events all follow onclick onfocus on*
+    if (!event.match(/^on.*$/))
+      return true
+    this.div.attr(event, value)
+  })
+}
 
-    this.each(function (event, value) {
-      // Events all follow onclick onfocus on*
-      if (!event.match(/^on.*$/))
-        return true
-      this.div.attr(event, value)
-    })
-  }
+Scrap.prototype.setProperties = function (name) {
+  this.each(function (property, value) {
+    // Skip certain properties
+    if (property.match(/^(content|on.*|style)$/))
+      return true
+    if (Scraps.isTag(property, value))
+      return true
+    this.setProperty(property)
+  })
+}
 
-  /**
-   * Return all css for a scrap.
-   *
-   * @param {object} Context to evaluate any variables in.
-   * @return {string}
-   */
-  Scrap.prototype.setStyle = function () {
-    if (!this.get('style'))
-      return null
-    if (!(this.get('style') instanceof Space))
-      return this.div.attr('style', this.get('style'))
-    this.div.attr('style', Scraps.styleToInline(this.get('style').toObject()))
-  }
+/**
+ * Set the standard HTML properties like value, title, et cetera.
+ *
+ * @param {string} Name of the property to set
+ * @param {object} Context to evaluate the variables in.
+ */
+Scrap.prototype.setProperty = function (name) {
+  if (this.get(name))
+    this.div.attr(name, this.get(name))
+}
 
-  /**
-   * Returns the HTML for a scrap without CSS or Script.
-   *
-   * @param {object} Context to evaluate any variables in.
-   * @return {string}
-   */
-  Scrap.prototype.toHtml = function (filter) {
-    this.setTag()
-    this.div.attr('id', this.id)
-    this.setProperties()
-    this.setContent()
-    this.setChildren(filter)
-    this.setStyle()
-    this.setHandlers()
-    if (filter)
-      return filter.call(this)
-    return this.div.toHtml()
-  }
+/**
+ * Return all css for a scrap.
+ *
+ * @param {object} Context to evaluate any variables in.
+ * @return {string}
+ */
+Scrap.prototype.setStyle = function () {
+  if (!this.get('style'))
+    return null
+  if (!(this.get('style') instanceof Space))
+    return this.div.attr('style', this.get('style'))
+  this.div.attr('style', Scraps.styleToInline(this.get('style').toObject()))
+}
 
-  /**
-   * Constructor.
-   *
-   * @param {Space} Any values to load from.
-   */
-  function Page (space) {
+/**
+ * Returns the HTML for a scrap without CSS or Script.
+ *
+ * @param {object} Context to evaluate any variables in.
+ * @return {string}
+ */
+Scrap.prototype.toHtml = function (filter) {
+  this.div = new Element(this.tag)
+  this.setProperties()
+  this.setContent()
+  this.setChildren(filter)
+  this.setStyle()
+  this.setHandlers()
+  if (filter)
+    return filter.call(this)
+  return this.div.toHtml()
+}
 
-    this.clear()
+/**
+ * Constructor.
+ *
+ * @param {Space} Any values to load from.
+ */
+function Page (space) {
 
-    if (space)
-      this.patch(space)
+  this.clear()
+  this.patch(space)
+  this.loadScraps()
+  return this
+}
 
-    this.loadScraps()
-    return this
-  }
+// Page inherits from Space
+Page.prototype = new Space()
 
-  // Page inherits from Space
-  Page.prototype = new Space()
+/**
+ * Does a deep copy
+ *
+ * @return {Page}
+ */
+Page.prototype.clone = function () {
+  return new Page(this.toObject())
+}
 
-  /**
-   * Does a deep copy
-   *
-   * @return {Page}
-   */
-  Page.prototype.clone = function () {
-    return new Page(this.toObject())
-  }
-
-  /**
-   * Converts any scraps from Space to class of Scrap.
-   */
-  Page.prototype.loadScraps = function () {
-    // load all scraps
-    var page = this
-    this.each(function (id, value) {
-      page.set(id, new Scrap(id, value))
-    })
-  }
+/**
+ * Converts any scraps from Space to class of Scrap.
+ */
+Page.prototype.loadScraps = function () {
+  // load all scraps
+  var page = this
+  var i = 0
+  this.each(function (key, value) {
+    if (value instanceof Space)
+      page.set(key, new Scrap(key, value), i)
+    else
+      page.set(key, new Scrap(key, null, value), i)
+    i++
+  })
+}
 
 
-  /**
-   * Get the full HTML of the page.
-   *
-   * @param {object} Context to evaluate variables in.
-   * @return {string}
-   */
-  Page.prototype.toHtml = function (filter) {
+/**
+ * Get the full HTML of the page.
+ *
+ * @param {object} Context to evaluate variables in.
+ * @return {string}
+ */
+Page.prototype.toHtml = function (filter) {
 
-    // todo: separate css option
-    // todo: separate javascript option
-    var html = '<!doctype html>\n<html>'
+  // todo: separate css option
+  // todo: separate javascript option
+  var html = '<!doctype html>\n<html>'
 
-    // Get all the html for every scrap
-    // Todo: support after property
-    this.each(function (id, scrap) {
-      html += '\n  ' + scrap.toHtml(filter)
-    })
-    html += '\n</html>'
-    return html
-  }
-  Scraps.Element = Element
-  Scraps.Scrap = Scrap
-  Scraps.Page = Page
+  // Get all the html for every scrap
+  // Todo: support after property
+  this.each(function (key, scrap) {
+    html += '\n  ' + scrap.toHtml(filter)
+  })
+  html += '\n</html>'
+  return html
+}
+Scraps.Element = Element
+Scraps.Scrap = Scrap
+Scraps.Page = Page
   
 }())
 // If Node.js, export as a module.

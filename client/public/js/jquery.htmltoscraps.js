@@ -46,6 +46,10 @@
 	};
 }(DOMParser));
 
+$.htmlTags = {}
+'a abbr address area article aside audio b base bdi bdo blockquote body br button canvas caption cite code col colgroup command datalist dd del details dfn div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 head header hgroup hr html i iframe img input ins kbd keygen label legend li link map mark menu meta meter nav noscript object ol optgroup option output p param pre progress q rp rt ruby s samp script section select small source span strong sub summary sup table tbody td tfoot th thead tr track u ul var video wbr'.split(/ /g).forEach(function (tag, i) {
+  $.htmlTags[tag] = true
+})
 
 $.inlineStyleToSpace = function (style) {
   var rules = style.split(';')
@@ -64,17 +68,14 @@ $.fn.toSpace = function () {
   var space = new Space()
   var el = $(this)
   var tag = $(this).get(0).tagName.toLowerCase()
-  space.set('tag', tag)
   $($(this).get(0).attributes).each(function() {
     if (this.nodeName === 'style')
       space.set(this.nodeName, $.inlineStyleToSpace(this.nodeValue))
-    // Skip ID tag for now since Scraps uses it as the root.
-    else if (this.nodeName === 'id')
-      return true
     else
       space.set(this.nodeName, this.nodeValue)
   })
-
+  if (!$.htmlTags[tag])
+    space.set('tag', tag)
   
   // if leaf node
   if (!$(this).children().length) {
@@ -87,18 +88,10 @@ $.fn.toSpace = function () {
   
   }
   else {
-    var scraps = new Space()
     $(this).children().each(function () {
-      var id = $(this).attr('id') || $(this).get(0).tagName.toLowerCase()
-      var num = 1
-      var nextId = id
-      while (scraps.get(nextId)) {
-        num++
-        nextId = id + num.toString()
-      }
-      scraps.set(nextId, $(this).toSpace())
+      tag = $(this).get(0).tagName.toLowerCase()
+      space.append(tag, $(this).toSpace())
     })
-    space.set('scraps', scraps)
   }
   return space
 }
@@ -112,41 +105,38 @@ $.htmlToScraps = function (html) {
     // Skip whitespace
     if (!$(this).get(0).tagName)
       return true
-    var id = $(this).attr('id') || $(this).get(0).tagName.toLowerCase()
     var tag = $(this).get(0).tagName.toLowerCase()
     // Skip br tags
 //    if (tag === 'br')
 //      return true
-    var num = 1
-    var nextId = id
-    while (space.get(nextId)) {
-      num++
-      nextId = id + num.toString()
-    }
     var scrap = $(this).toSpace()
-    space.set(nextId, scrap)
+    space.append(tag, scrap)
   })
 //  iframe.remove()
 
 // does html contain <head>?
 // does html contain <body>?
+
 //
+  var hasHead = html.match(/\<head/)
+  var hasBody = html.match(/\<body/)
+
   // If it has a head but no body, just read head
-  if (html.match(/\<head/) && !html.match(/\<body/))
+  if (hasHead && !hasBody)
     return space.delete('body')
   
   // If it has a head AND body, return both
-  if (html.match(/\<head/) && html.match(/\<body/))
+  if (hasHead && html.match(/\<body/))
     return space
 
-  // if it has no head, and node body, return body scraps
-  if (!html.match(/\<head/) && !html.match(/\<body/)) {
+  // if it has no head, and no body, return body children
+  if (!hasHead && !hasBody) {
     space.delete('head')
-    return space.get('body scraps')
+    return space.get('body')
   }
   
   // if it has no head, and just a body, just return body
-  if (!html.match(/\<head/) && html.match(/\<body/))
+  if (!hasHead && hasBody)
     return space.delete('head')
 
   return space
