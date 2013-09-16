@@ -10,6 +10,7 @@ function Tool(name) {
 Tool.tools = []
 
 Tool.opened = {}
+Tool.openedAt = null
 
 Tool.openTool = null
 
@@ -21,6 +22,7 @@ Tool.prototype.close = function (name) {
   if (!this._open)
     return false
   
+  this.logTime()
   this.trigger('close')
 
   this._open = false
@@ -40,6 +42,13 @@ Tool.prototype.isOpen = function () {
   return this._open
 }
 
+Tool.prototype.logTime = function () {
+  var elapsedTime = new Date().getTime() - Tool.openedAt
+  expressfs.appendFile('nudgepad/time/' + Cookie.email + '.space', Socket.socket.sessionid + ' ' + this.get('name') + ' ' + elapsedTime + '\n', function () {
+    Tool.openedAt = new Date().getTime()
+  })
+}
+
 Tool.prototype.open = function () {
 
   // Return false if already open
@@ -55,6 +64,7 @@ Tool.prototype.open = function () {
     this.trigger('once')
   Tool.opened[this.get('name')] = true
   this.trigger('open')
+  Tool.openedAt = new Date().getTime()
   
   $('#OpenTool').html($('.Tool#' + this.get('name')).html())
   

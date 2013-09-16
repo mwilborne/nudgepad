@@ -1,51 +1,51 @@
 var Time = new Tool('Time')
 Time.timesheet = new Space()
 Time.timesheetFile = 'nudgepad/time/' + Cookie.email + '.space'
-Time.interval = null
 
-Time.on('once', function () {
-  expressfs.mkdir('nudgepad/time')
-  
-})
+Time.map = function (keys, value) {
+  var parts = value.split(/ /g)
+  var result = {}
+  var keyParts = keys.split(/ /g)
+  parts.forEach(function (value, i) {
+    result[keyParts[i]] = value
+  })
+  return result
+}
 
 Time.refresh = function () {
   expressfs.readFile(Time.timesheetFile, function (data) {
-    if (data)
-      Time.timesheet = new Space(data)
-    $('#TimeTimesheet').text(Time.timesheet.toString())
+    if (!data)
+      return true
+    
+    Time.timesheet = new Space(data)
+    
+    var total = 0
+    var tools = {}
+    Time.timesheet.each(function (key, value) {
+      var row = Time.map('tool ms', value)
+      total += parseFloat(row.ms)
+      if (!tools[row.tool])
+        tools[row.tool] = 0
+      tools[row.tool] += parseFloat(row.ms)
+    })
+    
+    
+    var d = moment.duration(total)
+    d.add(moment.duration(1, 's'))
+    var h = '0' + d.hours()
+    var m = '0' + d.minutes()
+    var s = '0' + d.seconds()
+    $('#TimeElapsed').val(h.slice(-2) + ':' + m.slice(-2) + ':' + s.slice(-2))  
+    
+    
+    $('#TimeTimesheet').html('Total time: ' + moment.duration(total).humanize() + '\n')
+    new Space(tools).each(function (key, value) {
+      $('#TimeTimesheet').append(key + ' ' + moment.duration(value).humanize() + '\n')
+    })
+
   })
   
 }
 
-Time.save = function () {
-  var record = new Space()
-  record.set('task', $('#TimeTask').val())
-  record.set('notes', $('#TimeNotes').val())
-  record.set('time', $('#TimeElapsed').val())
-  var str = new Space().set(new Date().getTime().toString(), record).toString()
-  expressfs.appendFile(Time.timesheetFile, str, function () {
-    Alerts.success('Saved')
-    Time.refresh()
-  })
-  
-}
-
-Time.pause = function () {
-  clearInterval(Time.interval)
-}
-
-Time.start = function () {
-  
-  Time.interval = setInterval(Time.tick, 1000)
-}
-
-Time.tick = function () {
-  var d = moment.duration($('#TimeElapsed').val())
-  d.add(moment.duration(1, 's'))
-  var h = '0' + d.hours()
-  var m = '0' + d.minutes()
-  var s = '0' + d.seconds()
-  $('#TimeElapsed').val(h.slice(-2) + ':' + m.slice(-2) + ':' + s.slice(-2))
-}
 
 Time.on('open', Time.refresh)

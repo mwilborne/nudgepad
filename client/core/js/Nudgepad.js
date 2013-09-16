@@ -81,6 +81,8 @@ nudgepad.reloadMessage = function () {
     nudgepad.reloadMessageOneTime = ''
     return message
   }
+  if (Tool.openTool)
+    Tool.openTool.logTime()
   return 'Are you sure you want to leave Nudgepad?'
 }
 

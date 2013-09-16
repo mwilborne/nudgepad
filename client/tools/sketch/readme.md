@@ -15,8 +15,8 @@ v0.2 - done
 
 v0.3
 ----
-- clear button?
 - full width
+- clear button?
 - crop
 - open pngs
 - undo/redo
@@ -39,3 +39,18 @@ v0.5/unfeatures
 - selecting of strokes? each stroke as an object
 - timeline?
 
+Libraries to look at:
+http://www.jswidget.com/
+http://sigilmaster.com/
+http://caimansys.com/painter/
+http://draw2d.org/draw2d_touch/jsdoc/#!/example/shape
+http://jsdraw2d.jsfiction.com/demo/curvesbezier.htm
+http://www.unionplatform.com/?page_id=2762
+http://www.createjs.com/#!/EaselJS/demos/drawing
+http://intridea.github.io/sketch.js/
+
+
+http://kineticjs.com/
+http://artisanjs.com/
+http://fabricjs.com/
+http://www.createjs.com/#!/EaselJS/demos
