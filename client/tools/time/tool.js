@@ -2,6 +2,10 @@ var Time = new Tool('Time')
 Time.timesheet = new Space()
 Time.timesheetFile = 'nudgepad/time/' + Cookie.email + '.space'
 
+Time.on('once', function () {
+  expressfs.mkdir('nudgepad/time')
+})
+
 Time.map = function (keys, value) {
   var parts = value.split(/ /g)
   var result = {}
