@@ -36,6 +36,7 @@ createFromBlank ()
   cp -R blank $projectsPath/$domain
   mkdir $projectsPath/$domain/nudgepad/
   mkdir $projectsPath/$domain/nudgepad/team
+  mkdir $projectsPath/$domain/nudgepad/time
   # Create this here for mon so we dont have to create it later.
   # theres probably a way to get mon to make it itself if it does not exist
   touch $projectsPath/$domain/nudgepad/app.log.txt
