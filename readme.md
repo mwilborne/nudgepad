@@ -67,7 +67,7 @@ sometimes you may want to just use NudgePad as a simple web server to serve stat
 
 Each NudgePad project contains a Home Tool which shows you the various Community Tools you can use to build your project.
 
-For example, you might use the Templates Tool to import a design for your site, and the Content Tool to edit content of the pages.
+For example, you might use the Templates Tool to import a design for your site, and the Pages Tool to edit content of the pages.
 
 #### Method 2 - Using NudgePad as a simple web server
 
@@ -190,32 +190,9 @@ probably will only make a few method calls to the core to write and read files.
 NudgePad exposes an API that your tool can use to read and write files to the user's
 project. You also have access to the latest jQuery($), and some other libraries.
 
-Currently, the NudgePad API consists of 2 core objects:
+Currently, the NudgePad API consists of 1 core objects:
 
-1. Project
-2. Tool
-
-#### Project
-
-The Project object is an instance of Space that stores all the data in the project.
-
-To dump the Project instance from console and see what it contains:
-
-```
-Project.toString()
-```
-
-To get all the pages in a project:
-
-```
-var pages = Project.get('pages')
-````
-
-To create a new page:
-
-```
-Project.set('pages newPageName', 'h1\n content Hello World')
-````
+1. Tool
 
 #### Tool
 
@@ -551,7 +528,6 @@ So a file /nudgepad/projects/foo.com/foo.html would be available at foo.com/foo.
 There is also a nudgepad folder where all NudgePad conventions are stored and that looks like this:
 
 - packages/ Contains Node.js packages to include onstart. Each package extends the app object. So your package should export one function which takes an express app object as a param and extends it.
-- pages/ Contains the pages for the project. Encoded in Space/Scraps
 - team/ Stores user records. Each user is a file encoded in Space.
 
 

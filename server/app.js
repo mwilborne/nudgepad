@@ -190,7 +190,6 @@ else
   console.log('Production mode started...')
 
 app.Project.loadFolder('team')
-app.Project.loadFolder('pages')
 
 speedcoach('spaces loaded into memory')
 
@@ -331,15 +330,6 @@ fs.watch(app.paths.project, function (event, filename) {
   app.SocketIO.sockets.emit('file', filename.toString())
   
 })
-
-/*
-todo: experiment with watching this folder for all updates.
-fs.watch(app.paths.project + 'pages/', function (event, filename) {
-  
-  // Trigger public changed event
-  app.Project.loadFolder('pages')
-})
-*/
 
 require('./export.js')(app)
 require('./persona.js')(app)

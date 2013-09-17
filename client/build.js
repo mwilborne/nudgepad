@@ -25,7 +25,7 @@ includes.html = ''
 /*** LIB FILES ***/
 var externalLibs = 'jquery-1.10.2.min.js AppendScript.js jquery.dimensions.js jquery-ui-1.10.3.custom.min.js Lasso.js validateEmail.js ParseQueryString.js Permalink.js jquery.scrollbar.js ToProperCase.js ParseName.js jquery.topdiv.js Spectrum.js underscore.js marked.js NaturalSort.js store.js events.js parseCookie.js MoveCursorToEnd.js socket.io.js moment.min.js jquery.sha256.min.js space.js scraps.js platform.js jquery.htmltoscraps.js csstospace.js beautify-html.js expressfs.browser.js'.split(/ /)
 _.each(externalLibs, function (filename) {
-  includes.js += '    <script type="text/javascript" src="/nudgepad/public/js/' + filename + '"></script>\n'
+  includes.js += '    <script type="text/javascript" src="/nudgepad/public/js/' + filename + '?t=' + new Date().getTime() + '"></script>\n'
   code.js += fs.readFileSync(publicPath + 'js/' + filename, 'utf8') + ';'
 })
 
@@ -39,7 +39,7 @@ jsFiles.unshift('Nudgepad.js')
 jsFiles.unshift('Project.js')
 jsFiles.unshift('Tool.js')
 _.each(jsFiles, function (filename) {
-  includes.js += '    <script type="text/javascript" src="/nudgepad/core/js/' + filename + '"></script>\n'
+  includes.js += '    <script type="text/javascript" src="/nudgepad/core/js/' + filename + '?t=' + new Date().getTime() + '"></script>\n'
   code.js += fs.readFileSync(corePath + 'js/' + filename, 'utf8') + ';'
 })
 
@@ -73,7 +73,7 @@ _.each(tools, function (toolName) {
     
     if (filename.match('.js')) {
       code.js += fs.readFileSync(toolDir + filename, 'utf8')
-      includes.js += '    <script type="text/javascript" src="/nudgepad/tools/' + toolName + '/' + filename + '"></script>\n'
+      includes.js += '    <script type="text/javascript" src="/nudgepad/tools/' + toolName + '/' + filename + '?t=' + new Date().getTime() + '"></script>\n'
     }
     // directory
     else {
@@ -94,7 +94,7 @@ _.each(tools, function (toolName) {
     
     if (filename.match('.css')) {
       code.css += fs.readFileSync(toolDir + filename, 'utf8')
-      includes.css += '    <link rel="stylesheet" href="/nudgepad/tools/' + toolName + '/' + filename + '" type="text/css"/>\n'
+      includes.css += '    <link rel="stylesheet" href="/nudgepad/tools/' + toolName + '/' + filename + '?t=' + new Date().getTime() + '" type="text/css"/>\n'
     }
     // directory
     else {
@@ -130,6 +130,7 @@ _.each(tools, function (toolName) {
 
 code.js += 'var ToolInfo = ' + toolInfo.toJavascript() + '\n'
 fs.writeFileSync(productionPath + 'toolInfo.js', 'var ToolInfo = ' + toolInfo.toJavascript() + '\n', 'utf8')
+includes.js += '    <script type="text/javascript" src="/nudgepad/production/toolInfo.js?t=' + new Date().getTime() + '"></script>\n'
 
 // BUILD HTML FILES
 var buildHtml = function (destination, source) {

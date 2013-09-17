@@ -89,6 +89,8 @@ Element.prototype.html = function (string) {
 }
 
 Element.prototype.toHtml = function () {
+  if (this.draft)
+    return ''
   var string = '<' + this.tag
 
   for (var i in this.attrs) {
@@ -115,10 +117,11 @@ Element.prototype.toHtml = function () {
  * @param {string}
  * @param {Space}
  */
-function Scrap (tag, space, content) {
+function Scrap (tag, space, content, index) {
   this.tag = tag.replace(/(\.|\#).+$/)
   this.clear()
   this.reload(space)
+  this.index = index
   if (content)
     this.set('content', content)
   // load content?
@@ -141,12 +144,13 @@ Scrap.prototype.loadChildren = function () {
   var i = -1
   this.each(function (key, scrap){
     i++
+    var index = (this.index ? this.index + ' ' : '') + i.toString()
     if (!Scraps.isTag(key, scrap))
       return true
     if (scrap instanceof Space)
-      parent.set(key, new Scrap(key, scrap), i)
+      parent.set(key, new Scrap(key, scrap, null, index), i)
     else
-      parent.set(key, new Scrap(key, '', scrap), i)
+      parent.set(key, new Scrap(key, '', scrap, index), i)
   })
 }
 
@@ -248,7 +252,7 @@ Scrap.prototype.toHtml = function (filter) {
   this.setStyle()
   this.setHandlers()
   if (filter)
-    return filter.call(this)
+    filter.call(this)
   return this.div.toHtml()
 }
 
@@ -260,7 +264,7 @@ Scrap.prototype.toHtml = function (filter) {
 function Page (space) {
 
   this.clear()
-  this.patch(space)
+  this.reload(space)
   this.loadScraps()
   return this
 }
@@ -286,9 +290,9 @@ Page.prototype.loadScraps = function () {
   var i = 0
   this.each(function (key, value) {
     if (value instanceof Space)
-      page.set(key, new Scrap(key, value), i)
+      page.set(key, new Scrap(key, value, null, i.toString()), i)
     else
-      page.set(key, new Scrap(key, null, value), i)
+      page.set(key, new Scrap(key, null, value, i.toString()), i)
     i++
   })
 }
@@ -311,7 +315,7 @@ Page.prototype.toHtml = function (filter) {
   this.each(function (key, scrap) {
     html += '\n  ' + scrap.toHtml(filter)
   })
-  html += '\n</html>'
+  html += '\n</html>\n'
   return html
 }
 Scraps.Element = Element

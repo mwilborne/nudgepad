@@ -2,13 +2,13 @@ var Home = new Tool('Home')
 
 Home.renderMenu = function () {
   $('#OpenTool #HomeContainer').html('')
-  var tools = ['Templates', 'Files', 'Team', 'Server', 'Stats']
+  var tools = ['Templates', 'Pages', 'Files', 'Team', 'Server', 'Stats']
   var colors =
   [
   'rgb(26,134,214)',
   'rgb(36,65,112)',
   'rgb(231,189,44)',
-//  'rgb(171,193,199)',
+  'rgb(171,193,199)',
   'rgb(224,54,52)',
   'rgb(71,41,54)'
   ]

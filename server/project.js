@@ -35,7 +35,6 @@ var ProjectRoute = function (app) {
   app.get('/nudgepad\.project', app.checkId, function (req, res, next) {
 
     var copy = new Space()
-    copy.set('pages', app.Project.get('pages'))
     copy.set('started', app.started)
     var hostname = os.hostname()
     if (app.development)

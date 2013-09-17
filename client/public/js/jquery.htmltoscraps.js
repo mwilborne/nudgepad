@@ -59,6 +59,8 @@ $.inlineStyleToSpace = function (style) {
     if (!value)
       return true
     var parts = value.split(/\:/)
+    if (parts.length < 2)
+      return true
     space.set(parts[0].trim(), parts[1].trim())
   })
   return space
@@ -86,6 +88,18 @@ $.fn.toSpace = function () {
     else
       space.set('content', $(this).attr('content'))
   
+  }
+  else if ($(this).contents().length > 1) {
+    // wrap text nodes in spans
+    $(this).contents().each(function () {
+      if (this.nodeType === 3) {
+        if ($(this).text().trim().length)
+          space.append('span', new Space('content ' + $(this).text()))
+      } else if (this.nodeType === 1) {
+        tag = this.tagName.toLowerCase()
+        space.append(tag, $(this).toSpace())
+      }
+    })
   }
   else {
     $(this).children().each(function () {

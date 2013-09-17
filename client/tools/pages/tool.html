@@ -1,0 +1,58 @@
+<template class="Tool" id="Pages">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">File <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a class="cursor" onclick="Pages.editor.create()">New</a></li>
+              <li><a class="cursor" onclick="Pages.editor.duplicate()">Duplicate</a></li>
+              <li><a class="cursor" onclick="Pages.editor.editHtml()">Edit HTML</a></li>
+              <li><a class="cursor" onclick="Pages.editor.editScraps()">Edit Scraps</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="cursor dropdown-toggle" data-toggle="dropdown"><span id="PagesFilename">&nbsp;</span> <b class="caret"></b></a>
+            <ul class="dropdown-menu" id="PagesFileMenu">
+            </ul>
+          </li>
+          <li><a class="cursor" onclick="Pages.editor.publish()">Publish</a></li>
+        </ul>
+        
+
+          <ul class="nav navbar-nav navbar-right">
+
+            
+
+          </ul>
+
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  <style>
+  body {
+    background: #eee;
+  }
+  </style>
+  <div class="container">
+    
+    <iframe id="PagesStage"></iframe>
+
+  </div>
+
+</template>
+
+

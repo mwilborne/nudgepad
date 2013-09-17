@@ -302,13 +302,26 @@ Space.prototype.get = function (query) {
   return null
 }
 
+Space.prototype.getByIndex = function (query) {
+  var parts = query.split(/ /g)
+  var first = parseFloat(parts.shift())
+  if (parts.length === 0)
+    return this._getValueByIndex(first)
+  else
+    return this._getValueByIndex(first).getByIndex(parts.join(' '))
+}
+
 /**
  * @param {int}
  * @return The matching value
  */
 Space.prototype._getValueByIndex = function (index) {
-  var key = this._getKeyByIndex(index)
-  return this._getValueByKey(key)
+  // Passing -1 gets the last item, et cetera
+  if (index < 0)
+    index = this.length() + index
+  if (this._tuples[index])
+    return this._tuples[index][1]
+  return undefined
 }
 
 Space.prototype._getValueByKey = function (key) {

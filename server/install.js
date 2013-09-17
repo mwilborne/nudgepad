@@ -16,12 +16,7 @@ function Install (app) {
 
   // Create team folder
   if (!fs.existsSync(app.paths.team))
-    fs.mkdirSync(app.paths.team)
-
-  // Create pages folder
-  if (!fs.existsSync(app.paths.pages))
-    fs.mkdirSync(app.paths.pages)
-  
+    fs.mkdirSync(app.paths.team)  
 
 }
 
