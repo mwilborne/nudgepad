@@ -233,6 +233,8 @@ Scrap.prototype.setProperty = function (name) {
 Scrap.prototype.setStyle = function () {
   if (!this.get('style'))
     return null
+  if (Scraps.isTag('style', this.get('style')))
+    return null
   if (!(this.get('style') instanceof Space))
     return this.div.attr('style', this.get('style'))
   this.div.attr('style', Scraps.styleToInline(this.get('style').toObject()))
