@@ -391,11 +391,16 @@ Events.shortcut = {}
  * fire on blocks with a class of tool)
  */
 Events.shortcut.context = ''
+Events.shortcut.disableShortcutsIfInputHasFocus = true
 
 /**
  * Check if user is editing text.
  */
 Events.shortcut.isEditingText = function () {
+  
+  if (!Events.shortcut.disableShortcutsIfInputHasFocus)
+    return false
+  
   // Return true if user is editing an input
   if ($('input:focus,div:focus,textarea:focus,a:focus,[contenteditable=true]:focus').length)
     return true

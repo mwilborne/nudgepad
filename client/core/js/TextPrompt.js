@@ -6,11 +6,7 @@ TextPrompt.callback = function () {}
 
 TextPrompt.save = function () {
   // allow to save without closing
-  var value
-  if (TextPrompt.ace)
-    value = TextPrompt.editor.getValue()
-  else
-    value = $('#TextPromptTextarea').val()
+  var value = TextPrompt.value()
   if (TextPrompt.callback && TextPrompt.callback(value) === false)
     return true
   TextPrompt.close()
@@ -79,5 +75,12 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
   
 
   
+}
+
+TextPrompt.value = function () {
+  if (TextPrompt.ace)
+    return TextPrompt.editor.getValue()
+  else
+    return $('#TextPromptTextarea').val()
 }
 

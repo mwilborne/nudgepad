@@ -15,6 +15,8 @@ Alerts.error = function (message) {
 Alerts.success = function (message, time) {
   clearTimeout(Alerts.timeout)
   $('#Alerts').html('<div class="alert nudgepadPopup alert-success">' + message + '</div>').show()
+  if (time)
+    Alerts.timeout = setTimeout('Alerts.clear()', time)
   Popup.open('#Alerts')
 }
 

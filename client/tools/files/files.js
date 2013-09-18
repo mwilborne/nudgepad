@@ -118,9 +118,39 @@ Files.refresh = function () {
   })
 }
 
+
+/**
+ * Edit a text file
+ *
+ * @param {string} File you want to edit
+ */
+Files.edit = function (path, callback) {
+  Events.shortcut.disableShortcutsIfInputHasFocus = false
+  Events.shortcut.shortcuts['meta+s'] = function () {
+    expressfs.writeFile(path, TextPrompt.value().toString(), function () {
+      Alerts.success(path + ' saved', 1000)
+    })
+  }
+  expressfs.readFile( path, function (data) {
+    TextPrompt.open('Editing ' + path, data, path, function (val) {
+      
+      expressfs.writeFile(path, val.toString(), function (err) {
+        if (err)
+          console.log(err)
+        else
+          Alerts.success(path + ' saved')
+        if (callback)
+          callback()
+        Events.shortcut.shortcuts = {}
+        Events.shortcut.disableShortcutsIfInputHasFocus = true
+      })
+    })
+  })
+}
+
 $(document).on('click', '.FilesExplorerEdit', function () {
   var filepath = $(this).parent().attr('path').replace(/ /g, '/')
-  Explorer.edit(filepath, Files.renderExplorer)
+  Files.edit(filepath, Files.renderExplorer)
 })
 
 $(document).on('click', '.FilesExplorerPreview', function () {
