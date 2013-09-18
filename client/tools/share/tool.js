@@ -1,16 +1,20 @@
 var Share = new Tool('Share')
 
 Share.on('ready', function () {
+
   Share.update()
   expressfs.readFile('nudgepad/sharecode.txt', function (data) {
-    Share.code = data
+    if (data)
+      Share.code = data
+    else
+      Share.install()
   })
 })
 
-Share.on('install', function () {
-
-  var max = 99999999999
-  var min = 10000000000
+Share.install = function () {
+  
+  var max = 9999999
+  var min = 1000000
   
   var random = Math.floor(Math.random() * (max - min + 1)) + min
   
@@ -24,7 +28,8 @@ Share.on('install', function () {
     else
       console.log(data)
   })
-})
+}
+
 
 Share.update = function () {
   var code = '<form method="post" action="http://' + Project.get('hostname') + '/create">\n'

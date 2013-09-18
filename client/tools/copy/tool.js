@@ -16,7 +16,10 @@ Copy.on('ready', function () {
 
 Copy.on('once', function () {
   expressfs.readFile('nudgepad/sharecode.txt', function (data) {
-    Copy.code = data
+    if (data)
+      Copy.code = data
+    else
+      Copy.install()
   })
 })
 
@@ -107,4 +110,22 @@ Copy.quickCopy = function () {
   }))
   newForm.submit()
   
+}
+
+Copy.install = function () {
+  
+  var max = 9999999
+  var min = 1000000
+  
+  var random = Math.floor(Math.random() * (max - min + 1)) + min
+  
+  Copy.code = random
+  
+  expressfs.create('nudgepad/sharecode.txt', random, function (data) {
+    console.log(data)
+    if (!data)
+      Alerts.success('Share Code Created')
+    else
+      console.log(data)
+  })
 }
