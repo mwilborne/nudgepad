@@ -87,12 +87,15 @@ Pages.editor.open = function (filename) {
     if (this.div.tag === 'script')
       this.div.draft = true
     this.div.attr('data-index', this.index)
+    this.div.addClass('PagesScrap')
   })
   var body = $('#PagesStage').contents().find('body')
   body.html(html)
   body.on('click', '*', function (event) {
     // only select leafs
-    if ($(this).children().length)
+    if ($(this).children().find('.PagesScrap').length)
+      return true
+    if (!$(this).hasClass('PagesScrap'))
       return true
     var text = $(this).text()
     if (!text.length)
