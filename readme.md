@@ -73,9 +73,9 @@ are using the NudgePad tools to build your project. However, you are free to com
 More Docs
 ---------
 
-Developers: [How to Build a Community Tool for NudgePad](how-to-build-a-tool.md)
-Sysadmins: [How to Host NudgePad](install.md)
-Developers: [Overview of the code base](how-to-contribute.md)
+- Developers: [How to Build a Community Tool for NudgePad](how-to-build-a-tool.md)
+- Sysadmins: [How to Host NudgePad](how-to-install-nudgepad.md)
+- Developers: [Overview of the code base](how-to-contribute.md)
 
 Build Status
 ------------
