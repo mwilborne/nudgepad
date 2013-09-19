@@ -92,6 +92,9 @@ Pages.editor.open = function (filename) {
   var body = $('#PagesStage').contents().find('body')
   body.html(html)
   body.on('click', '*', function (event) {
+    
+    if ($(this).is('a'))
+      event.preventDefault()
 
     // only select leafs
     if ($(this).find('.PagesScrap').length)
