@@ -1,5 +1,5 @@
 html tool.html
-js sketch.js tool.js
+js signature_pad.min.js tool.js
 css tool.css
 author Breck Yunits
 email breck@nudgepad.com
