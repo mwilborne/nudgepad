@@ -160,7 +160,7 @@ app.post('/create', app.checkId, app.generateDomain, app.validateDomain, app.isD
     var clonePath = tempPath + domain + '.space'
     fs.writeFile(clonePath, clone, 'utf8', function (err) {
       
-      exec(systemPath + '/nudgepad.sh create ' + domain.toLowerCase() + ' ' + email + ' ' + clonePath, function (err, stdout, stderr) {
+      exec('sudo ' + systemPath + '/nudgepad.sh create ' + domain.toLowerCase() + ' ' + email + ' ' + clonePath, function (err, stdout, stderr) {
         if (err) {
           console.log('Error creating project %s: err:%s stderr:%s', domain, err, stderr)
           return res.send('Error creating project: ' + err, 400)
@@ -189,7 +189,7 @@ app.post('/create', app.checkId, app.generateDomain, app.validateDomain, app.isD
       sharecode = ' ' + sharecode
     else
       sharecode = ''
-    exec(systemPath + '/nudgepad.sh create ' + domain.toLowerCase() + ' ' + email + dir + sharecode, function (err, stdout, stderr) {
+    exec('sudo ' + systemPath + '/nudgepad.sh create ' + domain.toLowerCase() + ' ' + email + dir + sharecode, function (err, stdout, stderr) {
       if (err) {
         console.log('Error creating project %s: err:%s stderr:%s', domain, err, stderr)
         return res.send('Error creating project: ' + err, 400)

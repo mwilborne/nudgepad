@@ -31,13 +31,13 @@ startProject () {
     then
       # create app.log.txt if it does not exist for mon
       touch $projectsPath/$domain/nudgepad/app.log.txt
-      sudo -u $macUser mon -d -l $projectsPath/$domain/nudgepad/app.log.txt -p $projectsPath/$domain/nudgepad/projectPid.txt -m $projectsPath/$domain/nudgepad/monPid.txt "node app.js $domain $PORT"
+      su $macUser -c "mon -d -l $projectsPath/$domain/nudgepad/app.log.txt -p $projectsPath/$domain/nudgepad/projectPid.txt -m $projectsPath/$domain/nudgepad/monPid.txt \"node app.js $domain $PORT\""
     else
       # todo: fix this so mon isnt launching 2 processes.
 #      sudo -u $domain touch $projectsPath/$domain/nudgepad/app.log.txt
       # todo: how can we start this without sudo? sudo cause a 400ms delay
       setUsername $domain
-      sudo -u $username mon -d -l $projectsPath/$domain/nudgepad/app.log.txt -p $projectsPath/$domain/nudgepad/projectPid.txt -m $projectsPath/$domain/nudgepad/monPid.txt "node app.js $domain $PORT"
+      su $username -c "mon -d -l $projectsPath/$domain/nudgepad/app.log.txt -p $projectsPath/$domain/nudgepad/projectPid.txt -m $projectsPath/$domain/nudgepad/monPid.txt \"node app.js $domain $PORT\""
   fi
   return 0
 }
