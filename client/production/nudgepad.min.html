@@ -368,7 +368,7 @@
   </div> <!-- /container -->
 
 </template>
-<template class="Tool" id="GitHub">
+<template class="Tool" id="Git">
   
   <!-- Static navbar -->
   <div class="navbar navbar-default navbar-static-top">
@@ -388,21 +388,21 @@
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a class="cursor" onclick="GitHub.init()">Init</a></li>
-              <li><a class="cursor" onclick="GitHub.cloneRepo()">Clone from Github</a></li>
+              <li><a class="cursor" onclick="Git.init()">Init</a></li>
+              <li><a class="cursor" onclick="Git.cloneRepo()">Clone from Github</a></li>
               <li><a class="cursor" href="https://github.com/new" target="published">Create on Github</a></li>
               <li role="presentation" class="divider"></li>
-              <li><a class="cursor" onclick="GitHub.push()">Push to Origin</a></li>
-              <li><a class="cursor" onclick="GitHub.pull()">Pull from Origin</a></li>
+              <li><a class="cursor" onclick="Git.push()">Push to Origin</a></li>
+              <li><a class="cursor" onclick="Git.pull()">Pull from Origin</a></li>
               <li role="presentation" class="divider"></li>
-              <li><a class="cursor" onclick="GitHub.addOrigin()">Add Origin</a></li>
-              <li><a class="cursor" onclick="GitHub.setOrigin()">Update Origin</a></li>
+              <li><a class="cursor" onclick="Git.addOrigin()">Add Origin</a></li>
+              <li><a class="cursor" onclick="Git.setOrigin()">Update Origin</a></li>
               <li role="presentation" class="divider"></li>
-              <li><a class="cursor" onclick="GitHub.deployKey()">Create Deploy Key</a></li>
-              <li><a class="cursor" onclick="GitHub.setup()">GitHub Setup</a></li>
+              <li><a class="cursor" onclick="Git.deployKey()">Create Deploy Key</a></li>
+              <li><a class="cursor" onclick="Git.setup()">Git Setup</a></li>
             </ul>
           </li>
-          <li><a class="cursor" onclick="GitHub.status()">Refresh</a></li>
+          <li><a class="cursor" onclick="Git.status()">Refresh</a></li>
         </ul>
         
         <ul class="nav navbar-nav navbar-right">
@@ -420,25 +420,25 @@
   <div class="container">
     
     <h3>Status</h3>
-    <pre id="GitHubStatus" class="pre-scrollable"></pre>
+    <pre id="GitStatus" class="pre-scrollable"></pre>
 
     <form role="form">
-      <label for="GitHubFilepath">Add Files</label>
+      <label for="GitFilepath">Add Files</label>
       <div class="input-group">
-        <input class="form-control" id="GitHubFilepath" placeholder="Filepaths">
+        <input class="form-control" id="GitFilepath" placeholder="Filepaths">
         <span class="input-group-btn">
-          <button class="btn btn-primary" onclick="GitHub.add()" type="button">Add</button>
+          <button class="btn btn-primary" onclick="Git.add()" type="button">Add</button>
         </span>
       </div>
     </form>
     
     <form role="form">
       
-      <label for="GitHubCommitMessage">Commit Changes</label>
+      <label for="GitCommitMessage">Commit Changes</label>
       <div class="input-group">
-        <input class="form-control" id="GitHubCommitMessage" placeholder="Message">
+        <input class="form-control" id="GitCommitMessage" placeholder="Message">
         <span class="input-group-btn">
-          <button class="btn btn-primary" onclick="GitHub.commit()" type="button">Commit</button>
+          <button class="btn btn-primary" onclick="Git.commit()" type="button">Commit</button>
         </span>
       </div>
     </form>
@@ -469,13 +469,13 @@
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Launcher.open('Backup')">Backup</a></li>
               <li><a class="cursor" onclick="Launcher.open('Copy')">Copy</a></li>
-              <li><a class="cursor" onclick="Launcher.open('GitHub')">GitHub</a></li>
               <li><a class="cursor" onclick="Launcher.open('Redirect')">Redirect</a></li>
               <li role="presentation" class="divider"></li>
               <li><a class="cursor" onclick="Launcher.open('Blog')">Blog</a></li>
               <li><a class="cursor" onclick="Launcher.open('Crawler')">Crawler</a></li>
               <li><a class="cursor" onclick="Launcher.open('Share')">Share</a></li>
               <li><a class="cursor" onclick="Launcher.open('Sketch')">Sketch</a></li>
+              <li><a class="cursor" onclick="Launcher.open('Stats')">Stats</a></li>
               <li><a class="cursor" onclick="Launcher.open('Time')">Time</a></li>
             </ul>
           </li>
