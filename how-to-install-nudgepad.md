@@ -18,6 +18,13 @@ Installing on a Mac
     cd mon
     sudo make install
 
+### Install git-extras
+
+    cd /nudgepad
+    git clone https://github.com/visionmedia/git-extras
+    cd git-extras
+    sudo make install
+
 ### Install N
 
     cd /nudgepad
@@ -80,6 +87,13 @@ Instructions are for Ubuntu
     cd /nudgepad
     git clone https://github.com/visionmedia/mon.git
     cd mon
+    sudo make install
+
+### Install git-extras
+
+    cd /nudgepad
+    git clone https://github.com/visionmedia/git-extras
+    cd git-extras
     sudo make install
 
 ### Install N
