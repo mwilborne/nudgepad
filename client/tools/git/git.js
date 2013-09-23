@@ -24,6 +24,12 @@ Git.addOrigin = function () {
   })
 }
 
+Git.autocommit = function () {
+  Git.exec('git add .; git commit -am "autocommit"', function () {
+    console.log('changed committed...')
+  })
+}
+
 Git.cloneRepo = function () {
   var origin = prompt('Enter clone URI', 'https://github.com/')
   if (!origin)
