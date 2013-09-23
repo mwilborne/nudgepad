@@ -1,8 +1,8 @@
-name Github
+name Git
 html tool.html
-js github.js
+js git.js
 css tool.css
 author Breck Yunits
 email breck@nudgepad.com
-description Sync your project with GitHub.
+description Quick access to Git commands.
 icon github
