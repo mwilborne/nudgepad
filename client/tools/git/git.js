@@ -33,12 +33,19 @@ Git.cloneRepo = function () {
   })
 }
 
+Git.checkout = function () {
+  Git.exec('git checkout -b nudgepad', function () {
+    Alerts.success('Switched to NudgePad branch')
+  })
+}
+
 Git.commit = function () {
-  var message = $('#GitCommitMessage').val()
+  var message = prompt('Enter your message')
+  if (!message)
+    return false
   Git.exec('git commit -am "' + message + '"', function () {
     Alerts.success('Commit Received')
   })
-  $('#GitCommitMessage').val('')
 }
 
 Git.deployKey = function () {
@@ -67,6 +74,11 @@ Git.exec = function (command, callback) {
     output.append('ERROR\n')
     output.append(error.responseText + '\n')
   })
+}
+
+Git.fixKey = function () {
+  // http://pentestmonkey.net/blog/ssh-with-no-tty
+  Git.exec('ssh-keyscan -t rsa1,rsa,dsa github.com >> /home/' + document.location.hostname +  '/.ssh/known_hosts')
 }
 
 Git.generateKey = function () {
@@ -116,13 +128,14 @@ Git.setOrigin = function () {
   })
 }
 
-Git.status = function () {
-  Git.exec('git status')
+Git.squash = function () {
+  var message = $('#GitSquashMessage').val()
+  Git.exec('git checkout master; git squash nudgepad "' + message + '"; git checkout -b nudgepad')
+  $('#GitSquashMessage').val('')
 }
 
-Git.setup = function () {
-  // http://pentestmonkey.net/blog/ssh-with-no-tty
-  Git.exec('ssh-keyscan -t rsa1,rsa,dsa github.com >> /home/' + document.location.hostname +  '/.ssh/known_hosts')
+Git.status = function () {
+  Git.exec('git status')
 }
 
 Git.on('ready', Git.status)
