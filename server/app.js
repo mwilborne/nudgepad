@@ -26,6 +26,7 @@ var fs = require('fs'),
     Space = require('space'),
     Marking = require('markings'),
     Page = require('scraps'),
+    socketio = require('socket.io'),
     nodemailer = require("nodemailer")
 
 var app = express()
@@ -405,7 +406,9 @@ process.on('SIGTERM', function () {
   process.exit(0)
 })
 
-require('./socket.js')(app, httpServer)
+app.SocketIO = socketio.listen(httpServer)
+app.SocketIO.set('log level', 0)
+require('./socket.js')(app)
 
 console.log('Server started...')
 speedcoach('end of app.js')

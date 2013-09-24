@@ -30,6 +30,11 @@ expressfs:
 	# Todo: make expressfs an npm package
 	cp ~/expressfs/expressfs.server.js /nudgepad/nudgepad/server/expressfs.server.js
 
+socketfs:
+	cp ~/socketfs/socketfs.browser.js /nudgepad/nudgepad/client/public/js/socketfs.browser.js
+	# Todo: make socketfs an npm package
+	cp ~/socketfs/socketfs.server.js /nudgepad/nudgepad/server/socketfs.server.js
+
 events:
 	cp ~/events/events.js public/js/events.js
 	cp ~/events/events.min.js public/js/events.min.js
