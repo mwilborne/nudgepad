@@ -1,11 +1,12 @@
 {
   "name": "nudgepad",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Make websites, apps and more in your browser.",
   "repository": "git://github.com/nudgepad/nudgepad",
   "main": "nudgepad.js",
    "scripts": {
-     "test": "make test"
+     "test": "make test",
+     "preinstall" : "preinstall.sh"
    },
   "dependencies": {
     "space": ">=0.3.6",
