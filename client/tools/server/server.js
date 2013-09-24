@@ -64,8 +64,7 @@ Server.on('once', function () {
 
 Server.on('ready', function () {
   
-  if (!Server.get('log'))
-    Server.refresh()
+  Server.refresh()
   $('#ServerConsole').on('enterkey', function () {
     $('#ServerConsoleSend').trigger('click')
   })
