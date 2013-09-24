@@ -4,6 +4,15 @@ Installing NudgePad
 Installing on a Mac
 -------------------
 
+## One liner:
+
+```
+curl https://raw.github.com/nudgepad/nudgepad/master/install-osx.sh > install-osx.sh; chmod 755 install-osx.sh; ./install-osx.sh
+# Now just follow prompts
+```
+
+## Complete Steps
+
 ### Create NudgePad folder
 
 ```
@@ -88,6 +97,15 @@ Installing on Nix
 -----------------
 
 Instructions are for Ubuntu
+
+## One liner:
+
+```
+curl https://raw.github.com/nudgepad/nudgepad/master/install-ubuntu.sh > install-ubuntu.sh; chmod 755 install-ubuntu.sh; ./install-ubuntu.sh
+# Now just follow prompts
+```
+
+## Complete Steps
 
 ### Update System
 
