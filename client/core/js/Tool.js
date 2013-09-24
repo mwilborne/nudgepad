@@ -73,6 +73,17 @@ Tool.prototype.open = function () {
   
   $('.navbar-right').append('<li><a class="navbar-brand" href="/?' + new Date().getTime() + '" target="published" data-toggle="tooltip" onclick="$(this).attr(\'href\', \'/?\' + new Date().getTime())" title="Visit your site" data-placement="right"><i class="icon-external-link"></i></a></li>')
   
+  var moreTools = 'Backup Blog Copy Crawler Files Git Pages Redirect Server Share Sketch Stats Team Templates Time'.split(/ /g)
+  
+  var ul = $('.navbar-collapse').children().first()
+  ul.prepend('<li class="dropdown"><a class="cursor dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a><ul class="dropdown-menu" id="MoreTools"></ul></li>')
+  $('#MoreTools').html('')
+  moreTools.forEach(function (value, i) {
+    var info = ToolInfo.get(value.toLowerCase())
+    var icon = info.get('icon') || 'picture'
+    $('#MoreTools').append('<li><a class="cursor" onclick="Launcher.open(\'' + value + '\')"><i class="icon-' + icon + '" style="width: 20px;display: inline-block;"></i> ' + value + '</a></li>')
+  })
+  
   
   $('.navbar-right .tool-help').on('click', function () {
     var tool = Tool.openTool

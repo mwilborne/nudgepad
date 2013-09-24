@@ -2,7 +2,8 @@ var Home = new Tool('Home')
 
 Home.renderMenu = function () {
   $('#OpenTool #HomeContainer').html('')
-  var tools = ['Templates', 'Pages', 'Files', 'Team', 'Server', 'Git']
+  var tools = 'Templates Pages Files'.split(/ /g)
+  
   var colors =
   [
   'rgb(26,134,214)',
@@ -51,9 +52,6 @@ Home.toButton = function (name, description, color, icon) {
 }
 
 Home.on('ready', function () {
-  $('#HomeDomain')
-    .text(document.location.hostname)
-    .tooltip({container: 'body', delay: { show: 500, hide: 100 }})
   Home.renderMenu()
   
   $(window).on('resize', Home.heights)
