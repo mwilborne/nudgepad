@@ -1,0 +1,50 @@
+<template class="Tool" id="Flickr">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+        </ul>
+        
+
+          <ul class="nav navbar-nav navbar-right">
+
+            
+
+          </ul>
+
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="form-group">
+      
+      <div class="input-group">
+        <input class="form-control" id="FlickrQuery" placeholder="Search Flickr for Images">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" onclick="Flickr.search($('#FlickrQuery').val())" type="button">Search</button>
+        </span>
+      </div><!-- /input-group -->
+      
+    </div>
+  </div>
+  
+  <div class="container" id="photos">
+    
+    
+  
+  </div> <!-- /container -->
+
+</template>
+
+
