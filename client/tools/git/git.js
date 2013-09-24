@@ -3,16 +3,13 @@ var Git = new Tool('Git')
 Git.gitignore = 'nudgepad/'
 
 Git.add = function () {
-  var message = $('#GitFilepath').val()
+  var message = prompt('Enter the file paths to add', '.')
+  if (!message)
+    return false
   Git.exec('git add ' + message, function () {
     Alerts.success('Added')
     Git.status()
   })
-  $('#GitFilepath').val('')
-}
-
-Git.addAll = function () {
-  Git.exec('git add .', Git.status)
 }
 
 Git.addOrigin = function () {
@@ -92,6 +89,10 @@ Git.generateKey = function () {
   Git.exec('ssh-keygen -t rsa -N "" -f ' + path, function () {
     Alerts.success('Git SSH key created')
     Git.status()
+    expressfs.readFile('nudgepad/deploy.key.pub', function (data) {
+      var box = $('<textarea readonly="readonly" id="PreviewBoxWhiteBox" style="text-align: left;">' + data + '</textarea>')
+      PreviewBox.open(box)
+    })
   })
 }
 
@@ -105,6 +106,9 @@ Git.init = function () {
 }
 
 Git.install = function () {
+  var result = confirm('This will run git init and start your repo.')
+  if (!result)
+    return false
   expressfs.writeFile('.gitignore', Git.gitignore, function () {
     Git.exec('git init; git add .; git commit -am "initial commit"; git checkout -b nudgepad;', function () {
       Alerts.success('Git setup OK')
@@ -135,9 +139,10 @@ Git.setOrigin = function () {
 }
 
 Git.squash = function () {
-  var message = $('#GitSquashMessage').val()
+  var message = prompt('Enter your message')
+  if (!message)
+    return false
   Git.exec('git checkout master; git squash nudgepad "' + message + '"; git checkout -b nudgepad')
-  $('#GitSquashMessage').val('')
 }
 
 Git.status = function () {

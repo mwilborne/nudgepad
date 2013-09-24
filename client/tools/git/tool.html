@@ -16,13 +16,13 @@
         
         <ul class="nav navbar-nav">
           <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
+            <a class="cursor dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a class="cursor" onclick="Git.install()">Install</a></li>
-              <li><a class="cursor" onclick="Git.init()">Init</a></li>
-              <li><a class="cursor" onclick="Git.cloneRepo()">Clone from Github</a></li>
+              <li role="presentation" class="divider"></li>
+              <li><a class="cursor" onclick="Git.squash()">Squash</a></li>
+              <li><a class="cursor" onclick="Git.add()">Add Files</a></li>
               <li><a class="cursor" onclick="Git.commit()">Commit</a></li>
-              <li><a class="cursor" href="https://github.com/new" target="published">Create on Github</a></li>
               <li role="presentation" class="divider"></li>
               <li><a class="cursor" onclick="Git.push()">Push to Origin</a></li>
               <li><a class="cursor" onclick="Git.pull()">Pull from Origin</a></li>
@@ -30,8 +30,10 @@
               <li><a class="cursor" onclick="Git.addOrigin()">Add Origin</a></li>
               <li><a class="cursor" onclick="Git.setOrigin()">Update Origin</a></li>
               <li role="presentation" class="divider"></li>
+              <li><a class="cursor" href="https://github.com/new" target="published">Create on Github</a></li>
+              <li><a class="cursor" onclick="Git.cloneRepo()">Clone from Github</a></li>
               <li><a class="cursor" onclick="Git.deployKey()">Create Deploy Key</a></li>
-              <li><a class="cursor" onclick="Git.fixKey()">Fix GitHub Key</a></li>
+              <li><a class="cursor" onclick="Git.fixKey()">Connect to GitHub</a></li>
             </ul>
           </li>
           <li><a class="cursor" onclick="Git.status()">Refresh</a></li>
@@ -53,28 +55,6 @@
     
     <h3>Status</h3>
     <pre id="GitStatus" class="pre-scrollable"></pre>
-
-    <form role="form">
-      <label for="GitFilepath">Add Files</label>
-      <div class="input-group">
-        <input class="form-control" id="GitFilepath" placeholder="Filepaths">
-        <span class="input-group-btn">
-          <button class="btn btn-primary" onclick="Git.add()" type="button">Add</button>
-        </span>
-      </div>
-    </form>
-    
-    <form role="form">
-      
-      <label for="GitCommitMessage">Squash</label>
-      <p>By default, NudgePad works on the nudgepad branch. Squash changes to squash things onto master.</p>
-      <div class="input-group">
-        <input class="form-control" id="GitSquashMessage" placeholder="Message">
-        <span class="input-group-btn">
-          <button class="btn btn-primary" onclick="Git.squash()" type="button">Squash</button>
-        </span>
-      </div>
-    </form>
     
   </div> <!-- /container -->
 
