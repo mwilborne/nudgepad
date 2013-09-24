@@ -388,8 +388,10 @@
           <li class="dropdown">
             <a class="cursor dropdown-toggle" data-toggle="dropdown">Advanced <b class="caret"></b></a>
             <ul class="dropdown-menu">
+              <li><a class="cursor" onclick="Git.install()">Install</a></li>
               <li><a class="cursor" onclick="Git.init()">Init</a></li>
               <li><a class="cursor" onclick="Git.cloneRepo()">Clone from Github</a></li>
+              <li><a class="cursor" onclick="Git.commit()">Commit</a></li>
               <li><a class="cursor" href="https://github.com/new" target="published">Create on Github</a></li>
               <li role="presentation" class="divider"></li>
               <li><a class="cursor" onclick="Git.push()">Push to Origin</a></li>
@@ -399,7 +401,7 @@
               <li><a class="cursor" onclick="Git.setOrigin()">Update Origin</a></li>
               <li role="presentation" class="divider"></li>
               <li><a class="cursor" onclick="Git.deployKey()">Create Deploy Key</a></li>
-              <li><a class="cursor" onclick="Git.setup()">Git Setup</a></li>
+              <li><a class="cursor" onclick="Git.fixKey()">Fix GitHub Key</a></li>
             </ul>
           </li>
           <li><a class="cursor" onclick="Git.status()">Refresh</a></li>
@@ -434,11 +436,12 @@
     
     <form role="form">
       
-      <label for="GitCommitMessage">Commit Changes</label>
+      <label for="GitCommitMessage">Squash</label>
+      <p>By default, NudgePad works on the nudgepad branch. Squash changes to squash things onto master.</p>
       <div class="input-group">
-        <input class="form-control" id="GitCommitMessage" placeholder="Message">
+        <input class="form-control" id="GitSquashMessage" placeholder="Message">
         <span class="input-group-btn">
-          <button class="btn btn-primary" onclick="Git.commit()" type="button">Commit</button>
+          <button class="btn btn-primary" onclick="Git.squash()" type="button">Squash</button>
         </span>
       </div>
     </form>
