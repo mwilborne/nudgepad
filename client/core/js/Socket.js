@@ -5,6 +5,7 @@ var Socket
 $(document).on('ready', function (){
   
   Socket = io.connect('/', {query : $.param( Screen.toObject() ) })
+  socketfs.main(Socket)
 
   Socket.on('project.append', function (space) {
     

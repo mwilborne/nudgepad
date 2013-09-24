@@ -16,10 +16,20 @@ module.exports = function (app) {
           return true
         mtime = stats.mtime.getTime()
         console.log('%s changed %s', filename, mtime)
-        watchers.get(filename).each(function (key, socket_id) {
-          console.log('emitting to %s', socket_id)
-          app.SocketIO.sockets.sockets[socket_id].emit('change', filename)
-        })
+        if (stats.isDirectory()) {
+          watchers.get(filename).each(function (key, socket_id) {
+            console.log('emitting to %s', socket_id)
+            app.SocketIO.sockets.sockets[socket_id].emit('change', { filename : filename, content : ''})
+          })
+        } else {
+          fs.readFile(filename, 'utf8', function (err, content) {
+            watchers.get(filename).each(function (key, socket_id) {
+              console.log('emitting to %s', socket_id)
+              console.log(content)
+              app.SocketIO.sockets.sockets[socket_id].emit('change', { filename : filename, content : content})
+            })
+          })
+        }
       })
     })
   }

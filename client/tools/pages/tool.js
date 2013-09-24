@@ -80,8 +80,27 @@ Pages.editor.open = function (filename) {
   Pages.editor.filename = filename
   if (!Pages.editor.pages.get(Pages.editor.filename))
     return true
-  var page = new Scraps.Page(Pages.editor.pages.get(Pages.editor.filename))
   $('#PagesFilename').html(filename)
+  Pages.editor.render()
+  console.log(filename)
+  /*
+  socketfs.watch(filename, function (data) {
+    Pages.editor.pages.set(filename, new Scraps.Page($.htmlToScraps(data.content)))
+    Pages.editor.render()
+  })
+  */
+}
+
+Pages.editor.openPage = function () {
+  return Pages.editor.pages.get(Pages.editor.filename)
+}
+
+Pages.editor.publish = function () {
+  expressfs.writeFileAndOpen(Pages.editor.filename, Pages.editor.openPage().toHtml())
+}
+
+Pages.editor.render = function () {
+  var page = new Scraps.Page(Pages.editor.pages.get(Pages.editor.filename))
   var html = page.toHtml(function () {
     // dont render scripts
     if (this.div.tag === 'script')
@@ -116,12 +135,3 @@ Pages.editor.open = function (filename) {
   //   var options = {}
   // $( "#PagesStage" ).droppable(options)
 }
-
-Pages.editor.openPage = function () {
-  return Pages.editor.pages.get(Pages.editor.filename)
-}
-
-Pages.editor.publish = function () {
-  expressfs.writeFileAndOpen(Pages.editor.filename, Pages.editor.openPage().toHtml())
-}
-

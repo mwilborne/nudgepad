@@ -27,4 +27,4 @@ var watchDir = function (dir) {
 
 watchDir(__dirname + '/tools')
 watchDir(__dirname + '/core')
-
+rebuild()

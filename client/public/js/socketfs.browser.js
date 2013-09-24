@@ -1,5 +1,4 @@
 var socketfs = {}
-socketfs.prefix = '/'
 socketfs.rootPath = ''
 socketfs._watching = new Space()
 
@@ -9,16 +8,17 @@ socketfs.connect = function () {
 
 socketfs.main = function (socket) {
   socketfs.socket = socket
-  socketfs.socket.on('change', function (filename) {
-    if (!socketfs._watching.get(filename))
+  socketfs.socket.on('change', function (data) {
+    if (!socketfs._watching.get(data.filename))
       return false
-    socketfs._watching.get(filename).each(function (key, value) {
-      value(filename)
+    socketfs._watching.get(data.filename).each(function (key, value) {
+      value(data)
     })
   })
 }
 
 socketfs.unwatch = function (filename, fn) {
+  filename = socketfs.rootPath + filename
   if (!socketfs._watching.get(filename))
     return false
   socketfs._watching.get(filename).each(function (key, value) {
@@ -27,13 +27,12 @@ socketfs.unwatch = function (filename, fn) {
   })
 }
 
-socketfs.watch = function (filename, fn, callback) {
+socketfs.watch = function (filename, fn) {
+  filename = socketfs.rootPath + filename
   if (!socketfs._watching.get(filename))
     socketfs._watching.set(filename, new Space())
   socketfs._watching.get(filename).push(fn)
   socketfs.socket.emit('watch', filename, function (data) {
-    if (callback)
-      callback(data)
   })
 }
 

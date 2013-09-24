@@ -5,6 +5,7 @@ if (!window.console)
 // Configure expressFS
 expressfs.prefix = '/nudgepad.'
 expressfs.rootPath = '/nudgepad/projects/' + location.hostname + '/'
+socketfs.rootPath = '/nudgepad/projects/' + location.hostname + '/'
 
 /**
  * The Editor. The main nudgepad namespace.

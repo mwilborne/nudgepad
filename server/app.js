@@ -409,6 +409,7 @@ process.on('SIGTERM', function () {
 app.SocketIO = socketio.listen(httpServer)
 app.SocketIO.set('log level', 0)
 require('./socket.js')(app)
+require('./socketfs.server.js')(app)
 
 console.log('Server started...')
 speedcoach('end of app.js')
