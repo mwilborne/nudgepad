@@ -8,7 +8,6 @@ Installing on a Mac
 
 ```
 curl https://raw.github.com/nudgepad/nudgepad/master/install-osx.sh > install-osx.sh; chmod 755 install-osx.sh; ./install-osx.sh
-# Now just follow prompts
 ```
 
 ## Complete Steps
@@ -102,7 +101,6 @@ Instructions are for Ubuntu
 
 ```
 curl https://raw.github.com/nudgepad/nudgepad/master/install-ubuntu.sh > install-ubuntu.sh; chmod 755 install-ubuntu.sh; ./install-ubuntu.sh
-# Now just follow prompts
 ```
 
 ## Complete Steps
