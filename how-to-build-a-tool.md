@@ -1,17 +1,15 @@
-How to Build a Community Tool for NudgePad 1.0
+How to Build a Tool for NudgePad 1.0
 ==============================================
-
-__CAUTION: NudgePad 1.0 comes out later this year, right now we are in BETA, so things are still broken and subject to change. However, we are here to help you build your tool, so don't be shy about contacting us via email or IRC.__
 
 How can I help?
 ---------------
 
-The core idea of NudgePad is the concept of Community Tools.
+The core idea of NudgePad is the concept of Tools.
 
 These are open source web apps built by the NudgePad Community to enable people to make things
 in their browser.
 
-Unlike apps built for consuming content, NudgePad Community Tools are built
+Unlike apps built for consuming content, NudgePad Tools are built
 for making content. You could build a blogging tool, a drawing tool, an
 image editing tool, a vector tool, or something completely new.
 
@@ -19,10 +17,10 @@ Once your tool is working and useful, you can submit it to the core
 of NudgePad as a pull request. You could go from idea to tool to having
 your pull request accepted and deployed to all NudgePad servers in less
 than 24 hours. There is no "Tool Store" in NudgePad. The entire NudgePad community
-has access to all Community Tools that are accepted into core at all times.
+has access to all Tools that are accepted into core at all times.
 
-Creating a Community Tool
--------------------------
+Creating a Tool
+---------------
 
 To go from "Idea" to "wow my tool is available to all NudgePad Projects", the workflow looks like this:
 
@@ -41,30 +39,16 @@ Phone: 1-415-937-1984
 
 [Installation instructions.](how-to-install-nudgepad.md)
 
-#### Naming Your Community Tool
+#### Naming Your Tool
 
-Getting the name right for your tool is very important. The fastest way to
-choose a great name for your tool is to choose a bad name for your tool, and
-then build your tool in a way that it is easy to find/replace the name later on.
-
-Your tool name should be: unique and alphabet only. Tools in NudgePad
-are always centered around "Making" and not "Consuming", so the name should
-convey what the user is going to be doing with that tool.
-
-It's also important to know that your Tool will reserve a single word in the
+Your Tool will reserve a single word in the
 NudgePad namespace. So if you name your tool "Draw", the variable Draw
 will be made a global in the NudgePad client and so it shouldn't interfere with
 other community tools or Javascript/DOM reserved words.
 
-There are no ugly closures required here. NudgePad is an open but controlled ecosystem
-so we can ensure that there are no namespace conflicts and developers don't have
-to create ugly nested hacks to avoid conflicts. Keeping things in core also ensures we can guarantee
-to our users a strong, consistent experience, and that there's always one person to blame
-if they have a bad experience--Breck!
+#### Creating Your Tool
 
-#### Creating Your Community Tool
-
-Community Tools in NudgePad are meant to be modular and sandboxed and contained in one
+Tools in NudgePad are meant to be modular and sandboxed and contained in one
 folder.
 
 You can create a tool manually by replicating the basic skeleton
@@ -94,8 +78,8 @@ While developing, NudgePad will watch the tools folder for changes and will
 run the build system each time.
 
 
-Core Objects Available to Your Community Tool
----------------------------------------------
+Core Objects Available to Your Tool
+-----------------------------------
 
 At this point you have created your tool and can open it in your browser. Now
 you can start adding functionality to your tool.
@@ -106,9 +90,7 @@ probably will only make a few method calls to the core to write and read files.
 NudgePad exposes an API that your tool can use to read and write files to the user's
 project. You also have access to the latest jQuery($), and some other libraries.
 
-Currently, the NudgePad API consists of 1 core objects:
-
-1. Tool
+Currently, the NudgePad API consists of a few core objects:
 
 #### Tool
 
@@ -147,8 +129,9 @@ Draw.trigger('foobar')
 Draw.off('foobar', doSomething)
 ```
 
-Other Objects
--------------
+#### ExpressFS
+
+For writing and reading files to the Project.
 
 #### Screen
 
@@ -179,16 +162,6 @@ Open an app
 Launcher.open('Templates')
 ```
 
-#### fs
-
-A simple and dumb text editor.
-
-```
-// Rename a file
-fs.rename('foobar.html', 'foobar2.html', callback)
-
-```
-
 #### TextPrompt
 
 Like the browser's built in prompt method, but gives the user a bigger textarea for writing.
@@ -205,26 +178,6 @@ Growl like notifications
 Alerts.success('Your action finished')
 Alerts.error('Something went wrong')
 ```
-
-#### mixpanel
-
-Track aggregate user actions to help improve the tools.
-
-```
-mixpanel.track('I did something')
-
-// Add additional info to the stats
-mixpanel.track({
-  'time' : howLongItTookToCreateThisProject
-})
-
-// Note: don't add any user data. We don't want someone to be sending their data,
-// just usage data so we can improve the core and Community Tools.
-//
-// For now, to see the data, Breck needs to add you to our MixPanel account--
-// just send me an email.
-```
-
 
 Server Side Routes
 ------------------

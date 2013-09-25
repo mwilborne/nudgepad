@@ -1,8 +1,6 @@
 How to Contribute to NudgePad 1.0 core
 ======================================
 
-__CAUTION: NudgePad 1.0 comes out later this year, right now we are in BETA, so things are still broken and subject to change. In other words, we always are on the lookout for talented developers to help us on the core of NudgePad!__
-
 Overview of the Codebase
 ------------------------
 
@@ -11,13 +9,13 @@ client
 
 This code contains all of the front end code of the NudgePad user interface.
 
-It also contains all the Community Tools.
+It also contains all the Tools.
 
 client/
-client/build.js - The build script that compiles core and all Community Tools into 1 html, css, and
+client/build.js - The build script that compiles core and all Tools into 1 html, css, and
 javascript file.
-client/core - A tiny bit of core code that provides some basics to the Community Tools
-client/tools - This is where all the action is. These Community Tools are apps that make it easy for team members
+client/core - A tiny bit of core code that provides some basics to the Tools
+client/tools - This is where all the action is. These Tools are apps that make it easy for team members
 to work on their projects.
 client/public - Some additional pages, external libraries, and some css and images used by core.
 client/production - Contains compiled nudgepad files. These are auto generated.
