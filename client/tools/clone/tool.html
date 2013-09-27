@@ -1,4 +1,4 @@
-<template class="Tool" id="Copy">
+<template class="Tool" id="Clone">
   
   <!-- Static navbar -->
   <div class="navbar navbar-default navbar-static-top">
@@ -40,24 +40,24 @@
     
 
       <div class="form-group">
-        <label for="CopyDomain">New Domain</label>
+        <label for="CloneDomain">New Domain</label>
         
         <div class="input-group">
-          <input class="form-control" id="CopyDomain" placeholder="Domain">
+          <input class="form-control" id="CloneDomain" placeholder="Domain">
           <span class="input-group-btn">
-            <button class="btn btn-primary" onclick="Copy.quickCopy()" type="button" title="Copy to this Server">Copy</button>
+            <button class="btn btn-primary" onclick="Clone.quickClone()" type="button" title="Clone to this Server">Clone</button>
           </span>
         </div><!-- /input-group -->
         
       </div>
       
       <div class="form-group">
-        <label for="CopyServer">New Server</label>
+        <label for="CloneServer">New Server</label>
         
         <div class="input-group">
-          <input class="form-control" id="CopyServer" placeholder="Server">
+          <input class="form-control" id="CloneServer" placeholder="Server">
           <span class="input-group-btn">
-            <button class="btn btn-primary" onclick="Copy.cloneProject()" type="button" title="Copy to New Server">Copy</button>
+            <button class="btn btn-primary" onclick="Clone.cloneProject()" type="button" title="Clone to New Server">Clone</button>
           </span>
         </div><!-- /input-group -->
         

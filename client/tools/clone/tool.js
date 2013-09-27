@@ -1,7 +1,7 @@
-var Copy = new Tool('Copy')
-Copy.set('path', '')
+var Clone = new Tool('Clone')
+Clone.set('path', '')
 
-Copy.import = function () {
+Clone.import = function () {
   TextPrompt.open('Import a Project to this project', '', 'import.space', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
       Alerts.success('Imported files.')
@@ -9,23 +9,23 @@ Copy.import = function () {
   })
 }
 
-Copy.on('ready', function () {
-  $('#CopyDomain').val('copyof' + document.location.host)
-  $('#CopyServer').val(Project.get('hostname'))
+Clone.on('ready', function () {
+  $('#CloneDomain').val('copyof' + document.location.host)
+  $('#CloneServer').val(Project.get('hostname'))
 })
 
-Copy.on('once', function () {
+Clone.on('once', function () {
   expressfs.readFile('nudgepad/sharecode.txt', function (data) {
     if (data)
-      Copy.code = data
+      Clone.code = data
     else
-      Copy.install()
+      Clone.install()
   })
 })
 
-Copy.cloneProject = function () {
-  var domain = $('#CopyDomain').val()
-  var server = $('#CopyServer').val()
+Clone.cloneProject = function () {
+  var domain = $('#CloneDomain').val()
+  var server = $('#CloneServer').val()
   
   $.get('/nudgepad.export?t=' + new Date().getTime(), {}, function (data) {
     
@@ -69,8 +69,8 @@ Copy.cloneProject = function () {
   
 }
 
-Copy.quickCopy = function () {
-  var domain = $('#CopyDomain').val()
+Clone.quickClone = function () {
+  var domain = $('#CloneDomain').val()
   var server = Project.get('hostname')
   
   var newForm = $('<form>', {
@@ -95,7 +95,7 @@ Copy.quickCopy = function () {
   }))
   .append($('<input>', {
       'name': 'sharecode',
-      'value': Copy.code,
+      'value': Clone.code,
       'type': 'hidden'
   }))
   .append($('<input>', {
@@ -112,14 +112,14 @@ Copy.quickCopy = function () {
   
 }
 
-Copy.install = function () {
+Clone.install = function () {
   
   var max = 9999999
   var min = 1000000
   
   var random = Math.floor(Math.random() * (max - min + 1)) + min
   
-  Copy.code = random
+  Clone.code = random
   
   expressfs.create('nudgepad/sharecode.txt', random, function (data) {
     console.log(data)
