@@ -198,7 +198,7 @@
 
 </template>
 
-<template class="Tool" id="Copy">
+<template class="Tool" id="Clone">
   
   <!-- Static navbar -->
   <div class="navbar navbar-default navbar-static-top">
@@ -240,24 +240,24 @@
     
 
       <div class="form-group">
-        <label for="CopyDomain">New Domain</label>
+        <label for="CloneDomain">New Domain</label>
         
         <div class="input-group">
-          <input class="form-control" id="CopyDomain" placeholder="Domain">
+          <input class="form-control" id="CloneDomain" placeholder="Domain">
           <span class="input-group-btn">
-            <button class="btn btn-primary" onclick="Copy.quickCopy()" type="button" title="Copy to this Server">Copy</button>
+            <button class="btn btn-primary" onclick="Clone.quickClone()" type="button" title="Clone to this Server">Clone</button>
           </span>
         </div><!-- /input-group -->
         
       </div>
       
       <div class="form-group">
-        <label for="CopyServer">New Server</label>
+        <label for="CloneServer">New Server</label>
         
         <div class="input-group">
-          <input class="form-control" id="CopyServer" placeholder="Server">
+          <input class="form-control" id="CloneServer" placeholder="Server">
           <span class="input-group-btn">
-            <button class="btn btn-primary" onclick="Copy.cloneProject()" type="button" title="Copy to New Server">Copy</button>
+            <button class="btn btn-primary" onclick="Clone.cloneProject()" type="button" title="Clone to New Server">Clone</button>
           </span>
         </div><!-- /input-group -->
         
@@ -518,6 +518,44 @@
   
 
       <div class="container" id="HomeContainer">
+
+      </div> <!-- /container -->
+
+</template>
+<template class="Tool" id="Labs">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
+        
+      </div>
+      <div class="navbar-collapse collapse">
+        
+        <ul class="nav navbar-nav">
+          
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+          
+          
+          
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </div>
+  
+  <!-- End navbar -->
+  
+  
+
+      <div class="container" id="LabsContainer">
 
       </div> <!-- /container -->
 
