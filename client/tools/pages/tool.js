@@ -63,7 +63,12 @@ Pages.on('ready', function () {
 Pages.on('open', Pages.editor.loadFiles)
 
 Pages.editor.editHtml = function () {
-  TextPrompt.open('', Pages.editor.openPage().toHtml(), Pages.editor.filename, function (data) {
+  var htmlString = html_beautify(Pages.editor.openPage().toHtml(), {
+    'indent-size' : 2,
+    'indent-char' : ' ',
+    'indent-inner-html' : true
+  })
+  TextPrompt.open('', htmlString, Pages.editor.filename, function (data) {
     Pages.editor.pages.set(Pages.editor.filename, new Scraps.Page($.htmlToScraps(data)))
     Pages.editor.open(Pages.editor.filename)
   })
@@ -96,7 +101,12 @@ Pages.editor.openPage = function () {
 }
 
 Pages.editor.publish = function () {
-  expressfs.writeFileAndOpen(Pages.editor.filename, Pages.editor.openPage().toHtml())
+  var htmlString = html_beautify(Pages.editor.openPage().toHtml(), {
+    'indent-size' : 2,
+    'indent-char' : ' ',
+    'indent-inner-html' : true
+  })
+  expressfs.writeFileAndOpen(Pages.editor.filename, htmlString)
 }
 
 Pages.editor.render = function () {
