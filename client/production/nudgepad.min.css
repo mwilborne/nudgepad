@@ -1515,6 +1515,13 @@ a .icon-flip-vertical:before {
   background-color: white;
   z-index: 2000;
 }
+.nudgePadLogo {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
 #PreviewBox {
   width : 100%;
   height : 100%;
