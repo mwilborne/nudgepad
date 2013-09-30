@@ -75,8 +75,8 @@ Tool.prototype.open = function () {
   
   var moreTools = 'Clone Files Pages Server Team Templates Labs'.split(/ /g)
   
-  var ul = $('.navbar-collapse').children().first()
-  ul.prepend('<li class="dropdown"><a class="cursor dropdown-toggle" data-toggle="dropdown">Tools <b class="caret"></b></a><ul class="dropdown-menu" id="MoreTools"></ul></li>')
+  var ul = $('.navbar-logo')
+  ul.html('<li class="dropdown"><a class="cursor dropdown-toggle" data-toggle="dropdown"><i style="position: absolute; left: 8px; top: 12px; font-size: 26px; text-shadow: 1px 1px white; font-weight: bold; font-family: Georgia; user-select: none;" class="nudgePadLogo">n</i>&nbsp;</a><ul class="dropdown-menu" id="MoreTools"></ul></li>')
   $('#MoreTools').html('')
   moreTools.forEach(function (value, i) {
     var info = ToolInfo.get(value.toLowerCase())

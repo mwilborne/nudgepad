@@ -3,49 +3,37 @@
   <!-- Static navbar -->
   <div class="navbar navbar-default navbar-static-top">
     <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" onclick="Launcher.open('Home')"><i class="icon-home"></i></a>
-      </div>
+      <ul class="nav navbar-nav navbar-logo"></ul>        
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="cursor dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a class="cursor" onclick="Git.install()">Install</a></li>
+            <li role="presentation" class="divider"></li>
+            <li><a class="cursor" onclick="Git.squash()">Squash</a></li>
+            <li><a class="cursor" onclick="Git.add()">Add Files</a></li>
+            <li><a class="cursor" onclick="Git.commit()">Commit</a></li>
+            <li role="presentation" class="divider"></li>
+            <li><a class="cursor" onclick="Git.push()">Push to Origin</a></li>
+            <li><a class="cursor" onclick="Git.pull()">Pull from Origin</a></li>
+            <li role="presentation" class="divider"></li>
+            <li><a class="cursor" onclick="Git.addOrigin()">Add Origin</a></li>
+            <li><a class="cursor" onclick="Git.setOrigin()">Update Origin</a></li>
+            <li role="presentation" class="divider"></li>
+            <li><a class="cursor" href="https://github.com/new" target="published">Create on Github</a></li>
+            <li><a class="cursor" onclick="Git.cloneRepo()">Clone from Github</a></li>
+            <li><a class="cursor" onclick="Git.deployKey()">Create Deploy Key</a></li>
+            <li><a class="cursor" onclick="Git.fixKey()">Connect to GitHub</a></li>
+          </ul>
+        </li>
+        <li><a class="cursor" onclick="Git.status()">Refresh</a></li>
+      </ul>
       
-      <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
         
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a class="cursor dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a class="cursor" onclick="Git.install()">Install</a></li>
-              <li role="presentation" class="divider"></li>
-              <li><a class="cursor" onclick="Git.squash()">Squash</a></li>
-              <li><a class="cursor" onclick="Git.add()">Add Files</a></li>
-              <li><a class="cursor" onclick="Git.commit()">Commit</a></li>
-              <li role="presentation" class="divider"></li>
-              <li><a class="cursor" onclick="Git.push()">Push to Origin</a></li>
-              <li><a class="cursor" onclick="Git.pull()">Pull from Origin</a></li>
-              <li role="presentation" class="divider"></li>
-              <li><a class="cursor" onclick="Git.addOrigin()">Add Origin</a></li>
-              <li><a class="cursor" onclick="Git.setOrigin()">Update Origin</a></li>
-              <li role="presentation" class="divider"></li>
-              <li><a class="cursor" href="https://github.com/new" target="published">Create on Github</a></li>
-              <li><a class="cursor" onclick="Git.cloneRepo()">Clone from Github</a></li>
-              <li><a class="cursor" onclick="Git.deployKey()">Create Deploy Key</a></li>
-              <li><a class="cursor" onclick="Git.fixKey()">Connect to GitHub</a></li>
-            </ul>
-          </li>
-          <li><a class="cursor" onclick="Git.status()">Refresh</a></li>
-        </ul>
         
-        <ul class="nav navbar-nav navbar-right">
-          
-          
-          
-        </ul>
         
-      </div><!--/.nav-collapse -->
+      </ul>
       
     </div>
   </div>
