@@ -4,6 +4,7 @@ var fs = require('fs')
 var mkdirp = require('mkdirp')
 var path = require('path')
 var exec = require('child_process').exec
+var Space = require('space')
 
 // Todo: Fix download method. Perhaps its time to upgrade our Node!
 
@@ -42,6 +43,29 @@ module.exports = function (app) {
     
     var url = req.body.url
     request.get(url, function (error, response) {
+      if (error)
+        return res.send(error, 400)
+      return res.send(response.body)
+    })
+  })
+  
+  app.post(app.pathPrefix + 'proxy.advanced', app.checkId, function(req, res, next) {
+    var space = new Space(req.body.space)
+    var url = space.get('url')
+    var method = space.get('method')
+    var headers = {}
+    var form = space.get('form')
+    if (space.get('headers'))
+      headers = space.get('headers').toObject()
+    console.log(space.toString())
+    request(
+      {
+        method : method,
+        uri: url,
+        form: form,
+        headers : headers
+      }, function (error, response) {
+      console.log(error)
       if (error)
         return res.send(error, 400)
       return res.send(response.body)
