@@ -7,5 +7,6 @@ PW=`echo $RANDOM$RANDOM`
 setUsername $domain
 useradd -m -p "$PW" -G projects $username
 usermod -a -G $username $serverUser
+echo -e "$PW\n$PW" | passwd $domain
 echo $PW > $projectsPath/$domain/nudgepad/pw.txt
 chown -R $username:$username $projectsPath/$domain
