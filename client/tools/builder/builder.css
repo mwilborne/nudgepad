@@ -1,0 +1,25 @@
+#BuilderStage {
+  box-shadow: 1px 1px 4px #bbb;
+  border-radius: 3px;
+  background: white;
+  height: 80%;
+  border: 0;
+}
+
+#BuilderSource, #BuilderComponents {
+  box-shadow: 1px 1px 4px #bbb;
+  border-radius: 3px;
+  background: white;
+  height: 80%;
+  border: 0;
+  width: 100%;
+}
+
+#BuilderComponents {
+  padding: 8px;
+}
+
+.draggable {
+  z-index: 10;
+  cursor: pointer;
+}

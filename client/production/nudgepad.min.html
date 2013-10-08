@@ -179,6 +179,150 @@
 
 </template>
 
+<template class="Tool" id="Builder">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      
+      <ul class="nav navbar-nav navbar-logo"></ul>
+      
+      <ul class="nav navbar-nav">
+        
+        <ul class="nav navbar-nav">
+          <li>
+            <a><div class="btn-toolbar">
+              <div class="btn-group"><button onclick="Builder.page.reload(''); Builder.refresh();" type="button" class="btn btn-default btn-xs">
+                New
+              </button></div>
+              <div class="btn-group"><button onclick="Builder.publish();" type="button" class="btn btn-default btn-xs">
+                Publish
+              </button></div>
+            </div></a>
+          </li>
+          
+        </ul>
+        
+        
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div>
+  </div>
+  
+  <!-- End navbar -->
+  
+    
+    <div class="container">
+      <div class="row">
+
+      <div class="col-md-2">
+        <div  id="BuilderComponents">
+        <div class="draggable">
+          <h1 style="margin-top: 0;">Header</h1>
+<script type="text">
+h1 Header
+</script>
+        </div>
+
+        <div class="draggable">
+          <h3>Subheader</h3>
+<script type="text">
+h3 Subheader
+</script>
+        </div>
+
+        <div class="draggable">
+          <p>Paragraph</p>
+<script type="text">
+p This is some text. You can edit me as you wish.
+</script>
+        </div>
+
+        <div class="draggable">
+          <p>Link</p>
+<script type="text">
+a
+ content Link
+ href #
+</script>
+        </div>
+
+        <div class="draggable">
+          <label>Button</label>
+<script type="text">
+div
+ button Click Me
+</script>
+        </div>
+        <div class="draggable">
+          <label>Input</label>
+<script type="text">
+div Label
+input
+ placeholder Enter some text
+</script>
+        </div>
+
+        <div class="draggable">
+          <label>Textarea</label>
+<script type="text">
+div Label
+textarea
+ placeholder Enter some text
+</script>
+        </div>
+
+        <div class="draggable">
+          <label>Dropdown</label>
+<script type="text">
+div
+ span Label 
+ select
+  option One
+  option Two
+  option Three
+</script>
+        </div>
+
+        <div class="draggable">
+          <label>Checkbox</label>
+<script type="text">
+div
+ input
+  type checkbox
+  id cb1
+ label
+  content &nbsp; Label
+  for cb1
+</script>
+        </div>
+
+        <div class="draggable">
+          <label>Image</label>
+<script type="text">
+img
+ src /nudgepad/tools/builder/imagePlaceholder.png
+ width 200px
+</script>
+        </div>
+
+      </div>
+      </div>
+    <div id="BuilderStage" class="droppable col-md-6">Middle</div>
+    <div class="col-md-4"><textarea rows="40" id="BuilderSource"></textarea></div>
+    </div>
+  </div>
+    <style>
+    body {
+      background: #eee;
+    }
+    </style>
+</template>
+
+
 <template class="Tool" id="Clone">
   
   <!-- Static navbar -->
