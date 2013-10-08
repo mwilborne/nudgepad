@@ -7,7 +7,7 @@ scripts
  test make test
  preinstall preinstall.sh
 dependencies
- space >=0.3.6
+ space >=0.3.11
  scraps >=0.6.5
  markings >=0.0.3
  speedcoach >=0.1.1

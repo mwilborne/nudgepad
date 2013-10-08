@@ -248,7 +248,7 @@ Space.prototype.diffOrder = function (space) {
 
 Space.prototype.each = function (fn) {
   for (var i in this._tuples) {
-    if (fn.call(this, this._tuples[i][0], this._tuples[i][1]) === false)
+    if (fn.call(this, this._tuples[i][0], this._tuples[i][1], i) === false)
       return this
   }
   return this
@@ -300,6 +300,16 @@ Space.prototype.get = function (query) {
     break
   }
   return null
+}
+
+Space.prototype.getAll = function (query) {
+  var matches = new Space()
+  this.each(function (key, value) {
+    if (key !== query)
+      return true
+    matches.append(key, value)
+  })
+  return matches
 }
 
 Space.prototype.getByIndex = function (query) {
@@ -751,6 +761,10 @@ Space.prototype.pop = function () {
   return result
 }
 
+Space.prototype.prepend = function (key, value) {
+  return this._setTuple(key, value, 0)
+}
+
 /**
  * Return the previous name in the Space, given a name.
  * @param {string}
@@ -902,8 +916,11 @@ Space.prototype.toBinary = function () {
  * Return executable javascript code.
  * @return {string}
  */
-Space.prototype.toJavascript = function () {
-  return 'new Space(\'' + this.toString().replace(/\n/g, '\\n').replace(/\'/g, '\\\'') + '\')'
+Space.prototype.toJavascript = function (multiline) {
+  var str = 'new Space(\'' + this.toString().replace(/\n/g, '\\n').replace(/\'/g, '\\\'') + '\')'
+  if (multiline)
+    return str.replace(/\\n/g, "\\n\\\n")
+  return str
 }
 
 /**
@@ -929,10 +946,56 @@ Space.prototype.toObject = function () {
   return obj
 }
 
+Space.prototype.toQueryString = function () {
+  var string = ''
+  var first = ''
+  this.each(function (key, value) {
+    string += first + encodeURIComponent(key) + '=' + encodeURIComponent(value)
+    first = '&'
+  })
+  return string
+}
+
+Space.prototype.toShapes = function (spaces) {
+  spaces = spaces || 0
+  var string = 'V\n'
+  // Iterate over each property
+  this.each(function (key, value) {
+    
+    // If property value is undefined
+    if (typeof value === 'undefined') {
+      string += '\n'
+      return true
+    }
+
+    // Set up the key part of the key/value pair
+    string += Space.strRepeat(' ', spaces) + 'O'
+    
+    // If the value is a space, concatenate it
+    if (value instanceof Space)
+      string += value.toShapes(spaces + 1)
+    
+    // If an object (other than class of space) snuck in there
+    else if (typeof value === 'object')
+      string += new Space(value).toShapes(spaces + 1)
+    
+    // dont put a blank string on a blank value.
+    else if (value.toString() === '')
+      string += ' \n'
+
+    // Plain string
+    else
+      string += '[]' + '\n'
+    
+  })
+
+  return string
+}
+
 /**
  * @return {string}
  */
-Space.prototype.toString =  function (spaces) {
+Space.prototype.toString = function (spaces) {
   spaces = spaces || 0
   var string = ''
   // Iterate over each property
