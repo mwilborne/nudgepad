@@ -1,25 +1,14 @@
 NudgePad
 ========
 
-NudgePad is an open source operating system for making websites. NudgePad works in your browser and can be used to make websites, apps, and more.
+NudgePad is a collaborative IDE in your browser. NudgePad allows you to make websites and apps faster than ever before.
 
-The Problem
------------
-
-Hundreds of millions of people and organizations now have websites. These websites are expected to do more and more.
-
-The problem with current web building tools is that they are specialized and only allow you to create very limited sites. What ends up happening is more than half of websites end up being coded from scratch, which is expensive and time consuming.
-
-The Solution
-------------
-
-NudgePad solves this problem by providing a general purpose operating system that has tools for any kind of task, can support any future feature, and is built from the start with collaboration in mind.
+Building apps and websites requires many types of tools and many types of talent. NudgePad provides you with an expandable suite of tools to quickly get your work done. NudgePad is a multiuser IDE and teams can collaborate in real time.
 
 Try it
 ------
 
 Try it now at http://www.nudgepad.com
-
 
 More Docs
 ---------
