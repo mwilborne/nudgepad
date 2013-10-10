@@ -17,7 +17,7 @@ nudgepad@googlegroups.com
 
 https://groups.google.com/forum/#!forum/nudgepad
 
-IRC Chanel
+IRC Channel
 ----------
 
 freenode: #nudgepad
