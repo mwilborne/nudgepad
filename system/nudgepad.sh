@@ -146,6 +146,11 @@ case "$1" in
   node /nudgepad/nudgepad/client/devWatch.js
 ;;
 
+# Mac only. Open a project in textmate
+'edit')
+  $EDITOR $projectsPath/$2/
+;;
+
 'fixPermissions')
   fixPermissions
 ;;
