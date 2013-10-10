@@ -20,7 +20,7 @@ https://groups.google.com/forum/#!forum/nudgepad
 IRC Chanel
 ----------
 
-#nudgepad on freenode
+freenode: #nudgepad
 
 
 Docs
