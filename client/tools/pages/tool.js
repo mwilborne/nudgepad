@@ -31,7 +31,7 @@ Pages.editor.duplicate = function () {
   if (!filename)
     return true
   var page = Pages.editor.openPage()
-  expressfs.writeFile(filename, page.toHtml())
+  expressfs.writeFile(filename, page.toHtml({wrap : true}))
   Pages.editor.pages.set(filename, new Scraps.Page(page.toString()))
   Pages.editor.open(filename)
   Pages.refresh()
@@ -63,7 +63,7 @@ Pages.on('ready', function () {
 Pages.on('open', Pages.editor.loadFiles)
 
 Pages.editor.editHtml = function () {
-  var htmlString = html_beautify(Pages.editor.openPage().toHtml(), {
+  var htmlString = html_beautify(Pages.editor.openPage().toHtml({wrap:true}), {
     'indent-size' : 2,
     'indent-char' : ' ',
     'indent-inner-html' : true
@@ -101,7 +101,7 @@ Pages.editor.openPage = function () {
 }
 
 Pages.editor.publish = function () {
-  var htmlString = html_beautify(Pages.editor.openPage().toHtml(), {
+  var htmlString = html_beautify(Pages.editor.openPage().toHtml({wrap: true}), {
     'indent-size' : 2,
     'indent-char' : ' ',
     'indent-inner-html' : true
@@ -111,13 +111,13 @@ Pages.editor.publish = function () {
 
 Pages.editor.render = function () {
   var page = new Scraps.Page(Pages.editor.pages.get(Pages.editor.filename))
-  var html = page.toHtml(function () {
+  var html = page.toHtml({wrap: true, filter : function () {
     // dont render scripts
     if (this.div.tag === 'script')
       this.div.draft = true
     this.div.attr('data-index', this.index)
     this.div.addClass('PagesScrap')
-  })
+  }})
   var body = $('#PagesStage').contents().find('body')
   body.html(html)
   body.on('click', '*', function (event) {

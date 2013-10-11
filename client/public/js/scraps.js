@@ -306,18 +306,23 @@ Page.prototype.loadScraps = function () {
  * @param {object} Context to evaluate variables in.
  * @return {string}
  */
-Page.prototype.toHtml = function (filter) {
+Page.prototype.toHtml = function (options) {
 
   // todo: separate css option
   // todo: separate javascript option
-  var html = '<!doctype html>\n<html>'
+  options = options || {}
+  var html = ''
+  if (options.wrap)
+    html += '<!doctype html>\n<html>'
 
   // Get all the html for every scrap
   // Todo: support after property
   this.each(function (key, scrap) {
-    html += '\n  ' + scrap.toHtml(filter)
+    html += '\n  ' + scrap.toHtml(options.filter)
   })
-  html += '\n</html>\n'
+  
+  if (options.wrap)
+    html += '\n</html>\n'
   return html
 }
 Scraps.Element = Element

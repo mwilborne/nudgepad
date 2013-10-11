@@ -1,7 +1,7 @@
 var Builder = new Tool('Builder')
 
 Builder.refresh = function () {
-  $( '#BuilderStage' ) .html( Builder.page.toHtml(Builder.filter) )
+  $( '#BuilderStage' ) .html( Builder.page.toHtml({filter : Builder.filter, wrap : true}) )
   $( '#BuilderSource' ) .val( Builder.page.toString() )
 }
 
@@ -25,12 +25,12 @@ Builder.on('ready', function () {
             var text = Script.html().trim()
             $('#BuilderSource').val($('#BuilderSource').val() + text + '\n')
             Builder.page.reload($('#BuilderSource').val()).loadScraps()
-            $( this ) .html( Builder.page.toHtml(Builder.filter) )
+            $( this ) .html( Builder.page.toHtml({wrap: true, filter: Builder.filter}) )
           }
         })
     $('#BuilderSource').on('keyup', function () {
       Builder.page.reload($('#BuilderSource').val()).loadScraps()
-      $( '#BuilderStage' ) .html( Builder.page.toHtml(Builder.filter) )
+      $( '#BuilderStage' ) .html( Builder.page.toHtml({wrap: true, filter : Builder.filter}) )
     })
     
     $('#BuilderStage').on('click', '*', function (event) {
@@ -75,5 +75,5 @@ Builder.publish = function () {
   var name = prompt('Enter a filename', 'new.html')
   if (!name)
     return false
-  expressfs.writeFileAndOpen(name, Builder.page.toHtml())
+  expressfs.writeFileAndOpen(name, Builder.page.toHtml({wrap: true}))
 }
