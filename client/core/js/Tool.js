@@ -66,7 +66,8 @@ Tool.prototype.open = function () {
   this.trigger('open')
   Tool.openedAt = new Date().getTime()
   
-  $('#OpenTool').html($('.Tool#' + this.get('name')).html())
+  var html = (this.html ? this.html : $('.Tool#' + this.get('name')).html())
+  $('#OpenTool').html(html)
   
   var toolHelp = $('#ToolHelp').html()
   $('.navbar-right').prepend(toolHelp)
