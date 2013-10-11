@@ -1726,6 +1726,26 @@ template {
   z-index: 10;
   cursor: pointer;
 }
+.FiddleTextarea {
+  box-shadow: 1px 1px 4px #bbb;
+  border-radius: 3px;
+  background: white;
+  height: 300px;
+  border: 0;
+  width: 100%;
+}
+
+.FiddleCode {
+  box-shadow: 1px 1px 4px #bbb;
+  border-radius: 3px;
+  background: white;
+  height: 150px;
+  border: 0;
+  width: 100%;
+}
+.FiddleTable {
+  width: 100%;
+}
 #FilesExplorerHolder {
   cursor: pointer;
 }
