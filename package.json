@@ -10,7 +10,7 @@
    },
   "dependencies": {
     "space": ">=0.3.11",
-    "scraps": ">=0.6.5",
+    "scraps": ">=0.8.0",
     "markings" : ">=0.0.3",
     "speedcoach": ">=0.1.1",
     "socket.io": "*",
