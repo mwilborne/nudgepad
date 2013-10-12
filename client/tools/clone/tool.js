@@ -40,6 +40,11 @@ Clone.cloneProject = function () {
         'type': 'hidden'
     }))
     .append($('<input>', {
+        'name': 'tool',
+        'value': 'Files',
+        'type': 'hidden'
+    }))
+    .append($('<input>', {
         'name': 'email',
         'value': Cookie.email,
         'type': 'hidden'
@@ -78,6 +83,11 @@ Clone.quickClone = function () {
       'target': '_blank',
       'method' : 'post'
   })
+  .append($('<input>', {
+      'name': 'tool',
+      'value': 'Files',
+      'type': 'hidden'
+  }))
   .append($('<input>', {
       'name': 'domain',
       'value': domain,
