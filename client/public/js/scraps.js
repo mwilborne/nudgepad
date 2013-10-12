@@ -10,6 +10,26 @@ Scraps.tagsArray = 'a abbr address area article aside audio b base bdi bdo block
 Scraps.tagsArray.forEach(function (tag, i) {
   Scraps.tags[tag] = true
 })
+
+Scraps.voidTags = {
+ "area": true,
+ "base": true,
+ "br": true,
+ "col": true,
+ "embed": true,
+ "hr": true,
+ "img": true,
+ "input": true,
+ "keygen": true,
+ "link": true,
+ "menuitem": true,
+ "meta": true,
+ "param": true,
+ "source": true,
+ "track": true,
+ "wbr": true
+}
+
 Scraps.isTag = function (tag, value) {
   if (Scraps.tags[tag])
     return true
@@ -98,17 +118,23 @@ Element.prototype.toHtml = function () {
       continue
     string += ' ' + i + '="' + this.attrs[i] + '"' 
   }
+  
+  if (Scraps.voidTags[this.tag]) {
+    
+    // Void tags
+    if (this.content)
+      string += ' content="' + this.content + '"'
 
-  if (this.tag === 'meta') {
-    string += ' content="' + this.content + '">'
+    return string + ' />'
+    
   }
+  
   else {
     string += '>' + this.content
-
-    string += '</' + this.tag + '>'    
+    string += '</' + this.tag + '>'
+    return string
   }
 
-  return string
 }
 
 /**
