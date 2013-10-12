@@ -26,6 +26,6 @@ Launcher.open = function (name, dontRecord) {
 Launcher.openToolFromQueryString = function () {
   
   // Get query string. If nothing, set default to Home tool
-  var name = ParseQueryString().tool || 'Home'
+  var name = ParseQueryString().tool || 'Files'
   Launcher.open(name, true)
 }
