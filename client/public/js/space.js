@@ -288,18 +288,7 @@ Space.prototype.every = function (fn) {
  * @return The matching value
  */
 Space.prototype.get = function (query) {
-  switch (typeof query) {
-    case "string":
-      return this._getValueByString(query)
-    break
-    case "object":
-      return this._getValueBySpace(query)
-    break
-    case "number":
-      return this._getValueByIndex(query)
-    break
-  }
-  return null
+  return this._getValueByString(query)
 }
 
 Space.prototype.getAll = function (query) {
@@ -312,13 +301,21 @@ Space.prototype.getAll = function (query) {
   return matches
 }
 
-Space.prototype.getByIndex = function (query) {
+Space.prototype.getByIndex = function (index) {
+  return this._getValueByIndex(index)
+}
+
+Space.prototype.getByIndexPath = function (query) {
   var parts = query.split(/ /g)
   var first = parseFloat(parts.shift())
   if (parts.length === 0)
     return this._getValueByIndex(first)
   else
-    return this._getValueByIndex(first).getByIndex(parts.join(' '))
+    return this._getValueByIndex(first).getByIndexPath(parts.join(' '))
+}
+
+Space.prototype.getBySpace = function (query) {
+  return this._getValueBySpace(query)
 }
 
 /**
@@ -810,8 +807,6 @@ Space.prototype.rename = function (oldName, newName) {
 Space.prototype.set = function (key, value, index) {
   if (Space.isXPath(key.toString()))
     this._setByXPath(key, value)
-  else if (typeof index === 'number')
-    this._setTuple(key, value, index, true)
   else if (this.has(key))
     this._setTuple(key, value, this.indexOf(key), true)
   else
@@ -1059,6 +1054,11 @@ Space.prototype.trigger = function (eventName) {
   for (var i in this.events[eventName]) {
     this.events[eventName][i].apply(this, args.slice(1))
   }
+}
+
+Space.prototype.update = function (index, key, value) {
+  this._setTuple(key, value, index, true)
+  return this
 }
 
 // Export Space for use in Node.js

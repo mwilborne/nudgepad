@@ -167,16 +167,14 @@ Scrap.prototype.clone = function (id) {
 
 Scrap.prototype.loadChildren = function () {
   var parent = this
-  var i = -1
-  this.each(function (key, scrap){
-    i++
+  this.each(function (key, scrap, i){
     var index = (this.index ? this.index + ' ' : '') + i.toString()
     if (!Scraps.isTag(key, scrap))
       return true
     if (scrap instanceof Space)
-      parent.set(key, new Scrap(key, scrap, null, index), i)
+      parent.update(i, key, new Scrap(key, scrap, null, index))
     else
-      parent.set(key, new Scrap(key, '', scrap, index), i)
+      parent.update(i, key, new Scrap(key, '', scrap, index))
   })
 }
 
@@ -315,13 +313,11 @@ Page.prototype.clone = function () {
 Page.prototype.loadScraps = function () {
   // load all scraps
   var page = this
-  var i = 0
-  this.each(function (key, value) {
+  this.each(function (key, value, i) {
     if (value instanceof Space)
-      page.set(key, new Scrap(key, value, null, i.toString()), i)
+      page.update(i, key, new Scrap(key, value, null, i.toString()))
     else
-      page.set(key, new Scrap(key, null, value, i.toString()), i)
-    i++
+      page.update(i, key, new Scrap(key, null, value, i.toString()))
   })
 }
 

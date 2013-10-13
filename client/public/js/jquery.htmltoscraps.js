@@ -107,6 +107,9 @@ $.fn.toSpace = function () {
       space.append(tag, $(this).toSpace())
     })
   }
+  // Return concise mode
+  if (space.length() === 1 && space.get('content'))
+    return space.get('content')
   return space
 }
 
