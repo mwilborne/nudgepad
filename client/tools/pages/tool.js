@@ -40,17 +40,13 @@ Pages.editor.duplicate = function () {
 
 Pages.editor.loadFiles = function () {
   Pages.editor.pages = new Space()
-  $.get('/nudgepad.explorer.list', {}, function (data) {
+  expressfs.downloadDirectory('', 'html', function (data) {
     var files = new Space(data)
     files.each(function (filename, value) {
-      if (!filename.match(/\.html$/))
-        return true
-      expressfs.readFile(filename, function (data) {
-        Pages.editor.pages.set(filename, new Scraps.Page($.htmlToScraps(data)))
-        if (filename === Pages.editor.filename)
-          Pages.editor.open(Pages.editor.filename)
-        Pages.refresh()
-      })
+      Pages.editor.pages.set(filename, new Scraps.Page($.htmlToScraps(value)))
+      if (filename === Pages.editor.filename)
+        Pages.editor.open(Pages.editor.filename)
+      Pages.refresh()
     })
   })
 }
@@ -87,7 +83,6 @@ Pages.editor.open = function (filename) {
     return true
   $('#PagesFilename').html(filename)
   Pages.editor.render()
-  console.log(filename)
   /*
   socketfs.watch(filename, function (data) {
     Pages.editor.pages.set(filename, new Scraps.Page($.htmlToScraps(data.content)))
@@ -110,7 +105,7 @@ Pages.editor.publish = function () {
 }
 
 Pages.editor.render = function () {
-  var page = new Scraps.Page(Pages.editor.pages.get(Pages.editor.filename))
+  var page = new Scraps.Page(Pages.editor.openPage())
   var html = page.toHtml({wrap: true, filter : function () {
     // dont render scripts
     if (this.div.tag === 'script')
@@ -139,7 +134,7 @@ Pages.editor.render = function () {
       $(this).removeAttr('contenteditable')
       var content = $(this).html()
       var index = $(this).attr('data-index')
-      Pages.editor.pages.get(Pages.editor.filename).getByIndex(index).set('content', content)
+      Pages.editor.pages.get(Pages.editor.filename).getByIndexPath(index).set('content', content)
     })
   })
   //   var options = {}

@@ -6,7 +6,6 @@ var Space = require('space'),
     fs = require('fs),
     Alerts = require('Alerts'),
     Project = require('Project'), // required for pages
-    Explorer = require('Explorer'),
     Test = require('Test'),
     $ = require('jQuery')
 */
@@ -108,7 +107,7 @@ Blog.permalink = function (string) {
 }
 
 Blog.downloadPosts = function () {
-  expressfs.downloadDirectory('nudgepad/posts/', function (data) {
+  expressfs.downloadDirectory('nudgepad/posts/', 'space', function (data) {
     var space = new Space(data)
     space.sort(function (a, b) {
       return b[0] > a[0]

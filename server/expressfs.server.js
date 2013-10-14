@@ -52,22 +52,30 @@ module.exports = function (app, options) {
     var path = req.body.path
     var string = ''
     var first = ''
+    var extension = false
+    if (req.body.extension)
+      extension = new RegExp('\.' + req.body.extension  + '$')
     fs.readdir(path, function (err, files) {
 
       if (err)
         return res.send(err, 400)
 
       async.eachSeries(files, function (filename, callback) {
-        string += first + filename + ' '
-        fs.readFile(path + filename, 'utf8', function (err, data) {
-
-          if (err)
-            return res.send(err, 400)
-          
-          string += data.replace(/\n/g, '\n ')
+        
+        if (extension && !filename.match(extension))
           callback()
-        })
-        first = '\n'
+        else {
+          string += first + filename + ' '
+          fs.readFile(path + filename, 'utf8', function (err, data) {
+  
+            if (err)
+              return res.send(err, 400)
+            
+            string += data.replace(/\n/g, '\n ')
+            callback()
+          })
+          first = '\n'
+        }
       }, function(err, results){
         res.send(string + '\n')
       })

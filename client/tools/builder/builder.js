@@ -50,7 +50,7 @@ Builder.on('ready', function () {
       $(this).focus()
       var index = $(this).attr('data-index')
       Builder.page.reload($('#BuilderSource').val()).loadScraps()
-      var scrap = Builder.page.getByIndex(index)
+      var scrap = Builder.page.getByIndexPath(index)
       $(this).on('keyup', function () {
         var content = $(this).html()
         scrap.set('content', content)
