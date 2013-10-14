@@ -112,9 +112,9 @@ Files.renderExplorer = function () {
 }
 
 Files.refresh = function () {
-  $.get('/nudgepad.explorer.list', {}, function (data) {
+  expressfs.dirStats('', function (data){
     Files.set('files', new Space(data))
-    Files.renderExplorer()
+    Files.renderExplorer()    
   })
 }
 

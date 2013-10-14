@@ -297,7 +297,6 @@ app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
 
 require('./project.js')(app)
 require('./backup.js')(app)
-require('./explorer.js')(app)
 require('./upload.js')(app)
 
 app.post(/nudgepad\.expressfs.*/, app.checkId, function (req, res, next) {
