@@ -24,7 +24,7 @@ Files.drop.traverseFileTree = function (item, path) {
 // https://developer.mozilla.org/en-US/docs/Using_files_from_web_applications
 Files.drop.sendFile = function (path, file) {
   
-  var uri = "/nudgepad.explorer.upload"
+  var uri = "/nudgepad.upload"
   uri += '?path=' + Files.get('path').replace(' ','/') + '/' + (path ? path : '')
   var xhr = new XMLHttpRequest()
   var fd = new FormData()

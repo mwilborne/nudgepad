@@ -53,11 +53,17 @@ module.exports = function (app, options) {
     var string = ''
     var first = ''
     fs.readdir(path, function (err, files) {
-      if (err) return res.send(err, 400)
+
+      if (err)
+        return res.send(err, 400)
+
       async.eachSeries(files, function (filename, callback) {
         string += first + filename + ' '
         fs.readFile(path + filename, 'utf8', function (err, data) {
-          if (err) return res.send(400, err)
+
+          if (err)
+            return res.send(err, 400)
+          
           string += data.replace(/\n/g, '\n ')
           callback()
         })

@@ -1,7 +1,6 @@
 var fs = require('fs'),
     Space = require('space'),
     async = require('async'),
-    mkdirp = require('mkdirp'),
     exec = require('child_process').exec,
     _ = require('underscore')
 
@@ -68,50 +67,6 @@ var Explorer = function (app) {
       res.set('Content-Type', 'text/plain')
       return res.send(space.toString())    
     })
-  })
-
-  /**
-   * Get a file API.
-   * path
-   */
-  app.get(app.pathPrefix + 'explorer.public', app.checkId, function(req, res, next) {
-    folderStats(app.paths.project, function (err, space) {
-      res.set('Content-Type', 'text/plain')
-      return res.send(space.toString())    
-    })
-  })
-
-  app.post(app.pathPrefix + 'explorer.folderToSpace', app.checkId, function(req, res, next) {
-    var path = app.paths.project + req.body.path.trim().replace(/ /g, '/')
-    var output = app.paths.nudgepad + 'temp.space'
-    exec('space ' + path + ' ' + output, function () {
-      res.set('Content-Type', 'text/plain')
-      res.sendfile(output, function () {
-        fs.unlink(output)
-      })
-    })
-  })
-  
-  // Receive any uploads
-  app.post(app.pathPrefix + 'explorer.upload', app.checkId, function(req, res, next) {
-    var filename = req.body.filename
-    console.log('Receiving upload: %s', filename)
-    var path = req.query.path || ''
-    if (path) {
-      mkdirp(app.paths.project + path, function (err) {
-        if (err)
-          return res.send(err)
-        fs.rename(req.files.myFile.path, app.paths.project + path + filename, function (err) {
-          res.send(req.body.filename + ' uploaded')  
-        })
-      })
-    }
-    else {
-      fs.rename(req.files.myFile.path, app.paths.project + path + filename, function (err) {
-        res.send(req.body.filename + ' uploaded')  
-      })
-    }
-
   })
   
 }

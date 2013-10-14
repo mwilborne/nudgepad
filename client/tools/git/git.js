@@ -85,7 +85,7 @@ Git.fixKey = function () {
 }
 
 Git.generateKey = function () {
-  var path = Explorer.paths.nudgepad + 'deploy.key'
+  var path = '/nudgepad/projects/' + document.location.host  + '/nudgepad/deploy.key'
   Git.exec('ssh-keygen -t rsa -N "" -f ' + path, function () {
     Alerts.success('Git SSH key created')
     Git.status()
