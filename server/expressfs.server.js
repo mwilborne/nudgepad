@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    exec = require('child_process').exec
+    exec = require('child_process').exec,
+    async = require('async')
 
 module.exports = function (app, options) {
   
@@ -43,6 +44,26 @@ module.exports = function (app, options) {
         if (err)
           return res.send(err)
         res.send('')
+      })
+    })
+  })
+  
+  app.post(prefix + 'expressfs.downloadDirectory', function(req, res, next) {
+    var path = req.body.path
+    var string = ''
+    var first = ''
+    fs.readdir(path, function (err, files) {
+      if (err) return res.send(err, 400)
+      async.eachSeries(files, function (filename, callback) {
+        string += first + filename + ' '
+        fs.readFile(path + filename, 'utf8', function (err, data) {
+          if (err) return res.send(400, err)
+          string += data.replace(/\n/g, '\n ')
+          callback()
+        })
+        first = '\n'
+      }, function(err, results){
+        res.send(string + '\n')
       })
     })
   })

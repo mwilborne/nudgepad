@@ -28,6 +28,14 @@ expressfs.create = function (path, content, callback) {
   $.post( expressfs.prefix + 'expressfs.create', req, callback)
 }
 
+expressfs.downloadDirectory = function (path, callback) {
+  var req = {}
+  req.path = expressfs.rootPath + path
+  $.post( expressfs.prefix + 'expressfs.downloadDirectory', req)
+    .done(callback)
+    .fail(callback)
+}
+
 expressfs.exists = function (path, callback) {
   var req = {}
   req.path = expressfs.rootPath + path
