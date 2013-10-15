@@ -3,6 +3,7 @@ if (typeof exports !== 'undefined')
   var Space = require('space')
 
 var Scraps = {}
+Scraps.version = '0.8.2'
 
 // Words that appear in both: title style
 Scraps.tags = {}
@@ -347,6 +348,16 @@ Page.prototype.toHtml = function (options) {
     html += '\n</html>\n'
   return html
 }
+
+Page.prototype.toConciseString = function (spaces) {
+  var clone = new Space(this.toString())
+  clone.every(function (key, value, index) {
+    if (value instanceof Space && value.length() === 1 && value.get('content'))
+      this.update(index, key, value.get('content'))
+  })
+  return clone.toString()
+}
+
 Scraps.Element = Element
 Scraps.Scrap = Scrap
 Scraps.Page = Page

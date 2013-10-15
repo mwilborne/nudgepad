@@ -71,7 +71,7 @@ Pages.editor.editHtml = function () {
 }
 
 Pages.editor.editScraps = function () {
-  TextPrompt.open('', Pages.editor.openPage().toString(), Pages.editor.filename.replace('html', 'space'), function (data) {
+  TextPrompt.open('', Pages.editor.openPage().toConciseString(), Pages.editor.filename.replace('html', 'space'), function (data) {
     Pages.editor.pages.set(Pages.editor.filename, new Scraps.Page(data))
     Pages.editor.open(Pages.editor.filename)
   })

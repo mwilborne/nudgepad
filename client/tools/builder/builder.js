@@ -2,7 +2,7 @@ var Builder = new Tool('Builder')
 
 Builder.refresh = function () {
   $( '#BuilderStage' ) .html( Builder.page.toHtml({filter : Builder.filter, wrap : true}) )
-  $( '#BuilderSource' ) .val( Builder.page.toString() )
+  $( '#BuilderSource' ) .val( Builder.page.toConciseString() )
 }
 
 Builder.on('ready', function () {
@@ -54,14 +54,14 @@ Builder.on('ready', function () {
       $(this).on('keyup', function () {
         var content = $(this).html()
         scrap.set('content', content)
-        $('#BuilderSource').val(Builder.page.toString())
+        $('#BuilderSource').val(Builder.page.toConciseString())
         Builder.page.trigger('reload') 
       })
       $(this).on('blur', function () {
         $(this).removeAttr('contenteditable')
         var content = $(this).html()
         scrap.set('content', content)
-        $('#BuilderSource').val(Builder.page.toString())
+        $('#BuilderSource').val(Builder.page.toConciseString())
         Builder.page.trigger('reload')
       })
     })
