@@ -37,8 +37,7 @@ var Tokenizer = require("../tokenizer").Tokenizer;
 var FtlHighlightRules = require("./ftl_highlight_rules").FtlHighlightRules;
 
 var Mode = function() {
-    var highlighter = new FtlHighlightRules();
-    this.$tokenizer = new Tokenizer(highlighter.getRules());
+    this.HighlightRules = FtlHighlightRules;
 };
 oop.inherits(Mode, TextMode);
 
@@ -253,7 +252,7 @@ var HtmlHighlightRules = function() {
             token : "keyword.operator.separator",
             regex : "=",
             push : [{
-                include: "space",
+                include: "space"
             }, {
                 token : "string",
                 regex : "[^<>='\"`\\s]+",

@@ -54,6 +54,8 @@ window.require = function(parentId, id) {
     }
     
     var chunks = id.split("/");
+    if (!require.tlns)
+        return console.log("unable to load " + id);
     chunks[0] = require.tlns[chunks[0]] || chunks[0];
     var path = chunks.join("/") + ".js";
     
@@ -183,6 +185,7 @@ EventEmitter._dispatchEvent = function(eventName, e) {
     if (!e.preventDefault)
         e.preventDefault = preventDefault;
 
+    listeners = listeners.slice();
     for (var i=0; i<listeners.length; i++) {
         listeners[i](e, this);
         if (e.propagationStopped)
@@ -198,7 +201,7 @@ EventEmitter._signal = function(eventName, e) {
     var listeners = (this._eventRegistry || {})[eventName];
     if (!listeners)
         return;
-
+    listeners = listeners.slice();
     for (var i=0; i<listeners.length; i++)
         listeners[i](e, this);
 };
@@ -1295,6 +1298,8 @@ var Document = function(text) {
         return end;
     };
     this.remove = function(range) {
+        if (!range instanceof Range)
+            range = Range.fromPoints(range.start, range.end);
         range.start = this.$clipPosition(range.start);
         range.end = this.$clipPosition(range.end);
 
@@ -1378,6 +1383,8 @@ var Document = function(text) {
         this._emit("change", { data: delta });
     };
     this.replace = function(range, text) {
+        if (!range instanceof Range)
+            range = Range.fromPoints(range.start, range.end);
         if (text.length == 0 && range.isEmpty())
             return range.start;
         if (text == this.getTextRange(range))
@@ -1714,6 +1721,7 @@ var Anchor = exports.Anchor = function(doc, row, column) {
     this.getDocument = function() {
         return this.document;
     };
+    this.$insertRight = false;
     this.onChange = function(e) {
         var delta = e.data;
         var range = delta.range;
@@ -1734,7 +1742,8 @@ var Anchor = exports.Anchor = function(doc, row, column) {
 
         if (delta.action === "insertText") {
             if (start.row === row && start.column <= column) {
-                if (start.row === end.row) {
+                if (start.column === column && this.$insertRight) {
+                } else if (start.row === end.row) {
                     column += end.column - start.column;
                 } else {
                     column -= start.column;

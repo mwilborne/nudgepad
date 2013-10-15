@@ -46,7 +46,7 @@ var unicode = require("../unicode");
 var Mode = function(opts) {
     var inline = opts && opts.inline;
     var HighlightRules = inline ? PhpLangHighlightRules : PhpHighlightRules;
-    this.$tokenizer = new Tokenizer(new HighlightRules().getRules());
+    this.HighlightRules = HighlightRules;
     this.$outdent = new MatchingBraceOutdent();
     this.$behaviour = new CstyleBehaviour();
     this.foldingRules = new CStyleFoldMode();
@@ -76,7 +76,7 @@ oop.inherits(Mode, TextMode);
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
 
-        var tokenizedLine = this.$tokenizer.getLineTokens(line, state);
+        var tokenizedLine = this.getTokenizer().getLineTokens(line, state);
         var tokens = tokenizedLine.tokens;
         var endState = tokenizedLine.state;
 
@@ -1081,7 +1081,7 @@ var PhpLangHighlightRules = function() {
                 next: "heredoc"
             }, {
                 token : "keyword.operator",
-                regex : "::|!|\\$|%|&|\\*|\\-\\-|\\-|\\+\\+|\\+|~|===|==|=|!=|!==|<=|>=|<<=|>>=|>>>=|<>|<|>|!|&&|\\|\\||\\?\\:|\\*=|%=|\\+=|\\-=|&=|\\^=|\\b(?:in|instanceof|new|delete|typeof|void)"
+                regex : "::|!|\\$|%|&|\\*|\\-\\-|\\-|\\+\\+|\\+|~|===|==|!=|!==|<=|>=|=>|<<=|>>=|>>>=|<>|<|>|=|!|&&|\\|\\||\\?\\:|\\*=|%=|\\+=|\\-=|&=|\\^=|\\b(?:in|instanceof|new|delete|typeof|void)"
             }, {
                 token : "paren.lparen",
                 regex : "[[({]"
@@ -1096,17 +1096,17 @@ var PhpLangHighlightRules = function() {
         "heredoc" : [
             {
                 onMatch : function(value, currentSate, stack) {
-                    if (stack[1]  + ";" != value)
+                    if (stack[1] != value)
                         return "string";
                     stack.shift();
                     stack.shift();
                     return "markup.list"
                 },
-                regex : "^\\w+;$",
+                regex : "^\\w+(?=;?$)",
                 next: "start"
             }, {
                 token: "string",
-                regex : ".*",
+                regex : ".*"
             }
         ],
         "comment" : [
@@ -1265,7 +1265,7 @@ var HtmlHighlightRules = function() {
             token : "keyword.operator.separator",
             regex : "=",
             push : [{
-                include: "space",
+                include: "space"
             }, {
                 token : "string",
                 regex : "[^<>='\"`\\s]+",

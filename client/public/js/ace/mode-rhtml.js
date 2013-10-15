@@ -8,12 +8,31 @@
  * Portions created by the Initial Developer are Copyright (C) 2010
  * the Initial Developer. All Rights Reserved.
  *
- * This program is licensed to you under the terms of version 3 of the
- * GNU Affero General Public License. This program is distributed WITHOUT
- * ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING THOSE OF NON-INFRINGEMENT,
- * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE. Please refer to the
- * AGPL (http://www.gnu.org/licenses/agpl-3.0.txt) for more details.
+ * Distributed under the BSD license:
  *
+ * Copyright (c) 2010, Ajax.org B.V.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of Ajax.org B.V. nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL AJAX.ORG B.V. BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  */
 
 ace.define('ace/mode/rhtml', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/html', 'ace/tokenizer', 'ace/mode/rhtml_highlight_rules'], function(require, exports, module) {
@@ -27,7 +46,7 @@ var RHtmlHighlightRules = require("./rhtml_highlight_rules").RHtmlHighlightRules
 
 var Mode = function(doc, session) {
    this.$session = session;
-   this.$tokenizer = new Tokenizer(new RHtmlHighlightRules().getRules());
+   this.HighlightRules = RHtmlHighlightRules;
 };
 oop.inherits(Mode, HtmlMode);
 
@@ -47,7 +66,7 @@ oop.inherits(Mode, HtmlMode);
 exports.Mode = Mode;
 });
 
-ace.define('ace/mode/html', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/text', 'ace/mode/javascript', 'ace/mode/css', 'ace/tokenizer', 'ace/mode/html_highlight_rules', 'ace/mode/behaviour/html', 'ace/mode/folding/html'], function(require, exports, module) {
+ace.define('ace/mode/html', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/text', 'ace/mode/javascript', 'ace/mode/css', 'ace/tokenizer', 'ace/mode/html_highlight_rules', 'ace/mode/behaviour/html', 'ace/mode/folding/html', 'ace/mode/html_completions'], function(require, exports, module) {
 
 
 var oop = require("../lib/oop");
@@ -58,13 +77,13 @@ var Tokenizer = require("../tokenizer").Tokenizer;
 var HtmlHighlightRules = require("./html_highlight_rules").HtmlHighlightRules;
 var HtmlBehaviour = require("./behaviour/html").HtmlBehaviour;
 var HtmlFoldMode = require("./folding/html").FoldMode;
+var HtmlCompletions = require("./html_completions").HtmlCompletions;
 
 var Mode = function() {
-    var highlighter = new HtmlHighlightRules();
-    this.$tokenizer = new Tokenizer(highlighter.getRules());
+    this.HighlightRules = HtmlHighlightRules;
     this.$behaviour = new HtmlBehaviour();
+    this.$completer = new HtmlCompletions();
     
-    this.$embeds = highlighter.getEmbeds();
     this.createModeDelegates({
         "js-": JavaScriptMode,
         "css-": CssMode
@@ -86,6 +105,10 @@ oop.inherits(Mode, TextMode);
         return false;
     };
 
+    this.getCompletions = function(state, session, pos, prefix) {
+        return this.$completer.getCompletions(state, session, pos, prefix);
+    };
+
 }).call(Mode.prototype);
 
 exports.Mode = Mode;
@@ -105,12 +128,10 @@ var CstyleBehaviour = require("./behaviour/cstyle").CstyleBehaviour;
 var CStyleFoldMode = require("./folding/cstyle").FoldMode;
 
 var Mode = function() {
-    var highlighter = new JavaScriptHighlightRules();
+    this.HighlightRules = JavaScriptHighlightRules;
     
-    this.$tokenizer = new Tokenizer(highlighter.getRules());
     this.$outdent = new MatchingBraceOutdent();
     this.$behaviour = new CstyleBehaviour();
-    this.$keywordList = highlighter.$keywordList;
     this.foldingRules = new CStyleFoldMode();
 };
 oop.inherits(Mode, TextMode);
@@ -123,7 +144,7 @@ oop.inherits(Mode, TextMode);
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
 
-        var tokenizedLine = this.$tokenizer.getLineTokens(line, state);
+        var tokenizedLine = this.getTokenizer().getLineTokens(line, state);
         var tokens = tokenizedLine.tokens;
         var endState = tokenizedLine.state;
 
@@ -963,11 +984,9 @@ var CssBehaviour = require("./behaviour/css").CssBehaviour;
 var CStyleFoldMode = require("./folding/cstyle").FoldMode;
 
 var Mode = function() {
-    var highlighter = new CssHighlightRules();
-    this.$tokenizer = new Tokenizer(highlighter.getRules());
+    this.HighlightRules = CssHighlightRules;
     this.$outdent = new MatchingBraceOutdent();
     this.$behaviour = new CssBehaviour();
-    this.$keywordList = highlighter.$keywordList;
     this.foldingRules = new CStyleFoldMode();
 };
 oop.inherits(Mode, TextMode);
@@ -979,7 +998,7 @@ oop.inherits(Mode, TextMode);
 
     this.getNextLineIndent = function(state, line, tab) {
         var indent = this.$getIndent(line);
-        var tokens = this.$tokenizer.getLineTokens(line, state).tokens;
+        var tokens = this.getTokenizer().getLineTokens(line, state).tokens;
         if (tokens.length && tokens[tokens.length-1].type == "comment") {
             return indent;
         }
@@ -1285,7 +1304,7 @@ var HtmlHighlightRules = function() {
             token : "keyword.operator.separator",
             regex : "=",
             push : [{
-                include: "space",
+                include: "space"
             }, {
                 token : "string",
                 regex : "[^<>='\"`\\s]+",
@@ -2047,6 +2066,286 @@ oop.inherits(FoldMode, BaseFoldMode);
 
 }).call(FoldMode.prototype);
 
+});
+
+ace.define('ace/mode/html_completions', ['require', 'exports', 'module' , 'ace/token_iterator'], function(require, exports, module) {
+
+
+var TokenIterator = require("../token_iterator").TokenIterator;
+
+var commonAttributes = [
+    "accesskey",
+    "class",
+    "contenteditable",
+    "contextmenu",
+    "dir",
+    "draggable",
+    "dropzone",
+    "hidden",
+    "id",
+    "lang",
+    "spellcheck",
+    "style",
+    "tabindex",
+    "title",
+    "translate"
+];
+
+var eventAttributes = [
+    "onabort",
+    "onblur",
+    "oncancel",
+    "oncanplay",
+    "oncanplaythrough",
+    "onchange",
+    "onclick",
+    "onclose",
+    "oncontextmenu",
+    "oncuechange",
+    "ondblclick",
+    "ondrag",
+    "ondragend",
+    "ondragenter",
+    "ondragleave",
+    "ondragover",
+    "ondragstart",
+    "ondrop",
+    "ondurationchange",
+    "onemptied",
+    "onended",
+    "onerror",
+    "onfocus",
+    "oninput",
+    "oninvalid",
+    "onkeydown",
+    "onkeypress",
+    "onkeyup",
+    "onload",
+    "onloadeddata",
+    "onloadedmetadata",
+    "onloadstart",
+    "onmousedown",
+    "onmousemove",
+    "onmouseout",
+    "onmouseover",
+    "onmouseup",
+    "onmousewheel",
+    "onpause",
+    "onplay",
+    "onplaying",
+    "onprogress",
+    "onratechange",
+    "onreset",
+    "onscroll",
+    "onseeked",
+    "onseeking",
+    "onselect",
+    "onshow",
+    "onstalled",
+    "onsubmit",
+    "onsuspend",
+    "ontimeupdate",
+    "onvolumechange",
+    "onwaiting"
+];
+
+var globalAttributes = commonAttributes.concat(eventAttributes);
+
+var attributeMap = {
+    "html": ["manifest"],
+    "head": [],
+    "title": [],
+    "base": ["href", "target"],
+    "link": ["href", "hreflang", "rel", "media", "type", "sizes"],
+    "meta": ["http-equiv", "name", "content", "charset"],
+    "style": ["type", "media", "scoped"],
+    "script": ["charset", "type", "src", "defer", "async"],
+    "noscript": ["href"],
+    "body": ["onafterprint", "onbeforeprint", "onbeforeunload", "onhashchange", "onmessage", "onoffline", "onpopstate", "onredo", "onresize", "onstorage", "onundo", "onunload"],
+    "section": [],
+    "nav": [],
+    "article": ["pubdate"],
+    "aside": [],
+    "h1": [],
+    "h2": [],
+    "h3": [],
+    "h4": [],
+    "h5": [],
+    "h6": [],
+    "header": [],
+    "footer": [],
+    "address": [],
+    "main": [],
+    "p": [],
+    "hr": [],
+    "pre": [],
+    "blockquote": ["cite"],
+    "ol": ["start", "reversed"],
+    "ul": [],
+    "li": ["value"],
+    "dl": [],
+    "dt": [],
+    "dd": [],
+    "figure": [],
+    "figcaption": [],
+    "div": [],
+    "a": ["href", "target", "ping", "rel", "media", "hreflang", "type"],
+    "em": [],
+    "strong": [],
+    "small": [],
+    "s": [],
+    "cite": [],
+    "q": ["cite"],
+    "dfn": [],
+    "abbr": [],
+    "data": [],
+    "time": ["datetime"],
+    "code": [],
+    "var": [],
+    "samp": [],
+    "kbd": [],
+    "sub": [],
+    "sup": [],
+    "i": [],
+    "b": [],
+    "u": [],
+    "mark": [],
+    "ruby": [],
+    "rt": [],
+    "rp": [],
+    "bdi": [],
+    "bdo": [],
+    "span": [],
+    "br": [],
+    "wbr": [],
+    "ins": ["cite", "datetime"],
+    "del": ["cite", "datetime"],
+    "img": ["alt", "src", "height", "width", "usemap", "ismap"],
+    "iframe": ["name", "src", "height", "width", "sandbox", "seamless"],
+    "embed": ["src", "height", "width", "type"],
+    "object": ["param", "data", "type", "height" , "width", "usemap", "name", "form", "classid"],
+    "param": ["name", "value"],
+    "video": ["src", "autobuffer", "autoplay", "loop", "controls", "width", "height", "poster"],
+    "audio": ["src", "autobuffer", "autoplay", "loop", "controls"],
+    "source": ["src", "type", "media"],
+    "track": ["kind", "src", "srclang", "label", "default"],
+    "canvas": ["width", "height"],
+    "map": ["name"],
+    "area": ["shape", "coords", "href", "hreflang", "alt", "target", "media", "rel", "ping", "type"],
+    "svg": [],
+    "math": [],
+    "table": ["summary"],
+    "caption": [],
+    "colgroup": ["span"],
+    "col": ["span"],
+    "tbody": [],
+    "thead": [],
+    "tfoot": [],
+    "tr": [],
+    "td": ["headers", "rowspan", "colspan"],
+    "th": ["headers", "rowspan", "colspan", "scope"],
+    "form": ["accept-charset", "action", "autocomplete", "enctype", "method", "name", "novalidate", "target"],
+    "fieldset": ["disabled", "form", "name"],
+    "legend": [],
+    "label": ["form", "for"],
+    "input": ["type", "accept", "alt", "autocomplete", "checked", "disabled", "form", "formaction", "formenctype", "formmethod", "formnovalidate", "formtarget", "height", "list", "max", "maxlength", "min", "multiple", "pattern", "placeholder", "readonly", "required", "size", "src", "step", "width", "files", "value"],
+    "button": ["autofocus", "disabled", "form", "formaction", "formenctype", "formmethod", "formnovalidate", "formtarget", "name", "value", "type"],
+    "select": ["autofocus", "disabled", "form", "multiple", "name", "size"],
+    "datalist": [],
+    "optgroup": ["disabled", "label"],
+    "option": ["disabled", "selected", "label", "value"],
+    "textarea": ["autofocus", "disabled", "form", "maxlength", "name", "placeholder", "readonly", "required", "rows", "cols", "wrap"],
+    "keygen": ["autofocus", "challenge", "disabled", "form", "keytype", "name"],
+    "output": ["for", "form", "name"],
+    "progress": ["value", "max"],
+    "meter": ["value", "min", "max", "low", "high", "optimum"],
+    "details": ["open"],
+    "summary": [],
+    "command": ["type", "label", "icon", "disabled", "checked", "radiogroup", "command"],
+    "menu": ["type", "label"],
+    "dialog": ["open"]
+};
+
+var allElements = Object.keys(attributeMap);
+
+function hasType(token, type) {
+    var tokenTypes = token.type.split('.');
+    return type.split('.').every(function(type){
+        return (tokenTypes.indexOf(type) !== -1);
+    });
+}
+
+function findTagName(session, pos) {
+    var iterator = new TokenIterator(session, pos.row, pos.column);
+    var token = iterator.getCurrentToken();
+    if (!token || !hasType(token, 'tag') && !(hasType(token, 'text') && token.value.match('/'))){
+        do {
+            token = iterator.stepBackward();
+        } while (token && (hasType(token, 'string') || hasType(token, 'operator') || hasType(token, 'attribute-name') || hasType(token, 'text')));
+    }
+    if (token && hasType(token, 'tag-name') && !iterator.stepBackward().value.match('/'))
+        return token.value;
+}
+
+var HtmlCompletions = function() {
+
+};
+
+(function() {
+
+    this.getCompletions = function(state, session, pos, prefix) {
+        var token = session.getTokenAt(pos.row, pos.column);
+
+        if (!token)
+            return [];
+        if (hasType(token, "tag-name") || (token.value == '<' && hasType(token, "text")))
+            return this.getTagCompletions(state, session, pos, prefix);
+        if (hasType(token, 'text') || hasType(token, 'attribute-name'))
+            return this.getAttributeCompetions(state, session, pos, prefix);
+
+        return [];
+    };
+
+    this.getTagCompletions = function(state, session, pos, prefix) {
+        var elements = allElements;
+        if (prefix) {
+            elements = elements.filter(function(element){
+                return element.indexOf(prefix) === 0;
+            });
+        }
+        return elements.map(function(element){
+            return {
+                value: element,
+                meta: "tag"
+            };
+        });
+    };
+
+    this.getAttributeCompetions = function(state, session, pos, prefix) {
+        var tagName = findTagName(session, pos);
+        if (!tagName)
+            return [];
+        var attributes = globalAttributes;
+        if (tagName in attributeMap) {
+            attributes = attributes.concat(attributeMap[tagName]);
+        }
+        if (prefix) {
+            attributes = attributes.filter(function(attribute){
+                return attribute.indexOf(prefix) === 0;
+            });
+        }
+        return attributes.map(function(attribute){
+            return {
+                caption: attribute,
+                snippet: attribute + '="$0"',
+                meta: "attribute"
+            };
+        });
+    };
+
+}).call(HtmlCompletions.prototype);
+
+exports.HtmlCompletions = HtmlCompletions;
 });
 ace.define('ace/mode/rhtml_highlight_rules', ['require', 'exports', 'module' , 'ace/lib/oop', 'ace/mode/r_highlight_rules', 'ace/mode/html_highlight_rules', 'ace/mode/text_highlight_rules'], function(require, exports, module) {
 
