@@ -75,5 +75,10 @@ Builder.publish = function () {
   var name = prompt('Enter a filename', 'new.html')
   if (!name)
     return false
-  expressfs.writeFileAndOpen(name, Builder.page.toHtml({wrap: true}))
+  var htmlString = html_beautify(Builder.page.toHtml({wrap: true}), {
+    'indent-size' : 2,
+    'indent-char' : ' ',
+    'indent-inner-html' : true
+  })
+  expressfs.writeFileAndOpen(name, htmlString)
 }
