@@ -647,6 +647,87 @@ img
       </div> <!-- /container -->
 
 </template>
+<template class="Tool" id="Insight">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        
+      <ul class="nav navbar-nav navbar-logo"></ul>
+      
+      
+      
+      <ul class="nav navbar-nav">
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.create()" title="New" class="btn btn-default btn">
+            <i class="icon-file-alt"></i>
+          </button>
+          </a>
+        </li>
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.openPrompt()" title="Open" class="btn btn-default btn">
+            <i class="icon-folder-open"></i>
+          </button>
+          </a>
+        </li>
+        
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.open(Insight.database)" title="Refresh" class="btn btn-default btn">
+            <i class="icon-refresh"></i>
+          </button>
+          </a>
+        </li>
+        
+              <li>
+                <a>
+                <button type="button" onclick="Insight.base.updateX('year')" title="Move" class="btn btn-default btn">
+                  x
+                </button>
+                </a>
+              </li>
+              
+              <li>
+                <a>
+                <button type="button" onclick="Insight.base.updateY('children')" title="Move" class="btn btn-default btn">
+                  y
+                </button>
+                </a>
+              </li>
+        
+        <li><a><span id="InsightDatabase" contenteditable></span></li>
+      </ul>
+      
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+      </ul>
+    </div>
+  </div>
+  <!-- End navbar -->
+  
+  <div class="container">
+
+    <div class="InsightPlane" style="display: none;">
+    
+    </div>
+    
+  </div> <!-- /container -->
+  
+  <style>
+  body {
+    background: #eee;
+  }
+  </style>
+
+</template>
+
+
+
 <template class="Tool" id="Labs">
   
   <!-- Static navbar -->

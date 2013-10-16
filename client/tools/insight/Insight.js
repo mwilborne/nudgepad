@@ -19,6 +19,16 @@ Insight.menu = {}
 // name of current open database
 Insight.database
 
+Insight.menu.create = function () {
+  var name = prompt('Enter a name for your new database', 'untitled')
+  if (!name)
+    return false
+  name = Insight.permalink(name)
+  var db = new Insight.Database(name).create(function () {
+    Insight.menu.open(name)
+  })
+}
+
 Insight.menu.open = function (name) {
   Insight.database = name
   Insight.base = new Insight.Database(name)
@@ -32,15 +42,6 @@ Insight.menu.openPrompt = function () {
   Insight.menu.open(name)
 }
 
-Insight.menu.new = function () {
-  var name = prompt('Enter a name for your new database', 'untitled')
-  if (!name)
-    return false
-  name = Insight.permalink(name)
-  var db = new Insight.Database(name).create(function () {
-    Insight.menu.open(name)
-  })
-}
 Insight.drawInit = function () {
   
   $('.InsightPlane').on('mousemove', function (event) {
