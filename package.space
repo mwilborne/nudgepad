@@ -1,5 +1,5 @@
 name nudgepad
-version 1.0.1
+version 1.0.3
 description Make websites, apps and more in your browser.
 repository git://github.com/nudgepad/nudgepad
 main nudgepad.js
