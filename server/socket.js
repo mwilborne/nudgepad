@@ -1,5 +1,4 @@
 var Space = require('space'),
-    Marking = require('markings'),
     parseCookie = require('cookie').parse,
     ParseName = require('./ParseName.js')
 
@@ -14,134 +13,26 @@ module.exports = function (app, httpServer) {
     
     var cookie = parseCookie(data.headers.cookie)
   
-    var maker = app.Project.get('team ' + cookie.email)
-    if (!maker)
-      return accept('Invalid maker "' + cookie.email + '" transmitted. Headers:' + data.headers.cookie, false)
+    app.team.get(cookie.email, function (err, maker) {
+      if (err)
+        return accept('Invalid user "' + cookie.email + '" transmitted. Headers:' + data.headers.cookie, false)
+      
+      // Wrong key
+      if (maker.get('key') !== cookie.key)
+        return accept('Invalid key transmitted.', false)
+
+      data.cookie = cookie
+      var space = new Space(data.query)
+      data.screenId = space.get('id')
+      app.Screens.set(data.screenId, space)
+      return accept(null, true)
+      
+    })
   
-    // Wrong key
-    if (maker.get('key') !== cookie.key)
-      return accept('Invalid key transmitted.', false)
-    
-    data.cookie = cookie
-    var space = new Space(data.query)
-    data.screenId = space.get('id')
-    app.Screens.set(data.screenId, space)
-    return accept(null, true)
-    
+
   })
   
   app.SocketIO.sockets.on('connection', function (socket) {
-    
-    socket.on('project.append', function (space, fn) {
-      var change = new Space(space)
-      
-      var key = change.get('key')
-      var value = new Space(change.get('value'))
-      var filename = key.split(/ /g)[0] + ' ' + key.split(/ /g)[1]
-      
-      app.Project.set(key, value)
-      var file = app.Project.get(filename)
-      file.save(function (error) {
-        if (error) {
-          console.log('Error: %s', error)
-          return error
-        }
-      })
-      
-      fn('project.append to ' + key)
-      // Broadcast to everyone else
-      socket.broadcast.emit('project.append', space)      
-    })
-    
-    socket.on('project.create', function (space, fn) {
-      var change = new Space(space)
-      
-      var key = change.get('key')
-      var value = new Space(change.get('value'))
-      var filepath = app.paths.nudgepad + key.replace(' ', '/') + '.space'
-      
-      console.log('creating %s', file)
-      var file = new Marking(filepath, value)
-      file.create(function (error) {
-        if (error) {
-          console.log('Error: %s', error)
-          return error
-        }
-      })
-      app.Project.set(key, file)
-      
-      
-      fn('project.create ' + key)
-      // Broadcast to everyone else
-      socket.broadcast.emit('project.create', space)      
-    })
-    
-    socket.on('project.delete', function (key, fn) {
-      // Delete File
-      var file = app.Project.get(key)
-      file.trash(function (error) {
-        if (error) {
-          console.log('Error: %s', error)
-          return fn('error')
-        }
-        fn('project.delete ' + key)
-        // Broadcast to everyone else
-        socket.broadcast.emit('project.delete', key)
-      })
-      app.Project.delete(key)
-  
-    })
-    
-    socket.on('project.rename', function (space, fn) {
-      var change = new Space(space)
-      
-      var oldName = change.get('oldName')
-      var newName = change.get('newName')
-      
-      var file = app.Project.get(oldName)
-      var filepath = app.paths.nudgepad + newName.replace(' ', '/') + '.space'
-      file.rename(filepath, function (error) {
-        if (error) {
-          console.log('Error: %s', error)
-          return error
-        }
-      })
-      app.Project.rename(oldName, newName)
-      
-      fn('project.rename ' + oldName + ' => ' + newName)
-      // Broadcast to everyone else
-      socket.broadcast.emit('project.rename', space)      
-    })
-    
-    socket.on('project.set', function (space, fn) {
-      var change = new Space(space)
-      
-      var key = change.get('key')
-      var value = new Space(change.get('value'))
-      
-      // we know this will be like pages filename
-      var levels = key.split(/ /g)
-      var folder = app.Project.get(levels[0])
-      var path = levels[0] + ' ' + levels[1]
-      var file = app.Project.get(path)
-      var filepath = app.paths.nudgepad + levels[0] + '/' + levels[1] + '.space'
-      
-  
-      console.log('updating %s', path)
-      file.clear()
-      file.patch(value)
-      file.save(function (error) {
-        if (error) {
-          console.log('Error: %s', error)
-          return error
-        }
-      })
-      
-      
-      fn('project.set ' + key)
-      // Broadcast to everyone else
-      socket.broadcast.emit('project.set', space)      
-    })
     
     socket.on('disconnect', function () {
       if (socket.handshake.screenId) {

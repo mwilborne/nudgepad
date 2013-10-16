@@ -1,9 +1,6 @@
-var superagent = require('superagent'),
-    Space = require('space')
+var superagent = require('superagent')
 
 var Persona = function (app) {
-  
-  
   
   // Persona Login
   app.post(app.pathPrefix + 'persona', function(req, res, next) {
@@ -20,13 +17,10 @@ var Persona = function (app) {
 
         var email = result.body.email
 
-        var filename = app.paths.team + email + '.space'
-        fs.readFile(filename, 'utf8', function (err, data) {
+        app.team.get(email, function (err, maker) {
           
-          if (!err)
+          if (err)
             return res.send('No user with email ' + email)
-          
-          var maker = new Space(data)
 
           // Login successful!
           res.cookie('email', email, { expires: new Date(Date.now() + 5184000000)})
@@ -34,9 +28,7 @@ var Persona = function (app) {
           res.cookie('name', maker.get('name'), { expires: new Date(Date.now() + 5184000000)})
           res.redirect('/nudgepad')
           
-          
         })
-
 
       })
   })

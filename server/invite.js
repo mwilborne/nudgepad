@@ -1,22 +1,21 @@
 var ParseName = require('./ParseName.js'),
     RandomString = require('./RandomString.js'),
     _ = require('underscore'),
-    Marking = require('markings'),
+    fs = require('fs'),
     Space = require('space')
 
 var Invite = function (app) {
   
   var createUser = function (email) {
     var filename = app.paths.team + email + '.space'
-    var maker = new Marking(filename)
+    var maker = new Space()
     maker.set('name', ParseName(email))
     maker.set('role', 'maker')
     maker.set('key', app.hashString(email + RandomString(8)))
-    maker.create(function (error) {
+    fs.writeFile(filename, maker.toString(), 'utf8', function (error) {
+      
       if (error)
         return console.log(error)
-
-      app.Project.set('team ' + email, new Space(maker))
 
       app.email(
         email,
@@ -27,8 +26,8 @@ var Invite = function (app) {
         function (error) {
           if (error)
             console.log(error)
-        })
-
+      })
+      
     })
   }
   
@@ -40,8 +39,6 @@ var Invite = function (app) {
   })
   
 }
-
-
 
 module.exports = Invite
 

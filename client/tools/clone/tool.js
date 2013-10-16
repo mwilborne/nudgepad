@@ -11,7 +11,7 @@ Clone.import = function () {
 
 Clone.on('ready', function () {
   $('#CloneDomain').val('copyof' + document.location.host)
-  $('#CloneServer').val(Project.get('hostname'))
+  $('#CloneServer').val(nudgepad.status.get('hostname'))
 })
 
 Clone.on('once', function () {
@@ -76,7 +76,7 @@ Clone.cloneProject = function () {
 
 Clone.quickClone = function () {
   var domain = $('#CloneDomain').val()
-  var server = Project.get('hostname')
+  var server = nudgepad.status.get('hostname')
   
   var newForm = $('<form>', {
       'action': 'http://' + server + '/create',

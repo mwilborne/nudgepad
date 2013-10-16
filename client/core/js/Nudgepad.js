@@ -19,14 +19,15 @@ window.name = 'nudgepad'
 var Query = ParseQueryString()
 var Cookie = parseCookie(document.cookie)
 nudgepad.projectPath = '/nudgepad/projects/' + location.hostname + '/'
+nudgepad.status = new Space()
 
 /**
  * Requests the data from the server and loads the editor.
  */
 nudgepad.main = function () {
   
-  $.get('/nudgepad.project', function (space) {
-    Project._patch(new Space(space))
+  $.get('/nudgepad.status', function (space) {
+    nudgepad.status.reload(space)
     
     // We do this here because chrome is weird
     // Revert to a previously saved state
@@ -89,9 +90,9 @@ nudgepad.reloadMessage = function () {
 
 nudgepad.restartCheck = function () {
   $.get('/nudgepad.started', {}, function (data) {
-    if (!Project.get('started'))
+    if (!nudgepad.status.get('started'))
       return true
-    if (data !== Project.get('started')) {
+    if (data !== nudgepad.status.get('started')) {
       nudgepad.reloadMessageOneTime = 'Your project restarted. Please refresh the page.'
       location.reload()
     }

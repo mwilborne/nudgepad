@@ -24,7 +24,6 @@ var fs = require('fs'),
     _ = require('underscore'),
     async = require('async'),
     Space = require('space'),
-    Marking = require('markings'),
     Page = require('scraps'),
     socketio = require('socket.io'),
     nodemailer = require("nodemailer")
@@ -82,8 +81,23 @@ require('./paths.js')(app, projectsPath, clientPath)
 // Run install script in case its not installed
 require('./install.js')(app)
 
-app.Project = new Space()
 app.Screens = new Space()
+
+app.team = {}
+app.team.cache = new Space()
+app.team.get = function (email, callback) {
+  if (app.team.cache.get(email))
+    return callback(null, app.team.cache.get(email))
+  var filename = app.paths.team + email + '.space'
+  fs.readFile(filename, 'utf8', function (err, data) {
+    if (err)
+      console.log(err)
+    if (err)
+      return callback(err)
+    app.team.cache.set(email, new Space(data))
+    return callback(null, new Space(data))
+  })
+}
 
 // Load the HTML file and add mtimes as query string so the
 // maker always get the latest version of the nudgepad.js and nudgepad.css
@@ -97,36 +111,6 @@ app.nudgepadHtmlVersion = fs.readFileSync(clientPath + 'production/nudgepad.min.
 
 // todo: remove this?
 app.started = new Date().getTime()
-
-
-app.getOwner = function () {
-  var owner
-  var team = app.Project.get('team').each(function (key, value) {
-    if (value.get('role') === 'owner') {
-      owner = key
-      return false
-    }
-  })
-  return owner
-}
-
-app.Project.loadFolder = function (folder) {
-  // Create a Space for every folder
-  app.Project.set(folder, new Space())
-  // Grab all spaces in a folder
-  if (!fs.existsSync(app.paths.nudgepad + folder))
-    return false
-  var files = fs.readdirSync(app.paths.nudgepad + folder)
-  for (var j in files) {
-    // Dont read non space files
-    if (!files[j].match(/\.space/))
-      continue
-    // Load every file into memory
-    var filePath = app.paths.nudgepad + folder + '/' + files[j]
-    app.Project.set(folder + ' ' + files[j].replace(/\.space$/,''), new Marking(filePath).loadSync())
-  }
-}
-
 
 /**
  * @param {string}
@@ -189,11 +173,6 @@ if (app.development)
   console.log('Development mode started...')
 else
   console.log('Production mode started...')
-
-app.Project.loadFolder('team')
-
-speedcoach('spaces loaded into memory')
-
 
 app.use(express.bodyParser())
 app.use(express.cookieParser())
@@ -275,9 +254,6 @@ app.post(app.pathPrefix + 'email', app.checkId, function (req, res, next) {
 /********** invite *************/
 require('./invite.js')(app)
 
-/********** images *************/
-require('./images.js')(app)
-
 /*********** nudgepad ***********/
 app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
 
@@ -295,7 +271,6 @@ app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
 
 })
 
-require('./project.js')(app)
 require('./backup.js')(app)
 require('./upload.js')(app)
 

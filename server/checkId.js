@@ -1,7 +1,5 @@
 function CheckID (app) {
   
-  
-  
   /**
    * Checks the maker is authorized and loads the maker info.
    *
@@ -22,36 +20,41 @@ function CheckID (app) {
       return res.redirect('/nudgepad/public/login.html')
     }
 
-    // Invalid email addresss
-    if (!app.Project.get('team ' + email)) {
-      // If use has invalid cookies set, clear them.
-      if (req.cookies.email)
-        res.clearCookie('email')
-      if (req.cookies.key)
-        res.clearCookie('key')
-      return res.send('User not found')
-    }
+    app.team.get(email, function (err, maker) {
+      if (err) {
+        // If use has invalid cookies set, clear them.
+        if (req.cookies.email)
+          res.clearCookie('email')
+        if (req.cookies.key)
+          res.clearCookie('key')
+        return res.send('User not found')
+      }
+      
+      // Invalid key
+      if (maker.get('key') !== key) {
+        // If use has invalid cookies set, clear them.
+        if (req.cookies.email)
+          res.clearCookie('email')
+        if (req.cookies.key)
+          res.clearCookie('key')
+        return res.send('Invalid key ' + key)
+      }
+      
+      // Invalid role
+      var role = maker.get('role')
+      if (role !== 'owner' && role !== 'maker')
+        return res.send('Not authorized')
+      
+      
+      // Login okay
+      req.email = email
+      // Resume fulfilling request
+      next()
+        
+      
+    })
 
-    // Invalid key
-    if (app.Project.get('team ' + email + ' key') !== key) {
-      console.log(app.Project.get('team ' + email + ' key'))
-      // If use has invalid cookies set, clear them.
-      if (req.cookies.email)
-        res.clearCookie('email')
-      if (req.cookies.key)
-        res.clearCookie('key')
-      return res.send('Invalid key ' + key)
-    }
 
-    // Invalid role
-    var role = app.Project.get('team ' + email + ' role')
-    if (role !== 'owner' && role !== 'maker')
-      return res.send('Not authorized')
-
-    // Login okay
-    req.email = email
-    // Resume fulfilling request
-    next()
   }
 
   app.privateCheck = function (req, res, next) {

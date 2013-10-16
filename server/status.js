@@ -3,19 +3,21 @@ var Space = require('space'),
 
 var Status = function (app, speedcoach) {
   
-  
-  
   app.get(app.pathPrefix + 'status', app.checkId, function(req, res, next) {
 
     var mem = process.memoryUsage()
     var load = os.loadavg()
     space = new Space()
     space.set('domain', app.domain)
+    space.set('started', app.started)
     space.set('ip', app.ip)
     space.set('uptime', (process.uptime()) + 's')
     space.set('os_release', os.release())
     space.set('platform', os.platform())
-    space.set('hostname', os.hostname())
+    var hostname = os.hostname()
+    if (app.development)
+      hostname = 'localhost'
+    space.set('hostname', hostname)
     space.set('speedcoach', speedcoach.times())
     space.set('title', process.title)
     space.set('pid', process.pid)

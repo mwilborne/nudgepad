@@ -5,7 +5,6 @@ var Space = require('space'),
     Tool = require('tool),
     fs = require('fs),
     Alerts = require('Alerts'),
-    Project = require('Project'), // required for pages
     Test = require('Test'),
     $ = require('jQuery')
 */

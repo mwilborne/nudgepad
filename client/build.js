@@ -34,9 +34,8 @@ _.each(externalLibs, function (filename) {
 
 var jsFiles = _.without(fs.readdirSync(corePath + 'js'), '.DS_Store')
 // Do some reordering
-jsFiles = _.without(jsFiles, 'Nudgepad.js', 'Project.js', 'Tool.js')
+jsFiles = _.without(jsFiles, 'Nudgepad.js', 'Tool.js')
 jsFiles.unshift('Nudgepad.js')
-jsFiles.unshift('Project.js')
 jsFiles.unshift('Tool.js')
 _.each(jsFiles, function (filename) {
   includes.js += '    <script type="text/javascript" src="/nudgepad/core/js/' + filename + '?t=' + new Date().getTime() + '"></script>\n'
