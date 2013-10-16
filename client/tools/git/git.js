@@ -90,15 +90,6 @@ Git.generateKey = function () {
   })
 }
 
-Git.init = function () {
-  expressfs.writeFile('.gitignore', Git.gitignore, function () {
-    Git.exec('git init', function () {
-      Alerts.success('Git init OK')
-      Git.status()
-    })
-  })
-}
-
 Git.install = function () {
   var result = confirm('This will run git init and start your repo.')
   if (!result)
@@ -130,13 +121,6 @@ Git.setOrigin = function () {
   Git.exec('git remote set-url origin ' + origin, function () {
     Alerts.success('Origin Updated')
   })
-}
-
-Git.squash = function () {
-  var message = prompt('Enter your message')
-  if (!message)
-    return false
-  Git.exec('git checkout master; git squash nudgepad "' + message + '"; git checkout -b nudgepad')
 }
 
 Git.status = function () {
