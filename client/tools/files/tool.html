@@ -7,6 +7,12 @@
       <ul class="nav navbar-nav navbar-logo"></ul>
       
       <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="cursor dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a class="cursor" id="FilesHiddenToggle" onclick="Files.toggleHidden()"></a></li>
+          </ul>
+        </li>
         <li><a class="cursor" onclick="Files.refresh()">Refresh</a></li>
       </ul>
       

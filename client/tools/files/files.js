@@ -5,12 +5,29 @@ Files.set('path', '')
 
 Files.on('ready', function () {
   Files.refresh()
+  Files.updateHidden()
 })
 
 Files.on('set', function (key) {
   if (key === 'path')
     Files.renderExplorer()
 })
+
+Files.toggleHidden = function () {
+  if (store.get('FilesShowHidden'))
+    store.remove('FilesShowHidden')
+  else
+    store.set('FilesShowHidden', 'true')
+  Files.refresh()
+  Files.updateHidden()
+}
+
+Files.updateHidden = function () {
+  $('#FilesHiddenToggle').html('')
+  if (store.get('FilesShowHidden'))
+    $('#FilesHiddenToggle').append('&#10003; ')
+  $('#FilesHiddenToggle').append('Show Hidden Files')
+}
 
 Files.isImage = function (filename) {
   if (filename.match(/\.png|jpeg|jpg|gif$/i))
@@ -62,6 +79,10 @@ Files.renderExplorer = function () {
   var filenames = folders.concat(theFiles)
   
   filenames.forEach(function (filename) {
+    
+    if (!store.get('FilesShowHidden') && filename.substr(0,1) == '.')
+      return true
+    
     var file = files.get(filename)
     var row = '<tr'
     // if is file

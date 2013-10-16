@@ -36,12 +36,6 @@ Git.cloneRepo = function () {
   })
 }
 
-Git.checkout = function () {
-  Git.exec('git checkout -b nudgepad', function () {
-    Alerts.success('Switched to NudgePad branch')
-  })
-}
-
 Git.commit = function () {
   var message = prompt('Enter your message')
   if (!message)
@@ -110,7 +104,7 @@ Git.install = function () {
   if (!result)
     return false
   expressfs.writeFile('.gitignore', Git.gitignore, function () {
-    Git.exec('git init; git add .; git commit -am "initial commit"; git checkout -b nudgepad;', function () {
+    Git.exec('git init; git add .; git commit -am "initial commit";', function () {
       Alerts.success('Git setup OK')
     })
   })
