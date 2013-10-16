@@ -17,9 +17,10 @@ Team.invite = function () {
 
 Team.refresh = function () {
   $('#TeamCurrent').html('')
-  $.get('/nudgepad.project.team', function (data) {
+  expressfs.downloadDirectory('nudgepad/team/', null, function (data) {
     new Space(data).each(function (key, value) {
-      $('#TeamCurrent').append('<li><i class="icon-li icon-user"></i>' + key + '</li>')
+      var email = key.replace(/\.space/, '')
+      $('#TeamCurrent').append('<li><i class="icon-li icon-user"></i>' + email + '</li>')
     })
   })
 }

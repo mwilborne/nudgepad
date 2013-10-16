@@ -26,7 +26,8 @@ var UpdateEmail = function (app) {
 
     var role = app.Project.get('team').get(req.email + ' role')  
     // Generate new password
-    var maker = new Marking(app.paths.team + email + '.space')
+    var filename = app.paths.team + email + '.space'
+    var maker = new Marking(filename)
     maker.set('name', ParseName(email))
     maker.set('role', role)
     maker.set('key', app.hashString(email + RandomString(8)))

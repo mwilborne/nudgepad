@@ -6,10 +6,9 @@ var ParseName = require('./ParseName.js'),
 
 var Invite = function (app) {
   
-  
-  
   var createUser = function (email) {
-    var maker = new Marking(app.paths.team + email + '.space')
+    var filename = app.paths.team + email + '.space'
+    var maker = new Marking(filename)
     maker.set('name', ParseName(email))
     maker.set('role', 'maker')
     maker.set('key', app.hashString(email + RandomString(8)))
