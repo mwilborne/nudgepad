@@ -33,6 +33,12 @@
 .InsightRecord:hover {
   color: blue;
 }
+.InsightRecord:hover label{
+  background: white;
+  outline: 10px solid white;
+  opacity: 0.9;
+  z-index: 20;
+}
 .InsightEditor textarea {
   min-width: 400px;
   min-height: 250px;
