@@ -14,6 +14,11 @@ Insight.Database.prototype.getPath = function (name) {
   return 'nudgepad/insight/' + (name ? name : this.name)
 }
 
+Insight.Database.prototype.insight = function () {
+  this.updateX()
+  this.updateY()
+}
+
 Insight.Database.prototype.open = function () {
   var base = this
   expressfs.downloadDirectory(this.getPath(), 'space', function (data) {
@@ -91,6 +96,7 @@ Insight.Database.prototype.updateY = function () {
   })
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightYMax').html(maxX).show()
+  $('#InsightYLabel').html(property).show()
   $('#InsightYMin').html(minX).show()
 }
 
@@ -126,6 +132,7 @@ Insight.Database.prototype.updateX = function () {
   })
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightXMax').html(maxX).show()
+  $('#InsightXLabel').html(property).show()
   $('#InsightXMin').html(minX).show()
 }
 
