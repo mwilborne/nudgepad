@@ -1896,11 +1896,14 @@ template {
   min-height: 250px;
   width: auto;
 }
-#InsightYMax,#InsightYMin,#InsightXMax,#InsightXMin {
+#InsightYMax,#InsightYMin,#InsightXMax,#InsightXMin,#InsightXLabel,#InsightYLabel {
   position: absolute;
   display: none;
 }
-
+#InsightYLabel {
+  left: -60px;
+  top: -15px;
+}
 #InsightYMax {
   left: -20px;
   top: 20px;
@@ -1915,6 +1918,10 @@ template {
 }
 #InsightXMin {
   left: 20px;
+  bottom: -20px;
+}
+#InsightXLabel {
+  right: -20px;
   bottom: -20px;
 }
 .LabsBtn:hover {
