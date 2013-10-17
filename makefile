@@ -20,6 +20,9 @@ cloc:
 csstospace:
 	cp ~/csstospace/csstospace.js /nudgepad/nudgepad/client/public/js/csstospace.js
 
+csvtospace:
+	cp ~/csvtospace/csvtospace.js /nudgepad/nudgepad/client/public/js/csvtospace.js
+
 expressfs:
 	cp ~/expressfs/expressfs.browser.js /nudgepad/nudgepad/client/public/js/expressfs.browser.js
 	# Todo: make expressfs an npm package

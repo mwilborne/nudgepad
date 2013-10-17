@@ -25,7 +25,7 @@ Insight.drop.traverseFileTree = function (item, path) {
 // http://www.sitepoint.com/html5-javascript-open-dropped-files/
 Insight.drop.processFile = function (path, file) {
 
-  if (file.type.indexOf("text") == 0 || file.name.match(/\.space/)) {
+  if (file.name.match(/\.space/)) {
     var reader = new FileReader()
     reader.onload = function(e) {
       var obj = new Space(e.target.result)
@@ -40,6 +40,26 @@ Insight.drop.processFile = function (path, file) {
       Insight.base.set(id, record)
       record.render()
       record.save()
+    }
+    reader.onerror = function (e) {
+      console.log('error: %s', e)
+    }
+    reader.readAsText(file)
+  }
+  if (file.name.match(/\.csv/)) {
+    var reader = new FileReader()
+    reader.onload = function(e) {
+      var collection = csvToSpace(e.target.result)
+      collection.each(function (key, value, index) {
+        var space = new Space()
+        space.set('meta x', Insight.drop.event.offsetX + _.random(-300, 300))
+        space.set('meta y', Insight.drop.event.offsetY + _.random(-300, 300))
+        space.set('value', value)
+        var record = new Insight.Record(key, Insight.database, space)
+        Insight.base.set(key, record)
+        record.render()
+        record.save()
+      })
     }
     reader.onerror = function (e) {
       console.log('error: %s', e)

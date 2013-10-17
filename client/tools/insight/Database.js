@@ -1,5 +1,6 @@
 Insight.Database = function (name) {
   this.name = name
+  this.settings = new Space()
   return this
 }
 
@@ -17,14 +18,16 @@ Insight.Database.prototype.open = function () {
   var base = this
   expressfs.downloadDirectory(this.getPath(), 'space', function (data) {
     base.reload(data)
-    $('.InsightPlane').html('')
+    if (base.get('settings.space')) {
+      base.settings.reload(base.get('settings.space'))
+      base.delete('settings.space')
+    }
     base.each(function (key, value, index) {
       var id = key.replace(/\.space/, '')
       var record = new Insight.Record(id, this.name, value)
       this.update(index, id, record)
-      record.render()
     })
-    $('.InsightPlane').show()
+    base.render()
     $('#InsightDatabase').html(base.name)
     store.set('InsightDatabase', base.name)
   })
@@ -36,6 +39,18 @@ Insight.Database.prototype.rename = function (newName) {
   })
 }
 
+Insight.Database.prototype.render = function () {
+  $('.InsightPlane').html('')
+  this.each(function (key, value, index) {
+    value.render()
+  })
+  $('.InsightPlane').show()
+}
+
+Insight.Database.prototype.saveSettings = function () {
+  expressfs.writeFile('nudgepad/insight/' + this.name + '/settings.space', this.settings.toString())
+}
+
 Insight.Database.prototype.trash = function (id) {
   expressfs.unlink('nudgepad/insight/' + this.name + '/' + id + '.space', function () {
     $('#' + id).fadeOut('fast', function () {
@@ -44,7 +59,10 @@ Insight.Database.prototype.trash = function (id) {
   })
 }
 
-Insight.Database.prototype.updateY = function (property) {
+Insight.Database.prototype.updateY = function () {
+  var property = this.settings.get('y')
+  if (!property)
+    return false
   $('.InsightRecord').addClass('InsightRecordAnimate')
   var width = $('.InsightPlane').height() - 20
   var minX
@@ -72,12 +90,17 @@ Insight.Database.prototype.updateY = function (property) {
     el.css('top', newX)
   })
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
+  $('#InsightYMax').html(maxX).show()
+  $('#InsightYMin').html(minX).show()
 }
 
-Insight.Database.prototype.updateX = function (property) {
+Insight.Database.prototype.updateX = function () {
+  var property = this.settings.get('x')
+  if (!property)
+    return false
   console.log('moving')
   $('.InsightRecord').addClass('InsightRecordAnimate')
-  var width = $('.InsightPlane').width() - 20
+  var width = $('.InsightPlane').width() - 100
   var minX
   var maxX
   this.each(function (key, value, index) {
@@ -102,6 +125,8 @@ Insight.Database.prototype.updateX = function (property) {
     el.css('left', newX)
   })
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
+  $('#InsightXMax').html(maxX).show()
+  $('#InsightXMin').html(minX).show()
 }
 
 

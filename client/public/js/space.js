@@ -5,7 +5,7 @@ function Space(content) {
   return this
 }
 
-Space.version = '0.5.1'
+Space.version = '0.5.4'
 
 Space.arrayDelete = function (array, index) {
   return array.slice(0,index).concat(array.slice(index+1))
@@ -290,7 +290,7 @@ Space.prototype.every = function (fn) {
  * @return The matching value
  */
 Space.prototype.get = function (query) {
-  return this._getValueByString(query)
+  return this._getValueByString(query.toString())
 }
 
 Space.prototype.getAll = function (query) {
@@ -807,7 +807,8 @@ Space.prototype.rename = function (oldName, newName) {
 }
 
 Space.prototype.set = function (key, value, index) {
-  if (Space.isXPath(key.toString()))
+  key = key.toString()
+  if (Space.isXPath(key))
     this._setByXPath(key, value)
   else if (this.has(key))
     this._setTuple(key, value, this.indexOf(key), true)
@@ -859,6 +860,7 @@ Space.prototype._setByXPath = function (key, value) {
 }
 
 Space.prototype._setTuple = function (key, value, index, overwrite) {
+  key = key.toString()
   if (index === undefined)
     this._tuples.push([key, value])
   else if (overwrite)

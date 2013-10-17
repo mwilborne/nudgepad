@@ -68,7 +68,8 @@ Insight.Record.prototype.render = function () {
   icon.css('-webkit-transform', 'rotate(80deg)')
   icon.css('transform', 'rotate(80deg)')
   record.append(icon)
-  var name = this.get('value name')
+  var label = Insight.base.settings.get('label') || 'name'
+  var name = this.get('value ' + label)
   if (name)
     record.append('<label>' + name + '</label>')
   record.attr('id', this.id)

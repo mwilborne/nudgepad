@@ -43,4 +43,24 @@
   min-height: 250px;
   width: auto;
 }
+#InsightYMax,#InsightYMin,#InsightXMax,#InsightXMin {
+  position: absolute;
+  display: none;
+}
 
+#InsightYMax {
+  left: -20px;
+  top: 20px;
+}
+#InsightYMin {
+  left: -20px;
+  bottom: 20px;
+}
+#InsightXMax {
+  right: 20px;
+  bottom: -20px;
+}
+#InsightXMin {
+  left: 20px;
+  bottom: -20px;
+}

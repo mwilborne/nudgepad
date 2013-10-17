@@ -42,6 +42,14 @@ Insight.menu.openPrompt = function () {
   Insight.menu.open(name)
 }
 
+Insight.menu.editSettings = function () {
+  TextPrompt.open('Settings', Insight.base.settings.toString(), 'settings.space', function (val) {
+    Insight.base.settings.reload(val)
+    Insight.base.saveSettings()
+    Insight.base.render()
+  })
+}
+
 Insight.drawInit = function () {
   
   $('.InsightPlane').on('mousemove', function (event) {

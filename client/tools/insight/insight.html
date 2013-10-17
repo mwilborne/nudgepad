@@ -34,7 +34,15 @@
         
         <li>
           <a>
-          <button type="button" onclick="Insight.base.updateX('year')" title="Move" class="btn btn-default btn">
+          <button type="button" onclick="Insight.menu.editSettings()" title="Database Settings" class="btn btn-default btn">
+            <i class="icon-cog"></i>
+          </button>
+          </a>
+        </li>
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.base.updateX()" title="Move" class="btn btn-default btn">
             x
           </button>
           </a>
@@ -42,13 +50,16 @@
         
         <li>
           <a>
-          <button type="button" onclick="Insight.base.updateY('children')" title="Move" class="btn btn-default btn">
+          <button type="button" onclick="Insight.base.updateY()" title="Move" class="btn btn-default btn">
             y
           </button>
           </a>
         </li>
         
+        
+        
         <li><a><span id="InsightDatabase" contenteditable="true"></span></a></li>
+        
       </ul>
       
       
@@ -59,8 +70,11 @@
   </div>
   <!-- End navbar -->
   
-  <div class="container">
-
+  <div class="container" style="position: relative">
+    <div id="InsightYMax"></div>
+    <div id="InsightYMin"></div>
+    <div id="InsightXMax"></div>
+    <div id="InsightXMin"></div>
     <div class="InsightPlane" style="display: none;">
     
     </div>

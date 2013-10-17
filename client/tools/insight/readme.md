@@ -12,18 +12,19 @@
 - Visualization POC
 - delete record
 - ondrop
+- csv file
+- Change dimension
 
 Todo
 ----
-- csv file
-- Change dimension
+- Labeling Grids
 - Links
 - Importing data
 - CSS styling
 - open db dropdown
 - Select
 - Enter template
-- Labeling Grids
+- filter/hide records
 - Zoomin/Zoomout
 - Exporting
 - record Animations
@@ -31,13 +32,14 @@ Todo
 - realtime
 - meta direction
 - meta vector length
-- meta:
+
+meta:
 - created
 - creator
 - updated
-- computed:
--  bodysize
--  labelsize
+computed:
+- bodysize
+- labelsize
 
 
 
