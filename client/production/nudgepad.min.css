@@ -1896,7 +1896,27 @@ template {
   min-height: 250px;
   width: auto;
 }
+#InsightYMax,#InsightYMin,#InsightXMax,#InsightXMin {
+  position: absolute;
+  display: none;
+}
 
+#InsightYMax {
+  left: -20px;
+  top: 20px;
+}
+#InsightYMin {
+  left: -20px;
+  bottom: 20px;
+}
+#InsightXMax {
+  right: 20px;
+  bottom: -20px;
+}
+#InsightXMin {
+  left: 20px;
+  bottom: -20px;
+}
 .LabsBtn:hover {
   -webkit-box-shadow: inset 0 3px 35px rgba(0, 0, 0, 0.125);
           box-shadow: inset 0 3px 35px rgba(0, 0, 0, 0.125);
