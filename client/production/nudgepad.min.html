@@ -688,7 +688,7 @@ img
         
         <li>
           <a>
-          <button type="button" onclick="Insight.menu.editSettings()" title="Database Settings" class="btn btn-default btn">
+          <button type="button" onclick="Insight.menu.editView()" title="Edit View" class="btn btn-default btn">
             <i class="icon-cog"></i>
           </button>
           </a>
@@ -696,7 +696,7 @@ img
         
         <li>
           <a>
-          <button type="button" onclick="Insight.base.insight()" title="Insight!" class="btn btn-default btn">
+          <button type="button" onclick="Insight.view.insight()" title="Insight!" class="btn btn-default btn">
             <i class="icon-bolt"></i>
           </button>
           </a>
@@ -820,7 +820,7 @@ img
           <ul class="dropdown-menu" id="PagesFileMenu">
           </ul>
         </li>
-        <li><a><button type="button" class="btn btn-primary btn-xs" onclick="Pages.editor.publish()">Publish</button></a></li>
+        <li><a><button type="button" class="btn btn-primary btn-xs" onclick="Pages.page.publish()">Publish</button></a></li>
       </ul>
       
 
@@ -840,7 +840,7 @@ img
   </style>
   <div class="container">
     
-    <iframe id="PagesStage" src="/nudgepad.iframe"></iframe>
+    <iframe id="PagesStage" src="/index.html" style="visibility: hidden;"></iframe>
 
   </div>
 
