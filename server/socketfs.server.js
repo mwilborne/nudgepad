@@ -1,196 +1,164 @@
 var fs = require('fs'),
     Space = require('space'),
-    _ = require('underscore'),
+    Tail = require('tail').Tail,
+    dirtospace = require('dirtospace'),
     async = require('async')
 
 module.exports = function (app) {
   
-  var watchers = new Space()
-  var mtimes = new Space()
+  var Files = new Space()
   
-  function fileStats (path, spaceCount, callback) {
-    
-    spaceCount = spaceCount + 1
-    var spaces = strRepeat(' ', spaceCount)
-
-    fs.stat(path, function (err, stat) {
-
-      // Quit on error
-      if (err)
-        return callback(err)
-
-      if (stat.isDirectory())
-        return dirStats(path + '/', spaceCount, callback)
-
-      var str = ''
-      str += spaces + 'mtime ' + stat.mtime.getTime() + '\n'
-      str += spaces + 'size ' + (stat.size/1000000).toFixed(1) + 'MB\n'
-      str += spaces + 'bytes ' + stat.size + '\n'
-      str += spaces + 'age ' + ((new Date().getTime() - stat.ctime.getTime())/86400000).toFixed(1) + 'D\n'
-      str += spaces + 'freshness ' + ((new Date().getTime() - stat.mtime.getTime())/1000).toFixed(0) + 'S\n'
-      str += spaces + 'timeSinceLastChange ' + ((new Date().getTime() - stat.mtime.getTime())/86400000).toFixed(1) + 'D\n'
-      str += spaces + 'oneliner ' + stat.size + ' ' + stat.mtime.getTime() + '\n'
-      callback(false, str)
-    })
-
-  }
-  
-  var strRepeat = function (string, count) {
-    var str = ''
-    for (var i = 0; i < count; i++) {
-      str += ' '
-    }
-    return str
-  }
-
-  function dirStats (path, spaceCount, callback) {
-    
-    var spaces = strRepeat(' ', spaceCount)
-
-    fs.readdir(path, function (err, files) {
-
-      if (err)
-        return callback(err)
-
-      var str = ''
-      var paths = _.map(files, function (value){return path + value})
-
-      async.mapSeries(paths, function (path, callback) {
-        fileStats(path, spaceCount, callback)
-      }, function(err, stats){
-
-        if (err)
-          return callback(err)
-
-        // stats is now an array of stats for each file
-        for (var i in files) {
-          str += spaces + files[i] + '\n' + stats[i]
-        }
-
-        callback(false, str)
-      })    
-
-    })
-
-  }
-  
-  var sendDirectoryChange = function (filename) {
-    console.log('dir change: %s', filename)
-    dirStats(filename.replace(/\/$/, '') + '/', 0, function (err, string) {
-      
-      if (err) {
-        console.log('error getting dirstats for %s : %s', filename, err)
-        return true
+  var cleanup = function () {
+    Files.each(function (filename, value) {
+      if (value.get('watchers') && !value.get('watchers').length()) {
+        fs.unwatchFile(filename)
+        value.delete('watchers')
+        value.delete('watcherFn')
       }
-        
-      
-      watchers.get(filename).each(function (socketId) {
-        console.log('emitting to %s', socketId)
-        if (!app.SocketIO.sockets.sockets[socketId]) {
-          console.log('tried to emit to %s but not found', socketId)
-          return true
-        }
-        app.SocketIO.sockets.sockets[socketId].emit('change', { filename : filename, content : string})
-      })
+      if (value.get('tails') && !value.get('tails').length()) {
+        value.get('tailFn').unwatch()
+        value.delete('tails')
+        value.delete('tailFn')
+      }
+      if (!value.get('tails') && !value.get('watchers'))
+        Files.delete(filename)
     })
-    
-  }
-  
-  var sendFileChange = function (filename) {
-    fs.readFile(filename, 'utf8', function (err, content) {
-      watchers.get(filename).each(function (socketId) {
-        console.log('emitting to %s', socketId)
-        if (!app.SocketIO.sockets.sockets[socketId]) {
-          console.log('tried to emit to %s but not found', socketId)
-          return true
-        }
-        console.log(content)
-        app.SocketIO.sockets.sockets[socketId].emit('change', { filename : filename, content : content})
-      })
-    })
-  }
-  
-  var onFileChange = function (filename) {
-    fs.stat(filename, function (err, stats) {
-      if (err)
-        return true
-      
-      // File has not changed
-      if (mtimes.get(filename) === stats.mtime.getTime())
-        return true
-      mtimes.set(filename, stats.mtime.getTime())
-      console.log('%s changed %s', filename, stats.mtime.getTime())
-      if (stats.isDirectory())
-        sendDirectoryChange(filename)
-      else
-        sendFileChange(filename)
-    })
-  }
-  
-  var watchFile = function (filename) {
-    console.log('adding listener to %s', filename)
-    fs.watch(filename, function () { onFileChange(filename)})
   }
   
   app.SocketIO.sockets.on('connection', function (socket) {
     
-    socket.on('unwatch', function (filename, fn) {
-      if (!watchers.get(filename))
-        return fn('no one is watching ' + filename)
-      if (!watchers.get(filename).get(socket.id))
-        return fn('you are not watching ' + filename)
-      watchers.get(filename).delete(socket.id.toString())
-      if (!watchers.get(filename))
-        fs.unwatchFile(filename)
-      fn('you are no longer watching ' + filename)
-    })
-    
     socket.on('disconnect', function () {
-      console.log('%s disconnected', socket.id)
-      watchers.each(function (filename, value) {
-        if (value.get(socket.id)) {
-          console.log('deleting %s from watching %s', socket.id, filename)
-          value.delete(socket.id)
-        }
+      
+      Files.each(function (filename, value) {
+        value.delete('watchers ' + socket.id)
+        value.delete('tails ' + socket.id)
       })
+      cleanup()
+    })
+  
+    socket.on('inspect', function (filename, fn) {
+      fn(Files.toString())
     })
     
-    socket.on('watch', function (filename, fn) {
+    socket.on('resetGlobal', function (message, fn) {
+      Files.each(function (filename, value) {
+        
+        // A no op if it does not exist
+        fs.unwatchFile(filename)
+        if (value.get('tailFn'))
+          value.get('tailFn').unwatch()
+        
+      })
+      Files = new Space()
+      fn('reset')
+    })
+      
+    socket.on('tail', function (filename, fn) {
+      
       fs.exists(filename, function (exists) {
         if (!exists)
           return fn(filename + ' does not exist')
-        console.log('%s started watching %s', socket.id, filename)
-        if (!watchers.get(filename)) {
-          watchers.set(filename, new Space())
-          watchFile(filename)
+        
+        if (!Files.get(filename))
+          Files.set(filename, new Space())
+        
+        var file = Files.get(filename)
+        if (!file.get('tailFn')) {
+          tail = new Tail(filename)
+          tail.on("line", function(data) {
+            var tails = Files.get(filename + ' tails') || new Space()
+            tails.each(function (socketId) {
+              if (!app.SocketIO.sockets.sockets[socketId])
+                return true
+              app.SocketIO.sockets.sockets[socketId].emit('tail', { filename : filename, content : data})
+            })
+          })
+          file.set('tailFn', tail)
         }
-        if (watchers.get(filename + ' ' + socket.id)) {
-          console.log('%s is already watching %s', socket.id, filename)
+        else if (file.get('tails ' + socket.id))
+          return fn('you are already tailing ' + filename)
+        
+        file.set('tails ' + socket.id, new Date().getTime())
+        fn('you are now tailing ' + filename)
+      })
+      
+    })
+    
+    socket.on('untail', function (filename, fn) {
+      Files.delete(filename + ' tails ' + socket.id)
+      cleanup()
+      fn('You are no longer tailing ' + filename)
+    })
+    
+    socket.on('unwatch', function (filename, fn) {
+      Files.delete(filename + ' watchers ' + socket.id)
+      cleanup()
+      fn('You are no longer watching ' + filename)
+    })
+    
+    socket.on('watch', function (filename, fn) {
+      
+      fs.exists(filename, function (exists) {
+        if (!exists)
+          return fn(filename + ' does not exist')
+        
+        if (!Files.get(filename))
+          Files.set(filename, new Space())
+        
+        var file = Files.get(filename)
+        if (!file.get('watcherFn')) {
+          
+          
+          fs.watch(filename, function () {
+            
+            fs.stat(filename, function (err, stats) {
+              if (err)
+                return true
+  
+              // File has not changed
+              if (file.get('mtime') === stats.mtime.getTime())
+                return true
+              file.set('mtime', stats.mtime.getTime())
+              if (stats.isDirectory()) {
+                dirtospace(filename.replace(/\/$/, '') + '/', function (err, string) {
+                  if (err)
+                    return true
+                  var watchers = Files.get(filename + ' watchers')
+                  if (watchers) {
+                    watchers.each(function (socketId) {
+                      if (!app.SocketIO.sockets.sockets[socketId])
+                        return true
+                      app.SocketIO.sockets.sockets[socketId].emit('change', { filename : filename, content : string})
+                    })
+                  }
+                  
+                })
+              }
+              else {
+                fs.readFile(filename, 'utf8', function (err, content) {
+                  var watchers = Files.get(filename + ' watchers')
+                  if (watchers) {
+                    watchers.each(function (socketId) {
+                      if (!app.SocketIO.sockets.sockets[socketId])
+                        return true
+                      app.SocketIO.sockets.sockets[socketId].emit('change', { filename : filename, content : content})
+                    })
+                  }
+                })
+              }
+            })
+            
+          })
+          
+          file.set('watcherFn', true)
+        }
+        else if (file.get('watchers ' + socket.id))
           return fn('you are already watching ' + filename)
-        }
-        watchers.get(filename).set(socket.id, new Date().getTime())
+        
+        file.set('watchers ' + socket.id, new Date().getTime())
         fn('you are now watching ' + filename)
       })
-    })
-    
-    socket.on('watchers', function (filename, fn) {
-      fn(watchers.toString())
-    })
-    
-    socket.on('unwatchGlobal', function (message, fn) {
       
-      var files = watchers.getKeys()
-      async.mapSeries(files, function (file, callback) {
-        fs.unwatchFile(file)
-        callback()
-      }, function (err) {
-        console.log('unwatchGlobal done')
-        if (err)
-          console.log('error unwatching file %s', err)
-        watchers = new Space()
-        fn('unwatched')        
-      })
-      console.log('unwatchGlobal fired')
     })
   
   })

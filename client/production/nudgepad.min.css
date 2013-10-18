@@ -2016,6 +2016,10 @@ template {
   border: 0;
 }
 
+#ServerLogHolder, #ServerStatusArea {
+  height: 400px;
+  overflow: scroll;
+}
 #Sketch {
 
 }

@@ -1,5 +1,4 @@
 var Server = new Tool('Server')
-Server.set('path', '')
 
 Server.consoleSend = function (toNode) {
   
@@ -27,45 +26,31 @@ Server.consoleSend = function (toNode) {
 Server.refresh = function () {
   
   $.get('/nudgepad.status', {}, function (data) {
-    Server.set('status', data)
     $('#ServerStatusArea').text(data)
   })
   $.get('/nudgepad.logs', {}, function (data) {
-    Server.set('log', data)
     $('#ServerLogHolder').html($('<div/>').text(data).html())
     $('#ServerLogHolder').scrollTop($('#ServerLogHolder').height())
   })
   
 }
 
-Server.stream = function (message) {
-  var clean = message.replace(/\</g, '&lt;') + '\n'
-  $('#ServerStream').append(clean)
-}
-
-Server.test = function () {
-  Test.add('stream', function () {
-    $.get('/nudgepad.stream', {m : 'hi world'}, function () {
-      Test.equal('hi world', $('#ServerStream').text())
-    })
-    
-  })
-
-  Test.start()
-}
-
 $(document).on('ready', function () {
   $('#ServerConsoleInput').on('enterkey', Server.consoleSend)
 })
 
-Server.on('once', function () {
-  Socket.on('stream', Server.stream)
-})
-
 Server.on('ready', function () {
-  
+  Server.tail = socketfs.tail('nudgepad/app.log.txt', function (data) {
+    $('#ServerLogHolder').append($('<div/>').text(data.content + '\n').html())
+    $('#ServerLogHolder').scrollTop($("#ServerLogHolder")[0].scrollHeight)
+  })
   Server.refresh()
   $('#ServerConsole').on('enterkey', function () {
     $('#ServerConsoleSend').trigger('click')
   })
 })
+
+Server.on('close', function () {
+  Server.tail.untail()  
+})
+

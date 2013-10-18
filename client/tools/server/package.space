@@ -1,6 +1,6 @@
-html tool.html
+html server.html
 js server.js
-css tool.css
+css server.css
 author Breck Yunits
 email breck@nudgepad.com
 icon terminal

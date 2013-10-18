@@ -1,6 +1,7 @@
 var fs = require('fs'),
     exec = require('child_process').exec,
     async = require('async'),
+    dirtospace = require('dirtospace'),
     mkdirp = require('mkdirp'),
     _ = require('underscore')
 
@@ -50,80 +51,10 @@ module.exports = function (app, options) {
     })
   })
   
-  /**
-   * @param {string}
-   * @param {int}
-   * @return {string}
-   */
-  var strRepeat = function (string, count) {
-    var str = ''
-    for (var i = 0; i < count; i++) {
-      str += ' '
-    }
-    return str
-  }
-  
-  function fileStats (path, spaceCount, callback) {
-    
-    spaceCount = spaceCount + 1
-    var spaces = strRepeat(' ', spaceCount)
 
-    fs.stat(path, function (err, stat) {
-
-      // Quit on error
-      if (err)
-        return callback(err)
-
-      if (stat.isDirectory())
-        return dirStats(path + '/', spaceCount, callback)
-
-      var str = ''
-      str += spaces + 'mtime ' + stat.mtime.getTime() + '\n'
-      str += spaces + 'size ' + (stat.size/1000000).toFixed(1) + 'MB\n'
-      str += spaces + 'bytes ' + stat.size + '\n'
-      str += spaces + 'age ' + ((new Date().getTime() - stat.ctime.getTime())/86400000).toFixed(1) + 'D\n'
-      str += spaces + 'freshness ' + ((new Date().getTime() - stat.mtime.getTime())/1000).toFixed(0) + 'S\n'
-      str += spaces + 'timeSinceLastChange ' + ((new Date().getTime() - stat.mtime.getTime())/86400000).toFixed(1) + 'D\n'
-      str += spaces + 'oneliner ' + stat.size + ' ' + stat.mtime.getTime() + '\n'
-      callback(false, str)
-    })
-
-  }
-
-  function dirStats (path, spaceCount, callback) {
-    
-    var spaces = strRepeat(' ', spaceCount)
-
-    fs.readdir(path, function (err, files) {
-
-      if (err)
-        return callback(err)
-
-      var str = ''
-      var paths = _.map(files, function (value){return path + value})
-
-      async.mapSeries(paths, function (path, callback) {
-        fileStats(path, spaceCount, callback)
-      }, function(err, stats){
-
-        if (err)
-          return callback(err)
-
-        // stats is now an array of stats for each file
-        for (var i in files) {
-          str += spaces + files[i] + '\n' + stats[i]
-        }
-
-        callback(false, str)
-      })    
-
-    })
-
-  }
-  
   app.post(prefix + 'expressfs.dirStats', function(req, res, next) {
     var path = req.body.path
-    dirStats(path, 0, function (err, string) {
+    dirtospace(path, function (err, string) {
       res.set('Content-Type', 'text/plain')
       return res.send(string)    
     })

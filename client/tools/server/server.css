@@ -1,0 +1,4 @@
+#ServerLogHolder, #ServerStatusArea {
+  height: 400px;
+  overflow: scroll;
+}

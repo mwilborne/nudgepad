@@ -11,12 +11,6 @@ var Logs = function (app) {
 
   })
   
-  app.get(app.pathPrefix + 'stream', function(req, res, next) {
-    
-    app.SocketIO.sockets.emit('stream', req.query.m)
-    res.send('')
-  })
-  
 }
 
 module.exports = Logs
