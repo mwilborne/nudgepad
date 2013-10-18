@@ -35,7 +35,7 @@ Files.drop.sendFile = function (path, file) {
           // Handle response.
           Alerts.success(xhr.responseText)
 //          alert(xhr.responseText) // handle response.
-          Files.refresh()
+//          Files.refresh()
       }
       else if (xhr.status == 500) {
         Alerts.error(xhr.responseText)

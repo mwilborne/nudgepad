@@ -1,6 +1,6 @@
-js tool.js
-html tool.html
-css tool.css
+js pages.js Page.js
+html pages.html
+css pages.css
 author Breck Yunits
 email breck@nudgepad.com
 icon edit

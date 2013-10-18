@@ -77,10 +77,18 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
   
 }
 
-TextPrompt.value = function () {
-  if (TextPrompt.ace)
-    return TextPrompt.editor.getValue()
-  else
-    return $('#TextPromptTextarea').val()
+TextPrompt.value = function (value) {
+  if (!value) {
+    if (TextPrompt.ace)
+      return TextPrompt.editor.getValue()
+    else
+      return $('#TextPromptTextarea').val()
+  }
+  else {
+    if (TextPrompt.ace)
+      return TextPrompt.editor.setValue(value)
+    else
+      return $('#TextPromptTextarea').val(value)
+  }
 }
 

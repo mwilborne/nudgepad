@@ -6,19 +6,50 @@ Files.set('path', '')
 Files.on('ready', function () {
   Files.refresh()
   Files.updateHidden()
+  
+  socketfs.watch('', function (data) {
+    Files.set('files', new Space(data.content))
+    Files.renderExplorer()
+  }, function () {
+    
+  })
 })
 
-Files.on('set', function (key) {
-  if (key === 'path')
-    Files.renderExplorer()
+Files.on('close', function () {
+  if (Files.watcher)
+    Files.watcher.unwatch()
+  if (Files.watcherEditor)
+    Files.watcherEditor.unwatch()
 })
+
+Files.on('set', function (key, value) {
+  if (key === 'path') {
+    Files.renderExplorer()
+    if (value.trim()) {
+      if (Files.watcher)
+        Files.watcher.unwatch()
+      Files.watcher = socketfs.watch(value.replace(/ /g,'/'), function (data) {
+        Files.get('files ' + value.trim()).reload(data.content)
+        Files.renderExplorer()
+      }, function () {
+
+      })
+    }
+      
+  }
+})
+
+Files.parseFilename = function (path) {
+  var parts = path.split(/( |\/)/g)
+  return parts[parts.length - 1]
+}
 
 Files.toggleHidden = function () {
   if (store.get('FilesShowHidden'))
     store.remove('FilesShowHidden')
   else
     store.set('FilesShowHidden', 'true')
-  Files.refresh()
+  Files.renderExplorer()
   Files.updateHidden()
 }
 
@@ -41,7 +72,7 @@ Files.newFile = function () {
     return false
     
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  expressfs.create((path + newName).replace(/ /g, '/'), '', Files.refresh)
+  expressfs.create((path + newName).replace(/ /g, '/'), '')
 }
 
 Files.newFolder = function () {
@@ -50,7 +81,7 @@ Files.newFolder = function () {
     return false
     
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  expressfs.mkdir((path + newName).replace(/ /g, '/'), Files.refresh)
+  expressfs.mkdir((path + newName).replace(/ /g, '/'))
 }
 
 Files.renderExplorer = function () {
@@ -149,12 +180,31 @@ Files.edit = function (path, callback) {
   Events.shortcut.disableShortcutsIfInputHasFocus = false
   Events.shortcut.shortcuts['meta+s'] = function () {
     expressfs.writeFile(path, TextPrompt.value().toString(), function () {
+      Files.editorValue = TextPrompt.value().toString()
       Alerts.success(path + ' saved', 1000)
     })
   }
+
   expressfs.readFile( path, function (data) {
+    var filename = Files.parseFilename(path)
+    Files.editorValue = data
+    Files.watcherEditor = socketfs.watch(filename, function (data) {
+      if (data.content !== TextPrompt.value()) {
+        console.log(filename + ' has changed')
+        if (Files.editorValue !== TextPrompt.value())
+          Alerts.error('Warning! ' + filename + ' has changed and differs from what you have here. We recommend copying your work to the clipboard just in case.')
+        else {
+          Files.editorValue = data.content
+          TextPrompt.value(data.content)
+        }
+      }
+    })
+    TextPrompt.onclose = function () {
+      if (Files.watcherEditor)
+        Files.watcherEditor.unwatch()
+    }
     TextPrompt.open('Editing ' + path, data, path, function (val) {
-      
+
       expressfs.writeFile(path, val.toString(), function (err) {
         if (err)
           console.log(err)
@@ -184,7 +234,7 @@ $(document).on('click', '.FilesExplorerRename', function () {
   if (!newName)
     return false
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  expressfs.rename($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'), Files.refresh)
+  expressfs.rename($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'))
 })
 
 $(document).on('click', '.FilesExplorerDuplicate', function () {
@@ -192,7 +242,7 @@ $(document).on('click', '.FilesExplorerDuplicate', function () {
   if (!newName)
     return false
   var path = (Files.get('path') ? Files.get('path') + ' ' : '')
-  expressfs.cp($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'), Files.refresh)
+  expressfs.cp($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'))
 })
 
 $(document).on('click', '.FilesExplorerRemove', function (event) {
@@ -201,7 +251,6 @@ $(document).on('click', '.FilesExplorerRemove', function (event) {
     return false
   expressfs.unlink($(this).parent().attr('path').replace(/ /g, '/'), function () {
     Alerts.success(name + ' deleted')
-    Files.refresh()
   })
 })
 
@@ -212,7 +261,6 @@ $(document).on('click', '.FilesExplorerRemoveFolder', function () {
   var path = $(this).parent().attr('path').replace(/ /g, '/')
   expressfs.rmdir(path, function () {
     Alerts.success(name + ' deleted')
-    Files.refresh()
   })
 })
 

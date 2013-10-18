@@ -101,7 +101,8 @@ expressfs.rename = function (oldPath, newPath, callback) {
   if (!newPath)
     return console.log('No name provided')
   $.post(expressfs.prefix + 'expressfs.rename', req, function (err) {
-    callback()
+    if (callback)
+      callback()
   })
 }
 
@@ -109,7 +110,8 @@ expressfs.rmdir = function (path, callback) {
   var req = {}
   req.path = expressfs.rootPath + path
   $.post( expressfs.prefix + 'expressfs.rmdir', req, function (data) {
-    callback()
+    if (callback)
+      callback()
   })
 }
 
@@ -117,7 +119,8 @@ expressfs.unlink = function (path, callback) {
   var req = {}
   req.path = expressfs.rootPath + path
   $.post( expressfs.prefix + 'expressfs.unlink', req, function (data) {
-    callback()
+    if (callback)
+      callback()
   })
 }
 

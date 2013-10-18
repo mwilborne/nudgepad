@@ -85,7 +85,7 @@ $.fn.toSpace = function () {
     // Meta is a special case. :(
     if (tag !== 'meta')
       space.set('content', $(this).html())
-    else
+    else if ($(this).attr('content'))
       space.set('content', $(this).attr('content'))
   
   }

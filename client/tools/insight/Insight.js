@@ -18,6 +18,7 @@ Insight.menu = {}
 
 // name of current open database
 Insight.database
+Insight.view = new Space()
 
 Insight.menu.create = function () {
   var name = prompt('Enter a name for your new database', 'untitled')
@@ -42,10 +43,10 @@ Insight.menu.openPrompt = function () {
   Insight.menu.open(name)
 }
 
-Insight.menu.editSettings = function () {
-  TextPrompt.open('Settings', Insight.base.settings.toString(), 'settings.space', function (val) {
-    Insight.base.settings.reload(val)
-    Insight.base.saveSettings()
+Insight.menu.editView = function () {
+  TextPrompt.open('Edit View', Insight.view.toString(), 'view.space', function (val) {
+    Insight.view.reload(val)
+    Insight.view.save()
     Insight.base.render()
   })
 }
@@ -68,6 +69,7 @@ Insight.drawInit = function () {
 }
 
 Insight.on('ready', function () {
+  
   //  Insight.drawInit()
   //  return true
   $('.InsightPlane').on('dblclick', function (event) {
@@ -103,7 +105,6 @@ Insight.on('ready', function () {
   })
   
   
-  
   if (store.get('InsightDatabase'))
     Insight.menu.open(store.get('InsightDatabase'))
     
@@ -112,5 +113,10 @@ Insight.on('ready', function () {
     Insight.base.rename($(this).text())
   })
   
+})
+
+Insight.on('close', function () {
+  if (Insight.watcher)
+    Insight.watcher.unwatch()
 })
 

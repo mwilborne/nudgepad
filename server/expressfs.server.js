@@ -1,6 +1,7 @@
 var fs = require('fs'),
     exec = require('child_process').exec,
     async = require('async'),
+    mkdirp = require('mkdirp'),
     _ = require('underscore')
 
 module.exports = function (app, options) {
@@ -174,7 +175,7 @@ module.exports = function (app, options) {
   
   app.post(prefix + 'expressfs.mkdir', function(req, res, next) {
     var path = req.body.path
-    fs.mkdir(path, function (err) {
+    mkdirp(path, function (err) {
       if (err) return res.send(err)
       res.send('')
     })

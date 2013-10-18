@@ -146,26 +146,51 @@ module.exports = function (app) {
     })
     
     socket.on('disconnect', function () {
-      watchers.every(function (key, value) {
-        if (value === socket.id)
-          this.delete(key)
+      console.log('%s disconnected', socket.id)
+      watchers.each(function (filename, value) {
+        if (value.get(socket.id)) {
+          console.log('deleting %s from watching %s', socket.id, filename)
+          value.delete(socket.id)
+        }
       })
     })
     
     socket.on('watch', function (filename, fn) {
-      console.log('%s watching %s', socket.id, filename)
-      if (!watchers.get(filename)) {
-        watchers.set(filename, new Space())
-        watchFile(filename)
-      }
-      if (watchers.get(filename + ' ' + socket.id))
-        return fn('you are already watching ' + filename)
-      watchers.get(filename).set(socket.id, new Date().getTime())
-      fn('you are now watching ' + filename)
+      fs.exists(filename, function (exists) {
+        if (!exists)
+          return fn(filename + ' does not exist')
+        console.log('%s started watching %s', socket.id, filename)
+        if (!watchers.get(filename)) {
+          watchers.set(filename, new Space())
+          watchFile(filename)
+        }
+        if (watchers.get(filename + ' ' + socket.id)) {
+          console.log('%s is already watching %s', socket.id, filename)
+          return fn('you are already watching ' + filename)
+        }
+        watchers.get(filename).set(socket.id, new Date().getTime())
+        fn('you are now watching ' + filename)
+      })
     })
     
     socket.on('watchers', function (filename, fn) {
-      fn('i got your message. here are the watchers: ' + watchers.toString())
+      fn(watchers.toString())
+    })
+    
+    socket.on('unwatchGlobal', function (message, fn) {
+      
+      var files = watchers.getKeys()
+      async.mapSeries(files, function (file, callback) {
+        fs.unwatchFile(file)
+        callback()
+      }, function (err) {
+        console.log('unwatchGlobal done')
+        if (err)
+          console.log('error unwatching file %s', err)
+        watchers = new Space()
+        fn('unwatched')        
+      })
+      console.log('unwatchGlobal fired')
     })
   
   })

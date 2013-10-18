@@ -108,9 +108,6 @@ Blog.permalink = function (string) {
 Blog.downloadPosts = function () {
   expressfs.downloadDirectory('nudgepad/posts/', 'space', function (data) {
     var space = new Space(data)
-    space.sort(function (a, b) {
-      return b[0] > a[0]
-    })
     space.each(function (filename, value) {
       Blog.set('posts ' + filename, new Blog.Post(filename, value))
     })
