@@ -1,7 +1,7 @@
 name Team
-html tool.html
-js tool.js
-css tool.css
+html team.html
+js team.js
+css team.css
 author Breck Yunits
 email breck@nudgepad.com
 icon user

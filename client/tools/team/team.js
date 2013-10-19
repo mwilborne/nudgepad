@@ -15,6 +15,13 @@ Team.invite = function () {
   })
 }
 
+Team.loginLink = function () {
+  expressfs.readFile('nudgepad/team/' + Cookie.email + '.space', function (data) {
+    var space = new Space(data)
+    alert('Your login link:\nhttp://' + window.location.hostname + '/nudgepad.login?email=' + Cookie.email + '&key=' + space.get('key'))
+  })
+}
+
 Team.refresh = function () {
   $('#TeamCurrent').html('')
   expressfs.downloadDirectory('nudgepad/team/', null, function (data) {
