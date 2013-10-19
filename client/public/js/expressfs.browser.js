@@ -135,6 +135,15 @@ expressfs.writeFile = function (path, content, callback) {
 }
 
 expressfs.writeFileAndOpen = function (path, content, target, callback) {
+  // temp fix for FF bug.
+  if (platform && platform.name === 'Firefox') {
+    expressfs.writeFile(path, content, function () {
+      window.open(path, target)
+      if (callback)
+        callback()
+    })
+    return true
+  }
   var form = $('<form target="' + target + '" method="post" action="' + expressfs.prefix + 'expressfs.writeFile' + '"></form>')
   var input = $('<input name="path">')
   input.val(expressfs.rootPath + path)
