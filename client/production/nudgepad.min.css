@@ -1701,31 +1701,6 @@ template {
   border-radius: 10px;
   text-align: left;
 }
-#BuilderStage {
-  box-shadow: 1px 1px 4px #bbb;
-  border-radius: 3px;
-  background: white;
-  height: 80%;
-  border: 0;
-}
-
-#BuilderSource, #BuilderComponents {
-  box-shadow: 1px 1px 4px #bbb;
-  border-radius: 3px;
-  background: white;
-  height: 80%;
-  border: 0;
-  width: 100%;
-}
-
-#BuilderComponents {
-  padding: 8px;
-}
-
-.draggable {
-  z-index: 10;
-  cursor: pointer;
-}
 .FiddleTextarea {
   box-shadow: 1px 1px 4px #bbb;
   border-radius: 3px;
@@ -1822,6 +1797,36 @@ template {
   white-space: nowrap;
 }
 
+#FormsStage {
+  box-shadow: 1px 1px 4px #bbb;
+  border-radius: 3px;
+  background: white;
+  height: 80%;
+  border: 0;
+  overflow: scroll;
+}
+
+#FormsSource, #FormsComponents {
+  box-shadow: 1px 1px 4px #bbb;
+  border-radius: 3px;
+  background: white;
+  height: 80%;
+  border: 0;
+  width: 100%;
+}
+
+#FormsComponents {
+  padding: 8px;
+}
+
+#FormsEditor {
+  display: none;
+}
+
+.draggable {
+  z-index: 10;
+  cursor: pointer;
+}
 #GitStatus {
   white-space: pre;
   -webkit-user-select: auto;
