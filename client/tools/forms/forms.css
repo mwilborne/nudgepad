@@ -1,12 +1,13 @@
-#BuilderStage {
+#FormsStage {
   box-shadow: 1px 1px 4px #bbb;
   border-radius: 3px;
   background: white;
   height: 80%;
   border: 0;
+  overflow: scroll;
 }
 
-#BuilderSource, #BuilderComponents {
+#FormsSource, #FormsComponents {
   box-shadow: 1px 1px 4px #bbb;
   border-radius: 3px;
   background: white;
@@ -15,8 +16,12 @@
   width: 100%;
 }
 
-#BuilderComponents {
+#FormsComponents {
   padding: 8px;
+}
+
+#FormsEditor {
+  display: none;
 }
 
 .draggable {

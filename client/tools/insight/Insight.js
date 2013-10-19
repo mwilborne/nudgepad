@@ -1,19 +1,11 @@
 var Insight = new Tool('Insight')
 
-Insight.install = function () {
-  // install
-  expressfs.mkdir('nudgepad/insight', function () {
-    console.log('created insight')
-  }) 
-}
-
 Insight.permalink = function (string) {
   if (!string)
     return ''
   return string.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '-')
 }
 
-Insight.on('once', Insight.install)
 Insight.menu = {}
 
 // name of current open database
