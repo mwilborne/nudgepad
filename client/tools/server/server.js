@@ -30,7 +30,7 @@ Server.refresh = function () {
   })
   $.get('/nudgepad.logs', {}, function (data) {
     $('#ServerLogHolder').html($('<div/>').text(data).html())
-    $('#ServerLogHolder').scrollTop($('#ServerLogHolder').height())
+    $('#ServerLogHolder').scrollTop($("#ServerLogHolder")[0].scrollHeight)
   })
   
 }
