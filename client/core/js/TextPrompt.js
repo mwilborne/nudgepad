@@ -37,7 +37,7 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
   dimmer.on('click', TextPrompt.close)
   var height = Math.round($(window).height() * .8)
   
-  if (TextPrompt.ace) {
+  if (TextPrompt.useAce()) {
     
     $('#TextPromptTextarea').parent().hide()
     
@@ -77,15 +77,19 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
   
 }
 
+TextPrompt.useAce = function () {
+  return TextPrompt.ace
+}
+
 TextPrompt.value = function (value) {
   if (!value) {
-    if (TextPrompt.ace)
+    if (TextPrompt.useAce())
       return TextPrompt.editor.getValue()
     else
       return $('#TextPromptTextarea').val()
   }
   else {
-    if (TextPrompt.ace)
+    if (TextPrompt.useAce())
       return TextPrompt.editor.setValue(value)
     else
       return $('#TextPromptTextarea').val(value)
