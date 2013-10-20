@@ -44,6 +44,7 @@ Pages.editor.loadFiles = function () {
 }
 
 Pages.on('ready', function () {
+  $('#PagesStage').attr('src', '')
   $('#PagesStage').on('load', function () {
     if (store.get('PagesFilename'))
       Pages.editor.open(store.get('PagesFilename'))    
