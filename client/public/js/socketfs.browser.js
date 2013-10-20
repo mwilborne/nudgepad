@@ -54,15 +54,15 @@ socketfs.resetGlobal = function (callback) {
   socketfs.socket.emit('resetGlobal', 'get', callback)
 }
 
-socketfs.tail = function (filename, fn, callback) {
-  filename = socketfs.rootPath + filename
+socketfs.tail = function (name, fn, callback) {
+  filename = socketfs.rootPath + name
   if (!socketfs.files.get(filename + ' tails'))
     socketfs.files.set(filename + ' tails', new Space())
   socketfs.files.get(filename + ' tails').push(fn)
   if (!callback)
     callback = function () {}
   socketfs.socket.emit('tail', filename, callback)
-  return new socketfs.Tail(filename, fn)
+  return new socketfs.Tail(name, fn)
 }
 
 socketfs.untail = function (filename, fn, callback) {
@@ -110,13 +110,13 @@ socketfs.unwatch = function (filename, fn, callback) {
 }
 
 
-socketfs.watch = function (filename, fn, callback) {
-  filename = socketfs.rootPath + filename
+socketfs.watch = function (name, fn, callback) {
+  filename = socketfs.rootPath + name
   if (!socketfs.files.get(filename + ' watches'))
     socketfs.files.set(filename + ' watches', new Space())
   socketfs.files.get(filename + ' watches').push(fn)
   if (!callback)
     callback = function () {}
   socketfs.socket.emit('watch', filename, callback)
-  return new socketfs.Watcher(filename, fn)
+  return new socketfs.Watcher(name, fn)
 }

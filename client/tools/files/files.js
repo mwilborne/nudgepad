@@ -7,7 +7,7 @@ Files.on('ready', function () {
   Files.refresh()
   Files.updateHidden()
   
-  socketfs.watch('', function (data) {
+  Files.watcher = socketfs.watch('', function (data) {
     Files.set('files', new Space(data.content))
     Files.renderExplorer()
   }, function () {
