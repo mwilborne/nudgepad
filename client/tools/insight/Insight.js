@@ -13,12 +13,10 @@ Insight.database
 Insight.view = new Space()
 
 Insight.menu.create = function () {
-  var name = prompt('Enter a name for your new database', 'untitled')
-  if (!name)
-    return false
-  name = Insight.permalink(name)
-  var db = new Insight.Database(name).create(function () {
-    Insight.menu.open(name)
+  expressfs.createUntitledDir('nudgepad/insight', function (name) {
+    var db = new Insight.Database(name).create(function () {
+      Insight.menu.open(name)
+    })
   })
 }
 

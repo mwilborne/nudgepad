@@ -1,6 +1,7 @@
 var fs = require('fs'),
     exec = require('child_process').exec,
     async = require('async'),
+    Path = require('path'),
     dirtospace = require('dirtospace'),
     mkdirp = require('mkdirp'),
     _ = require('underscore')
@@ -65,6 +66,21 @@ module.exports = function (app, options) {
       })
     })
   }
+
+  var createUntitledDir = function (path, i, callback) {
+    var suffix = i || ''
+    var filename = path + 'untitled' + suffix
+    fs.exists(filename, function (exists) {
+      if (exists)
+        return createUntitledDir(path, i + 1, callback)
+      mkdirp(filename, function (err) {
+        if (err)
+          callback(err)
+        else
+          callback(null, 'untitled' + suffix)
+      })
+    })
+  }
   
   /**
    * Create a file and return it's name
@@ -76,6 +92,17 @@ module.exports = function (app, options) {
     if (req.body.content)
       content = req.body.content
     createUntitled(path, 0, extension, content, function (err, filename) {
+      res.set('Content-Type', 'text/plain')
+      return res.send(filename)
+    })
+  })
+  
+  /**
+   * Create a file and return it's name
+   */
+  app.post(prefix + 'expressfs.createUntitledDir', function(req, res, next) {
+    var path = req.body.path.replace(/\/$/, '') + '/'
+    createUntitledDir(path, 0, function (err, filename) {
       res.set('Content-Type', 'text/plain')
       return res.send(filename)
     })
@@ -160,9 +187,13 @@ module.exports = function (app, options) {
   app.post(prefix + 'expressfs.rename', function(req, res, next) {
     var oldPath = req.body.oldPath
     var newPath = req.body.newPath
-    fs.rename(oldPath, newPath, function (err) {
-      if (err) return res.send(err)
-      res.send('')
+    var p = Path.dirname(newPath)
+    // todo: is mkdirp of an existing dir a noop or error?
+    mkdirp(p, function () {
+      fs.rename(oldPath, newPath, function (err) {
+        if (err) return res.send(err)
+        res.send('')
+      })
     })
   
   })
@@ -179,7 +210,8 @@ module.exports = function (app, options) {
   app.post(prefix + 'expressfs.unlink', function(req, res, next) {
     var path = req.body.path
     fs.unlink(path, function (err) {
-      if (err) return res.send(err)
+      if (err)
+        return res.send(err, 400)
       res.send('')
     })
   

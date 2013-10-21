@@ -6,6 +6,9 @@ if (!window.console)
 expressfs.prefix = '/nudgepad.'
 expressfs.rootPath = '/nudgepad/projects/' + location.hostname + '/'
 socketfs.rootPath = '/nudgepad/projects/' + location.hostname + '/'
+expressfs.trash = function (filename, callback) { 
+  expressfs.rename(filename, 'nudgepad/trash/' + filename, callback)
+}
 
 /**
  * The Editor. The main nudgepad namespace.
