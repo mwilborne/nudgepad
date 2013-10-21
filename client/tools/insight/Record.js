@@ -38,6 +38,8 @@ Insight.Record.prototype.edit = function () {
     record.set('value', new Space(editor.val()))
     record.save()
     record.render()
+    if (Insight.insightOn)
+      Insight.base.insight()
     container.remove()
   })
 }
@@ -61,6 +63,7 @@ Insight.dragIt = function (el) {
 }
 
 Insight.Record.prototype.render = function () {
+
   $('#' + this.id).remove()
   var icon = $('<i class="icon-location-arrow"></i>')
   var record = $('<div class="InsightRecord"></div>')
@@ -68,10 +71,21 @@ Insight.Record.prototype.render = function () {
   icon.css('-webkit-transform', 'rotate(80deg)')
   icon.css('transform', 'rotate(80deg)')
   record.append(icon)
-  var label = Insight.view.get('label') || 'name'
-  var name = this.get('value ' + label)
-  if (name)
-    record.append('<label>' + name + '</label>')
+  var label = ''
+  if (this.get('value label'))
+    label = this.get('value label')
+  else if (this.get('value name'))
+    label = this.get('value name')
+  else if (this.get('value title'))
+    label = this.get('value title')
+  else if (this.get('value Title'))
+    label = this.get('value Title')
+  else if (this.get('value Name'))
+    label = this.get('value Name')
+  else if (this.get('value'))
+    label = this.get('value').getByIndex(0)
+  if (label)
+    record.append('<label>' + label + '</label>')
   record.attr('id', this.id)
   var x = this.get('meta x')
   var y = this.get('meta y')

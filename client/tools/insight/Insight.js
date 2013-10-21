@@ -1,22 +1,13 @@
 var Insight = new Tool('Insight')
 
-Insight.permalink = function (string) {
-  if (!string)
-    return ''
-  return string.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '-')
-}
-
 Insight.menu = {}
 
 // name of current open database
 Insight.database
-Insight.view = new Space()
 
 Insight.menu.create = function () {
   expressfs.createUntitledDir('nudgepad/insight', function (name) {
-    var db = new Insight.Database(name).create(function () {
-      Insight.menu.open(name)
-    })
+    Insight.menu.open(name)
   })
 }
 
@@ -31,14 +22,6 @@ Insight.menu.openPrompt = function () {
   if (!name)
     return false
   Insight.menu.open(name)
-}
-
-Insight.menu.editView = function () {
-  TextPrompt.open('Edit View', Insight.view.toString(), 'view.space', function (val) {
-    Insight.view.reload(val)
-    Insight.view.save()
-    Insight.base.render()
-  })
 }
 
 Insight.drawInit = function () {

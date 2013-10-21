@@ -50,3 +50,21 @@ Settings format:
 - record-icon
 - label field/xpath
 
+
+
+Settings Spec
+-------------
+```
+label
+x
+y
+view
+ title
+ x
+ y
+view
+ title
+ x
+ y
+```
+
