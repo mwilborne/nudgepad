@@ -106,6 +106,10 @@ case "$1" in
   startProject $destinationDomain
 ;;
 
+'count')
+  ls /nudgepad/projects | wc -w
+;;
+
 'create')
   speedcoach "start of create"
   if createProject $2 $3 $4 $5
@@ -254,6 +258,10 @@ case "$1" in
   do
     echo $domain
   done
+;;
+
+'recent')
+  ls -tr /nudgepad/projects
 ;;
 
 'restart')
