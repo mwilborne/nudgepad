@@ -1,5 +1,21 @@
 var Server = new Tool('Server')
 
+Server.browsePackages = function () {
+  expressfs.mkdir('nudgepad/packages', function () {
+    Launcher.open('Files')
+    Files.openPath('nudgepad packages')
+  })
+}
+
+Server.newPackage = function () {
+  var sample = $('#ServerSamplePackage').text()
+  expressfs.mkdir('nudgepad/packages', function () {
+    expressfs.createUntitled('nudgepad/packages/', 'js', sample, function (filename) {
+      Server.browsePackages()
+    })
+  })
+}
+
 Server.consoleSend = function (toNode) {
   
   var input = $('#ServerConsole')

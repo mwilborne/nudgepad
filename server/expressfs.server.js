@@ -51,6 +51,35 @@ module.exports = function (app, options) {
     })
   })
   
+  var createUntitled = function (path, i, extension, content, callback) {
+    var suffix = i || ''
+    var filename = path + 'untitled' + suffix + '.' + extension
+    fs.exists(filename, function (exists) {
+      if (exists)
+        return createUntitled(path, i + 1, extension, content, callback)
+      fs.writeFile(filename, content, 'utf8', function (err) {
+        if (err)
+          callback(err)
+        else
+          callback(null, 'untitled' + suffix + '.' + extension)
+      })
+    })
+  }
+  
+  /**
+   * Create a file and return it's name
+   */
+  app.post(prefix + 'expressfs.createUntitled', function(req, res, next) {
+    var path = req.body.path.replace(/\/$/, '') + '/'
+    var extension = req.body.extension
+    var content = ''
+    if (req.body.content)
+      content = req.body.content
+    createUntitled(path, 0, extension, content, function (err, filename) {
+      res.set('Content-Type', 'text/plain')
+      return res.send(filename)
+    })
+  })
 
   app.post(prefix + 'expressfs.dirStats', function(req, res, next) {
     var path = req.body.path

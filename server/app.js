@@ -230,9 +230,6 @@ app.use('/', app.privateCheck)
 
 app.use('/', express.static(app.paths.project, { maxAge: 31557600000 }))
 
-/********** surveys *************/
-require('./surveys.js')(app)
-
 /********** email *************/
 app.post(app.pathPrefix + 'email', app.checkId, function (req, res, next) {
 
@@ -329,6 +326,7 @@ var loadPackages = function () {
       var file = files[j]
       if (!file.match(/\.js$/))
         continue
+      console.log('Including %s%s', app.paths.packages, file)
       require(app.paths.packages + file)(app)
     }
   } catch (e) {

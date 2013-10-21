@@ -13,11 +13,12 @@ v 0.5 - Done
 - fix timestamp bug
 - add a refresh button
 
-v 0.6
------
+v 0.6 - done
+------------
 - Allow nested file uploads
-- save the folder path in localStorage so on page refresh it comes back up
+- Update automatically when something changes
 
 v 0.7
 -----
-- Update automatically when something changes
+- save the folder path in localStorage so on page refresh it comes back up, or query string.
+

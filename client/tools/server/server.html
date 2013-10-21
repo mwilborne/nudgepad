@@ -6,6 +6,13 @@
       <ul class="nav navbar-nav navbar-logo"></ul>
         
       <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="cursor dropdown-toggle" data-toggle="dropdown">Menu <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a class="cursor" onclick="Server.browsePackages()">Browse Packages</a></li>
+            <li><a class="cursor" onclick="Server.newPackage()">New Package</a></li>
+          </ul>
+        </li>
         <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
         <li><a class="cursor" onclick="Server.refresh()">Refresh</a></li>
       </ul>
@@ -59,4 +66,9 @@
 
 </template>
 
-
+<script type="text" id="ServerSamplePackage">module.exports = function (app) {
+  app.get('hello', function (req, res, next) {
+    res.send('Hello world')
+  })
+}
+</script>

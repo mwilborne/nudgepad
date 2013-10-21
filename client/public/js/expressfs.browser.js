@@ -28,6 +28,16 @@ expressfs.create = function (path, content, callback) {
   $.post( expressfs.prefix + 'expressfs.create', req, callback)
 }
 
+// Creates a file named untitled.extension, untitled
+expressfs.createUntitled = function (path, extension, content, callback) {
+  var req = {}
+  req.path = expressfs.rootPath + path
+  req.extension = extension
+  if (content)
+    req.content = content
+  $.post( expressfs.prefix + 'expressfs.createUntitled', req, callback)
+}
+
 expressfs.dirStats = function (path, callback) {
   var req = {}
   

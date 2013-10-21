@@ -1,7 +1,10 @@
 var Files = new Tool('Files')
-Files.set('path', '')
+Files.dir = ''
 
-// Files.on('change', 'path', Files.RenderExplorer())
+Files.on('open', function () {
+  if (Query.path)
+    Files.dir = Query.path
+})
 
 Files.on('ready', function () {
   Files.refresh()
@@ -22,22 +25,22 @@ Files.on('close', function () {
     Files.watcherEditor.unwatch()
 })
 
-Files.on('set', function (key, value) {
-  if (key === 'path') {
+Files.openPath = function (value) {
+  Files.dir = value
+  Files.renderExplorer()
+  if (Files.watcher)
+    Files.watcher.unwatch()
+  Files.watcher = socketfs.watch(value.trim().replace(/ /g,'/'), function (data) {
+    if (value.trim())
+      Files.get('files ' + value.trim()).reload(data.content)
+    else
+      Files.get('files').reload(data.content)
     Files.renderExplorer()
-    if (value.trim()) {
-      if (Files.watcher)
-        Files.watcher.unwatch()
-      Files.watcher = socketfs.watch(value.replace(/ /g,'/'), function (data) {
-        Files.get('files ' + value.trim()).reload(data.content)
-        Files.renderExplorer()
-      }, function () {
+  }, function () {
 
-      })
-    }
-      
-  }
-})
+  })
+  // history.pushState('Files', 'Nudgepad - Files', '/nudgepad?tool=Files&path=' + value)
+}
 
 Files.parseFilename = function (path) {
   var parts = path.split(/( |\/)/g)
@@ -71,7 +74,7 @@ Files.newFile = function () {
   if (!newName)
     return false
     
-  var path = (Files.get('path') ? Files.get('path') + ' ' : '')
+  var path = (Files.dir ? Files.dir + ' ' : '')
   expressfs.create((path + newName).replace(/ /g, '/'), '')
 }
 
@@ -80,20 +83,25 @@ Files.newFolder = function () {
   if (!newName)
     return false
     
-  var path = (Files.get('path') ? Files.get('path') + ' ' : '')
+  var path = (Files.dir ? Files.dir + ' ' : '')
   expressfs.mkdir((path + newName).replace(/ /g, '/'))
 }
 
 Files.renderExplorer = function () {
   
   var files = Files.get('files')
-  if (Files.get('path'))
-    files = files.get(Files.get('path'))
-  
+  if (!files)
+    return false
+  if (Files.dir)
+    files = files.get(Files.dir)
+
+  if (!files)
+    return false
+
   var explorer = '<table id="FilesExplorer">'
   explorer += '<tr class="FilesExplorerHeader"><td>Filename</td><td></td><td></td><td></td><td></td><td>Size</td><td>Age</td></tr>'
   
-  var path = (Files.get('path') ? Files.get('path') + ' ' : '')
+  var path = (Files.dir ? Files.dir + ' ' : '')
   
   // Sort files into this order: folders, then files.
   // if A is a Folder and B is a File, A before B.
@@ -147,11 +155,11 @@ Files.renderExplorer = function () {
     explorer += row
   })
   explorer += '</table>'
-  var breadcrumb = '<li><a class="cursor" onclick="Files.set(\'path\', \'\')">' + document.location.host + '</a></li>'
+  var breadcrumb = '<li><a class="cursor" onclick="Files.openPath(\'\')">' + document.location.host + '</a></li>'
   if (path) {
     var parent = ''
     path.split(/ /g).forEach(function (v, i) {
-      breadcrumb += '<li><a class="cursor" onclick="Files.set(\'path\', \'' + parent + v + '\')">' + v + '</a></li>'
+      breadcrumb += '<li><a class="cursor" onclick="Files.openPath(\'' + parent + v + '\')">' + v + '</a></li>'
       parent += v + ' '
     })
     
@@ -233,7 +241,7 @@ $(document).on('click', '.FilesExplorerRename', function () {
   var newName = prompt('Rename this file', $(this).parent().attr('value'))
   if (!newName)
     return false
-  var path = (Files.get('path') ? Files.get('path') + ' ' : '')
+  var path = (Files.dir ? Files.dir + ' ' : '')
   expressfs.rename($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'))
 })
 
@@ -241,7 +249,7 @@ $(document).on('click', '.FilesExplorerDuplicate', function () {
   var newName = prompt('Duplicate this file', $(this).parent().attr('value'))
   if (!newName)
     return false
-  var path = (Files.get('path') ? Files.get('path') + ' ' : '')
+  var path = (Files.dir ? Files.dir + ' ' : '')
   expressfs.cp($(this).parent().attr('path').replace(/ /g, '/'), (path + newName).replace(/ /g, '/'))
 })
 
@@ -265,7 +273,7 @@ $(document).on('click', '.FilesExplorerRemoveFolder', function () {
 })
 
 $(document).on('click', '.FilesExplorerFolderName', function () {
-  Files.set('path', $(this).parent().attr('path'))
+  Files.openPath($(this).parent().attr('path'))
 })
 
 

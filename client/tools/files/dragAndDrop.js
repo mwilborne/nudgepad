@@ -25,7 +25,7 @@ Files.drop.traverseFileTree = function (item, path) {
 Files.drop.sendFile = function (path, file) {
   
   var uri = "/nudgepad.upload"
-  uri += '?path=' + Files.get('path').replace(' ','/') + '/' + (path ? path : '')
+  uri += '?path=' + Files.dir.replace(' ','/') + '/' + (path ? path : '')
   var xhr = new XMLHttpRequest()
   var fd = new FormData()
   

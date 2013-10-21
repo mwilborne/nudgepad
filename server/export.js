@@ -4,8 +4,6 @@ var exec = require('child_process').exec,
 
 var Exporter = function (app) {
   
-  
-  
   app.get(app.pathPrefix + 'export', app.checkId, function (req, res, next) {
     var spaceFile = app.paths.nudgepad + app.domain + '.space'
     var optionsFile = app.paths.nudgepad + '.options.space'
