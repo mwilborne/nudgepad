@@ -118,6 +118,9 @@ $.htmlToScraps = function (html) {
   var doc = new DOMParser().parseFromString(html, "text/html")
   var space = new Space()
   
+  if (!html)
+    return space
+  
   $('html', doc).children().each(function () {
     // Skip whitespace
     if (!$(this).get(0).tagName)

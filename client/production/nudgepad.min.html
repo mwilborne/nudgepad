@@ -812,13 +812,15 @@ body
           <a class="cursor dropdown-toggle" data-toggle="dropdown">File <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a class="cursor" onclick="Pages.editor.create()">New</a></li>
+            <li><a class="cursor" onclick="Pages.editor.trash()">Delete</a></li>
+            <li><a class="cursor" onclick="Pages.editor.rename()">Rename</a></li>
             <li><a class="cursor" onclick="Pages.editor.duplicate()">Duplicate</a></li>
             <li><a class="cursor" onclick="Pages.editor.editHtml()">Edit HTML</a></li>
             <li><a class="cursor" onclick="Pages.editor.editScraps()">Edit Scraps</a></li>
           </ul>
         </li>
         <li class="dropdown">
-          <a class="cursor dropdown-toggle" data-toggle="dropdown"><span id="PagesFilename">&nbsp;</span> <b class="caret"></b></a>
+          <a class="cursor dropdown-toggle" data-toggle="dropdown"><span id="PagesFilename">Open</span> <b class="caret"></b></a>
           <ul class="dropdown-menu" id="PagesFileMenu">
           </ul>
         </li>
