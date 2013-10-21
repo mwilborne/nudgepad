@@ -2,27 +2,19 @@ var Pages = new Tool('Pages')
 
 Pages.editor = {}
 
-Pages.pages = []
-
-Pages.refresh = function () {
-  $('.openPage').remove()
-  Pages.pages.sort(function (a,b) {
-    return b < a
-  })
-  Pages.pages.forEach(function (filename) {
-    $('#PagesFileMenu').append('<li><a class="cursor openPage" onclick="Pages.editor.open(\'' + filename + '\')">' + filename + '</a></li>')
-    console.log(filename)
+Pages.editor.create = function () {
+  expressfs.createUntitled('', 'html', '', function (filename) {
+    Pages.editor.open(filename)
   })
 }
 
-Pages.editor.create = function () {
-  var filename = prompt('Enter a name for the file', 'index.html')
+Pages.editor.rename = function () {
+  var filename = prompt('Enter a new name for the file', store.get('PagesFilename'))
   if (!filename)
     return true
-  expressfs.writeFile(filename, '')
-  Pages.pages.push(filename)
-  Pages.editor.open(filename)
-  Pages.refresh()
+  expressfs.rename(store.get('PagesFilename'), filename, function (data) {
+    Pages.editor.open(filename)
+  })
 }
 
 Pages.editor.duplicate = function () {
@@ -30,16 +22,16 @@ Pages.editor.duplicate = function () {
   if (!filename)
     return true
   expressfs.writeFile(filename, Pages.page.toHtml())
-  Pages.pages.push(filename)
   Pages.editor.open(filename)
-  Pages.refresh()
 }
 
-Pages.editor.loadFiles = function () {
-  expressfs.downloadDirectory('', 'html', function (data) {
-    var files = new Space(data)
-    Pages.pages = files.getKeys()
-    Pages.refresh()
+Pages.editor.updateMenu = function (data) {
+  var files = new Space(data)
+  $('.openPage').remove()
+  files.each(function (key, value) {
+    if (!key.match(/\.html?$/i))
+      return true
+    $('#PagesFileMenu').append('<li><a class="cursor openPage" onclick="Pages.editor.open(\'' + key + '\')">' + key + '</a></li>')
   })
 }
 
@@ -47,17 +39,27 @@ Pages.on('ready', function () {
   $('#PagesStage').attr('src', '')
   $('#PagesStage').on('load', function () {
     if (store.get('PagesFilename'))
-      Pages.editor.open(store.get('PagesFilename'))    
+      Pages.editor.open(store.get('PagesFilename'))
   })
-  Pages.refresh()
+  expressfs.readdir('', function (data) {
+    var str = ''
+    data.forEach(function (value, key) {
+      str += value + '\n'
+    })
+    Pages.editor.updateMenu(str)
+  })
+  Pages.dirWatcher = socketfs.watch('', function (data) {
+    Pages.editor.updateMenu(data.content)
+  })
 })
 Pages.on('close', function () {
   Events.shortcut.shortcuts = {}
   Events.shortcut.disableShortcutsIfInputHasFocus = true
   if (Pages.watcher)
     Pages.watcher.unwatch()
+  if (Pages.dirWatcher)
+    Pages.dirWatcher.unwatch()
 })
-Pages.on('open', Pages.editor.loadFiles)
 
 Pages.editor.editHtml = function () {
   var htmlString = Pages.page.toHtml()
@@ -67,7 +69,6 @@ Pages.editor.editHtml = function () {
     Pages.page.publish()
   }
   TextPrompt.open('', htmlString, store.get('PagesFilename'), function (data) {
-    console.log(data)
     Pages.page.reload($.htmlToScraps(data))
     Pages.page.render()
     Events.shortcut.shortcuts = {}
@@ -91,12 +92,11 @@ Pages.editor.open = function (filename) {
   $('#PagesFilename').html(filename)
   Pages.page = new Pages.Page(filename)
   Pages.page.open()
-  Pages.watcher = socketfs.watch(filename, function (data) {
-    console.log(filename + ' changed')
-    Pages.page.reload($.htmlToScraps(data.content))
-    Pages.page.render()
-  })
 
+}
+
+Pages.editor.trash = function () {
+  Pages.page.trash()
 }
 
 

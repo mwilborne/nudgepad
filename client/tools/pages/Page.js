@@ -5,12 +5,23 @@ Pages.Page = function (filename) {
 
 Pages.Page.prototype = new Space()
 
+Pages.Page.prototype.close = function () {
+  $('#PagesStage').contents().find('body').html('')
+  $('#PagesStage').css('visibility', 'hidden')
+  $('#PagesFilename').html('Open')
+}
+
 Pages.Page.prototype.open = function (callback) {
   var page = this
   expressfs.readFile(this.filename, function (data) {
     page.reload($.htmlToScraps(data))
     page.render()
     store.set('PagesFilename', page.filename)
+    Pages.watcher = socketfs.watch(filename, function (data) {
+      Pages.page.reload($.htmlToScraps(data.content))
+      Pages.page.render()
+    })
+    
   })
 }
 
@@ -72,6 +83,13 @@ Pages.Page.prototype.save = function () {
 
 Pages.Page.prototype.toConciseString = function () {
   return new Scraps.Page(this.toString()).toConciseString()
+}
+
+Pages.Page.prototype.trash = function () {
+  var page = this
+  expressfs.unlink(this.filename, function () {
+    page.close()
+  })
 }
 
 Pages.Page.prototype.toHtml = function () {
