@@ -47,10 +47,12 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
 //      .replaceWith('<div id="TextPromptTextarea" style="position: absolute;top: 0;left: 0; height: ' + height + 'px;"></div>')
 //      .html(defaultValue)
     
-    
-    var mode = filename.match(/\.([^\.]+)$/)[1]
-    if (mode === 'js')
-      mode = 'javascript'
+    var mode = 'text'
+    if (filename.match(/\.([^\.]+)$/)) {
+      mode = filename.match(/\.([^\.]+)$/)[1]
+      if (mode === 'js')
+        mode = 'javascript'
+    }
     
     TextPrompt.editor = ace.edit("AcePrompt")
     TextPrompt.editor.setTheme("ace/theme/monokai")
