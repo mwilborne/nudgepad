@@ -6,11 +6,6 @@ Insight.Database = function (name) {
 
 Insight.Database.prototype = new Space()
 
-Insight.Database.prototype.close = function () {
-  $('.Insight').html('')
-  $('.InsightPlane').hide()
-}
-
 Insight.Database.prototype.edit = function () {
   var base = this
   TextPrompt.open('Edit Settings', this.settings.toString(), 'settings.space', function (val) {
@@ -28,8 +23,17 @@ Insight.Database.prototype.insight = function () {
   Insight.insightOn = true
   view = this.settings
   
-  var property = view.get('y')
+  // Auto set properties
   var base = this
+  if (!base.getByIndexPath('0'))
+    return false
+  var first = base.getByIndexPath('0 1')
+  if (!view.get('y'))
+    view.set('y', first.getByIndex(0))
+  if (!view.get('x'))
+    view.set('x', first.getByIndex(0))
+  
+  var property = view.get('y')
   if (!property)
     return false
   
@@ -62,7 +66,7 @@ Insight.Database.prototype.insight = function () {
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightYMax').html(maxX).show()
   
-  var dropdown = $('<select onchange="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.insight()"></select>')
+  var dropdown = $('<select onchange="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
   var first = base.getByIndexPath('0 1')
   var keys = first.getKeys()
   keys.forEach(function (key, i) {
@@ -107,7 +111,7 @@ Insight.Database.prototype.insight = function () {
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightXMax').html(maxX).show()
   
-  var dropdown = $('<select onchange="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.insight()"></select>')
+  var dropdown = $('<select onchange="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
   var first = base.getByIndexPath('0 1')
   var keys = first.getKeys()
   keys.forEach(function (key, i) {
@@ -157,6 +161,7 @@ Insight.Database.prototype.open = function () {
     })
     $('#InsightDatabase').html(base.name)
     store.set('InsightDatabase', base.name)
+    base.insight()
   })
 }
 
@@ -167,7 +172,7 @@ Insight.Database.prototype.rename = function (newName) {
 }
 
 Insight.Database.prototype.render = function () {
-  $('.InsightPlane').html('')
+  $('.Insight').html('')
   this.each(function (key, value, index) {
     value.render()
   })
@@ -179,9 +184,12 @@ Insight.Database.prototype.save = function () {
 }
 
 Insight.Database.prototype.trash = function (id) {
+  var base = this
   expressfs.unlink('nudgepad/insight/' + this.name + '/' + id + '.space', function () {
+    base.delete(id)
     $('#' + id).fadeOut('fast', function () {
       $(this).remove()
+      base.insight()
     })
   })
 }
