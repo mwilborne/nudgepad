@@ -6,6 +6,11 @@ Insight.Database = function (name) {
 
 Insight.Database.prototype = new Space()
 
+Insight.Database.prototype.close = function () {
+  $('.Insight').html('')
+  $('.InsightPlane').hide()
+}
+
 Insight.Database.prototype.edit = function () {
   var base = this
   TextPrompt.open('Edit Settings', this.settings.toString(), 'settings.space', function (val) {
@@ -56,7 +61,17 @@ Insight.Database.prototype.insight = function () {
   })
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightYMax').html(maxX).show()
-  $('#InsightYLabel').html(property).show()
+  
+  var dropdown = $('<select onchange="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.insight()"></select>')
+  var first = base.getByIndexPath('0 1')
+  var keys = first.getKeys()
+  keys.forEach(function (key, i) {
+    var option = $('<option value="' + key + '">' + key + '</option>')
+    if (property === key)
+      option.attr('selected', 'true')
+    dropdown.append(option)
+  })
+  $('#InsightYLabel').html(dropdown).show()
   $('#InsightYMin').html(minX).show()
 
   var property = view.get('x')
@@ -88,9 +103,20 @@ Insight.Database.prototype.insight = function () {
     console.log(newX)
     el.css('left', newX)
   })
+  
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightXMax').html(maxX).show()
-  $('#InsightXLabel').html(property).show()
+  
+  var dropdown = $('<select onchange="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.insight()"></select>')
+  var first = base.getByIndexPath('0 1')
+  var keys = first.getKeys()
+  keys.forEach(function (key, i) {
+    var option = $('<option value="' + key + '">' + key + '</option>')
+    if (property === key)
+      option.attr('selected', 'true')
+    dropdown.append(option)
+  })
+  $('#InsightXLabel').html(dropdown).show()
   $('#InsightXMin').html(minX).show()
 }
 
