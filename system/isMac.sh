@@ -1,6 +1,6 @@
 isMac ()
 {
-  if [ $OSTYPE == "darwin11" ] || [ $OSTYPE == "darwin12" ]
+  if [ $OSTYPE == "darwin11" ] || [ $OSTYPE == "darwin12" ] || [ $OSTYPE == "darwin13" ]
     then
       return 0
     else
