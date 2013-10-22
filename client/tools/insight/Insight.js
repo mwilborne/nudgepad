@@ -86,10 +86,14 @@ Insight.on('ready', function () {
     Insight.base.rename($(this).text())
   })
   
+  window.addEventListener('paste', Insight.onpaste, false)
+  
 })
 
 Insight.on('close', function () {
   if (Insight.watcher)
     Insight.watcher.unwatch()
+
+  window.removeEventListener('paste', Insight.onpaste, false)
 })
 

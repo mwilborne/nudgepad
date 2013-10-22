@@ -27,6 +27,7 @@ Insight.Database.prototype.insight = function () {
   var base = this
   if (!property)
     return false
+  
   $('.InsightRecord').addClass('InsightRecordAnimate')
   var width = $('.InsightPlane').height() - 20
   var minX

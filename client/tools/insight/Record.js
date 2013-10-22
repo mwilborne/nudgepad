@@ -64,13 +64,15 @@ Insight.dragIt = function (el) {
 
 Insight.Record.prototype.render = function () {
 
+  var view = Insight.base.settings
+
   $('#' + this.id).remove()
-  var icon = $('<i class="icon-location-arrow"></i>')
+  var iconType = view.get('icon') || 'location-arrow'
+  var icon = $('<i class="icon-' + iconType + '"></i>')
   var record = $('<div class="InsightRecord"></div>')
   icon.css('font-size', '14px')
-  icon.css('-webkit-transform', 'rotate(80deg)')
-  icon.css('transform', 'rotate(80deg)')
-  record.append(icon)
+  // icon.css('-webkit-transform', 'rotate(80deg)')
+  // icon.css('transform', 'rotate(80deg)')
   var label = ''
   if (this.get('value label'))
     label = this.get('value label')
@@ -84,8 +86,11 @@ Insight.Record.prototype.render = function () {
     label = this.get('value Name')
   else if (this.get('value'))
     label = this.get('value').getByIndex(0)
-  if (label)
-    record.append('<label>' + label + '</label>')
+  if (view.get('label') && this.get('value ' + view.get('label')))
+    label = this.get('value ' + view.get('label'))
+  var labelDiv = $('<label>&nbsp;' + label + '</label>')
+  labelDiv.prepend(icon)
+  record.append(labelDiv)
   record.attr('id', this.id)
   var x = this.get('meta x')
   var y = this.get('meta y')

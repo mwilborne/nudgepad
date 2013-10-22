@@ -30,8 +30,8 @@ Insight.drop.processFile = function (path, file) {
     reader.onload = function(e) {
       var obj = new Space(e.target.result)
       var space = new Space()
-      space.set('meta x', Insight.drop.event.offsetX + _.random(-300, 300))
-      space.set('meta y', Insight.drop.event.offsetY + _.random(-300, 300))
+      space.set('meta x', _.random(0, $('.InsightPlane').width()))
+      space.set('meta y', _.random(0, $('.InsightPlane').height()))
       space.set('value', obj)
       if (obj.get('meta x'))
         space.reload(obj.toString())
