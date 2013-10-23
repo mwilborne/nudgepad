@@ -10,7 +10,6 @@ Insight.Record = function (id, database, space) {
 Insight.Record.prototype = new Space()
 
 Insight.Record.prototype.edit = function () {
-  $('.InsightTextarea').trigger('change')
   $('.InsightEditor').remove()
   var container = $('<div class="InsightEditor"></div>')
   var editor = $('<textarea class="InsightTextarea"></textarea>')
@@ -38,14 +37,14 @@ Insight.Record.prototype.edit = function () {
   editor.val(this.toString())
   editor.focus()
   editor.on('change', function () {
-    if (new Space(editor.val()).toString() === this.toString())
+    var val = editor.val()
+    container.remove()
+    if (new Space(val).toString() === record.toString())
       return true
-    record.reload(new Space(editor.val()))
+    record.reload(new Space(val))
     record.save()
     record.render()
-    if (Insight.insightOn)
-      Insight.base.insight()
-    container.remove()
+    Insight.base.insight()
   })
 }
 

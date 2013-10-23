@@ -86,6 +86,8 @@ Insight.on('ready', function () {
   $('.InsightPlane').on('click', '.InsightRecord', function () {
     var id = $(this).attr('id')
     var record = Insight.base.get(id)
+    if ($('.InsightTextarea').length)
+      $('.InsightTextarea').trigger('change')
     record.edit()
   })
   

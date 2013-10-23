@@ -28,7 +28,6 @@ Insight.Database.prototype.getPath = function (name) {
 }
 
 Insight.Database.prototype.insight = function () {
-  Insight.insightOn = true
   view = this.settings
   
   // Auto set properties
@@ -72,7 +71,7 @@ Insight.Database.prototype.insight = function () {
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightYMax').html(maxX).show()
   
-  var dropdown = $('<select onchange="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
+  var dropdown = $('<select onblur="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
   var keys = first.getKeys()
   keys.forEach(function (key, i) {
     var option = $('<option value="' + key + '">' + key + '</option>')
@@ -115,7 +114,7 @@ Insight.Database.prototype.insight = function () {
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
   $('#InsightXMax').html(maxX).show()
   
-  var dropdown = $('<select onchange="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
+  var dropdown = $('<select onblur="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
   var keys = first.getKeys()
   keys.forEach(function (key, i) {
     var option = $('<option value="' + key + '">' + key + '</option>')
