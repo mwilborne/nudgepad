@@ -2,12 +2,15 @@ Insight.Record = function (id, database, space) {
   this.id = id
   this.database = database
   this.reload(space)
+  this.x = _.random(0, $('.InsightPlane').width())
+  this.y = _.random(0, $('.InsightPlane').height())
   return this
 }
 
 Insight.Record.prototype = new Space()
 
 Insight.Record.prototype.edit = function () {
+  $('.InsightTextarea').trigger('change')
   $('.InsightEditor').remove()
   var container = $('<div class="InsightEditor"></div>')
   var editor = $('<textarea class="InsightTextarea"></textarea>')
@@ -32,10 +35,12 @@ Insight.Record.prototype.edit = function () {
     container.remove()
   })
   var record = this
-  editor.val(this.get('value'))
+  editor.val(this.toString())
   editor.focus()
   editor.on('change', function () {
-    record.set('value', new Space(editor.val()))
+    if (new Space(editor.val()).toString() === this.toString())
+      return true
+    record.reload(new Space(editor.val()))
     record.save()
     record.render()
     if (Insight.insightOn)
@@ -53,9 +58,8 @@ Insight.dragIt = function (el) {
     var id = $(this).attr('id')
     var el = $(this)
     var record = Insight.base.get(id)
-    record.set('meta y', el.position().top)
-    record.set('meta x', el.position().left)
-    record.save()
+    record.y = el.position().top
+    record.x = el.position().left
     }
   , start : function () {
     $('.InsightEditor').remove()
@@ -68,32 +72,34 @@ Insight.Record.prototype.render = function () {
 
   $('#' + this.id).remove()
   var iconType = view.get('icon') || 'location-arrow'
+  if (this.get('icon'))
+    iconType = this.get('icon')
   var icon = $('<i class="icon-' + iconType + '"></i>')
   var record = $('<div class="InsightRecord"></div>')
   icon.css('font-size', '14px')
   // icon.css('-webkit-transform', 'rotate(80deg)')
   // icon.css('transform', 'rotate(80deg)')
   var label = ''
-  if (this.get('value label'))
-    label = this.get('value label')
-  else if (this.get('value name'))
-    label = this.get('value name')
-  else if (this.get('value title'))
-    label = this.get('value title')
-  else if (this.get('value Title'))
-    label = this.get('value Title')
-  else if (this.get('value Name'))
-    label = this.get('value Name')
-  else if (this.get('value'))
-    label = this.get('value').getByIndex(0)
-  if (view.get('label') && this.get('value ' + view.get('label')))
-    label = this.get('value ' + view.get('label'))
+  if (this.get('label'))
+    label = this.get('label')
+  else if (this.get('name'))
+    label = this.get('name')
+  else if (this.get('title'))
+    label = this.get('title')
+  else if (this.get('Title'))
+    label = this.get('Title')
+  else if (this.get('Name'))
+    label = this.get('Name')
+  else if (this.getByIndex(0))
+    label = this.getByIndex(0)
+  if (view.get('label') && this.get(view.get('label')))
+    label = this.get(view.get('label'))
   var labelDiv = $('<label>&nbsp;' + label + '</label>')
   labelDiv.prepend(icon)
   record.append(labelDiv)
   record.attr('id', this.id)
-  var x = this.get('meta x')
-  var y = this.get('meta y')
+  var x = this.x
+  var y = this.y
   
   record.css({
     'top' : y + 'px',

@@ -27,6 +27,9 @@ Todo
 - filter/hide records
 - Zoomin/Zoomout
 - Exporting
+- Export to HTML
+- Export to PNG?
+- Export to Animated Gif?
 - record Animations
 - undo/redo
 - realtime

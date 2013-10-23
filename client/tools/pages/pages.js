@@ -41,7 +41,7 @@ Pages.on('ready', function () {
     if (store.get('PagesFilename'))
       Pages.editor.open(store.get('PagesFilename'))
   })
-  expressfs.readdir('', function (data) {
+  expressfs.readdir('', function (err, data) {
     var str = ''
     data.forEach(function (value, key) {
       str += value + '\n'

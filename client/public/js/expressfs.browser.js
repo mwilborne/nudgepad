@@ -97,7 +97,7 @@ expressfs.readdir = function (path, callback) {
   $.post( expressfs.prefix + 'expressfs.readdir', req)
     .done(function (data) {
       if (callback)
-        callback(JSON.parse(data))
+        callback(null, JSON.parse(data))
     })
     .fail(callback)
 }

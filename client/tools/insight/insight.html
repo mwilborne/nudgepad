@@ -17,8 +17,25 @@
         
         <li>
           <a>
-          <button type="button" onclick="Insight.menu.openPrompt()" title="Open" class="btn btn-default btn">
-            <i class="icon-folder-open"></i>
+          <select id="InsightDropdown" onblur="Insight.menu.open($(this).val())">
+          </select>
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.publish()" title="Publish" class="btn btn-default btn">
+            <i class="icon-cloud"></i>
+          </button>
+          </a>
+        </li>
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.delete()" title="Delete Database" class="btn btn-default btn">
+            <i class="icon-trash"></i>
           </button>
           </a>
         </li>

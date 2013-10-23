@@ -11,6 +11,13 @@ Insight.menu.create = function () {
   })
 }
 
+Insight.menu.delete = function () {
+  if (!confirm('Are you sure you want to delete the Database ' + Insight.database + '?'))
+    return false
+  Insight.base.close()
+  expressfs.rmdir('nudgepad/insight/' + Insight.database)
+}
+
 Insight.menu.open = function (name) {
   Insight.database = name
   Insight.base = new Insight.Database(name)
@@ -41,16 +48,35 @@ Insight.drawInit = function () {
   
 }
 
+Insight.refreshDBs = function () {
+  expressfs.readdir('nudgepad/insight', function (err, files) {
+    if (err)
+      return true
+    $('#InsightDropdown').html('')
+    files.forEach(function (value, key) {
+      var option = $('<option value="' + value + '">' + value + '</option>')
+      if (value === Insight.database)
+        option.attr('selected', true)
+      $('#InsightDropdown').append(option)
+    })
+  })
+}
+
 Insight.on('ready', function () {
+  
+  Insight.dbWatcher = socketfs.watch('nudgepad/insight', Insight.refreshDBs)
+  
+  Insight.refreshDBs()
+  
   
   //  Insight.drawInit()
   //  return true
   $('.InsightPlane').on('dblclick', function (event) {
     var space = new Space()
-    space.set('meta x', event.offsetX)
-    space.set('meta y', event.offsetY)
     var id = new Date().getTime().toString()
     var record = new Insight.Record(id, Insight.database, space)
+    record.x = event.offsetX
+    record.y = event.offsetY
     Insight.base.set(id, record)
     record.render()
     record.save()
@@ -61,12 +87,10 @@ Insight.on('ready', function () {
     var id = $(this).attr('id')
     var record = Insight.base.get(id)
     record.edit()
-    return false
   })
   
   $('.InsightPlane').on('click', '.InsightEditor, .InsightRecord', function (e) {
     e.stopPropagation()
-    return false
   })
   
   $('.InsightPlane').on('dblclick', '.InsightEditor, .InsightRecord', function (e) {
@@ -93,6 +117,10 @@ Insight.on('ready', function () {
 Insight.on('close', function () {
   if (Insight.watcher)
     Insight.watcher.unwatch()
+
+  if (Insight.dbWatcher)
+    Insight.dbWatcher.unwatch()
+
 
   window.removeEventListener('paste', Insight.onpaste, false)
 })

@@ -13,12 +13,11 @@ Insight.onpaste = function(event) {
   
   // assume for now it's a space object
   var space = new Space(pastedText)
-  space.each(function (key, value) {
+  space.each(function (key, value, index) {
     
-    var space = new Space()
-    space.set('meta x',  _.random(0, $('.InsightPlane').width()))
-    space.set('meta y',  _.random(0, $('.InsightPlane').height()))
-    space.set('value', value)
+    var space = new Space(value)
+    space.set('id', key)
+    space.set('order', index)
     var id = new Date().getTime().toString()
     var record = new Insight.Record(id, Insight.database, space)
     Insight.base.set(id, record)

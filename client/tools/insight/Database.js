@@ -6,12 +6,20 @@ Insight.Database = function (name) {
 
 Insight.Database.prototype = new Space()
 
+Insight.Database.prototype.close = function () {
+  this.clear()
+  $('.Insight').html('')
+  $('.InsightPlane').hide()
+  store.remove('InsightDatabase')
+}
+
 Insight.Database.prototype.edit = function () {
   var base = this
   TextPrompt.open('Edit Settings', this.settings.toString(), 'settings.space', function (val) {
     base.settings.reload(val)
     base.save()
     base.render()
+    base.insight()
   })
 }
 
@@ -25,9 +33,9 @@ Insight.Database.prototype.insight = function () {
   
   // Auto set properties
   var base = this
-  if (!base.getByIndexPath('0'))
+  var first = base.getByIndex(0)
+  if (!first)
     return false
-  var first = base.getByIndexPath('0 1')
   if (!view.get('y'))
     view.set('y', first.getByIndex(0))
   if (!view.get('x'))
@@ -42,7 +50,7 @@ Insight.Database.prototype.insight = function () {
   var minX
   var maxX
   base.each(function (key, value, index) {
-    var x = parseFloat(value.get('value ' + property))
+    var x = parseFloat(value.get(property))
     if (typeof minX === 'undefined')
       minX = x
     if (typeof maxX === 'undefined')
@@ -54,12 +62,10 @@ Insight.Database.prototype.insight = function () {
   })
   var distance = maxX - minX
   
-  console.log(maxX)
   base.each(function (key, value, index) {
     var el = value.element()
-    var x = value.get('value ' + property)
+    var x = value.get(property)
     var newX = Math.round(((parseFloat(x) - minX)/distance) * width)
-    console.log(newX)
     newX = width - newX
     el.css('top', newX)
   })
@@ -67,7 +73,6 @@ Insight.Database.prototype.insight = function () {
   $('#InsightYMax').html(maxX).show()
   
   var dropdown = $('<select onchange="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
-  var first = base.getByIndexPath('0 1')
   var keys = first.getKeys()
   keys.forEach(function (key, i) {
     var option = $('<option value="' + key + '">' + key + '</option>')
@@ -81,13 +86,13 @@ Insight.Database.prototype.insight = function () {
   var property = view.get('x')
   if (!property)
     return false
-  console.log('moving')
+
   $('.InsightRecord').addClass('InsightRecordAnimate')
   var width = $('.InsightPlane').width() - 100
   var minX = undefined
   var maxX = undefined
   base.each(function (key, value, index) {
-    var x = parseFloat(value.get('value ' + property))
+    var x = parseFloat(value.get(property))
     if (typeof minX === 'undefined')
       minX = x
     if (typeof maxX === 'undefined')
@@ -99,12 +104,11 @@ Insight.Database.prototype.insight = function () {
   })
   var distance = maxX - minX
   
-  console.log(maxX)
+
   base.each(function (key, value, index) {
     var el = value.element()
-    var x = value.get('value ' + property)
+    var x = value.get(property)
     var newX = Math.round(((parseFloat(x) - minX)/distance) * width)
-    console.log(newX)
     el.css('left', newX)
   })
   
@@ -112,7 +116,6 @@ Insight.Database.prototype.insight = function () {
   $('#InsightXMax').html(maxX).show()
   
   var dropdown = $('<select onchange="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
-  var first = base.getByIndexPath('0 1')
   var keys = first.getKeys()
   keys.forEach(function (key, i) {
     var option = $('<option value="' + key + '">' + key + '</option>')

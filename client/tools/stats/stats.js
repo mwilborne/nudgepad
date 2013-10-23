@@ -28,7 +28,7 @@ Stats.compute = function () {
 
 Stats.downloadPages = function () {
   Stats.htmlPages = []
-  expressfs.readdir('', function (files) {
+  expressfs.readdir('', function (err, files) {
     files.forEach(function (value, index) {
       if (value.match(/\.html$/))
         Stats.htmlPages.push(value)
