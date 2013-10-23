@@ -60,12 +60,47 @@ Insight.Database.prototype.getPath = function (name) {
   return 'nudgepad/insight/' + (name ? name : this.name)
 }
 
-Insight.Database.prototype.insight = function () {
-  view = this.settings
+Insight.Database.prototype.insightAxis = function (screenDistance, property, change, axis) {
+  var first = this.getByIndex(0)
+  var min = parseFloat(first.get(property))
+  var max = parseFloat(first.get(property))
   
+  this.each(function (key, value, index) {
+    var point = parseFloat(value.get(property))
+    if (min > point)
+      min = point
+    if (max < point)
+      max = point
+  })
+  var distance = max - min
+  
+  this.each(function (key, value, index) {
+    var el = value.element()
+    var point = value.get(property)
+    var newPoint = Math.round(((parseFloat(point) - min)/distance) * screenDistance)
+    if (axis === 'Y')
+      newPoint = screenDistance - newPoint
+    el.css(change, newPoint)
+  })
+  
+  $('#InsightMax' + axis).html(max).show()
+  $('#InsightMin' + axis).html(min).show()
+
+  var dropdown = $('<select onchange="Insight.base.settings.set(\'' + axis.toLowerCase() + '\',$(this).val()); Insight.base.save();Insight.base.insight()" onblur="Insight.base.settings.set(\'' + axis.toLowerCase() + '\',$(this).val()); Insight.base.save();Insight.base.insight()"></select>')
+  var keys = first.getKeys()
+  keys.forEach(function (key, i) {
+    var option = $('<option value="' + key + '">' + key + '</option>')
+    if (property === key)
+      option.attr('selected', 'true')
+    dropdown.append(option)
+  })
+  $('#InsightLabel' + axis).html(dropdown).show()
+}
+
+Insight.Database.prototype.insight = function () {
+  var view = this.settings  
   // Auto set properties
-  var base = this
-  var first = base.getByIndex(0)
+  var first = this.getByIndex(0)
   if (!first)
     return false
   if (!view.get('y'))
@@ -73,90 +108,10 @@ Insight.Database.prototype.insight = function () {
   if (!view.get('x'))
     view.set('x', first.getByIndex(0))
   
-  var property = view.get('y')
-  if (!property)
-    return false
-  
   $('.InsightRecord').addClass('InsightRecordAnimate')
-  var width = $('.InsightPlane').height() - 20
-  var minX
-  var maxX
-  base.each(function (key, value, index) {
-    var x = parseFloat(value.get(property))
-    if (typeof minX === 'undefined')
-      minX = x
-    if (typeof maxX === 'undefined')
-      maxX = x
-    if (minX > x)
-      minX = x
-    if (maxX < x)
-      maxX = x
-  })
-  var distance = maxX - minX
-  
-  base.each(function (key, value, index) {
-    var el = value.element()
-    var x = value.get(property)
-    var newX = Math.round(((parseFloat(x) - minX)/distance) * width)
-    newX = width - newX
-    el.css('top', newX)
-  })
+  this.insightAxis($('.InsightPlane').height() - 20, view.get('y'), 'top', 'Y')
+  this.insightAxis($('.InsightPlane').width() - 100, view.get('x'), 'left', 'X')
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
-  $('#InsightYMax').html(maxX).show()
-  
-  var dropdown = $('<select onblur="Insight.base.settings.set(\'y\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
-  var keys = first.getKeys()
-  keys.forEach(function (key, i) {
-    var option = $('<option value="' + key + '">' + key + '</option>')
-    if (property === key)
-      option.attr('selected', 'true')
-    dropdown.append(option)
-  })
-  $('#InsightYLabel').html(dropdown).show()
-  $('#InsightYMin').html(minX).show()
-
-  var property = view.get('x')
-  if (!property)
-    return false
-
-  $('.InsightRecord').addClass('InsightRecordAnimate')
-  var width = $('.InsightPlane').width() - 100
-  var minX = undefined
-  var maxX = undefined
-  base.each(function (key, value, index) {
-    var x = parseFloat(value.get(property))
-    if (typeof minX === 'undefined')
-      minX = x
-    if (typeof maxX === 'undefined')
-      maxX = x
-    if (minX > x)
-      minX = x
-    if (maxX < x)
-      maxX = x
-  })
-  var distance = maxX - minX
-  
-
-  base.each(function (key, value, index) {
-    var el = value.element()
-    var x = value.get(property)
-    var newX = Math.round(((parseFloat(x) - minX)/distance) * width)
-    el.css('left', newX)
-  })
-  
-  setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
-  $('#InsightXMax').html(maxX).show()
-  
-  var dropdown = $('<select onblur="Insight.base.settings.set(\'x\',$(this).val()); Insight.base.save(); Insight.base.insight()"></select>')
-  var keys = first.getKeys()
-  keys.forEach(function (key, i) {
-    var option = $('<option value="' + key + '">' + key + '</option>')
-    if (property === key)
-      option.attr('selected', 'true')
-    dropdown.append(option)
-  })
-  $('#InsightXLabel').html(dropdown).show()
-  $('#InsightXMin').html(minX).show()
 }
 
 Insight.Database.prototype.open = function () {

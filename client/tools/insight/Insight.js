@@ -5,6 +5,12 @@ Insight.menu = {}
 // name of current open database
 Insight.database
 
+Insight.log = function (val, base) {
+  if (!base)
+    base = 10
+  return Math.log(val) / Math.log(base)
+}
+
 Insight.menu.create = function () {
   expressfs.createUntitledDir('nudgepad/insight', function (name) {
     Insight.menu.open(name)

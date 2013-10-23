@@ -49,31 +49,31 @@
   min-height: 250px;
   width: auto;
 }
-#InsightYMax,#InsightYMin,#InsightXMax,#InsightXMin,#InsightXLabel,#InsightYLabel {
+#InsightMaxY,#InsightMinY,#InsightMaxX,#InsightMinX,#InsightLabelX,#InsightLabelY {
   position: absolute;
   display: none;
 }
-#InsightYLabel {
+#InsightLabelY {
   left: -60px;
   top: -15px;
 }
-#InsightYMax {
+#InsightMaxY {
   left: -20px;
   top: 20px;
 }
-#InsightYMin {
+#InsightMinY {
   left: -20px;
   bottom: 20px;
 }
-#InsightXMax {
+#InsightMaxX {
   right: 20px;
   bottom: -20px;
 }
-#InsightXMin {
+#InsightMinX {
   left: 20px;
   bottom: -20px;
 }
-#InsightXLabel {
+#InsightLabelX {
   right: -20px;
   bottom: -20px;
 }

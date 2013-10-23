@@ -38,6 +38,9 @@ Todo
 - database support
 - examples
 - Algorithmn to spread out labels?
+- log/linear
+- zoom/hide off screen
+- cap/sampling algo (or animation--cycle through/sparkle)
 
 
 
