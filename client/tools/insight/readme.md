@@ -35,6 +35,9 @@ Todo
 - realtime
 - meta direction
 - meta vector length
+- database support
+- examples
+
 
 meta:
 - created

@@ -673,8 +673,25 @@ body
         
         <li>
           <a>
-          <button type="button" onclick="Insight.menu.openPrompt()" title="Open" class="btn btn-default btn">
-            <i class="icon-folder-open"></i>
+          <select id="InsightDropdown" onblur="Insight.menu.open($(this).val())">
+          </select>
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.publish()" title="Publish" class="btn btn-default btn">
+            <i class="icon-cloud"></i>
+          </button>
+          </a>
+        </li>
+        
+        <li>
+          <a>
+          <button type="button" onclick="Insight.menu.delete()" title="Delete Database" class="btn btn-default btn">
+            <i class="icon-trash"></i>
           </button>
           </a>
         </li>
@@ -718,13 +735,13 @@ body
   <!-- End navbar -->
   
   <div class="container" style="position: relative">
-    <div id="InsightYMax"></div>
-    <div id="InsightYMin"></div>
-    <div id="InsightXMax"></div>
-    <div id="InsightXMin"></div>
-    <div id="InsightYLabel"></div>
-    <div id="InsightXLabel"></div>
-    <div class="InsightPlane" style="display: none;">
+    <div class="Insight" id="InsightYMax"></div>
+    <div class="Insight" id="InsightYMin"></div>
+    <div class="Insight" id="InsightXMax"></div>
+    <div class="Insight" id="InsightXMin"></div>
+    <div class="Insight" id="InsightYLabel"></div>
+    <div class="Insight" id="InsightXLabel"></div>
+    <div class="InsightPlane Insight" style="display: none;">
     
     </div>
     
