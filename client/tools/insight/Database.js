@@ -13,12 +13,45 @@ Insight.Database.prototype.close = function () {
   store.remove('InsightDatabase')
 }
 
+Insight.Database.prototype.create = function () {
+  
+}
+
 Insight.Database.prototype.edit = function () {
   var base = this
   TextPrompt.open('Edit Settings', this.settings.toString(), 'settings.space', function (val) {
     base.settings.reload(val)
     base.save()
     base.render()
+    base.insight()
+  })
+}
+
+Insight.Database.prototype.editSource = function () {
+  var base = this
+  TextPrompt.open('Edit Source', this.toString(), Insight.database + '.space', function (val) {
+    // get deletions.
+    // get insertions
+    // get modifications
+    var patch = base.diff(val)
+    patch.each(function (key, value) {
+      
+      // deletion
+      if (!value)
+        base.trash(key)
+      // insertion
+      else if (!base.get(key)) {
+        var record = new Insight.Record(key, base.name)
+        base.set(key, record)
+        record.render()
+        record.save()
+      }
+      // update
+      else {
+        base.get(key).patch(value).save()
+      }
+      
+    })
     base.insight()
   })
 }
