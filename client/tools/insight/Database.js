@@ -41,7 +41,7 @@ Insight.Database.prototype.editSource = function () {
         base.trash(key)
       // insertion
       else if (!base.get(key)) {
-        var record = new Insight.Record(key, base.name)
+        var record = new Insight.Record(key, base.name, value)
         base.set(key, record)
         record.render()
         record.save()

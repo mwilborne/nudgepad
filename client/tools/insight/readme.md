@@ -37,6 +37,8 @@ Todo
 - meta vector length
 - database support
 - examples
+- Algorithmn to spread out labels?
+
 
 
 meta:
