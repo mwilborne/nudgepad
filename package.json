@@ -29,6 +29,7 @@
     "request": "*",
     "http-get" : "*",
     "wrench": "*",
+    "sqlite3" : "*",
     "async": "*",
     "mime" : "*",
     "marked": "*",

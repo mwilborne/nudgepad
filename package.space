@@ -22,6 +22,7 @@ dependencies
  nodemailer *
  request *
  http-get *
+ sqlite3 *
  wrench *
  async *
  mime *
