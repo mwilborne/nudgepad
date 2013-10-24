@@ -30,12 +30,18 @@ Insight.menu.open = function (name) {
   Insight.base.open()
 }
 
-Insight.menu.openPrompt = function () {
-  var name = prompt('Open a db', 'untitled')
-  if (!name)
-    return false
-  Insight.menu.open(name)
+Insight.menu.publish = function () {
+  var content = $('.InsightPlane').html()
+  $.get('/nudgepad/tools/insight/template.html?t=' + new Date().getTime(), function (data) {
+    var html = data.replace('TITLE', Insight.database)
+    html = html.replace('BODY', content)
+    var filename = Insight.database + '.html'
+    expressfs.writeFile(filename, html, function (data) {
+      window.open(filename, 'published')
+    })
+  })
 }
+
 
 Insight.drawInit = function () {
   
