@@ -1907,33 +1907,37 @@ template {
   min-height: 250px;
   width: auto;
 }
-#InsightYMax,#InsightYMin,#InsightXMax,#InsightXMin,#InsightXLabel,#InsightYLabel {
+#InsightMaxY,#InsightMinY,#InsightMaxX,#InsightMinX,#InsightLabelX,#InsightLabelY,#InsightCount {
   position: absolute;
   display: none;
 }
-#InsightYLabel {
+#InsightLabelY {
   left: -60px;
   top: -15px;
 }
-#InsightYMax {
+#InsightMaxY {
   left: -20px;
   top: 20px;
 }
-#InsightYMin {
+#InsightMinY {
   left: -20px;
   bottom: 20px;
 }
-#InsightXMax {
+#InsightMaxX {
   right: 20px;
   bottom: -20px;
 }
-#InsightXMin {
+#InsightMinX {
   left: 20px;
   bottom: -20px;
 }
-#InsightXLabel {
+#InsightLabelX {
   right: -20px;
   bottom: -20px;
+}
+#InsightCount {
+  left: 45%;
+  bottom: -30px;
 }
 .LabsBtn:hover {
   -webkit-box-shadow: inset 0 3px 35px rgba(0, 0, 0, 0.125);
