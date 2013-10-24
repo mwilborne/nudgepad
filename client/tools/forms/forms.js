@@ -4,12 +4,11 @@ Forms.menu = {}
 Forms.menu.autopublish = true
 
 Forms.menu.create = function () {
-  var filename = prompt('Enter a filename', 'form.html')
-  if (!filename)
-    return false
   
-  Forms.form = new Forms.Form(filename)
-  Forms.form.create()
+  expressfs.createUntitled('', 'html', $('#FormsTemplate').text(), function (filename) {  
+    Forms.menu.open(filename)
+  })
+  
 }
 
 Forms.filter = function () {
@@ -32,6 +31,21 @@ Forms.menu.openPrompt = function () {
     return false
   Forms.menu.open(filename)
 }
+
+Forms.menu.updateMenu = function (data) {
+  var files = new Space(data)
+  $('.openPage').remove()
+  files.each(function (key, value) {
+    if (!key.match(/\.html?$/i))
+      return true
+    $('#FormsFileMenu').append('<li><a class="cursor openPage" onclick="Forms.menu.open(\'' + key + '\')">' + key + '</a></li>')
+  })
+}
+
+Forms.on('close', function () {
+  if (Forms.dirWatcher)
+    Forms.dirWatcher.unwatch()
+})
 
 Forms.on('ready', function () {
   
@@ -99,6 +113,17 @@ Forms.on('ready', function () {
       if (Forms.menu.autopublish)
         Forms.form.save()
     })
+  })
+  
+  expressfs.readdir('', function (err, data) {
+    var str = ''
+    data.forEach(function (value, key) {
+      str += value + '\n'
+    })
+    Forms.menu.updateMenu(str)
+  })
+  Forms.dirWatcher = socketfs.watch('', function (data) {
+    Forms.menu.updateMenu(data.content)
   })
   
   if (store.get('FormsFilename'))

@@ -60,7 +60,7 @@ Insight.Database.prototype.getPath = function (name) {
   return 'nudgepad/insight/' + (name ? name : this.name)
 }
 
-Insight.Database.prototype.insightAxis = function (screenDistance, property, change, axis) {
+Insight.Database.prototype.insightAxis = function (screenDistance, property, change, axis, log) {
   var first = this.getByIndex(0)
   var min = parseFloat(first.get(property))
   var max = parseFloat(first.get(property))
@@ -72,15 +72,24 @@ Insight.Database.prototype.insightAxis = function (screenDistance, property, cha
     if (max < point)
       max = point
   })
+
+  if (log) {
+    max = Insight.log(max)
+    min = Insight.log(min)
+  }
   var distance = max - min
-  
+    
   this.each(function (key, value, index) {
     var el = value.element()
-    var point = value.get(property)
-    var newPoint = Math.round(((parseFloat(point) - min)/distance) * screenDistance)
+    var point = parseFloat(value.get(property))
+    if (log)
+      point = Insight.log(point)
+    var scaledPoint = Math.round(((point - min)/distance) * screenDistance)
+    // We inverse the Y since in browsers 0,0 is top left
+    // todo: see if using bottom property would be better.
     if (axis === 'Y')
-      newPoint = screenDistance - newPoint
-    el.css(change, newPoint)
+      scaledPoint = screenDistance - scaledPoint
+    el.css(change, scaledPoint)
   })
   
   $('#InsightMax' + axis).html(max).show()
@@ -94,7 +103,9 @@ Insight.Database.prototype.insightAxis = function (screenDistance, property, cha
       option.attr('selected', 'true')
     dropdown.append(option)
   })
-  $('#InsightLabel' + axis).html(dropdown).show()
+  $('#InsightLabel' + axis).html('')
+  $('#InsightLabel' + axis).append(dropdown)
+  $('#InsightLabel' + axis).show()
 }
 
 Insight.Database.prototype.insight = function () {
@@ -109,9 +120,10 @@ Insight.Database.prototype.insight = function () {
     view.set('x', first.getByIndex(0))
   
   $('.InsightRecord').addClass('InsightRecordAnimate')
-  this.insightAxis($('.InsightPlane').height() - 20, view.get('y'), 'top', 'Y')
-  this.insightAxis($('.InsightPlane').width() - 100, view.get('x'), 'left', 'X')
+  this.insightAxis($('.InsightPlane').height() - 20, view.get('y'), 'top', 'Y', view.get('logY'))
+  this.insightAxis($('.InsightPlane').width() - 100, view.get('x'), 'left', 'X', view.get('logX'))
   setTimeout("$('.InsightRecord').removeClass('InsightRecordAnimate')", 1000)
+  $('#InsightCount').html('Showing ' + this.length() + ' records').show()
 }
 
 Insight.Database.prototype.open = function () {

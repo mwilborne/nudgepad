@@ -5,14 +5,6 @@ Forms.Form = function (filename) {
 
 Forms.Form.prototype = new Space()
 
-Forms.Form.prototype.create = function (callback) {
-  this.page = new Scraps.Page($('#FormsTemplate').text())
-  var form = this
-  this.save(function () {
-    form.open()
-  })
-}
-
 Forms.Form.prototype.open = function (callback) {
   var form = this
   expressfs.readFile(this.filename, function (data) {

@@ -49,7 +49,7 @@
   min-height: 250px;
   width: auto;
 }
-#InsightMaxY,#InsightMinY,#InsightMaxX,#InsightMinX,#InsightLabelX,#InsightLabelY {
+#InsightMaxY,#InsightMinY,#InsightMaxX,#InsightMinX,#InsightLabelX,#InsightLabelY,#InsightCount {
   position: absolute;
   display: none;
 }
@@ -76,4 +76,8 @@
 #InsightLabelX {
   right: -20px;
   bottom: -20px;
+}
+#InsightCount {
+  left: 45%;
+  bottom: -30px;
 }

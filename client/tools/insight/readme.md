@@ -14,16 +14,17 @@
 - ondrop
 - csv file
 - Change dimension
+- log/linear
+- realtime
+- Labeling Grids
+- Importing data
+- open db dropdown
 
 Todo
 ----
-- Labeling Grids
 - Links
-- Importing data
 - CSS styling
-- open db dropdown
 - Select
-- Enter template
 - filter/hide records
 - Zoomin/Zoomout
 - Exporting
@@ -32,15 +33,19 @@ Todo
 - Export to Animated Gif?
 - record Animations
 - undo/redo
-- realtime
 - meta direction
 - meta vector length
 - database support
 - examples
+- grouping into bar charts?
+- layering using opacities?
+- background images?
+- translating locations into coordinates?
 - Algorithmn to spread out labels?
-- log/linear
 - zoom/hide off screen
 - cap/sampling algo (or animation--cycle through/sparkle)
+- grid
+- draw lines
 
 
 
