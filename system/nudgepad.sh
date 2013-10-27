@@ -65,7 +65,7 @@ case "$1" in
 
 # Mac only. Open a project in browser
 'browse')
-  open http://$2.localhost/
+  open http://$2/
 ;;
 
 'clear')

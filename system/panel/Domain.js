@@ -8,7 +8,7 @@ Domain.validate = function (domain, relaxed) {
   if (domain.match(/[^0-9a-z\-\.]/i))
     return 'Invalid character in domain'
   
-  if (!domain.match(Domain.tld) && !relaxed)
+  if (Domain.tld !== '.localhost' && !domain.match(Domain.tld) && !relaxed)
     return 'Domain must end with ' + Domain.tld
 
   if (domain.length > 128)
@@ -19,7 +19,7 @@ Domain.validate = function (domain, relaxed) {
 
 Domain.format = function (domain) {
   domain = domain.toLowerCase().replace(/ /g, '')
-  if (!domain.match(Domain.tld))
+  if (!domain.match(Domain.tld) && Domain.tld !== '.localhost')
     domain += Domain.tld
   return domain
 }
