@@ -196,6 +196,11 @@ case "$1" in
   node getOwnerLink.js $2
 ;;
 
+# Tool for SysAdmins to get all logins link for a project
+'links')
+  node getOwnerLink.js $2 true
+;;
+
 'log')
   if [ -n "$2" ]
     then
