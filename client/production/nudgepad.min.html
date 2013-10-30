@@ -674,119 +674,6 @@ body
       </div> <!-- /container -->
 
 </template>
-<template class="Tool" id="Insight">
-  
-  <!-- Static navbar -->
-  <div class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        
-      <ul class="nav navbar-nav navbar-logo"></ul>
-      
-      <ul class="nav navbar-nav">
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.menu.create()" title="New" class="btn btn-default btn">
-            <i class="icon-file-alt"></i>
-          </button>
-          </a>
-        </li>
-        
-        <li>
-          <a>
-          <select id="InsightDropdown" onchange="Insight.menu.open($(this).val())" onblur="Insight.menu.open($(this).val())">
-          </select>
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.menu.publish()" title="Publish" class="btn btn-default btn">
-            <i class="icon-cloud"></i>
-          </button>
-          </a>
-        </li>
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.base.editSource()" title="Edit Source" class="btn btn-default btn">
-            <i class="icon-code"></i>
-          </button>
-          </a>
-        </li>
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.menu.delete()" title="Delete Database" class="btn btn-default btn">
-            <i class="icon-trash"></i>
-          </button>
-          </a>
-        </li>
-        
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.menu.open(Insight.database)" title="Refresh" class="btn btn-default btn">
-            <i class="icon-refresh"></i>
-          </button>
-          </a>
-        </li>
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.base.edit()" title="Edit View" class="btn btn-default btn">
-            <i class="icon-cog"></i>
-          </button>
-          </a>
-        </li>
-        
-        <li>
-          <a>
-          <button type="button" onclick="Insight.base.insight()" title="Insight!" class="btn btn-default btn">
-            <i class="icon-bolt"></i>
-          </button>
-          </a>
-        </li>
-        
-        
-        <li><a><span id="InsightDatabase" contenteditable="true"></span></a></li>
-        
-      </ul>
-      
-      
-      
-      <ul class="nav navbar-nav navbar-right">
-      </ul>
-    </div>
-  </div>
-  <!-- End navbar -->
-  
-  <div class="container" style="position: relative">
-    <div class="Insight" id="InsightMaxY"></div>
-    <div class="Insight" id="InsightMinY"></div>
-    <div class="Insight" id="InsightMaxX"></div>
-    <div class="Insight" id="InsightMinX"></div>
-    <div class="Insight" id="InsightLabelY"></div>
-    <div class="Insight" id="InsightLabelX"></div>
-    <div class="Insight" id="InsightCount"></div>
-    <div class="InsightPlane Insight" style="display: none;">
-    
-    </div>
-    
-  </div> <!-- /container -->
-  
-  <style>
-  body {
-    background: #eee;
-  }
-  </style>
-
-</template>
-
-
-
 <template class="Tool" id="Labs">
   
   <!-- Static navbar -->
@@ -1060,6 +947,36 @@ body
   
   
   <canvas id="SketchCanvas"></canvas>
+
+</template>
+<template class="Tool" id="SQLite">
+  
+  <!-- Static navbar -->
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <ul class="nav navbar-nav navbar-logo"></ul>        
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="cursor dropdown-toggle" data-toggle="dropdown">Commands <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a class="cursor" onclick="SQLite.install()">Install</a></li>
+            <li role="presentation" class="divider"></li>
+          </ul>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+        
+        
+      </ul>
+      
+    </div>
+  </div>
+  
+  <div class="container">
+    
+  </div> <!-- /container -->
 
 </template>
 <template class="Tool" id="Stats">
