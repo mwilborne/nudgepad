@@ -15,9 +15,9 @@ var Login = function (app) {
           return res.send('Invalid key')
 
         // Login successful!
-        res.cookie('email', req.query.email, { expires: new Date(Date.now() + 5184000000)})
-        res.cookie('key', req.query.key, { expires: new Date(Date.now() + 5184000000)})
-        res.cookie('name', maker.name, { expires: new Date(Date.now() + 5184000000)})
+        res.cookie('nudgepadEmail', req.query.email, { expires: new Date(Date.now() + 5184000000)})
+        res.cookie('nudgepadKey', req.query.key, { expires: new Date(Date.now() + 5184000000)})
+        res.cookie('nudgepadName', maker.name, { expires: new Date(Date.now() + 5184000000)})
 
         // temp fix
         var appString = '?login=true'
@@ -49,15 +49,15 @@ var Login = function (app) {
         return res.redirect('/nudgepad/public/login.html?error=Wrong_key')
 
       // Login successful!
-      res.cookie('email', req.body.email, { expires: new Date(Date.now() + 5184000000)})
-      res.cookie('key', maker.get('key'), { expires: new Date(Date.now() + 5184000000)})
-      res.cookie('name', maker.name, { expires: new Date(Date.now() + 5184000000)})
+      res.cookie('nudgepadEmail', req.body.email, { expires: new Date(Date.now() + 5184000000)})
+      res.cookie('nudgepadKey', maker.get('key'), { expires: new Date(Date.now() + 5184000000)})
+      res.cookie('nudgepadName', maker.name, { expires: new Date(Date.now() + 5184000000)})
 
       if (req.body.redirect)
         return res.redirect(req.body.redirect)
   
-      if (req.cookies.redirect)
-        return res.redirect(req.cookies.redirect)
+      if (req.cookies.nudgepadRedirect)
+        return res.redirect(req.cookies.nudgepadRedirect)
       return res.redirect('/nudgepad')
     })
     

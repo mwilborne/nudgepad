@@ -13,12 +13,12 @@ module.exports = function (app, httpServer) {
     
     var cookie = parseCookie(data.headers.cookie)
   
-    app.team.get(cookie.email, function (err, maker) {
+    app.team.get(cookie.nudgepadEmail, function (err, maker) {
       if (err)
-        return accept('Invalid user "' + cookie.email + '" transmitted. Headers:' + data.headers.cookie, false)
+        return accept('Invalid user "' + cookie.nudgepadEmail + '" transmitted. Headers:' + data.headers.cookie, false)
       
       // Wrong key
-      if (maker.get('key') !== cookie.key)
+      if (maker.get('key') !== cookie.nudgepadKey)
         return accept('Invalid key transmitted.', false)
 
       data.cookie = cookie

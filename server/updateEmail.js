@@ -38,9 +38,9 @@ var UpdateEmail = function (app) {
         }
         
         // change cookies
-        res.cookie('email', email, { expires: new Date(Date.now() + 5184000000)})
-        res.cookie('key', newUser.get('key'), { expires: new Date(Date.now() + 5184000000)})
-        res.cookie('name', newUser.get('name'), { expires: new Date(Date.now() + 5184000000)})
+        res.cookie('nudgepadEmail', email, { expires: new Date(Date.now() + 5184000000)})
+        res.cookie('nudgepadKey', newUser.get('key'), { expires: new Date(Date.now() + 5184000000)})
+        res.cookie('nudgepadName', newUser.get('name'), { expires: new Date(Date.now() + 5184000000)})
         
         // Delete old account
         app.team.cache.delete(req.email)

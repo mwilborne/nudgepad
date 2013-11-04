@@ -23,9 +23,9 @@ var Persona = function (app) {
             return res.send('No user with email ' + email)
 
           // Login successful!
-          res.cookie('email', email, { expires: new Date(Date.now() + 5184000000)})
-          res.cookie('key', maker.get('key'), { expires: new Date(Date.now() + 5184000000)})
-          res.cookie('name', maker.get('name'), { expires: new Date(Date.now() + 5184000000)})
+          res.cookie('nudgepadEmail', email, { expires: new Date(Date.now() + 5184000000)})
+          res.cookie('nudgepadKey', maker.get('key'), { expires: new Date(Date.now() + 5184000000)})
+          res.cookie('nudgepadName', maker.get('name'), { expires: new Date(Date.now() + 5184000000)})
           res.redirect('/nudgepad')
           
         })
