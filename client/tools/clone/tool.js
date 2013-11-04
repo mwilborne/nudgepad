@@ -29,7 +29,7 @@ Clone.import = function () {
 }
 
 Clone.on('ready', function () {
-  $('#CloneDomain').val(document.location.host + '2')
+  $('#CloneDomain').val(document.location.host)
   $('#CloneServer').val(nudgepad.status.get('hostname'))
 })
 
