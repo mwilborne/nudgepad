@@ -59,6 +59,9 @@ TextPrompt.open = function (message, defaultValue, filename, callback) {
     TextPrompt.editor.setShowPrintMargin(false)
     TextPrompt.editor.getSession().setMode("ace/mode/" + mode)
     TextPrompt.editor.setValue(defaultValue)
+    TextPrompt.editor.getSession().setUseWrapMode(true)
+    TextPrompt.editor.getSession().setUseSoftTabs(true)
+    TextPrompt.editor.getSession().setTabSize(2)
     TextPrompt.editor.focus()
     TextPrompt.editor.clearSelection()
   }
