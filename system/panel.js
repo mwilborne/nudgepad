@@ -118,6 +118,18 @@ app.checkId = function (req, res, next) {
   next()
 }
 
+app.post('/isDomainAvailable', function (req, res) {
+  var domain = req.body.domain
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
+  fs.exists(projectsPath + domain, function (exists) {
+    if (!exists)
+      return res.send('yes')
+    return res.send('no')
+  })
+})
+
 // Create a project
 // On success, message is the login link 
 app.post('/create', app.checkId, app.generateDomain, app.validateDomain, app.isDomainAvailable, function(req, res, next){

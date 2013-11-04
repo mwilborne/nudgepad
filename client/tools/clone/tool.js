@@ -1,6 +1,25 @@
 var Clone = new Tool('Clone')
 Clone.set('path', '')
 
+Clone.cloneIt = function () {
+  $('#CloneError').html('')
+  var server = $('#CloneServer').val()
+  var domain = $('#CloneDomain').val()
+  $.post('http://' + server + '/isDomainAvailable', {domain : domain}, function (response) {
+    
+    if (response === 'no') {
+      $('#CloneError').html('Domain taken')
+      return false
+    }
+    
+    if (nudgepad.status.get('hostname') == $('#CloneServer').val())
+      Clone.quickClone()
+    else
+      Clone.cloneProject()
+    
+  })
+}
+
 Clone.import = function () {
   TextPrompt.open('Import a Project to this project', '', 'import.space', function (val) {
     $.post('/nudgepad.import', {space : val}, function (err) {
@@ -10,7 +29,7 @@ Clone.import = function () {
 }
 
 Clone.on('ready', function () {
-  $('#CloneDomain').val('copyof' + document.location.host)
+  $('#CloneDomain').val(document.location.host + '2')
   $('#CloneServer').val(nudgepad.status.get('hostname'))
 })
 
@@ -31,7 +50,7 @@ Clone.cloneProject = function () {
     
     var newForm = $('<form>', {
         'action': 'http://' + server + '/create',
-        'target': 'published',
+//        'target': 'published',
         'method' : 'post'
     })
     .append($('<input>', {
@@ -80,7 +99,7 @@ Clone.quickClone = function () {
   
   var newForm = $('<form>', {
       'action': 'http://' + server + '/create',
-      'target': '_blank',
+//      'target': 'published',
       'method' : 'post'
   })
   .append($('<input>', {

@@ -206,29 +206,19 @@
   
   <div class="container">
     
-
       <div class="form-group">
-        <label for="CloneDomain">New Domain</label>
-        
-        <div class="input-group">
-          <input class="form-control" id="CloneDomain" placeholder="Domain">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" onclick="Clone.quickClone()" type="button" title="Clone to this Server">Clone</button>
-          </span>
-        </div><!-- /input-group -->
-        
+        <label for="CloneDomain">Domain Name</label>
+        <p>Give the clone a name.</p>
+        <input class="form-control" id="CloneDomain" placeholder="Domain">
+        <p id="CloneError" style="color: red;"></p>
       </div>
       
       <div class="form-group">
-        <label for="CloneServer">New Server</label>
-        
-        <div class="input-group">
-          <input class="form-control" id="CloneServer" placeholder="Server">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" onclick="Clone.cloneProject()" type="button" title="Clone to New Server">Clone</button>
-          </span>
-        </div><!-- /input-group -->
-        
+        <label for="CloneServer">Server</label>
+        <p>Only change this if you are cloning to a different server.</p>
+        <input class="form-control" id="CloneServer" placeholder="Server">
+        <br>
+        <button class="btn btn-primary" onclick="Clone.cloneIt()" type="button" title="Clone to New Server">Clone</button>
         
       </div>
 
