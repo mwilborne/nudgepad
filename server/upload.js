@@ -5,9 +5,12 @@ module.exports = function (app) {
   
   // Receive any uploads
   app.post(app.pathPrefix + 'upload', app.checkId, function(req, res, next) {
-    var filename = req.body.filename
+    // remove spaces from filenames
+    var filename = req.body.filename.replace(/ /g, '')
     console.log('Receiving upload: %s', filename)
     var path = req.query.path || ''
+    // remove space from paths
+    path = path.replace(/ /g, '')
     if (path) {
       mkdirp(app.paths.project + path, function (err) {
         if (err)
@@ -23,6 +26,27 @@ module.exports = function (app) {
       })
     }
 
+  })
+  
+  // Manual uploader for non drag and drop uploads
+  app.post(app.pathPrefix + 'uploadManual', app.checkId, function(req, res, next) {
+    
+    var uploaded = req.files.uploads[0]
+    // if its a single file, turn it into array.
+    if ('path' in uploaded)
+      uploaded = [uploaded]
+    
+    for (var i in uploaded) {
+      // Clean up file name
+//      var name = uploaded[i].name.toLowerCase().replace(/[^a-z0-9- _\.]/gi, '').replace(/ /g, '_')
+      // remove spaces from filenames
+      var name = uploaded[i].name.replace(/ /g, '')
+    
+      fs.rename(uploaded[i].path, app.paths.project + name, function (name) {})
+    }
+    res.redirect('/nudgepad/tools/files/uploader.html')
+    
+    
   })
   
 }
