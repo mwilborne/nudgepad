@@ -31,6 +31,8 @@ module.exports = function (app) {
   // Manual uploader for non drag and drop uploads
   app.post(app.pathPrefix + 'uploadManual', app.checkId, function(req, res, next) {
     
+    var path = req.body.path || ''
+    path = path.replace(/ /g, '/') + '/'
     var uploaded = req.files.uploads[0]
     // if its a single file, turn it into array.
     if ('path' in uploaded)
@@ -42,7 +44,7 @@ module.exports = function (app) {
       // remove spaces from filenames
       var name = uploaded[i].name.replace(/ /g, '')
     
-      fs.rename(uploaded[i].path, app.paths.project + name, function (name) {})
+      fs.rename(uploaded[i].path, app.paths.project + path + name, function (name) {})
     }
     res.redirect('/nudgepad/tools/files/uploader.html')
     
