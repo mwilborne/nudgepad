@@ -36,10 +36,11 @@ extends the user's project like this:
     }
     module.exports = MyModuleName
 
-Any file in a Project's packages folder is expected to follow that convention and will
-be included when the project starts like this:
+When a NudgePad site is started, it will look in the project's home file for an app.js file.
 
-    require('./mymodulename.js')(app)
+If one is found, it will be included like this:
+
+    require('app.js')(app)
 
 system
 ------
