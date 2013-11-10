@@ -778,6 +778,39 @@ body
 </template>
 
 
+<template class="Tool" id="Private">
+  
+  <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+          <ul class="nav navbar-nav navbar-logo"></ul>            
+          <ul class="nav navbar-nav">
+            <li><a class="cursor" onclick="$.get('/nudgepad.restart')">Restart</a></li>
+          </ul>
+          
+          <ul class="nav navbar-nav navbar-right">
+          </ul>
+        </div>
+      </div>
+
+
+      <div class="container">
+
+          <h1>Private</h1>
+          <p>Private allow you to block certain urls from being requested by non logged in users.</p>
+          
+        
+         <div class="form-group">
+            <textarea id="PrivateCode" class="form-control" rows="6" placeholder="/secretfile.txt"></textarea>
+          </div>
+
+          <div class="form-group">
+            <button type="button" onclick="Private.save()" class="btn btn-lg btn-primary">Save</button>
+          </div>
+
+      </div> <!-- /container -->
+
+</template>
 <template class="Tool" id="Redirect">
   
   <!-- Static navbar -->

@@ -3,7 +3,7 @@ var Labs = new Tool('Labs')
 Labs.renderMenu = function () {
   $('#OpenTool #LabsContainer').html('')
   
-  var tools = 'Backup Blog Clone Crawler Fiddle Files Flickr Forms Git Pages Redirect Server Share Sketch SQLite Stats Team Templates Time'.split(/ /g)
+  var tools = 'Backup Blog Clone Crawler Fiddle Files Flickr Forms Git Pages Private Redirect Server Share Sketch SQLite Stats Team Templates Time'.split(/ /g)
   
   var colors =
   [

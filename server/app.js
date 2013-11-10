@@ -219,10 +219,27 @@ app.use(express.logger({
   format : ':ip :url :method :status :response-time :res[content-length] ":date" :remote-addr ":referrer" ":user-agent"'
 }))
 
-
+/*********** Safely loads JS files that have user dependencies. ***********/
+var loadUserFile = function (filepath) {
+  if (!fs.existsSync(filepath))
+    return false
+  try {
+      console.log('Including %s', filepath)
+      require(filepath)(app)
+  }
+  catch (e) {
+    if (e instanceof SyntaxError)
+      console.log('Not including %s. Syntax error: %s', filepath, e.message)
+    else
+      console.log('Not including %s. Error: %s', filepath, e.message)
+  }
+}
 
 /*********** STATIC FILES **************/
 app.use('/nudgepad/', express.static(clientPath.replace(/\/$/,''), { maxAge: 31557600000 }))
+loadUserFile('./redirects.js')
+loadUserFile('./private.js')
+
 app.use('/app.js', function (req, res, next) {
   return res.send(401, 'app.js is private')
 })
@@ -317,35 +334,8 @@ require('./stats.js')(app)
 require('./proxy.js')(app)
 require('./import.js')(app)
 
-
 /*********** Include an app.js file if one exists. ***********/
-var loadCustomAppJs = function () {
-  var appjspath = app.paths.project + 'app.js'
-  if (!fs.existsSync(appjspath))
-    return false
-  try {
-      console.log('Including %s', appjspath)
-      require(appjspath)(app)
-  }
-  catch (e) {
-    if (e instanceof SyntaxError)
-      console.log('Not including %s. Syntax error: %s', appjspath, e.message)
-    else
-      console.log('Not including %s. Error: %s', appjspath, e.message)
-  }
-}
-loadCustomAppJs()
-
-try {
-  require('./redirects.js')(app)
-} catch (e) {
-  if (e instanceof SyntaxError) {
-    console.log('Syntax error in ' + files[j] + ': ' + e.message)
-    console.log('Includes skipped')
-  } else {
-    console.log('Error in ' + files[j] + ': ' + e.message)
-  }
-}
+loadUserFile(app.paths.project + 'app.js')
 
 /*********** ! ***********/
 app.use('/', function (req, res, next) {
