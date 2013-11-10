@@ -1,18 +1,11 @@
 var Server = new Tool('Server')
 
-Server.browsePackages = function () {
-  expressfs.mkdir('nudgepad/packages', function () {
-    Launcher.open('Files')
-    Files.openPath('nudgepad packages')
-  })
-}
-
-Server.newPackage = function () {
+Server.editAppJs = function () {
   var sample = $('#ServerSamplePackage').text()
-  expressfs.mkdir('nudgepad/packages', function () {
-    expressfs.createUntitled('nudgepad/packages/', 'js', sample, function (filename) {
-      Server.browsePackages()
-    })
+  expressfs.create('app.js', sample, function () {
+    Launcher.open('Files')
+    Files.openPath('')
+    Files.edit('app.js')
   })
 }
 

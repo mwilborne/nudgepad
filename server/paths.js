@@ -7,8 +7,6 @@ function Paths (app, projectsPath, clientPath) {
   paths.project = projectsPath + domain + '/'
   // Where to store nudgepad files
   paths.nudgepad = paths.project + 'nudgepad/'
-  // where to store server side packages
-  paths.packages = paths.nudgepad + 'packages/'
   // where to store team
   paths.team = paths.nudgepad + 'team/'
   // where to store requests log

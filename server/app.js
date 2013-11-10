@@ -223,6 +223,9 @@ app.use(express.logger({
 
 /*********** STATIC FILES **************/
 app.use('/nudgepad/', express.static(clientPath.replace(/\/$/,''), { maxAge: 31557600000 }))
+app.use('/app.js', function (req, res, next) {
+  return res.send(401, 'app.js is private')
+})
 
 require('./login.js')(app)
 // Do this after /nudgepad/, so the login scripts get through fine.
@@ -315,30 +318,23 @@ require('./proxy.js')(app)
 require('./import.js')(app)
 
 
-/*********** Eval any custom packages or code that depends on userland (so eventually redirects, etc) ***********/
-var loadPackages = function () {
-  if (!fs.existsSync(app.paths.packages))
+/*********** Include an app.js file if one exists. ***********/
+var loadCustomAppJs = function () {
+  var appjspath = app.paths.project + 'app.js'
+  if (!fs.existsSync(appjspath))
     return false
   try {
-
-    var files = fs.readdirSync(app.paths.packages)
-    for (var j in files) {
-      var file = files[j]
-      if (!file.match(/\.js$/))
-        continue
-      console.log('Including %s%s', app.paths.packages, file)
-      require(app.paths.packages + file)(app)
-    }
-  } catch (e) {
-    if (e instanceof SyntaxError) {
-      console.log('Syntax error in ' + files[j] + ': ' + e.message)
-      console.log('Includes skipped')
-    } else {
-      console.log('Error in ' + files[j] + ': ' + e.message)
-    }
+      console.log('Including %s', appjspath)
+      require(appjspath)(app)
+  }
+  catch (e) {
+    if (e instanceof SyntaxError)
+      console.log('Not including %s. Syntax error: %s', appjspath, e.message)
+    else
+      console.log('Not including %s. Error: %s', appjspath, e.message)
   }
 }
-loadPackages()
+loadCustomAppJs()
 
 try {
   require('./redirects.js')(app)
