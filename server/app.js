@@ -235,6 +235,23 @@ var loadUserFile = function (filepath) {
   }
 }
 
+/*********** nudgepad ***********/
+app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
+
+  // If production, send html that pulls minified NudgePad
+  if (!app.development) {
+    res.send(app.nudgepadHtmlVersion)
+    return
+  }
+  
+  // If development, send html that pulls verbose NudgePad
+  fs.readFile(clientPath + 'production/nudgepad.dev.html', 'utf8', function (err, data) {
+    res.send(data)
+    return 
+  })
+
+})
+
 /*********** STATIC FILES **************/
 app.use('/nudgepad/', express.static(clientPath.replace(/\/$/,''), { maxAge: 31557600000 }))
 loadUserFile('./redirects.js')
@@ -270,23 +287,6 @@ app.post(app.pathPrefix + 'email', app.checkId, function (req, res, next) {
 
 /********** invite *************/
 require('./invite.js')(app)
-
-/*********** nudgepad ***********/
-app.get(/^\/nudgepad$/, app.checkId, function(req, res, next) {
-
-  // If production, send html that pulls minified NudgePad
-  if (!app.development) {
-    res.send(app.nudgepadHtmlVersion)
-    return
-  }
-  
-  // If development, send html that pulls verbose NudgePad
-  fs.readFile(clientPath + 'production/nudgepad.dev.html', 'utf8', function (err, data) {
-    res.send(data)
-    return 
-  })
-
-})
 
 require('./backup.js')(app)
 require('./upload.js')(app)
