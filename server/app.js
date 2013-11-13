@@ -174,7 +174,8 @@ if (app.development)
 else
   console.log('Production mode started...')
 
-app.use(express.bodyParser())
+app.use(express.urlencoded())
+app.use(express.json())
 app.use(express.cookieParser())
 app.use(express.compress())
 // server.use(express.staticCache())

@@ -31,7 +31,8 @@ Domain.tld = '.' + hostname
 process.title = 'nudgepadPanel'
 
 var app = express()
-app.use(express.bodyParser())
+app.use(express.urlencoded())
+app.use(express.json())
 
 var logFile = fs.createWriteStream(logsPath + 'panelRequests.txt', {flags: 'a'})
 app.use(express.logger({

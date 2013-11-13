@@ -309,6 +309,10 @@ case "$1" in
   fi
 ;;
 
+'startPanel')
+  startPanel
+;;
+
 'stop')
   if [ -n "$2" ]
     then
