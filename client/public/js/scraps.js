@@ -3,7 +3,7 @@ if (typeof exports !== 'undefined')
   var Space = require('space')
 
 var Scraps = {}
-Scraps.version = '0.8.3'
+Scraps.version = '0.8.4'
 
 // Words that appear in both: title style
 Scraps.tags = {}
@@ -101,8 +101,8 @@ Element.prototype.append = function (string) {
   this.content += string
 }
 
-Element.prototype.attr = function (key, value) {
-  this.attrs[key] = value
+Element.prototype.attr = function (type, value) {
+  this.attrs[type] = value
 }
 
 Element.prototype.html = function (string) {
@@ -168,21 +168,21 @@ Scrap.prototype.clone = function (id) {
 
 Scrap.prototype.loadChildren = function () {
   var parent = this
-  this.each(function (key, scrap, i){
+  this.each(function (type, scrap, i){
     var index = (this.index ? this.index + ' ' : '') + i.toString()
-    if (!Scraps.isTag(key, scrap))
+    if (!Scraps.isTag(type, scrap))
       return true
     if (scrap instanceof Space)
-      parent.update(i, key, new Scrap(key, scrap, null, index))
+      parent.update(i, type, new Scrap(type, scrap, null, index))
     else
-      parent.update(i, key, new Scrap(key, '', scrap, index))
+      parent.update(i, type, new Scrap(type, '', scrap, index))
   })
 }
 
 Scrap.prototype.setChildren = function (filter) {
   var parent = this
-  this.each(function (key, scrap) {
-    if (Scraps.isTag(key, scrap))
+  this.each(function (type, scrap) {
+    if (Scraps.isTag(type, scrap))
       parent.div.html(scrap.toHtml(filter))
   })
   return this
@@ -203,8 +203,8 @@ Scrap.prototype.setContent = function () {
   var styles = this.get('styles')
   if (styles && styles instanceof Space) {
     var div = this.div
-    styles.each(function (key, value) {
-      div.html(Scraps.styleToCss(key, value.toObject()))
+    styles.each(function (type, value) {
+      div.html(Scraps.styleToCss(type, value.toObject()))
     })
   }
   return this
@@ -314,11 +314,11 @@ Page.prototype.clone = function () {
 Page.prototype.loadScraps = function () {
   // load all scraps
   var page = this
-  this.each(function (key, value, i) {
+  this.each(function (type, value, i) {
     if (value instanceof Space)
-      page.update(i, key, new Scrap(key, value, null, i.toString()))
+      page.update(i, type, new Scrap(type, value, null, i.toString()))
     else
-      page.update(i, key, new Scrap(key, null, value, i.toString()))
+      page.update(i, type, new Scrap(type, null, value, i.toString()))
   })
 }
 
@@ -340,7 +340,7 @@ Page.prototype.toHtml = function (options) {
 
   // Get all the html for every scrap
   // Todo: support after property
-  this.each(function (key, scrap) {
+  this.each(function (type, scrap) {
     html += '\n  ' + scrap.toHtml(options.filter)
   })
   
@@ -351,9 +351,9 @@ Page.prototype.toHtml = function (options) {
 
 Page.prototype.toConciseString = function (spaces) {
   var clone = new Space(this.toString())
-  clone.every(function (key, value, index) {
+  clone.every(function (type, value, index) {
     if (value instanceof Space && value.length() === 1 && value.get('content'))
-      this.update(index, key, value.get('content'))
+      this.update(index, type, value.get('content'))
   })
   return clone.toString()
 }

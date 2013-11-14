@@ -1,0 +1,9 @@
+1.1.1 / 2013-11-14
+==================
+- Added History.md
+- Updated space.js to 0.6.0
+- Updated scraps.js to 0.8.4
+- Updated all calls to space.getKeys() to space.getTypes()
+- added version.js
+- Added mysql to dependencies (popular request)
+- Added js-beautify to dependencies

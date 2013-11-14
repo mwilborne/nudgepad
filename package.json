@@ -1,66 +1,51 @@
 {
   "name": "nudgepad",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Make websites, apps and more in your browser.",
   "repository": "git://github.com/nudgepad/nudgepad",
   "main": "nudgepad.js",
-   "scripts": {
-     "test": "make test",
-     "preinstall" : "preinstall.sh"
-   },
+  "scripts": {
+    "test": "make test",
+    "preinstall": "preinstall.sh"
+  },
   "dependencies": {
-    "space": ">=0.4.0",
-    "scraps": ">=0.8.0",
+    "space": ">=0.6.0",
+    "scraps": ">=0.8.4",
     "speedcoach": ">=0.1.1",
+    "js-beautify": "*",
+    "mysql": "*",
     "socket.io": "*",
-    "dirtospace" : "*",
-    "socketfs" : "0.2.0",
-    "expressfs" : "*",
     "express": "*",
     "superagent": "*",
     "imagemagick": "*",
     "underscore": "*",
-    "component" : "*",
-    "tail" : "*",
+    "component": "*",
     "cookie": "*",
-    "mkdirp" : "*",
+    "mkdirp": "*",
     "moment": "*",
     "nodemailer": "*",
     "request": "*",
-    "http-get" : "*",
+    "http-get": "*",
+    "sqlite3": "*",
     "wrench": "*",
-    "sqlite3" : "*",
     "async": "*",
-    "mime" : "*",
+    "mime": "*",
     "marked": "*",
     "utile": "*",
     "http-proxy": "=0.10.1",
     "commander": "*",
-    "mode-to-permissions" : "*"
+    "mode-to-permissions": "*"
   },
-  "keywords": [
-    "scraps",
-    "space",
-    "nudgepad",
-    "template",
-    "html"
-  ],
+  "keywords": "nudgepad",
   "devDependencies": {
     "mocha": "*",
     "should": "*",
     "qunit": "~0.5.1",
     "supertest": "0.6.0"
   },
-  "engines" : { "node" : ">=0.8.1 <0.10.0" },
+  "engines": {
+    "node": ">=0.8.1 <0.10.0"
+  },
   "license": "MIT",
-  "contributors": [
-      {
-        "name": "Breck Yunits",
-        "email": "breck@nudgepad.com"
-      },
-      {
-        "name": "Ben Zulauf",
-        "email": "ben@nudgepad.com"
-      }
-    ]
+  "contributors": "Breck Yunits <breck@nudgepad.com>, Ben Zulauf <ben@nudgepad.com>"
 }

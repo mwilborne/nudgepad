@@ -75,4 +75,7 @@ untrack:
 	git update-index --assume-unchanged /nudgepad/nudgepad/client/production/nudgepad.min.css
 	git update-index --assume-unchanged /nudgepad/nudgepad/client/production/nudgepad.min.js
 
+version:
+	node version.js
+
 .PHONY: test-server test-system

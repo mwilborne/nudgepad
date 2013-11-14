@@ -1,5 +1,5 @@
 name nudgepad
-version 1.1.0
+version 1.1.1
 description Make websites, apps and more in your browser.
 repository git://github.com/nudgepad/nudgepad
 main nudgepad.js
@@ -7,9 +7,11 @@ scripts
  test make test
  preinstall preinstall.sh
 dependencies
- space >=0.3.11
- scraps >=0.6.5
+ space >=0.6.0
+ scraps >=0.8.4
  speedcoach >=0.1.1
+ js-beautify *
+ mysql *
  socket.io *
  express *
  superagent *
@@ -31,12 +33,7 @@ dependencies
  http-proxy =0.10.1
  commander *
  mode-to-permissions *
-keywords
- 0 scraps
- 1 space
- 2 nudgepad
- 3 template
- 4 html
+keywords nudgepad
 devDependencies
  mocha *
  should *
@@ -45,10 +42,4 @@ devDependencies
 engines
  node >=0.8.1 <0.10.0
 license MIT
-contributors
- 0
-  name Breck Yunits
-  email breck@nudgepad.com
- 1
-  name Ben Zulauf
-  email ben@nudgepad.com
+contributors Breck Yunits <breck@nudgepad.com>, Ben Zulauf <ben@nudgepad.com>
