@@ -6,6 +6,9 @@ module.exports = function (app) {
   // Receive any uploads
   app.post(app.pathPrefix + 'upload', app.checkId, function(req, res, next) {
     // remove spaces from filenames
+    console.log(req.body)
+    if (!req.body.filename)
+      return res.send(400, 'No filename submitted')
     var filename = req.body.filename.replace(/ /g, '')
     console.log('Receiving upload: %s', filename)
     var path = req.query.path || ''

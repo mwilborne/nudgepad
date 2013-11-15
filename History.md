@@ -1,3 +1,7 @@
+1.1.2 / 2013-11-15
+==================
+- Bug fix on file uploader related to new connect.
+
 1.1.1 / 2013-11-14
 ==================
 - Added History.md

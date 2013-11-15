@@ -176,6 +176,7 @@ else
 
 app.use(express.urlencoded())
 app.use(express.json())
+app.use(express.multipart())
 app.use(express.cookieParser())
 app.use(express.compress())
 // server.use(express.staticCache())
