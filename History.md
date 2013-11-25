@@ -1,3 +1,7 @@
+1.1.3 / 2013-11-15
+==================
+- Updated Space to 0.8.0
+
 1.1.2 / 2013-11-15
 ==================
 - Bug fix on file uploader related to new connect.

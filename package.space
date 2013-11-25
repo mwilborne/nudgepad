@@ -7,7 +7,7 @@ scripts
  test make test
  preinstall preinstall.sh
 dependencies
- space >=0.6.0
+ space >=0.8.0
  scraps >=0.8.4
  speedcoach >=0.1.1
  js-beautify *

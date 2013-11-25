@@ -107,11 +107,11 @@ Files.renderExplorer = function () {
   // if A is a Folder and B is a File, A before B.
   // if A and B are same type, A before B.
   
-  var folders = _.filter(files.getTypes(), function(key) {
+  var folders = _.filter(files.getProperties(), function(key) {
     return !files.get(key).get('timeSinceLastChange')
   }).sort()
   
-  var theFiles = _.filter(files.getTypes(), function(key) {
+  var theFiles = _.filter(files.getProperties(), function(key) {
     return files.get(key).get('timeSinceLastChange')
   }).sort()
   
